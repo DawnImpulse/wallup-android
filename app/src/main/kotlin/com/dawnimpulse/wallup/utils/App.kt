@@ -56,8 +56,7 @@ class App : Application() {
             cacheExpiration = 0
         }
 
-        Log.d("Test",mFirebaseRemoteConfig.getString(C.UNSPLASH_API_KEY))
-        Log.d("Test","Here")
+        Config.UNSPLASH_API_KEY = mFirebaseRemoteConfig.getString(C.UNSPLASH_API_KEY)
         mFirebaseRemoteConfig.setConfigSettings(configSettings)
         mFirebaseRemoteConfig.setDefaults(R.xml.remote_defaults)
         mFirebaseRemoteConfig.fetch(cacheExpiration)

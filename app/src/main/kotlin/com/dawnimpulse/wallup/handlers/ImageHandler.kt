@@ -1,6 +1,8 @@
-package com.dawnimpulse.wallup.pojo
+package com.dawnimpulse.wallup.handlers
 
-import com.google.gson.annotations.SerializedName
+import android.arch.lifecycle.Lifecycle
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 
 /*
 ISC License
@@ -19,20 +21,24 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 /**
  * @author Saksham
  *
- * @note Last Branch Update - master
- * @note Created on 2018-05-13 by Saksham
+ * @note Last Branch Update - recent
+ * @note Created on 2018-05-15 by Saksham
  *
  * @note Updates :
  */
-data class UserPojoRefined(
-        @SerializedName("id") val id: String,
-        @SerializedName("name") val name: String,
-        @SerializedName("username") val username: String,
-        @SerializedName("profile_image") val profile_image: ProfileImage
-)
+object ImageHandler {
 
-data class ProfileImage(
-        @SerializedName("small") val small: String,
-        @SerializedName("medium") val medium: String,
-        @SerializedName("large") val large: String
-)
+    /**
+     * Use to set image on a view using glide
+     * @param lifecycle
+     * @param view
+     * @param url
+     */
+    fun setImageInView(lifecycle:Lifecycle,view: ImageView, url: String) {
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)){
+            Glide.with(view.context)
+                    .load(url)
+                    .into(view)
+        }
+    }
+}
