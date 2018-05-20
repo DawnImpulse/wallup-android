@@ -1,16 +1,23 @@
 package com.dawnimpulse.wallup.activities
 
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.fragments.MainFragment
 import com.dawnimpulse.wallup.utils.ViewPagerAdapter
+import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionListener {
+    override fun onMenuItemSelect(p0: Int, p1: Int, p2: Boolean) {
+
+    }
+
+    override fun onMenuItemReselect(p0: Int, p1: Int, p2: Boolean) {
+
+    }
+
     lateinit var pagerAdapter: ViewPagerAdapter
     lateinit var mainFragment: MainFragment
 
@@ -22,13 +29,14 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(R.layout.activity_main)
 
         setupViewPager(mainViewPager)
-        navigation.setOnNavigationItemSelectedListener(this)
+        navigation.setOnMenuItemClickListener(this)
+        //navigation.setOnNavigationItemSelectedListener(this)
     }
 
     /**
      * On navigation item selected
      */
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    /*override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.navigation_home -> {
                 return true
@@ -41,7 +49,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
         return false
-    }
+    }*/
 
     /**
      * Setup our viewpager
