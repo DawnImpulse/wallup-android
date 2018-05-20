@@ -35,7 +35,7 @@ data class ImagePojo(
         @SerializedName("likes") val likes: Int = 0,
         @SerializedName("user") val user: UserPojoRefined? = null,
         @SerializedName("key") val key: String = "",
-        @SerializedName("timestamp") val timestamp: Long = 0
+        @SerializedName("timestamp") val timestamp: Int = 0
 )
 
 data class Urls(

@@ -16,12 +16,16 @@ package com.dawnimpulse.wallup.adapters
 import android.arch.lifecycle.Lifecycle
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.ImageHandler
+import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.viewholders.LoadingViewHolder
 import com.dawnimpulse.wallup.viewholders.MainViewHolder
 
 /**
@@ -32,13 +36,38 @@ import com.dawnimpulse.wallup.viewholders.MainViewHolder
  *
  * @note Updates :
  */
-class MainAdapter(private val lifecycle: Lifecycle, private val images: List<ImagePojo>) : RecyclerView.Adapter<MainViewHolder>() {
+class MainAdapter(private val lifecycle: Lifecycle, private val images: List<ImagePojo?>, recycler: RecyclerView)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var lastVisibleItem: Int = 0
+    private var totalItemCount: Int = 0
+    private val visibleThreshold = 5
+    private var isLoading: Boolean = false
+    private var loadMoreListener: OnLoadMoreListener? = null
+    private var VIEW_TYPE_LOADING = 0
+    private var VIEW_TYPE_ITEM = 1
 
     /**
-     * create view holder
+     * initialization for Load More Listener
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        return MainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_main_layout, parent, false))
+    init {
+        recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+
+                val mLinearLayoutManager = recyclerView!!.layoutManager as LinearLayoutManager
+
+                totalItemCount = mLinearLayoutManager.itemCount
+                lastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition()
+
+                if (!isLoading && totalItemCount <= lastVisibleItem + visibleThreshold) {
+                    if (loadMoreListener != null) {
+                        loadMoreListener!!.onLoadMore()
+                    }
+                    isLoading = true
+                }
+            }
+        })
     }
 
     /**
@@ -49,13 +78,49 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
     }
 
     /**
+     * get item view type
+     */
+    override fun getItemViewType(position: Int): Int {
+        return if (images.elementAtOrNull(position) == null) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+    }
+
+    /**
+     * create view holder
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val v: View
+        return if (viewType == VIEW_TYPE_ITEM) {
+            v = LayoutInflater.from(parent.context).inflate(R.layout.inflator_main_layout, parent, false)
+            MainViewHolder(v)
+        } else {
+            v = LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading, parent, false)
+            LoadingViewHolder(v)
+        }
+    }
+
+    /**
      * binding view holder
      */
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        ImageHandler.setImageInView(lifecycle, holder.image, images[position].urls!!.full)
-        ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position].user!!.profile_image!!.large)
-        holder.image.background = ColorDrawable(Color.parseColor(images[position].color!!))
-        holder.name.text = images[position].user!!.name
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is MainViewHolder) {
+            ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full)
+            ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position]!!.user!!.profile_image!!.large)
+            holder.image.background = ColorDrawable(Color.parseColor(images[position]!!.color!!))
+            holder.name.text = images[position]!!.user!!.name
+        }
+    }
 
+    /**
+     * set load more listener
+     */
+    fun setOnLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
+        this.loadMoreListener = loadMoreListener
+    }
+
+    /**
+     * is loading
+     */
+    fun setLoaded() {
+        isLoading = false
     }
 }

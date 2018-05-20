@@ -15,12 +15,14 @@ package com.dawnimpulse.wallup.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.MainAdapter
+import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.models.DatabaseModel
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
@@ -38,10 +40,15 @@ import kotlinx.android.synthetic.main.fragment_main.*
  *  Saksham - 2018 05 20 - recent - using model
  */
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
     private val NAME = "MainFragment"
     private lateinit var mainAdapter: MainAdapter
     private val init: Boolean = true
+    private lateinit var type: String
+    private lateinit var images: MutableList<ImagePojo?>
+    private lateinit var model: UnsplashModel
+    private lateinit var modelR: DatabaseModel
+    private var nextPage = 2
 
     /**
      * On create
@@ -59,10 +66,28 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val type = arguments
-        var model = UnsplashModel(lifecycle)
-        var modelR = DatabaseModel(lifecycle)
+        model = UnsplashModel(lifecycle)
+        modelR = DatabaseModel(lifecycle)
 
-        when (type!!.getString(C.TYPE)) {
+        this.type = type!!.getString(C.TYPE)
+        when (this.type) {
+            C.LATEST ->
+                model.getLatestImages(1, callback)
+            C.CURATED ->
+                model.getCuratedImages(1, callback)
+            C.TRENDING ->
+                modelR.getTrendingImages(null, callback)
+
+        }
+
+        mainRefresher.setOnRefreshListener(this)
+    }
+
+    /**
+     * On swipe refresh
+     */
+    override fun onRefresh() {
+        when (this.type) {
             C.LATEST ->
                 model.getLatestImages(1, callback)
             C.CURATED ->
@@ -74,16 +99,56 @@ class MainFragment : Fragment() {
     }
 
     /**
+     * on load more items
+     */
+    override fun onLoadMore() {
+        images.add(null)
+        mainAdapter.notifyItemInserted(images.size)
+        when (this.type) {
+            C.LATEST ->
+                model.getLatestImages(nextPage, callbackPaginated)
+            C.CURATED ->
+                model.getCuratedImages(nextPage, callbackPaginated)
+            C.TRENDING ->
+                modelR.getTrendingImages(images[images.size - 2]!!.timestamp, callbackPaginated)
+
+        }
+    }
+
+    /**
      * callback for setting images in adapter
      */
     private var callback = object : (Any?, Any?) -> Unit {
         override fun invoke(error: Any?, response: Any?) {
-            if (error != null)
+            if (error != null) {
                 L.d(NAME, error)
-            else {
-                mainAdapter = MainAdapter(lifecycle, response as List<ImagePojo>)
+                mainRefresher.isRefreshing = false
+            } else {
+                images = (response as List<ImagePojo>).toMutableList()
+                mainAdapter = MainAdapter(lifecycle, images, mainRecycler)
                 mainRecycler.layoutManager = LinearLayoutManager(context)
                 mainRecycler.adapter = mainAdapter
+                mainRefresher.isRefreshing = false
+
+                mainAdapter.setOnLoadMoreListener(this@MainFragment)
+            }
+        }
+    }
+
+    /**
+     * callback for setting images in adapter
+     */
+    private var callbackPaginated = object : (Any?, Any?) -> Unit {
+        override fun invoke(error: Any?, response: Any?) {
+            if (error != null) {
+                L.d(NAME, error)
+            } else {
+                nextPage++
+                images.removeAt(images.size - 1)
+                mainAdapter.notifyItemRemoved(images.size - 1)
+                images.addAll(response as List<ImagePojo>)
+                mainAdapter.notifyDataSetChanged()
+                mainAdapter.setLoaded()
             }
         }
     }

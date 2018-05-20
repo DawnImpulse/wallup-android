@@ -37,13 +37,11 @@ object DatabaseRepository {
      * @param callback
      */
     fun getTrendingImages(timestamp: Int?, callback: (Any?, Any?) -> Unit) {
-        val ref = FirebaseDatabase.getInstance().reference
-                .child(C.TRENDING)
-                .orderByChild(C.TIMESTAMP)
-                .limitToFirst(30)
-
         if (timestamp != null) {
-            ref.startAt(timestamp.toDouble())
+            val ref = FirebaseDatabase.getInstance().reference
+                    .child(C.TRENDING)
+                    .orderByChild(C.TIMESTAMP)
+                    .startAt(timestamp.toDouble())
                     .limitToFirst(31)
             RealtimeSource.getDataOnce(ref, { error, response ->
                 if (error != null)
@@ -58,15 +56,18 @@ object DatabaseRepository {
                 }
             })
         } else {
-
+            val ref = FirebaseDatabase.getInstance().reference
+                    .child(C.TRENDING)
+                    .orderByChild(C.TIMESTAMP)
+                    .limitToFirst(30)
             RealtimeSource.getDataOnce(ref, { error, response ->
                 if (error != null)
                     callback(error, null)
                 else {
                     response as DataSnapshot
-                    L.d(NAME,response.childrenCount)
+                    L.d(NAME, response.childrenCount)
                     var data = ArrayList<ImagePojo>()
-                    for (snapshot in response.children){
+                    for (snapshot in response.children) {
                         data.add(snapshot.getValue(ImagePojo::class.java)!!)
                     }
                     callback(null, data)
