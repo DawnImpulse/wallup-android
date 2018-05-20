@@ -14,6 +14,8 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.adapters
 
 import android.arch.lifecycle.Lifecycle
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -52,6 +54,7 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         ImageHandler.setImageInView(lifecycle, holder.image, images[position].urls.full)
         ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position].user.profile_image.large)
+        holder.image.background = ColorDrawable(Color.parseColor(images[position].color))
         holder.name.text = images[position].user.name
 
     }

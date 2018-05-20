@@ -28,13 +28,25 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  * @note Created on 2018-05-13 by Saksham
  *
  * @note Updates :
+ *  Saksham - 2018 05 20 - recent - curated photos
  */
 interface RetroUnsplashSource {
-    @GET("/photos?order_by=latest")
+
+    @GET("/photos?per_page=30")
     fun getLatestPhotos(
             @Header(C.AUTHORIZATION) authorization: String,
-            @Query(C.PAGE) page: Int,
-            @Query(C.PER_PAGE) perPage: Int
+            @Query(C.PAGE) page: Int
     ): Call<List<ImagePojo>>
 
+    @GET("/photos?order_by=popular&per_page=30")
+    fun getPopularPhotos(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Query(C.PAGE) page: Int
+    ): Call<List<ImagePojo>>
+
+    @GET("/photos/curated?per_page=30")
+    fun getCuratedPhotos(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Query(C.PAGE) page: Int
+    ): Call<List<ImagePojo>>
 }

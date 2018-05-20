@@ -34,7 +34,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/vector_drawable_trophy_award"
-        android:title="Curated" />
+        android:title="Popular" />
 
     <item
         android:id="@+id/navigation_up"

@@ -16,21 +16,16 @@ package com.dawnimpulse.wallup.fragments
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.MainAdapter
-import com.dawnimpulse.wallup.network.RetroApiClient
+import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
-import com.dawnimpulse.wallup.source.RetroUnsplashSource
-import com.dawnimpulse.wallup.utils.Config
-import com.google.gson.Gson
+import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.L
 import kotlinx.android.synthetic.main.fragment_main.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 /**
  * @author Saksham
@@ -39,9 +34,13 @@ import retrofit2.Response
  * @note Created on 2018-05-15 by Saksham
  *
  * @note Updates :
+ *  Saksham - 2018 05 20 - recent - using model
  */
 
 class MainFragment : Fragment() {
+    private val NAME = "MainFragment"
+    private lateinit var mainAdapter: MainAdapter
+    private val init: Boolean = true
 
     /**
      * On create
@@ -58,29 +57,29 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
-        val call = apiClient.getLatestPhotos(
-                Config.UNSPLASH_API_KEY,
-                1,
-                10)
+        val type = arguments
+        var model = UnsplashModel(lifecycle)
 
-        call.enqueue(object : Callback<List<ImagePojo>> {
+        when (type!!.getString(C.TYPE)) {
+            C.LATEST ->
+                model.getLatestImages(1, callback)
+            C.CURATED ->
+                model.getCuratedImages(1, callback)
+        }
+    }
 
-            override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful){
-                    mainRecycler.layoutManager = LinearLayoutManager(context)
-                    mainRecycler.adapter = MainAdapter(lifecycle,response.body()!!)
-                    Log.d("Test", Gson().toJson(response.body()))
-                }
-                else{
-                    Log.d("Test", response.code().toString())
-                    Log.d("Test", Gson().toJson(response.errorBody()))
-                }
+    /**
+     * callback for setting images in adapter
+     */
+    private var callback = object : (Any?, Any?) -> Unit {
+        override fun invoke(error: Any?, response: Any?) {
+            if (error != null)
+                L.d(NAME, error)
+            else {
+                mainAdapter = MainAdapter(lifecycle, response as List<ImagePojo>)
+                mainRecycler.layoutManager = LinearLayoutManager(context)
+                mainRecycler.adapter = mainAdapter
             }
-
-            override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                Log.e("Test", t.toString())
-            }
-        })
+        }
     }
 }

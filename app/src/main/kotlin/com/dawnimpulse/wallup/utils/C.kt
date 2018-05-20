@@ -30,4 +30,9 @@ object C {
     const val UNSPLASH_API_KEY = "unsplash_api_key"
     const val TRENDING = "trending"
     const val TIMESTAMP = "timestamp"
+    const val WALLUP = "wallup"
+    const val LATEST = "latest"
+    const val POPULAR = "popular"
+    const val CURATED = "curated"
+    const val TYPE = "type"
 }
