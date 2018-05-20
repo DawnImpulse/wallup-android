@@ -21,7 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.adapter.MainAdapter
+import com.dawnimpulse.wallup.adapters.MainAdapter
 import com.dawnimpulse.wallup.network.RetroApiClient
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.source.RetroUnsplashSource

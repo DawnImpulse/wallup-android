@@ -37,6 +37,7 @@ dependencies {
     //--------------- Firebase Libraries --------------------
     implementation 'com.google.firebase:firebase-core:15.0.2'
     implementation 'com.google.firebase:firebase-config:15.0.2'
+    implementation 'com.google.firebase:firebase-database:15.0.0'
 
     //--------------- 3rd Party Libraries -------------------
     implementation 'com.github.bumptech.glide:glide:3.7.0'

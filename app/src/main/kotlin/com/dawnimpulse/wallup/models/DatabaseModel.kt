@@ -1,5 +1,3 @@
-package com.dawnimpulse.wallup.utils
-
 /*
 ISC License
 
@@ -13,21 +11,39 @@ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR 
 INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.*/
+package com.dawnimpulse.wallup.models
+
+import android.arch.lifecycle.Lifecycle
+import com.dawnimpulse.wallup.respositories.DatabaseRepository
 
 /**
  * @author Saksham
  *
- * @note Last Branch Update -
- * @note Created on 2018-05-13 by Saksham
+ * @note Last Branch Update - recent
+ * @note Created on 2018-05-20 by Saksham
  *
  * @note Updates :
  */
-object C {
-    const val AUTHORIZATION = "Authorization"
-    const val ORDER_BY = "order_by"
-    const val PAGE = "page"
-    const val PER_PAGE = "per_page"
-    const val UNSPLASH_API_KEY = "unsplash_api_key"
-    const val TRENDING = "trending"
-    const val TIMESTAMP = "timestamp"
+class DatabaseModel() {
+    lateinit var lifecycle: Lifecycle
+
+    /**
+     * constructor with lifecycle
+     */
+    constructor(lifecycle: Lifecycle) : this() {
+        this.lifecycle = lifecycle
+    }
+
+    /**
+     * get trending images
+     * @param timestamp
+     * @param callback
+     */
+    fun getTrendingImages(timestamp: Int, callback: (Any?, Any?) -> Unit) {
+        DatabaseRepository.getTrendingImages(timestamp, { error, response ->
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
+                callback(error, response)
+
+        })
+    }
 }
