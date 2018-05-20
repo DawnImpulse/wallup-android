@@ -52,10 +52,10 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
      * binding view holder
      */
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        ImageHandler.setImageInView(lifecycle, holder.image, images[position].urls.full)
-        ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position].user.profile_image.large)
-        holder.image.background = ColorDrawable(Color.parseColor(images[position].color))
-        holder.name.text = images[position].user.name
+        ImageHandler.setImageInView(lifecycle, holder.image, images[position].urls!!.full)
+        ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position].user!!.profile_image!!.large)
+        holder.image.background = ColorDrawable(Color.parseColor(images[position].color!!))
+        holder.name.text = images[position].user!!.name
 
     }
 }

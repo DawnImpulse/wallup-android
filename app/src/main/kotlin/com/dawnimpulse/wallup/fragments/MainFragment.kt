@@ -21,6 +21,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.MainAdapter
+import com.dawnimpulse.wallup.models.DatabaseModel
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
@@ -59,12 +60,16 @@ class MainFragment : Fragment() {
 
         val type = arguments
         var model = UnsplashModel(lifecycle)
+        var modelR = DatabaseModel(lifecycle)
 
         when (type!!.getString(C.TYPE)) {
             C.LATEST ->
                 model.getLatestImages(1, callback)
             C.CURATED ->
                 model.getCuratedImages(1, callback)
+            C.TRENDING ->
+                modelR.getTrendingImages(null, callback)
+
         }
     }
 

@@ -25,26 +25,28 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  * @note Updates :
  */
 data class ImagePojo(
-        @SerializedName("id") val id: String,
-        @SerializedName("created_at") val createdAt: String,
-        @SerializedName("width") val width: String,
-        @SerializedName("height") val height: String,
-        @SerializedName("color") val color: String?,
-        @SerializedName("urls") val urls: Urls,
-        @SerializedName("links") val links: Links,
-        @SerializedName("likes") val likes: Int,
-        @SerializedName("user") val user: UserPojoRefined
+        @SerializedName("id") val id: String = "",
+        @SerializedName("created_at") val createdAt: String = "",
+        @SerializedName("width") val width: Int = 0,
+        @SerializedName("height") val height: Int = 0,
+        @SerializedName("color") val color: String? = "",
+        @SerializedName("urls") val urls: Urls? = null,
+        @SerializedName("links") val links: Links? = null,
+        @SerializedName("likes") val likes: Int = 0,
+        @SerializedName("user") val user: UserPojoRefined? = null,
+        @SerializedName("key") val key: String = "",
+        @SerializedName("timestamp") val timestamp: Long = 0
 )
 
 data class Urls(
-        @SerializedName("raw") val raw: String,
-        @SerializedName("full") val full: String,
-        @SerializedName("thumb") val thumb: String
+        @SerializedName("raw") val raw: String = "",
+        @SerializedName("full") val full: String = "",
+        @SerializedName("thumb") val thumb: String = ""
 )
 
 data class Links(
-        @SerializedName("self") val self: String,
-        @SerializedName("html") val html: String,
-        @SerializedName("download") val download: String,
-        @SerializedName("download_location") val download_location: String
+        @SerializedName("self") val self: String = "",
+        @SerializedName("html") val html: String = "",
+        @SerializedName("download") val download: String = "",
+        @SerializedName("download_location") val download_location: String = ""
 )

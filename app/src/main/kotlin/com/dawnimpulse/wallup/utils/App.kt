@@ -5,6 +5,7 @@ import android.util.Log
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.google.firebase.FirebaseApp
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 
@@ -38,6 +39,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         setUpRemoteConfig()
     }
 

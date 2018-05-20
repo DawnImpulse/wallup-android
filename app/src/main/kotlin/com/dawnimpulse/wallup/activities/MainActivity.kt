@@ -30,11 +30,13 @@ import kotlinx.android.synthetic.main.activity_main.*
  * @note Created on 2018-05-15 by Saksham
  *
  * @note Updates :
+ *  Saksham - 2018 05 20 - recent - adding multiple fragments
  */
-class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionListener {
+class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionListener,ViewPager.OnPageChangeListener {
     private lateinit var pagerAdapter: ViewPagerAdapter
     private lateinit var latestFragment: MainFragment
-    private lateinit var popularFragment: MainFragment
+    private lateinit var trendingFragment: MainFragment
+    private lateinit var curatedFragment: MainFragment
 
     /**
      * On create
@@ -45,18 +47,15 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
 
         setupViewPager(mainViewPager)
         navigation.setOnMenuItemClickListener(this)
-        //navigation.setOnNavigationItemSelectedListener(this)
+        mainViewPager.addOnPageChangeListener(this)
     }
 
     /**
      * On menu item select
      */
     override fun onMenuItemSelect(p0: Int, position: Int, p2: Boolean) {
-        if (position == 0)
-            mainViewPager.currentItem = 0
-        if (position == 2)
-            mainViewPager.currentItem = 1
-
+        if (position != 3)
+            mainViewPager.currentItem = position
     }
 
     /**
@@ -71,21 +70,47 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
      */
     private fun setupViewPager(viewPager: ViewPager) {
         val latestBundle = Bundle()
-        val popularBundle = Bundle()
+        val trendingBundle = Bundle()
+        val curatedBundle = Bundle()
 
         pagerAdapter = ViewPagerAdapter(supportFragmentManager)
         latestFragment = MainFragment()
-        popularFragment = MainFragment()
+        trendingFragment = MainFragment()
+        curatedFragment = MainFragment()
 
         latestBundle.putString(C.TYPE, C.LATEST)
-        popularBundle.putString(C.TYPE, C.CURATED)
+        trendingBundle.putString(C.TYPE, C.TRENDING)
+        curatedBundle.putString(C.TYPE, C.CURATED)
 
         latestFragment.arguments = latestBundle
-        popularFragment.arguments = popularBundle
+        trendingFragment.arguments = trendingBundle
+        curatedFragment.arguments = curatedBundle
 
         pagerAdapter.addFragment(latestFragment, C.LATEST)
-        pagerAdapter.addFragment(popularFragment, C.CURATED)
+        pagerAdapter.addFragment(trendingFragment, C.TRENDING)
+        pagerAdapter.addFragment(curatedFragment, C.CURATED)
         viewPager.adapter = pagerAdapter
+    }
 
+
+    /**
+     * On page selected (viewpager)
+     */
+    override fun onPageSelected(position: Int) {
+        navigation.setSelectedIndex(position,true)
+    }
+
+    /**
+     * On page scroll state (viewpager)
+     */
+    override fun onPageScrollStateChanged(state: Int) {
+        //
+    }
+
+    /**
+     * On page scrolled (viewpager)
+     */
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+        //
     }
 }

@@ -16,6 +16,7 @@ package com.dawnimpulse.wallup.respositories
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.source.RealtimeSource
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.L
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 
@@ -28,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase
  * @note Updates :
  */
 object DatabaseRepository {
-
+    private val NAME = "DatabaseRepository"
 
     /**
      * get trending images
@@ -39,6 +40,7 @@ object DatabaseRepository {
         val ref = FirebaseDatabase.getInstance().reference
                 .child(C.TRENDING)
                 .orderByChild(C.TIMESTAMP)
+                .limitToFirst(30)
 
         if (timestamp != null) {
             ref.startAt(timestamp.toDouble())
@@ -56,15 +58,17 @@ object DatabaseRepository {
                 }
             })
         } else {
-            ref.limitToFirst(30)
+
             RealtimeSource.getDataOnce(ref, { error, response ->
                 if (error != null)
                     callback(error, null)
                 else {
                     response as DataSnapshot
+                    L.d(NAME,response.childrenCount)
                     var data = ArrayList<ImagePojo>()
-                    for (snapshot in response.children)
+                    for (snapshot in response.children){
                         data.add(snapshot.getValue(ImagePojo::class.java)!!)
+                    }
                     callback(null, data)
                 }
             })

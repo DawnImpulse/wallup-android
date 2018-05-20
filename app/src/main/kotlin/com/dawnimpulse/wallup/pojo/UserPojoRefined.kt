@@ -25,14 +25,14 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  * @note Updates :
  */
 data class UserPojoRefined(
-        @SerializedName("id") val id: String,
-        @SerializedName("name") val name: String,
-        @SerializedName("username") val username: String,
-        @SerializedName("profile_image") val profile_image: ProfileImage
+        @SerializedName("id") val id: String = "",
+        @SerializedName("name") val name: String = "",
+        @SerializedName("username") val username: String = "",
+        @SerializedName("profile_image") val profile_image: ProfileImage? = null
 )
 
 data class ProfileImage(
-        @SerializedName("small") val small: String,
-        @SerializedName("medium") val medium: String,
-        @SerializedName("large") val large: String
+        @SerializedName("small") val small: String = "",
+        @SerializedName("medium") val medium: String = "",
+        @SerializedName("large") val large: String = ""
 )
