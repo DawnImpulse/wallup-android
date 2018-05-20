@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(mainToolbar)
 
         setupViewPager(mainViewPager)
         navigation.setOnMenuItemClickListener(this)
