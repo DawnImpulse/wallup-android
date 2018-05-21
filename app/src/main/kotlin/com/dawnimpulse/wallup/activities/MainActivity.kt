@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
         setupViewPager(mainViewPager)
         navigation.setOnMenuItemClickListener(this)
         mainViewPager.addOnPageChangeListener(this)
+        mainViewPager.offscreenPageLimit = 2
     }
 
     /**

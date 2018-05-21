@@ -8,6 +8,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 /*
 ISC License
@@ -41,6 +42,7 @@ class App : Application() {
         FirebaseApp.initializeApp(this)
         FirebaseDatabase.getInstance().setPersistenceEnabled(false);
         setUpRemoteConfig()
+        setFonts()
     }
 
     /**
@@ -71,5 +73,15 @@ class App : Application() {
                         Log.d("Test", "Fetch failed")
                 }
 
+    }
+
+    /**
+     * Set fonts
+     */
+    private fun setFonts(){
+        CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
+                .setDefaultFontPath("font/product_sans.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build())
     }
 }
