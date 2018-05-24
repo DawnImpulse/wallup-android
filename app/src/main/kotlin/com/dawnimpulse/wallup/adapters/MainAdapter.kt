@@ -14,19 +14,25 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.adapters
 
 import android.arch.lifecycle.Lifecycle
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.activities.ImageActivity
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.viewholders.LoadingViewHolder
 import com.dawnimpulse.wallup.viewholders.MainViewHolder
+import com.google.gson.Gson
 
 /**
  * @author Saksham
@@ -35,6 +41,7 @@ import com.dawnimpulse.wallup.viewholders.MainViewHolder
  * @note Created on 2018-05-16 by Saksham
  *
  * @note Updates :
+ *  Saksham - 2018 05 25 - recent - intent to Image Activity
  */
 class MainAdapter(private val lifecycle: Lifecycle, private val images: List<ImagePojo?>, recycler: RecyclerView)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -46,6 +53,7 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
     private var loadMoreListener: OnLoadMoreListener? = null
     private var VIEW_TYPE_LOADING = 0
     private var VIEW_TYPE_ITEM = 1
+    private lateinit var context: Context
 
     /**
      * initialization for Load More Listener
@@ -89,6 +97,7 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val v: View
+        context = parent.context
         return if (viewType == VIEW_TYPE_ITEM) {
             v = LayoutInflater.from(parent.context).inflate(R.layout.inflator_main_layout, parent, false)
             MainViewHolder(v)
@@ -107,6 +116,13 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
             ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position]!!.user!!.profile_image!!.large)
             holder.image.background = ColorDrawable(Color.parseColor(images[position]!!.color!!))
             holder.name.text = images[position]!!.user!!.name
+
+            holder.image.setOnClickListener {
+                var intent = Intent(context, ImageActivity::class.java)
+                intent.putExtra(C.TYPE, "")
+                intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[position]))
+                (context as AppCompatActivity).startActivity(intent)
+            }
         }
     }
 
