@@ -29,12 +29,16 @@ import kotlinx.android.synthetic.main.activity_image.*
  * @note Created on 2018-05-24 by Saksham
  *
  * @note Updates :
+ *  Saksham - 2018 05 25 - recent - working with single image display
  */
 class ImageActivity : AppCompatActivity() {
     private val NAME = "ImageActivity"
     private lateinit var details: ImagePojo
     private lateinit var type: String
 
+    /**
+     * On create
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
@@ -44,8 +48,23 @@ class ImageActivity : AppCompatActivity() {
         type = params.getString(C.TYPE)
     }
 
+    /**
+     * On resume
+     */
     override fun onResume() {
         super.onResume()
-        ImageHandler.setImageInView(lifecycle, image2, details.urls!!.full)
+        ImageHandler.getImageAsBitmap(lifecycle,this,details.urls!!.full,{
+            movingImage.setImageBitmap(it)
+
+            movingImage.movingAnimator.addCustomMovement()
+                    .addDiagonalMoveToDownRight()
+                    .addHorizontalMoveToLeft()
+                    .addDiagonalMoveToUpRight()
+                    .addVerticalMoveToDown()
+                    .addHorizontalMoveToLeft()
+                    .addVerticalMoveToUp()
+                    .start();
+        })
+//        ImageHandler.setImageInView(lifecycle, movingImage, details.urls!!.full)
     }
 }

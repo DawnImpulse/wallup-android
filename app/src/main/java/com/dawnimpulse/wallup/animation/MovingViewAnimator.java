@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package net.grobas.animation;
+package com.dawnimpulse.wallup.animation;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

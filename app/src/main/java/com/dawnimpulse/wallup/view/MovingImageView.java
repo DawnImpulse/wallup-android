@@ -27,8 +27,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 import com.dawnimpulse.wallup.R;
-
-import net.grobas.animation.MovingViewAnimator;
+import com.dawnimpulse.wallup.animation.MovingViewAnimator;
 
 /**
  * Custom ImageView for moving images around the screen. Uses <code>MovingObjectAnimator</code>

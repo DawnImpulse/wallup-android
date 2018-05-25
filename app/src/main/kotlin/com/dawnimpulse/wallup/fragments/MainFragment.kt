@@ -38,6 +38,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
  *
  * @note Updates :
  *  Saksham - 2018 05 20 - recent - using model
+ *  Saksham - 2018 05 25 - recent - dummy layout
  */
 
 class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
@@ -79,7 +80,6 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 modelR.getTrendingImages(null, callback)
 
         }
-
         mainRefresher.setOnRefreshListener(this)
     }
 
@@ -129,6 +129,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 mainRecycler.layoutManager = LinearLayoutManager(context)
                 mainRecycler.adapter = mainAdapter
                 mainRefresher.isRefreshing = false
+                mainDummyLoading.visibility = View.GONE
 
                 mainAdapter.setOnLoadMoreListener(this@MainFragment)
             }

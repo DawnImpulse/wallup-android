@@ -1,8 +1,12 @@
 package com.dawnimpulse.wallup.handlers
 
 import android.arch.lifecycle.Lifecycle
+import android.content.Context
+import android.graphics.Bitmap
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.SimpleTarget
 
 /*
 ISC License
@@ -25,6 +29,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  * @note Created on 2018-05-15 by Saksham
  *
  * @note Updates :
+ *  Saksham - 2018 05 25 - recent - adding bitmap callback
  */
 object ImageHandler {
 
@@ -34,11 +39,32 @@ object ImageHandler {
      * @param view
      * @param url
      */
-    fun setImageInView(lifecycle:Lifecycle,view: ImageView, url: String) {
-        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)){
+    fun setImageInView(lifecycle: Lifecycle, view: ImageView, url: String) {
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
             Glide.with(view.context)
                     .load(url)
                     .into(view)
+        }
+    }
+
+    /**
+     * get image as bitmap from url
+     * @param lifecycle
+     * @param context
+     * @param url
+     */
+    fun getImageAsBitmap(lifecycle: Lifecycle, context: Context, url: String, callback: (bitmap: Bitmap) -> Unit) {
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+            Glide.with(context)
+                    .load(url)
+                    .asBitmap()
+                    .into(object : SimpleTarget<Bitmap>() {
+                        override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
+                            resource.let {
+                                callback(it!!)
+                            }
+                        }
+                    })
         }
     }
 }
