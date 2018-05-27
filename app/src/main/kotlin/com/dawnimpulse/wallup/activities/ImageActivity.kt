@@ -16,6 +16,7 @@ package com.dawnimpulse.wallup.activities
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.handlers.DateHandler
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
@@ -48,6 +49,7 @@ class ImageActivity : AppCompatActivity() {
         var params = intent.extras
         details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
         type = params.getString(C.TYPE)
+        setImageDetails(details)
     }
 
     /**
@@ -57,12 +59,28 @@ class ImageActivity : AppCompatActivity() {
         super.onResume()
         ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full, {
             movingImage.setImageBitmap(it)
-            F.underline(imagePreviewExif)
-            F.underline(imagePreviewStatistics)
-
             //var bottomSheet = BottomSheetImagePreview()
             //bottomSheet.show(supportFragmentManager, "bottom sheet")
         })
 //        ImageHandler.setImageInView(lifecycle, movingImage, details.urls!!.full)
+    }
+
+    /**
+     * set image details on views
+     *
+     */
+    private fun setImageDetails(details: ImagePojo) {
+        imagePreviewAuthorName.text = details.user!!.name
+
+        imagePreviewLikesCount.text = F.withSuffix(details.likes)
+        imagePreviewAuthorImages.text = F.withSuffix(details.user!!.total_photos)
+        imagePreviewAuthorCollections.text = F.withSuffix(details.user!!.total_collections)
+        imagePreviewViewsCount.text = F.withSuffix(details.views)
+        imagePreviewDownloadCount.text = F.withSuffix(details.downloads)
+        imagePreviewPublishedOn.text = "Published on ${DateHandler.convertForImagePreview(details.created_at)}"
+
+        ImageHandler.setImageInView(lifecycle, imagePreviewAuthorImage, details.user!!.profile_image!!.large)
+        F.underline(imagePreviewExif)
+        F.underline(imagePreviewStatistics)
     }
 }

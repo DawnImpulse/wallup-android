@@ -26,7 +26,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  */
 data class ImagePojo(
         @SerializedName("id") val id: String = "",
-        @SerializedName("created_at") val createdAt: String = "",
+        @SerializedName("created_at") val created_at: String = "",
         @SerializedName("width") val width: Int = 0,
         @SerializedName("height") val height: Int = 0,
         @SerializedName("color") val color: String? = "",
@@ -35,7 +35,9 @@ data class ImagePojo(
         @SerializedName("likes") val likes: Int = 0,
         @SerializedName("user") val user: UserPojoRefined? = null,
         @SerializedName("key") val key: String = "",
-        @SerializedName("timestamp") val timestamp: Int = 0
+        @SerializedName("timestamp") val timestamp: Int = 0,
+        @SerializedName("views") val views: Int = 0,
+        @SerializedName("downloads") val downloads: Int = 0
 )
 
 data class Urls(

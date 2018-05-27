@@ -30,11 +30,22 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="match_parent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <com.flaviofaria.kenburnsview.KenBurnsView
-                android:id="@+id/movingImage"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
+                android:layout_height="match_parent">
+
+                <ProgressBar
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.flaviofaria.kenburnsview.KenBurnsView
+                    android:id="@+id/movingImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+            </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/imagePreviewToolbar"
@@ -59,10 +70,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
         app:layout_anchorGravity="bottom|right">
 
         <LinearLayout
-            android:layout_gravity="center"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="vertical">
 
             <android.support.v7.widget.AppCompatImageView
@@ -71,14 +82,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 app:srcCompat="@drawable/vector_drawable_heart_outline" />
 
             <TextView
-                android:textSize="8sp"
                 android:id="@+id/imagePreviewLikesCount"
-                android:text="250"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:letterSpacing="0.3"
+                android:text="250"
                 android:textColor="@color/white"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="8sp" />
         </LinearLayout>
     </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

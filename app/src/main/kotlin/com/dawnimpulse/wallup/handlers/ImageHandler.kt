@@ -1,12 +1,15 @@
 package com.dawnimpulse.wallup.handlers
 
 import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
 import android.graphics.Bitmap
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
+
 
 /*
 ISC License
@@ -44,6 +47,15 @@ object ImageHandler {
             Glide.with(view.context)
                     .load(url)
                     .into(view)
+        } else {
+            lifecycle.addObserver(object : LifecycleObserver {
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    Glide.with(view.context)
+                            .load(url)
+                            .into(view)
+                }
+            })
         }
     }
 

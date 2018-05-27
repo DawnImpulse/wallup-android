@@ -28,6 +28,8 @@ data class UserPojoRefined(
         @SerializedName("id") val id: String = "",
         @SerializedName("name") val name: String = "",
         @SerializedName("username") val username: String = "",
+        @SerializedName("total_photos") val total_photos: Int = 1,
+        @SerializedName("total_collections") val total_collections: Int = 2,
         @SerializedName("profile_image") val profile_image: ProfileImage? = null
 )
 

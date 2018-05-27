@@ -49,8 +49,9 @@ object DatabaseRepository {
                 else {
                     response as DataSnapshot
                     var data = ArrayList<ImagePojo>()
-                    for (snapshot in response.children)
+                    for (snapshot in response.children){
                         data.add(snapshot.getValue(ImagePojo::class.java)!!)
+                    }
                     data.removeAt(0)
                     callback(null, data)
                 }

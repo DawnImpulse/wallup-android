@@ -1,8 +1,3 @@
-package com.dawnimpulse.wallup.utils
-
-import android.graphics.Paint
-import android.widget.TextView
-
 /*
 ISC License
 
@@ -15,36 +10,26 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
 INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
-OR PERFORMANCE OF THIS SOFTWARE.*/
+OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.handlers
+
+import java.text.SimpleDateFormat
 
 /**
  * @author Saksham
  *
- * @note Last Branch Update - recent
+ * @note Last Branch Update -
  * @note Created on 2018-05-27 by Saksham
  *
  * @note Updates :
  */
-object F {
+object DateHandler {
+    private val NAME = "DateHandler"
 
     /**
-     * underline a text
-     * @param view
+     * Convert date string to image preview format activity
      */
-    fun underline(view:TextView){
-        view.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-    }
-
-    /**
-     * add suffix to number
-     * @param count
-     * @return formatted string
-     */
-    fun withSuffix(count: Int): String {
-        if (count < 1000) return "" + count
-        val exp = (Math.log(count.toDouble()) / Math.log(1000.0)).toInt()
-        return String.format("%.1f %c",
-                count / Math.pow(1000.0, exp.toDouble()),
-                "kMGTPE"[exp - 1])
+    fun convertForImagePreview(date: String): String {
+        var sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").parse(date)
+        return SimpleDateFormat("dd MMM ''yy").format(sdf)
     }
 }

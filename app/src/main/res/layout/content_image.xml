@@ -15,13 +15,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
+    android:layout_height="wrap_content"
+    android:fillViewport="false"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!--Views & Published-->
@@ -43,7 +43,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="8dp"
-                android:text="26758"
+                android:layout_marginRight="24dp"
+                android:text="10"
                 android:textColor="@color/black" />
 
             <TextView
@@ -51,7 +52,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="32dp"
                 android:text="Published on 13 Jan '18" />
         </LinearLayout>
 
@@ -66,19 +66,19 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:id="@+id/imagePreviewAuthorImage"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
-                android:background="@color/black"
                 app:riv_oval="true" />
 
             <TextView
+                android:id="@+id/imagePreviewAuthorName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="24dp"
                 android:layout_toRightOf="@id/imagePreviewAuthorImage"
                 android:text="August Jenkins"
-                android:textStyle="bold"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -159,9 +159,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:text="WALLPAPER"
-                        android:textStyle="bold"
                         android:textColor="@color/black"
-                        android:textSize="10sp" />
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
                 <!--Download-->
@@ -182,7 +182,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:orientation="vertical">
 
                         <TextView
-                            android:textStyle="bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
@@ -190,7 +189,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_gravity="center"
                             android:text="DOWNLOAD"
                             android:textColor="@color/white"
-                            android:textSize="10sp" />
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/imagePreviewDownloadCount"
@@ -198,7 +198,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:letterSpacing="0.3"
-                            android:text="780"
+                            android:text="10"
                             android:textColor="@color/white"
                             android:textSize="6sp" />
                     </LinearLayout>
@@ -231,6 +231,28 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:text="STATISTICS"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="64dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:srcCompat="@drawable/vector_drawable_wallup_logo_greyscale" />
+
+            <TextView
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center"
+                android:letterSpacing="0.5"
+                android:text="Wallup"
+                android:textSize="24sp"
+                android:textColor="@color/grey400"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>
