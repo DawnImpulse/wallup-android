@@ -15,52 +15,58 @@ OR PERFORMANCE OF THIS SOFTWARE.
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="320dp"
-    android:layout_marginTop="16dp">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/mainImage"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="260dp"
         android:scaleType="centerCrop"
         app:riv_border_color="@color/white"
         app:riv_corner_radius="4dp"
         app:riv_mutate_background="true" />
 
-    <LinearLayout
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/mainCircleImage"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="208dp"
+        android:elevation="2dp"
+        app:riv_oval="true" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp">
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/mainCircleImage"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            app:riv_oval="true" />
+        android:layout_below="@id/mainImage"
+        android:layout_marginTop="12dp">
 
         <TextView
             android:id="@+id/mainName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_height="24dp"
             android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@+id/mainCircleImage"
-            android:fontFamily="@font/product_sans_regular"
+            android:gravity="bottom"
+            android:text="Amy Blake"
             android:textColor="@color/black"
             android:textSize="16sp" />
-    </LinearLayout>
 
-    <View
-        android:layout_width="120dp"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="#EAEAEA" />
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/mainThreeDot"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            app:srcCompat="@drawable/vector_drawable_dots_vertical" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/mainLike"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="32dp"
+            android:layout_toLeftOf="@id/mainThreeDot"
+            app:srcCompat="@drawable/vector_drawable_cards_heart___" />
+    </RelativeLayout>
 
 </RelativeLayout>

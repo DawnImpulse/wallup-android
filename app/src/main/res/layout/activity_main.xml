@@ -27,11 +27,42 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/mainToolbar"
+            app:contentInsetStart="0dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="enterAlways|scroll"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/mainSearch"
+                    android:layout_width="24dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/vector_drawable_search" />
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/vector_drawable_wallup_logo_greyscale" />
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/mainProfile"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="16dp"
+                    app:riv_oval="true" />
+            </RelativeLayout>
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout

@@ -23,6 +23,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:id="@+id/mainRefresher"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -31,93 +32,107 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:id="@+id/mainDummyLoading"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="320dp"
-                    android:layout_marginTop="16dp">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:layout_width="match_parent"
-                        android:layout_height="220dp"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_height="260dp"
                         android:background="@color/grey300"
                         app:riv_border_color="@color/white"
-                        app:riv_corner_radius="4dp" />
+                        app:riv_corner_radius="4dp"
+                        app:riv_mutate_background="true" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="8dp">
-
-                        <com.makeramen.roundedimageview.RoundedImageView
-                            android:layout_width="44dp"
-                            android:layout_height="44dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="16dp"
-                            android:background="@drawable/round_corners"
-                            app:riv_oval="true" />
+                        android:layout_marginTop="12dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="24dp"
-                            android:layout_gravity="center"
                             android:layout_marginLeft="16dp"
-                            android:layout_toRightOf="@+id/mainCircleImage"
                             android:background="@drawable/round_corners"
-                            android:text="                                "/>
-                    </LinearLayout>
-                </RelativeLayout>
+                            android:gravity="bottom"
+                            android:text="                                " />
 
-                <RelativeLayout
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/m3"
+                            android:layout_width="8dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/round_corners" />
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="48dp"
+                            android:layout_toLeftOf="@id/m3"
+                            android:background="@drawable/round_corners" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="320dp"
-                    android:layout_marginTop="16dp">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:layout_width="match_parent"
-                        android:layout_height="220dp"
-                        android:layout_marginLeft="12dp"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_height="260dp"
                         android:background="@color/grey300"
                         app:riv_border_color="@color/white"
-                        app:riv_corner_radius="4dp" />
+                        app:riv_corner_radius="4dp"
+                        app:riv_mutate_background="true" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginBottom="8dp">
-
-                        <com.makeramen.roundedimageview.RoundedImageView
-                            android:layout_width="44dp"
-                            android:layout_height="44dp"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="16dp"
-                            android:background="@drawable/round_corners"
-                            app:riv_oval="true" />
+                        android:layout_marginTop="12dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="24dp"
-                            android:layout_gravity="center"
                             android:layout_marginLeft="16dp"
-                            android:layout_toRightOf="@+id/mainCircleImage"
                             android:background="@drawable/round_corners"
-                            android:text="                                "/>
-                    </LinearLayout>
-                </RelativeLayout>
+                            android:gravity="bottom"
+                            android:text="                                " />
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/m4"
+                            android:layout_width="8dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/round_corners" />
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="48dp"
+                            android:layout_toLeftOf="@id/m4"
+                            android:background="@drawable/round_corners" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/mainRecycler"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="10dp"
+                android:visibility="visible" />
         </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 
