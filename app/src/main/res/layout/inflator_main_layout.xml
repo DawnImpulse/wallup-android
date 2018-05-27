@@ -51,7 +51,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/mainCircleImage"
-            android:fontFamily="@font/product_sans"
+            android:fontFamily="@font/product_sans_regular"
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>

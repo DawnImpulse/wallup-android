@@ -19,8 +19,10 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.F
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
+import kotlinx.android.synthetic.main.content_image.*
 
 /**
  * @author Saksham
@@ -53,17 +55,13 @@ class ImageActivity : AppCompatActivity() {
      */
     override fun onResume() {
         super.onResume()
-        ImageHandler.getImageAsBitmap(lifecycle,this,details.urls!!.full,{
+        ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full, {
             movingImage.setImageBitmap(it)
+            F.underline(imagePreviewExif)
+            F.underline(imagePreviewStatistics)
 
-            movingImage.movingAnimator.addCustomMovement()
-                    .addDiagonalMoveToDownRight()
-                    .addHorizontalMoveToLeft()
-                    .addDiagonalMoveToUpRight()
-                    .addVerticalMoveToDown()
-                    .addHorizontalMoveToLeft()
-                    .addVerticalMoveToUp()
-                    .start();
+            //var bottomSheet = BottomSheetImagePreview()
+            //bottomSheet.show(supportFragmentManager, "bottom sheet")
         })
 //        ImageHandler.setImageInView(lifecycle, movingImage, details.urls!!.full)
     }

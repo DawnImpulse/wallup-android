@@ -80,7 +80,7 @@ class App : Application() {
      */
     private fun setFonts(){
         CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
-                .setDefaultFontPath("font/product_sans.ttf")
+                .setDefaultFontPath("font/product_sans.xml")
                 .setFontAttrId(R.attr.fontPath)
                 .build())
     }

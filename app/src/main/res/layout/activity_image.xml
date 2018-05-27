@@ -12,23 +12,73 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ImageActivity">
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
-
-    <com.dawnimpulse.wallup.view.MovingImageView
-        android:id="@+id/movingImage"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/imagePreviewAppBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:miv_speed="200" />
+        android:layout_height="360dp">
 
-</RelativeLayout>
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/imagePreviewCollapsing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <com.flaviofaria.kenburnsview.KenBurnsView
+                android:id="@+id/movingImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/imagePreviewToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                app:layout_collapseMode="parallax" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_image" />
+
+    <include layout="@layout/bottom_sheet_image_preview" />
+
+    <FrameLayout
+        android:id="@+id/imagePreviewFab"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/round_fab"
+        android:elevation="6dp"
+        app:layout_anchor="@id/imagePreviewAppBar"
+        app:layout_anchorGravity="bottom|right">
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/vector_drawable_heart_outline" />
+
+            <TextView
+                android:textSize="8sp"
+                android:id="@+id/imagePreviewLikesCount"
+                android:text="250"
+                android:gravity="center"
+                android:letterSpacing="0.3"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>
