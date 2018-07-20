@@ -13,13 +13,17 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.DateHandler
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.F
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
@@ -33,11 +37,13 @@ import kotlinx.android.synthetic.main.content_image.*
  *
  * @note Updates :
  *  Saksham - 2018 05 25 - recent - working with single image display
+ *  Saksham - 2018 07 20 - recent - adding listeners
  */
-class ImageActivity : AppCompatActivity() {
+class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "ImageActivity"
     private lateinit var details: ImagePojo
     private lateinit var type: String
+    private lateinit var bitmap: Bitmap
 
     /**
      * On create
@@ -50,6 +56,8 @@ class ImageActivity : AppCompatActivity() {
         details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
         type = params.getString(C.TYPE)
         setImageDetails(details)
+
+        imagePreviewWallpaper.setOnClickListener(this)
     }
 
     /**
@@ -57,12 +65,23 @@ class ImageActivity : AppCompatActivity() {
      */
     override fun onResume() {
         super.onResume()
-        ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full, {
-            movingImage.setImageBitmap(it)
+        ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full) {
+            bitmap = it
+            movingImage.setImageBitmap(bitmap)
             //var bottomSheet = BottomSheetImagePreview()
             //bottomSheet.show(supportFragmentManager, "bottom sheet")
-        })
+        }
 //        ImageHandler.setImageInView(lifecycle, movingImage, details.urls!!.full)
+    }
+
+    /**
+     * On click for various buttons
+     */
+    override fun onClick(v: View) {
+        if (v.id === imagePreviewWallpaper.id) {
+            Config.imageBitmap = bitmap
+            startActivity(Intent(this@ImageActivity, CropActivity::class.java))
+        }
     }
 
     /**
@@ -82,5 +101,6 @@ class ImageActivity : AppCompatActivity() {
         ImageHandler.setImageInView(lifecycle, imagePreviewAuthorImage, details.user!!.profile_image!!.large)
         F.underline(imagePreviewExif)
         F.underline(imagePreviewStatistics)
+
     }
 }

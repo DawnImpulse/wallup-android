@@ -32,4 +32,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <!--Resources-->
+
+    <!--Progress Bar Image View-->
+    <style name="ImageProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/white</item>
+    </style>
 </resources>

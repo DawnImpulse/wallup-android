@@ -31,20 +31,21 @@ OR PERFORMANCE OF THIS SOFTWARE.
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
+                android:background="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ProgressBar
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true"
+                    android:theme="@style/ImageProgress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.flaviofaria.kenburnsview.KenBurnsView
+                <com.github.chrisbanes.photoview.PhotoView
                     android:id="@+id/movingImage"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="match_parent"/>
             </RelativeLayout>
 
             <android.support.v7.widget.Toolbar

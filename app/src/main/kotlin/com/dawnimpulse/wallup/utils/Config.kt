@@ -1,5 +1,7 @@
 package com.dawnimpulse.wallup.utils
 
+import android.graphics.Bitmap
+
 /*
 ISC License
 
@@ -26,4 +28,6 @@ object Config {
     const val UNSPLASH_URL = "https://api.unsplash.com/"
     var UNSPLASH_API_KEY = ""
     const val TEMP_IMAGE = "https://images.unsplash.com/profile-1509765804209-a406dae9ac02?dpr=1&auto=format&fit=crop&w=128&h=128&q=60&cs=tinysrgb&crop=faces&bg=fff"
+
+    lateinit var imageBitmap:Bitmap
 }

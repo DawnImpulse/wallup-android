@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dawnimpulse.wallup">
 
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <application
         android:name=".utils.App"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--Main Activity-->
+        <!-- Main Activity -->
         <activity
             android:name=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -21,11 +22,15 @@
             </intent-filter>
         </activity>
 
-        <!--Image Activity-->
+        <!-- Image Activity -->
         <activity
             android:name=".activities.ImageActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
+        <!--Cropping Activity-->
+        <activity
+            android:name=".activities.CropActivity"
+            android:theme="@style/AppTheme.Fullscreen"></activity>
     </application>
 
 </manifest>
