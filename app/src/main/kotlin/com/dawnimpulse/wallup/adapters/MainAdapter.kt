@@ -30,6 +30,7 @@ import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.viewholders.LoadingViewHolder
 import com.dawnimpulse.wallup.viewholders.MainViewHolder
 import com.google.gson.Gson
@@ -112,7 +113,7 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MainViewHolder) {
-            ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full)
+            ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full + Config.IMAGE_HEIGHT)
             ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position]!!.user!!.profile_image!!.large)
             holder.image.background = ColorDrawable(Color.parseColor(images[position]!!.color!!))
             holder.name.text = images[position]!!.user!!.name

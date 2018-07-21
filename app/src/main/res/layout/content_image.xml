@@ -122,11 +122,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <!--Interaction Buttons-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="42dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="32dp">
 
             <FrameLayout
+                android:background="@drawable/round_transparent"
                 android:id="@+id/imagePreviewShare"
                 android:layout_width="42dp"
                 android:layout_height="42dp">
@@ -150,8 +151,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@drawable/button_round_complete_corners_transparent"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp">
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -160,7 +161,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_centerVertical="true"
                         android:text="WALLPAPER"
                         android:textColor="@color/black"
-                        android:textSize="10sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
 
@@ -171,8 +172,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_height="match_parent"
                     android:layout_marginLeft="16dp"
                     android:background="@drawable/button_round_complete_corners"
-                    android:paddingLeft="16dp"
-                    android:paddingRight="16dp">
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -189,7 +190,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_gravity="center"
                             android:text="DOWNLOAD"
                             android:textColor="@color/white"
-                            android:textSize="10sp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -198,9 +199,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:letterSpacing="0.3"
-                            android:text="10"
+                            android:text="8"
                             android:textColor="@color/white"
-                            android:textSize="6sp" />
+                            android:textSize="8sp" />
                     </LinearLayout>
                 </RelativeLayout>
 

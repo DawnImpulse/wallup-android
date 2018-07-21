@@ -1,8 +1,4 @@
-package com.dawnimpulse.wallup.utils
-
-import android.graphics.Bitmap
-
-/*
+<?xml version="1.0" encoding="utf-8"?><!--
 ISC License
 
 Copyright 2018, Saksham (DawnImpulse)
@@ -14,23 +10,12 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
 INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
-OR PERFORMANCE OF THIS SOFTWARE.*/
-
-/**
- * @author Saksham
- *
- * @note Last Branch Update - master
- * @note Created on 2018-05-13 by Saksham
- *
- * @note Updates :
- */
-object Config {
-    const val UNSPLASH_URL = "https://api.unsplash.com/"
-    const val TEMP_IMAGE = "https://images.unsplash.com/profile-1509765804209-a406dae9ac02?dpr=1&auto=format&fit=crop&w=128&h=128&q=60&cs=tinysrgb&crop=faces&bg=fff"
-
-    var UNSPLASH_API_KEY = ""
-    var HEIGHT = "720"
-    var IMAGE_HEIGHT = "&h=$HEIGHT"
-
-    lateinit var imageBitmap: Bitmap
-}
+OR PERFORMANCE OF THIS SOFTWARE.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <stroke
+        android:width="1dp"
+        android:color="@color/grey300" />
+    <solid android:color="@android:color/transparent" />
+</shape>
