@@ -4,11 +4,15 @@ import android.app.Application
 import android.util.Log
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
+import com.downloader.PRDownloader
+import com.downloader.PRDownloaderConfig
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
+
+
 
 /*
 ISC License
@@ -31,6 +35,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  * @note Created on 2018-05-13 by Saksham
  *
  * @note Updates :
+ * Saksham - 2018 07 22 - recent -
  */
 class App : Application() {
 
@@ -43,6 +48,7 @@ class App : Application() {
         FirebaseDatabase.getInstance().setPersistenceEnabled(false);
         setUpRemoteConfig()
         setFonts()
+        setDownload()
     }
 
     /**
@@ -83,5 +89,15 @@ class App : Application() {
                 .setDefaultFontPath("font/product_sans.xml")
                 .setFontAttrId(R.attr.fontPath)
                 .build())
+    }
+
+    /**
+     * Setup PR Download library
+     */
+    private fun setDownload(){
+        val config = PRDownloaderConfig.newBuilder()
+                .setDatabaseEnabled(true)
+                .build()
+        PRDownloader.initialize(applicationContext, config)
     }
 }

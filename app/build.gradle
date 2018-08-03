@@ -51,7 +51,7 @@ dependencies {
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
-
+    implementation 'com.mindorks.android:prdownloader:0.4.0'
 
     //------------------ Additional -------------------------
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

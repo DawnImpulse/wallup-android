@@ -16,18 +16,18 @@ package com.dawnimpulse.wallup.activities
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Environment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.DateHandler
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.pojo.ImagePojo
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.F
+import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.content_image.*
+import java.io.File
 
 /**
  * @author Saksham
@@ -38,6 +38,7 @@ import kotlinx.android.synthetic.main.content_image.*
  * @note Updates :
  *  Saksham - 2018 05 25 - recent - working with single image display
  *  Saksham - 2018 07 20 - recent - adding listeners
+ *  Saksham - 2018 07 26 - recent - downloading
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "ImageActivity"
@@ -58,6 +59,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         setImageDetails(details)
 
         imagePreviewWallpaper.setOnClickListener(this)
+        imagePreviewDownload.setOnClickListener(this)
     }
 
     /**
@@ -81,6 +83,27 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         if (v.id === imagePreviewWallpaper.id) {
             Config.imageBitmap = bitmap
             startActivity(Intent(this@ImageActivity, CropActivity::class.java))
+        } else if (v.id === imagePreviewDownload.id) {
+            Toast.short(this,"let do it")
+            progress.visibility = View.VISIBLE
+            val abc = "${Environment.getExternalStorageDirectory()}${File.separator}"
+            val file = File(abc)
+
+            Download.start(this,details.id, details.urls!!.raw, file.absolutePath, "${details.id}.jpg") {
+                if (it != null) {
+                    Toast.short(this@ImageActivity, "DOne")
+                } else
+                    Toast.short(this@ImageActivity, it!!)
+            }
+
+            Download.progress1(details.id) { e, p ->
+                if (!e)
+                    Toast.short(this, "Nah nothing")
+                else {
+                    progress.isIndeterminate = false
+                    progress.progress = ((p!!.currentBytes / p!!.totalBytes).toInt()) * 100
+                }
+            }
         }
     }
 
