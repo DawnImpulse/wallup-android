@@ -22,6 +22,7 @@ import com.dawnimpulse.wallup.respositories.UnsplashRepository
  * @note Created on 2018-05-20 by Saksham
  *
  * @note Updates :
+ *  2018 08 03 - recent - Saksham - downloaded a photo
  */
 class UnsplashModel() {
     lateinit var lifecycle: Lifecycle
@@ -39,10 +40,10 @@ class UnsplashModel() {
      * @param callback
      */
     fun getLatestImages(page: Int, callback: (Any?, Any?) -> Unit) {
-        UnsplashRepository.getLatestPhotos(page, { error, response ->
+        UnsplashRepository.getLatestPhotos(page) { error, response ->
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
                 callback(error, response)
-        })
+        }
     }
 
     /**
@@ -51,10 +52,10 @@ class UnsplashModel() {
      * @param callback
      */
     fun getPopularImages(page: Int, callback: (Any?, Any?) -> Unit) {
-        UnsplashRepository.getPopularPhotos(page, { error, response ->
+        UnsplashRepository.getPopularPhotos(page) { error, response ->
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
                 callback(error, response)
-        })
+        }
     }
 
     /**
@@ -63,9 +64,17 @@ class UnsplashModel() {
      * @param callback
      */
     fun getCuratedImages(page: Int, callback: (Any?, Any?) -> Unit) {
-        UnsplashRepository.getCuratedPhotos(page, { error, response ->
+        UnsplashRepository.getCuratedPhotos(page) { error, response ->
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
                 callback(error, response)
-        })
+        }
+    }
+
+    /**
+     * Downloaded a photo
+     * @param id
+     */
+    fun downloadedPhoto(id: String){
+        UnsplashRepository.downloadedPhoto(id)
     }
 }

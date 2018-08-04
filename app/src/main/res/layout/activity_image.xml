@@ -42,7 +42,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-                <com.github.chrisbanes.photoview.PhotoView
+                <com.flaviofaria.kenburnsview.KenBurnsView
                     android:id="@+id/movingImage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>

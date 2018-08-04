@@ -13,13 +13,12 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.utils
 
+import android.app.DownloadManager
+import android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
 import android.content.Context
-import android.media.MediaScannerConnection
-import com.downloader.Error
-import com.downloader.OnDownloadListener
-import com.downloader.OnProgressListener
-import com.downloader.PRDownloader.download
-import com.downloader.Progress
+import android.content.Context.DOWNLOAD_SERVICE
+import android.net.Uri
+import android.os.Environment
 
 
 /**
@@ -29,41 +28,24 @@ import com.downloader.Progress
  * @note Created on 2018-07-22 by Saksham
  *
  * @note Updates :
+ *  2018 08 03 - recent - Saksham - using android default download manager
  */
 object Download {
-    private var progress = HashMap<String, Progress>()
-    private var progressing = HashMap<String, OnProgressListener>()
 
-    fun start(context: Context, id: String, url: String, path: String, name: String, listener: (error: String?) -> Unit) {
-        progressing[id] = OnProgressListener { }
-        download(url, path, name)
-                .build()
-                .setOnProgressListener(progressing[id])
-                .start(object : OnDownloadListener {
-                    override fun onDownloadComplete() {
-                        listener(null);
-                        MediaScannerConnection.scanFile(context, arrayOf(path),
-                                arrayOf("image/jpg", "image/jpeg", "image/png"), null)
-                    }
+    fun downloadData(context: Context, url: String, id: String): Long {
 
-                    override fun onError(error: Error?) {
-                        listener(error.toString())
-                    }
-                })
-    }
+        val downloadManager = context.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+        val request = DownloadManager.Request(Uri.parse(url))
 
-    fun progress(id: String): Progress? {
-        return if (progress.containsKey(id)) {
-            progress[id]
-        } else
-            null
-    }
+        request
+                .setTitle("$id.jpg")
+                .setDescription("Downloading image from wallup.")
+                .setDestinationInExternalFilesDir(context,
+                        Environment.DIRECTORY_DOWNLOADS, "/wallup/$id.jpg")
+                .setVisibleInDownloadsUi(true)
+                .setNotificationVisibility(VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                .allowScanningByMediaScanner()
 
-    fun progress1(id: String, listener: (b: Boolean, progress: Progress?) -> Unit) {
-        return if (progress.containsKey(id)) {
-            var ab = progressing[id]
-            //ab!!.onProgress()
-        } else
-            listener(false, null)
+        return downloadManager.enqueue(request)
     }
 }

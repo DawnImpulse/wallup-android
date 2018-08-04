@@ -4,8 +4,6 @@ import android.app.Application
 import android.util.Log
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
-import com.downloader.PRDownloader
-import com.downloader.PRDownloaderConfig
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -48,7 +46,7 @@ class App : Application() {
         FirebaseDatabase.getInstance().setPersistenceEnabled(false);
         setUpRemoteConfig()
         setFonts()
-        setDownload()
+        //setDownload()
     }
 
     /**
@@ -95,9 +93,9 @@ class App : Application() {
      * Setup PR Download library
      */
     private fun setDownload(){
-        val config = PRDownloaderConfig.newBuilder()
+       /* val config = PRDownloaderConfig.newBuilder()
                 .setDatabaseEnabled(true)
                 .build()
-        PRDownloader.initialize(applicationContext, config)
+        PRDownloader.initialize(applicationContext, config)*/
     }
 }

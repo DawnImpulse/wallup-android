@@ -13,21 +13,20 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.Environment
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.DateHandler
 import com.dawnimpulse.wallup.handlers.ImageHandler
+import com.dawnimpulse.wallup.handlers.WallpaperHandler
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.content_image.*
-import java.io.File
 
 /**
  * @author Saksham
@@ -81,29 +80,26 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
      */
     override fun onClick(v: View) {
         if (v.id === imagePreviewWallpaper.id) {
-            Config.imageBitmap = bitmap
-            startActivity(Intent(this@ImageActivity, CropActivity::class.java))
-        } else if (v.id === imagePreviewDownload.id) {
-            Toast.short(this,"let do it")
-            progress.visibility = View.VISIBLE
-            val abc = "${Environment.getExternalStorageDirectory()}${File.separator}"
-            val file = File(abc)
-
-            Download.start(this,details.id, details.urls!!.raw, file.absolutePath, "${details.id}.jpg") {
-                if (it != null) {
-                    Toast.short(this@ImageActivity, "DOne")
-                } else
-                    Toast.short(this@ImageActivity, it!!)
-            }
-
-            Download.progress1(details.id) { e, p ->
-                if (!e)
-                    Toast.short(this, "Nah nothing")
+            /*Config.imageBitmap = bitmap
+            startActivity(Intent(this@ImageActivity, CropActivity::class.java))*/
+            Permissions.askWriteExternalStoragePermission(this) { no, _ ->
+                if (no != null)
+                    Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
                 else {
-                    progress.isIndeterminate = false
-                    progress.progress = ((p!!.currentBytes / p!!.totalBytes).toInt()) * 100
+                    Config.imageBitmap = bitmap
+                    WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
                 }
             }
+        } else if (v.id === imagePreviewDownload.id) {
+            Permissions.askWriteExternalStoragePermission(this) { no, _ ->
+                if (no != null)
+                    Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
+                else {
+                    Download.downloadData(this, details.links!!.download, details.id)
+                    Toast.short(this, "Downloading Image in /Downloads/Wallup/${details.id}.jpg")
+                }
+            }
+
         }
     }
 

@@ -17,6 +17,8 @@ import com.dawnimpulse.wallup.network.RetroApiClient
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.source.RetroUnsplashSource
 import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.L
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,8 +30,10 @@ import retrofit2.Response
  * @note Created on 2018-05-20 by Saksham
  *
  * @note Updates :
+ *  2018 08 03 - recent - Saksham - downloaded a photo
  */
 object UnsplashRepository {
+    private val NAME = "UnsplashRepository"
 
     /**
      * Get latest photos
@@ -108,4 +112,28 @@ object UnsplashRepository {
             }
         })
     }
+
+    /**
+     * Downloaded a photo
+     * @param id
+     */
+    fun downloadedPhoto(id: String) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.imageDownloaded(
+                Config.UNSPLASH_API_KEY,
+                id)
+
+        call.enqueue(object : Callback<JSONObject> {
+
+            override fun onResponse(call: Call<JSONObject>?, response: Response<JSONObject>) {
+                L.d(NAME, "File downloaded linked")
+            }
+
+            override fun onFailure(call: Call<JSONObject>?, t: Throwable?) {
+                L.e(NAME, t.toString())
+            }
+        })
+    }
+
+
 }

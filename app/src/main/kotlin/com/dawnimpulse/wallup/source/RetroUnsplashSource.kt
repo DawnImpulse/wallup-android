@@ -2,9 +2,11 @@ package com.dawnimpulse.wallup.source
 
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /*
@@ -32,11 +34,16 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  */
 interface RetroUnsplashSource {
 
+
+    // get latest photos
+
     @GET("/photos?per_page=30")
     fun getLatestPhotos(
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.PAGE) page: Int
     ): Call<List<ImagePojo>>
+
+    //get popular photos
 
     @GET("/photos?order_by=popular&per_page=30")
     fun getPopularPhotos(
@@ -44,9 +51,19 @@ interface RetroUnsplashSource {
             @Query(C.PAGE) page: Int
     ): Call<List<ImagePojo>>
 
+    // get curated photos
+
     @GET("/photos/curated?per_page=30")
     fun getCuratedPhotos(
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.PAGE) page: Int
     ): Call<List<ImagePojo>>
+
+    // download image call
+
+    @GET("/photos/{id}/download")
+    fun imageDownloaded(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path("id") id: String
+    ): Call<JSONObject>
 }
