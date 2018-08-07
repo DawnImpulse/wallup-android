@@ -22,7 +22,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <android.support.design.widget.AppBarLayout
         android:id="@+id/imagePreviewAppBar"
         android:layout_width="match_parent"
-        android:layout_height="360dp">
+        android:layout_height="420dp">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/imagePreviewCollapsing"
@@ -61,6 +61,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <include layout="@layout/bottom_sheet_image_preview" />
 
     <FrameLayout
+        android:visibility="gone"
         android:id="@+id/imagePreviewFab"
         android:layout_width="56dp"
         android:layout_height="56dp"

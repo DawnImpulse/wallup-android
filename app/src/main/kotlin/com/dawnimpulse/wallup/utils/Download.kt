@@ -40,8 +40,7 @@ object Download {
         request
                 .setTitle("$id.jpg")
                 .setDescription("Downloading image from wallup.")
-                .setDestinationInExternalFilesDir(context,
-                        Environment.DIRECTORY_DOWNLOADS, "/wallup/$id.jpg")
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/wallup/$id.jpg")
                 .setVisibleInDownloadsUi(true)
                 .setNotificationVisibility(VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .allowScanningByMediaScanner()

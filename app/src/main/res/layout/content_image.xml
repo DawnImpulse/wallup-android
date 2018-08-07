@@ -107,7 +107,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:text="250"
+                    android:layout_marginBottom="2dp"
+                    android:text="-"
                     android:textColor="@color/black"
                     android:textSize="10sp" />
 
@@ -122,7 +123,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:text="15"
+                    android:text="-"
+                    android:layout_marginBottom="2dp"
                     android:textColor="@color/black"
                     android:textSize="10sp" />
             </LinearLayout>
@@ -139,8 +141,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
             <FrameLayout
                 android:background="@drawable/round_transparent"
                 android:id="@+id/imagePreviewShare"
-                android:layout_width="42dp"
-                android:layout_height="42dp">
+                android:layout_width="36dp"
+                android:layout_height="36dp">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="20dp"
@@ -159,7 +161,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 <RelativeLayout
                     android:id="@+id/imagePreviewWallpaper"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="36dp"
                     android:background="@drawable/button_round_complete_corners_transparent"
                     android:paddingLeft="24dp"
                     android:paddingRight="24dp">
@@ -179,7 +181,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 <RelativeLayout
                     android:id="@+id/imagePreviewDownload"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="36dp"
                     android:layout_marginLeft="16dp"
                     android:background="@drawable/button_round_complete_corners"
                     android:paddingLeft="24dp"

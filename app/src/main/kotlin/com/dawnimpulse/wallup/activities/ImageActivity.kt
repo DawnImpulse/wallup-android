@@ -121,5 +121,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         F.underline(imagePreviewExif)
         F.underline(imagePreviewStatistics)
 
+        if(details.downloads == 0){
+            imagePreviewDownloadCount.visibility = View.GONE
+        }
+
     }
 }
