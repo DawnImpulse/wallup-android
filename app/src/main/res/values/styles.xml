@@ -33,10 +33,21 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <!--Resources-->
-
     <!--Progress Bar Image View-->
     <style name="ImageProgress" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/white</item>
     </style>
+
+    <!--Bottom Sheet-->
+    <!-- set the rounded drawable as background to your bottom sheet -->
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_round_bottom_sheet</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
 </resources>

@@ -1,5 +1,3 @@
-package com.dawnimpulse.wallup.utils
-
 /*
 ISC License
 
@@ -12,29 +10,26 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
 INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
-OR PERFORMANCE OF THIS SOFTWARE.*/
+OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.utils
+
+import android.app.Dialog
+import android.os.Bundle
+import android.support.design.widget.BottomSheetDialog
+import android.support.design.widget.BottomSheetDialogFragment
+import com.dawnimpulse.wallup.R
 
 /**
  * @author Saksham
  *
  * @note Last Branch Update -
- * @note Created on 2018-05-13 by Saksham
+ * @note Created on 2018-08-19 by Saksham
  *
  * @note Updates :
  */
-object C {
-    const val AUTHORIZATION = "Authorization"
-    const val ORDER_BY = "order_by"
-    const val PAGE = "page"
-    const val PER_PAGE = "per_page"
-    const val UNSPLASH_API_KEY = "unsplash_api_key"
-    const val TRENDING = "trending"
-    const val TIMESTAMP = "timestamp"
-    const val WALLUP = "wallup"
-    const val LATEST = "latest"
-    const val POPULAR = "popular"
-    const val CURATED = "curated"
-    const val TYPE = "type"
-    const val IMAGE_POJO = "imagePojo"
-    const val BOTTOM_SHEET = "bottomSheet"
+open class RoundedBottomSheetDialogFragment : BottomSheetDialogFragment() {
+
+    override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = BottomSheetDialog(requireContext(), theme)
+
 }

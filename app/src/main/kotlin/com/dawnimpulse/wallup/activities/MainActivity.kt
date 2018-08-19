@@ -21,6 +21,7 @@ import com.dawnimpulse.wallup.fragments.MainFragment
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.ModalBottomSheet
 import com.dawnimpulse.wallup.utils.ViewPagerAdapter
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,12 +34,16 @@ import kotlinx.android.synthetic.main.activity_main.*
  *
  * @note Updates :
  *  Saksham - 2018 05 20 - recent - adding multiple fragments
+ *  Saksham - 2018 08 19 - master - using bottom modal sheet navigation
  */
-class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionListener,ViewPager.OnPageChangeListener {
+class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionListener, ViewPager.OnPageChangeListener {
     private lateinit var pagerAdapter: ViewPagerAdapter
     private lateinit var latestFragment: MainFragment
     private lateinit var trendingFragment: MainFragment
     private lateinit var curatedFragment: MainFragment
+    private lateinit var navSheet: ModalBottomSheet
+    private lateinit var navBundle: Bundle
+    private var lastItemSelected = 0
 
     /**
      * On create
@@ -48,19 +53,29 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
         setContentView(R.layout.activity_main)
         setSupportActionBar(mainToolbar)
 
+        navSheet = ModalBottomSheet()
+        navBundle = Bundle()
+        navBundle.putInt(C.BOTTOM_SHEET, R.layout.bottom_sheet_navigation)
+        navSheet.arguments = navBundle
+
         setupViewPager(mainViewPager)
         navigation.setOnMenuItemClickListener(this)
         mainViewPager.addOnPageChangeListener(this)
         mainViewPager.offscreenPageLimit = 2
-        ImageHandler.setImageInView(lifecycle,mainProfile,Config.TEMP_IMAGE)
+        ImageHandler.setImageInView(lifecycle, mainProfile, Config.TEMP_IMAGE)
     }
 
     /**
      * On menu item select
      */
     override fun onMenuItemSelect(p0: Int, position: Int, p2: Boolean) {
-        if (position != 3)
+        if (position != 3) {
+            lastItemSelected = position
             mainViewPager.currentItem = position
+        } else {
+            navSheet.show(supportFragmentManager, C.BOTTOM_SHEET)
+            navigation.setSelectedIndex(lastItemSelected, false)
+        }
     }
 
     /**
@@ -102,7 +117,7 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
      * On page selected (viewpager)
      */
     override fun onPageSelected(position: Int) {
-        navigation.setSelectedIndex(position,true)
+        navigation.setSelectedIndex(position, true)
     }
 
     /**
