@@ -2,10 +2,13 @@ package com.dawnimpulse.wallup.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.adapters.ArtistPhotosAdapter
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
+import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.L
@@ -21,6 +24,7 @@ class ArtistProfile : AppCompatActivity() {
         setContentView(R.layout.activity_artist_profile)
 
         var model = UnsplashModel(lifecycle)
+
         model.userDetails(intent.extras.getString(C.USERNAME)) { error, details ->
             if (error != null) {
                 L.d(NAME, error.toString())
@@ -31,8 +35,19 @@ class ArtistProfile : AppCompatActivity() {
                 artistUnsplash.visibility = View.VISIBLE
                 artistProgress.visibility = View.GONE
             }
-
         }
+        model.userPhotos(0, 8, intent.extras.getString(C.USERNAME)) { error, details ->
+            if (error != null) {
+                L.d(NAME, error.toString())
+                Toast.short(this, "Error Occurred In Photos")
+            } else {
+                var adapter = ArtistPhotosAdapter(this@ArtistProfile,lifecycle, details as List<ImagePojo?>)
+                artistPhotos.layoutManager = LinearLayoutManager(this@ArtistProfile, LinearLayoutManager.HORIZONTAL, false)
+                artistPhotos.adapter = adapter
+                artistPhotos.clipToPadding = false
+            }
+        }
+
     }
 
     private fun details(userPojo: UserPojo) {

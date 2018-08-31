@@ -43,7 +43,6 @@ import kotlinx.android.synthetic.main.content_image.*
 class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "ImageActivity"
     private lateinit var details: ImagePojo
-    private lateinit var type: String
     private lateinit var bitmap: Bitmap
 
     /**
@@ -55,7 +54,6 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
         var params = intent.extras
         details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
-        type = params.getString(C.TYPE)
         setImageDetails(details)
 
         imagePreviewWallpaper.setOnClickListener(this)

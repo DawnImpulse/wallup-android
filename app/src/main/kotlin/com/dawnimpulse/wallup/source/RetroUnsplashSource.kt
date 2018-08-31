@@ -75,4 +75,14 @@ interface RetroUnsplashSource {
             @Header(C.AUTHORIZATION) authorization: String,
             @Path("username") username: String
     ): Call<UserPojo>
+
+    // user images
+
+    @GET("/users/{username}/photos")
+    fun userPhotos(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.USERNAME) username: String,
+            @Query(C.PAGE) page: Int,
+            @Query(C.PER_PAGE) count: Int
+    ): Call<List<ImagePojo>>
 }

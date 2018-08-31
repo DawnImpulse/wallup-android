@@ -75,14 +75,31 @@ class UnsplashModel() {
      * Downloaded a photo
      * @param id
      */
-    fun downloadedPhoto(id: String){
+    fun downloadedPhoto(id: String) {
         UnsplashRepository.downloadedPhoto(id)
     }
 
     /**
      * User details
      */
-    fun userDetails(username:String,callback: (Any?, Any?) -> Unit){
-        UnsplashRepository.userDetails(username,callback)
+    fun userDetails(username: String, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.userDetails(username) { e, r ->
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
+                callback(e, r)
+        }
+    }
+
+    /**
+     * Get user photos
+     * @param page
+     * @param count - no of images to return
+     * @param username
+     * @param callback
+     */
+    fun userPhotos(page: Int, count: Int,username: String, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.userPhotos(page, count,username) { error, response ->
+            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
+                callback(error, response)
+        }
     }
 }

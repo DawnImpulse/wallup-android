@@ -76,12 +76,12 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:textColor="@color/black"
                     android:id="@+id/artistPhotoNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="20"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -103,12 +103,12 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:textColor="@color/black"
                     android:id="@+id/artistCollectionNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="20"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -130,12 +130,12 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:textColor="@color/black"
                     android:id="@+id/artistLikesNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="20"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -214,13 +214,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginTop="24dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
                 android:text="PHOTOS"
                 android:textColor="@color/black"
                 android:textSize="14sp"
@@ -231,16 +230,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
                 android:text="More >"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/artistPhotos"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_below="@id/artistPhotosMore"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp">
 
             </android.support.v7.widget.RecyclerView>
 

@@ -19,6 +19,7 @@ import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.source.RetroUnsplashSource
 import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.L
+import com.google.gson.Gson
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -140,7 +141,7 @@ object UnsplashRepository {
     /**
      * User Details
      */
-    fun userDetails(username:String,callback: (Any?, Any?) -> Unit){
+    fun userDetails(username: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.userDetails(
                 Config.UNSPLASH_API_KEY,
@@ -149,11 +150,42 @@ object UnsplashRepository {
         call.enqueue(object : Callback<UserPojo> {
 
             override fun onResponse(call: Call<UserPojo>?, response: Response<UserPojo>) {
-                callback(null,response.body())
+                callback(null, response.body())
             }
 
             override fun onFailure(call: Call<UserPojo>?, t: Throwable?) {
-                callback(t.toString(),null)
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    /**
+     * Get user photos
+     * @param page
+     * @param count
+     * @param username
+     * @param callback
+     */
+    fun userPhotos(page: Int, count: Int,username: String, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.userPhotos(
+                Config.UNSPLASH_API_KEY,
+                username,
+                page,
+                count)
+
+        call.enqueue(object : Callback<List<ImagePojo>> {
+
+            override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
+                if (response.isSuccessful) {
+                    callback(null, response.body())
+                } else {
+                    callback(Gson().toJson(response.errorBody()).toString(), null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
+                callback(t.toString(), null)
             }
         })
     }
