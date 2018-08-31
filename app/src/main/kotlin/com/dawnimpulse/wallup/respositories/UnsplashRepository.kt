@@ -15,6 +15,7 @@ package com.dawnimpulse.wallup.respositories
 
 import com.dawnimpulse.wallup.network.RetroApiClient
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.source.RetroUnsplashSource
 import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.L
@@ -31,6 +32,7 @@ import retrofit2.Response
  *
  * @note Updates :
  *  2018 08 03 - recent - Saksham - downloaded a photo
+ *  2018 08 31 - recent - Saksham - user details
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
@@ -135,5 +137,25 @@ object UnsplashRepository {
         })
     }
 
+    /**
+     * User Details
+     */
+    fun userDetails(username:String,callback: (Any?, Any?) -> Unit){
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.userDetails(
+                Config.UNSPLASH_API_KEY,
+                username)
+
+        call.enqueue(object : Callback<UserPojo> {
+
+            override fun onResponse(call: Call<UserPojo>?, response: Response<UserPojo>) {
+                callback(null,response.body())
+            }
+
+            override fun onFailure(call: Call<UserPojo>?, t: Throwable?) {
+                callback(t.toString(),null)
+            }
+        })
+    }
 
 }

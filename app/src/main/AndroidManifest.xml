@@ -15,7 +15,7 @@
         <!-- Main Activity -->
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +32,10 @@
         <activity
             android:name=".activities.CropActivity"
             android:theme="@style/AppTheme.Fullscreen" />
-        <activity android:name=".ArtistProfile"></activity>
+
+        <!--Artist Profile-->
+        <activity android:name=".activities.ArtistProfile"
+            android:theme="@style/AppTheme.Fullscreen"></activity>
     </application>
 
 </manifest>

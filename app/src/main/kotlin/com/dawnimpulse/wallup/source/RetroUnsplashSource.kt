@@ -1,6 +1,7 @@
 package com.dawnimpulse.wallup.source
 
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.C
 import org.json.JSONObject
 import retrofit2.Call
@@ -66,4 +67,12 @@ interface RetroUnsplashSource {
             @Header(C.AUTHORIZATION) authorization: String,
             @Path("id") id: String
     ): Call<JSONObject>
+
+    // user details
+
+    @GET("/users/{username}")
+    fun userDetails(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path("username") username: String
+    ): Call<UserPojo>
 }

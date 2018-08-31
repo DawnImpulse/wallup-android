@@ -25,6 +25,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.activities.ArtistProfile
 import com.dawnimpulse.wallup.activities.ImageActivity
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
@@ -113,6 +114,12 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MainViewHolder) {
+            var artistClick = View.OnClickListener {
+                var intent = Intent(context, ArtistProfile::class.java)
+                intent.putExtra(C.USERNAME, images[position]!!.user!!.username)
+                context.startActivity(intent)
+            }
+
             ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full + Config.IMAGE_HEIGHT)
             ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position]!!.user!!.profile_image!!.large)
             holder.image.background = ColorDrawable(Color.parseColor(images[position]!!.color!!))
@@ -124,6 +131,9 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
                 intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[position]))
                 (context as AppCompatActivity).startActivity(intent)
             }
+            holder.name.setOnClickListener(artistClick)
+            holder.circleImage.setOnClickListener(artistClick)
+
         }
     }
 

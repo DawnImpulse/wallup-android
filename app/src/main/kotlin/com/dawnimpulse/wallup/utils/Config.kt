@@ -1,6 +1,7 @@
 package com.dawnimpulse.wallup.utils
 
 import android.graphics.Bitmap
+import com.dawnimpulse.wallup.pojo.UserPojo
 
 /*
 ISC License
@@ -33,4 +34,5 @@ object Config {
     var IMAGE_HEIGHT = "&h=$HEIGHT"
 
     lateinit var imageBitmap: Bitmap
+    lateinit var userPojo: UserPojo
 }

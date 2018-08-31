@@ -23,6 +23,7 @@ import com.dawnimpulse.wallup.respositories.UnsplashRepository
  *
  * @note Updates :
  *  2018 08 03 - recent - Saksham - downloaded a photo
+ *  2018 08 31 - recent - Saksham - user details
  */
 class UnsplashModel() {
     lateinit var lifecycle: Lifecycle
@@ -76,5 +77,12 @@ class UnsplashModel() {
      */
     fun downloadedPhoto(id: String){
         UnsplashRepository.downloadedPhoto(id)
+    }
+
+    /**
+     * User details
+     */
+    fun userDetails(username:String,callback: (Any?, Any?) -> Unit){
+        UnsplashRepository.userDetails(username,callback)
     }
 }

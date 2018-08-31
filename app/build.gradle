@@ -48,7 +48,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:2.0.1-rc1'
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
-    //implementation 'com.flaviofaria:kenburnsview:1.0.7'
+    implementation 'com.flaviofaria:kenburnsview:1.0.7'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     implementation 'com.dawnimpulse:permissions:0.1.1'

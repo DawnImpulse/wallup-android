@@ -37,4 +37,5 @@ object C {
     const val TYPE = "type"
     const val IMAGE_POJO = "imagePojo"
     const val BOTTOM_SHEET = "bottomSheet"
+    const val USERNAME = "username"
 }

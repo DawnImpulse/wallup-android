@@ -45,10 +45,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         <TextView
             android:id="@+id/mainName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="24dp"
-            android:layout_marginLeft="16dp"
+            android:layout_toLeftOf="@+id/mainLike"
             android:gravity="bottom"
+            android:paddingLeft="16dp"
+            android:paddingRight="8dp"
             android:text="Amy Blake"
             android:textColor="@color/black"
             android:textSize="16sp" />

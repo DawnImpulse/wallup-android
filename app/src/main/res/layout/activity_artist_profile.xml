@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ArtistProfile">
+    tools:context=".activities.ArtistProfile">
 
     <LinearLayout
+        android:id="@+id/artistLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <!--Name & DP-->
         <RelativeLayout
@@ -40,12 +42,13 @@
                 android:textStyle="bold" />
 
             <!--Image-->
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/artistImage"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="24dp" />
+                android:layout_marginRight="24dp"
+                app:riv_oval="true" />
 
         </RelativeLayout>
 
@@ -73,6 +76,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@color/black"
                     android:id="@+id/artistPhotoNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -99,6 +103,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@color/black"
                     android:id="@+id/artistCollectionNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -125,6 +130,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@color/black"
                     android:id="@+id/artistLikesNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -142,6 +148,58 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
+
+        </LinearLayout>
+
+        <!--Url-->
+        <LinearLayout
+            android:id="@+id/artistUrlL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="36dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vector_drawable_link" />
+
+            <TextView
+                android:id="@+id/artistUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="24dp"
+                android:text="--"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+
+        <!--Location-->
+        <LinearLayout
+            android:id="@+id/artistLocationL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vector_drawable_location" />
+
+            <TextView
+                android:id="@+id/artistLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="24dp"
+                android:text="--"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
@@ -194,20 +252,20 @@
     <LinearLayout
         android:id="@+id/artistUnsplash"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button_corners"
-        android:paddingBottom="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp">
+        android:elevation="6dp"
+        android:padding="8dp"
+        android:visibility="gone">
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_gravity="center"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
             app:srcCompat="@drawable/vector_drawable_camera_white" />
 
         <TextView
@@ -215,9 +273,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="4dp"
             android:text="username"
             android:textColor="@color/white" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/artistProgress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="128dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminate="true" />
 
 </RelativeLayout>

@@ -13,6 +13,7 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -59,6 +60,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
         imagePreviewWallpaper.setOnClickListener(this)
         imagePreviewDownload.setOnClickListener(this)
+        imagePreviewAuthorL.setOnClickListener(this)
+
     }
 
     /**
@@ -79,27 +82,35 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
      * On click for various buttons
      */
     override fun onClick(v: View) {
-        if (v.id === imagePreviewWallpaper.id) {
-            /*Config.imageBitmap = bitmap
-            startActivity(Intent(this@ImageActivity, CropActivity::class.java))*/
-            Permissions.askWriteExternalStoragePermission(this) { no, _ ->
-                if (no != null)
-                    Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
-                else {
-                    Config.imageBitmap = bitmap
-                    WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
+        when (v.id) {
+            imagePreviewWallpaper.id -> {
+                /*Config.imageBitmap = bitmap
+                startActivity(Intent(this@ImageActivity, CropActivity::class.java))*/
+                Permissions.askWriteExternalStoragePermission(this) { no, _ ->
+                    if (no != null)
+                        Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
+                    else {
+                        Config.imageBitmap = bitmap
+                        WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
+                    }
                 }
             }
-        } else if (v.id === imagePreviewDownload.id) {
-            Permissions.askWriteExternalStoragePermission(this) { no, _ ->
-                if (no != null)
-                    Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
-                else {
-                    Download.downloadData(this, details.links!!.download, details.id)
-                    Toast.short(this, "Downloading Image in /Downloads/Wallup/${details.id}.jpg")
+            imagePreviewDownload.id -> {
+                Permissions.askWriteExternalStoragePermission(this) { no, _ ->
+                    if (no != null)
+                        Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
+                    else {
+                        Download.downloadData(this, details.links!!.download, details.id)
+                        Toast.short(this, "Downloading Image in /Downloads/Wallup/${details.id}.jpg")
+                    }
                 }
-            }
 
+            }
+            imagePreviewAuthorL.id -> {
+                var intent = Intent(this, ArtistProfile::class.java)
+                intent.putExtra(C.USERNAME,details.user!!.username)
+                startActivity(intent)
+            }
         }
     }
 
@@ -121,7 +132,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         F.underline(imagePreviewExif)
         F.underline(imagePreviewStatistics)
 
-        if(details.downloads == 0){
+        if (details.downloads == 0) {
             imagePreviewDownloadCount.visibility = View.GONE
         }
 

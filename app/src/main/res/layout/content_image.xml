@@ -67,6 +67,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         <!--Author Layout-->
         <RelativeLayout
+            android:id="@+id/imagePreviewAuthorL"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:layout_marginLeft="20dp"
