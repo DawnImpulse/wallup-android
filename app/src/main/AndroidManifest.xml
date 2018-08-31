@@ -3,7 +3,8 @@
     package="com.dawnimpulse.wallup">
 
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".utils.App"
         android:icon="@drawable/vector_drawable_wallup_logo"
@@ -27,10 +28,11 @@
             android:name=".activities.ImageActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Cropping Activity-->
+        <!-- Cropping Activity -->
         <activity
             android:name=".activities.CropActivity"
-            android:theme="@style/AppTheme.Fullscreen"></activity>
+            android:theme="@style/AppTheme.Fullscreen" />
+        <activity android:name=".ArtistProfile"></activity>
     </application>
 
 </manifest>
