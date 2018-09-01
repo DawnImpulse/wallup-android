@@ -18,13 +18,16 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.core.os.bundleOf
 import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.DateHandler
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.handlers.WallpaperHandler
+import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.*
+import com.dawnimpulse.wallup.utils.sheets.ModalSheetExif
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.content_image.*
@@ -39,11 +42,14 @@ import kotlinx.android.synthetic.main.content_image.*
  *  Saksham - 2018 05 25 - recent - working with single image display
  *  Saksham - 2018 07 20 - recent - adding listeners
  *  Saksham - 2018 07 26 - recent - downloading
+ *  Saksham - 2018 09 01 - master - exif bottom sheet
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "ImageActivity"
     private lateinit var details: ImagePojo
     private lateinit var bitmap: Bitmap
+    private lateinit var model: UnsplashModel
+    private lateinit var exifSheet: ModalSheetExif
 
     /**
      * On create
@@ -52,13 +58,22 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
 
+        exifSheet = ModalSheetExif()
+
         var params = intent.extras
         details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
+        ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full) {
+            bitmap = it
+            movingImage.setImageBitmap(bitmap)
+            //var bottomSheet = BottomSheetImagePreview()
+            //bottomSheet.show(supportFragmentManager, "bottom sheet")
+        }
         setImageDetails(details)
 
         imagePreviewWallpaper.setOnClickListener(this)
         imagePreviewDownload.setOnClickListener(this)
         imagePreviewAuthorL.setOnClickListener(this)
+        imagePreviewExif.setOnClickListener(this)
 
     }
 
@@ -67,13 +82,13 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
      */
     override fun onResume() {
         super.onResume()
-        ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full) {
-            bitmap = it
-            movingImage.setImageBitmap(bitmap)
-            //var bottomSheet = BottomSheetImagePreview()
-            //bottomSheet.show(supportFragmentManager, "bottom sheet")
-        }
-//        ImageHandler.setImageInView(lifecycle, movingImage, details.urls!!.full)
+        if (Config.imagePojo != null)
+            details = Config.imagePojo!!
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Config.imagePojo = null
     }
 
     /**
@@ -106,8 +121,12 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
             }
             imagePreviewAuthorL.id -> {
                 var intent = Intent(this, ArtistProfile::class.java)
-                intent.putExtra(C.USERNAME,details.user!!.username)
+                intent.putExtra(C.USERNAME, details.user!!.username)
                 startActivity(intent)
+            }
+            imagePreviewExif.id -> {
+                exifSheet.arguments = bundleOf(Pair(C.IMAGE_POJO, Gson().toJson(details)))
+                exifSheet.show(supportFragmentManager, exifSheet.tag)
             }
         }
     }
@@ -128,11 +147,15 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
         ImageHandler.setImageInView(lifecycle, imagePreviewAuthorImage, details.user!!.profile_image!!.large)
         F.underline(imagePreviewExif)
-        F.underline(imagePreviewStatistics)
+        //F.underline(imagePreviewStatistics)
 
         if (details.downloads == 0) {
             imagePreviewDownloadCount.visibility = View.GONE
         }
 
+    }
+
+    override fun onBackPressed() {
+        finish()
     }
 }

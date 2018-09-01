@@ -40,10 +40,10 @@ class DatabaseModel() {
      * @param callback
      */
     fun getTrendingImages(timestamp: Int?, callback: (Any?, Any?) -> Unit) {
-        DatabaseRepository.getTrendingImages(timestamp, { error, response ->
+        DatabaseRepository.getTrendingImages(timestamp) { error, response ->
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
                 callback(error, response)
 
-        })
+        }
     }
 }

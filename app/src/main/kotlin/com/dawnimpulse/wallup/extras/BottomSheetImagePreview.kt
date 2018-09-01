@@ -32,6 +32,6 @@ class BottomSheetImagePreview : BottomSheetDialogFragment() {
 
     /*on create view*/
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.bottom_sheet_image_preview, container, false)
+        return inflater.inflate(R.layout.bottom_sheet_exif, container, false)
     }
 }

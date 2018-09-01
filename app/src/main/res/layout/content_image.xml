@@ -233,18 +233,19 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="EXIF"
+                android:letterSpacing="0.3"
                 android:textColor="@color/black"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/imagePreviewStatistics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="36dp"
                 android:text="STATISTICS"
                 android:textColor="@color/black"
-                android:textStyle="bold" />
+                android:textStyle="bold" />-->
         </LinearLayout>
 
         <LinearLayout

@@ -32,6 +32,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  *
  * @note Updates :
  *  Saksham - 2018 05 20 - recent - curated photos
+ *  2018 09 01 - recent - Saksham - image details
  */
 interface RetroUnsplashSource {
 
@@ -85,4 +86,12 @@ interface RetroUnsplashSource {
             @Query(C.PAGE) page: Int,
             @Query(C.PER_PAGE) count: Int
     ): Call<List<ImagePojo>>
+
+    // image details
+
+    @GET("/photos/{id}")
+    fun getImage(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.ID) id: String
+    ): Call<ImagePojo>
 }

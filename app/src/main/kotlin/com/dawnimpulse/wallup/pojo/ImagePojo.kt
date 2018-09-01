@@ -37,7 +37,8 @@ data class ImagePojo(
         @SerializedName("key") val key: String = "",
         @SerializedName("timestamp") val timestamp: Int = 0,
         @SerializedName("views") val views: Int = 0,
-        @SerializedName("downloads") val downloads: Int = 0
+        @SerializedName("downloads") val downloads: Int = 0,
+        @SerializedName("exif") val exif: Exif? = null
 )
 
 data class Urls(
@@ -51,4 +52,13 @@ data class Links(
         @SerializedName("html") val html: String = "",
         @SerializedName("download") val download: String = "",
         @SerializedName("download_location") val download_location: String = ""
+)
+
+data class Exif(
+        @SerializedName("make") val make: String? = null,
+        @SerializedName("model") val model: String? = null,
+        @SerializedName("exposure_time") val exposure_time: String? = null,
+        @SerializedName("focal_length") val focal_length: String? = null,
+        @SerializedName("iso") val iso: Int? = null,
+        @SerializedName("aperture") val aperture: String? = null
 )

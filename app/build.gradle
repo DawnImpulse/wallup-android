@@ -28,12 +28,17 @@ android {
 }
 
 dependencies {
+    def ktx_version = '0.3'
+    def support_version = '27.1.1'
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //--------------- Support Libraries ---------------------
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:support-vector-drawable:27.1.1'
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:support-v4:$support_version"
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support:support-vector-drawable:$support_version"
+    implementation "com.android.support:palette-v7:$support_version"
+    implementation "androidx.core:core-ktx:$ktx_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
     //--------------- Firebase Libraries --------------------

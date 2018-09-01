@@ -66,17 +66,22 @@ object ImageHandler {
      * @param url
      */
     fun getImageAsBitmap(lifecycle: Lifecycle, context: Context, url: String, callback: (bitmap: Bitmap) -> Unit) {
-        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-            Glide.with(context)
-                    .load(url)
-                    .asBitmap()
-                    .into(object : SimpleTarget<Bitmap>() {
-                        override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
-                            resource.let {
-                                callback(it!!)
+        lifecycle.addObserver(object : LifecycleObserver {
+
+            @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+            fun onResume() {
+                Glide.with(context)
+                        .load(url)
+                        .asBitmap()
+                        .into(object : SimpleTarget<Bitmap>() {
+                            override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
+                                resource.let {
+                                    callback(it!!)
+                                }
                             }
-                        }
-                    })
-        }
+                        })
+            }
+
+        })
     }
 }

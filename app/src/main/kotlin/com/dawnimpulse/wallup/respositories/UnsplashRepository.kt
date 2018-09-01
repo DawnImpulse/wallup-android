@@ -28,12 +28,13 @@ import retrofit2.Response
 /**
  * @author Saksham
  *
- * @note Last Branch Update -
+ * @note Last Branch Update - master
  * @note Created on 2018-05-20 by Saksham
  *
  * @note Updates :
  *  2018 08 03 - recent - Saksham - downloaded a photo
  *  2018 08 31 - recent - Saksham - user details
+ *  2018 09 01 - recent - Saksham - image details
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
@@ -166,7 +167,7 @@ object UnsplashRepository {
      * @param username
      * @param callback
      */
-    fun userPhotos(page: Int, count: Int,username: String, callback: (Any?, Any?) -> Unit) {
+    fun userPhotos(page: Int, count: Int, username: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.userPhotos(
                 Config.UNSPLASH_API_KEY,
@@ -185,6 +186,34 @@ object UnsplashRepository {
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    /**
+     * Get image details
+     * @param id
+     * @param callback
+     */
+    fun getImage(id: String, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.getImage(
+                Config.UNSPLASH_API_KEY,
+                id
+        )
+
+        call.enqueue(object : Callback<ImagePojo> {
+
+            override fun onResponse(call: Call<ImagePojo>?, response: Response<ImagePojo>) {
+                if (response.isSuccessful) {
+                    callback(null, response.body())
+                } else {
+                    callback(Gson().toJson(response.errorBody()).toString(), null)
+                }
+            }
+
+            override fun onFailure(call: Call<ImagePojo>?, t: Throwable?) {
                 callback(t.toString(), null)
             }
         })

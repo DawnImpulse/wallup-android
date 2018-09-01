@@ -1,6 +1,7 @@
 package com.dawnimpulse.wallup.utils
 
 import android.graphics.Bitmap
+import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 
 /*
@@ -35,4 +36,5 @@ object Config {
 
     lateinit var imageBitmap: Bitmap
     lateinit var userPojo: UserPojo
+    var imagePojo:ImagePojo? = null
 }

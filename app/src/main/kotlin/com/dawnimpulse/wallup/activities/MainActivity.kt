@@ -21,7 +21,7 @@ import com.dawnimpulse.wallup.fragments.MainFragment
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.ModalBottomSheet
+import com.dawnimpulse.wallup.utils.sheets.ModalBottomSheet
 import com.dawnimpulse.wallup.utils.ViewPagerAdapter
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import kotlinx.android.synthetic.main.activity_main.*

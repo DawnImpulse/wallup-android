@@ -58,8 +58,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <include layout="@layout/content_image" />
 
-    <include layout="@layout/bottom_sheet_image_preview" />
-
     <FrameLayout
         android:visibility="gone"
         android:id="@+id/imagePreviewFab"

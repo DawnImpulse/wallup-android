@@ -38,6 +38,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="colorAccent">@color/white</item>
     </style>
 
+
     <!--Bottom Sheet-->
     <!-- set the rounded drawable as background to your bottom sheet -->
     <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
