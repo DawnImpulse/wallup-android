@@ -12,11 +12,15 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.utils.sheets
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.activities.GeneralImagesActivity
 import com.dawnimpulse.wallup.utils.C
+import kotlinx.android.synthetic.main.bottom_sheet_navigation.*
 
 
 /**
@@ -27,8 +31,29 @@ import com.dawnimpulse.wallup.utils.C
  *
  * @note Updates :
  */
-class ModalBottomSheet : RoundedBottomSheetDialogFragment() {
+class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
+
+    // on create
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(arguments?.getInt(C.BOTTOM_SHEET)!!, container, false);
+        return inflater.inflate(R.layout.bottom_sheet_navigation, container, false);
+    }
+
+    // view created
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        sheetNavRandom.setOnClickListener(this)
+    }
+
+    // clicked
+    override fun onClick(v: View) {
+        when (v.id) {
+            sheetNavRandom.id -> {
+                var intent = Intent(activity, GeneralImagesActivity::class.java)
+                intent.putExtra(C.TYPE,C.RANDOM)
+                startActivity(intent)
+                dismiss()
+            }
+        }
     }
 }

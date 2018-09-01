@@ -15,9 +15,9 @@ import com.dawnimpulse.wallup.utils.L
 import com.dawnimpulse.wallup.utils.Toast
 import kotlinx.android.synthetic.main.activity_artist_profile.*
 
-class ArtistProfile : AppCompatActivity() {
+class ArtistProfileActivity : AppCompatActivity() {
     lateinit var userPojo: UserPojo
-    private val NAME = "ArtistProfile"
+    private val NAME = "ArtistProfileActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +41,8 @@ class ArtistProfile : AppCompatActivity() {
                 L.d(NAME, error.toString())
                 Toast.short(this, "Error Occurred In Photos")
             } else {
-                var adapter = ArtistPhotosAdapter(this@ArtistProfile,lifecycle, details as List<ImagePojo?>)
-                artistPhotos.layoutManager = LinearLayoutManager(this@ArtistProfile, LinearLayoutManager.HORIZONTAL, false)
+                var adapter = ArtistPhotosAdapter(this@ArtistProfileActivity,lifecycle, details as List<ImagePojo?>)
+                artistPhotos.layoutManager = LinearLayoutManager(this@ArtistProfileActivity, LinearLayoutManager.HORIZONTAL, false)
                 artistPhotos.adapter = adapter
                 artistPhotos.clipToPadding = false
             }

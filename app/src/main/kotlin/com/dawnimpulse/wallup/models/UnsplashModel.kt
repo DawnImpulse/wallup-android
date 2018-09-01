@@ -15,7 +15,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.models
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
-import com.dawnimpulse.wallup.respositories.UnsplashRepository
+import com.dawnimpulse.wallup.repositories.UnsplashRepository
 
 /**
  * @author Saksham
@@ -122,6 +122,22 @@ class UnsplashModel() {
                         callback(e, r)
                     }
                 })
+        }
+
+    }
+
+    /**
+     * Get random images
+     * @param callback
+     */
+    fun randomImages(callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.randomImages() { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+                fun onResume() {
+                    callback(e, r)
+                }
+            })
         }
 
     }

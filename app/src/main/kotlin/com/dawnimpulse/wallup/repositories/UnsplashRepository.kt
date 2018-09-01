@@ -11,7 +11,7 @@ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR 
 INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.*/
-package com.dawnimpulse.wallup.respositories
+package com.dawnimpulse.wallup.repositories
 
 import com.dawnimpulse.wallup.network.RetroApiClient
 import com.dawnimpulse.wallup.pojo.ImagePojo
@@ -214,6 +214,32 @@ object UnsplashRepository {
             }
 
             override fun onFailure(call: Call<ImagePojo>?, t: Throwable?) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    /**
+     * Get random images
+     * @param callback
+     */
+    fun randomImages(callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.randomImages(
+                Config.UNSPLASH_API_KEY
+        )
+
+        call.enqueue(object : Callback<List<ImagePojo>> {
+
+            override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
+                if (response.isSuccessful) {
+                    callback(null, response.body())
+                } else {
+                    callback(Gson().toJson(response.errorBody()).toString(), null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
                 callback(t.toString(), null)
             }
         })

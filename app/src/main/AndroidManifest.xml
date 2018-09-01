@@ -33,9 +33,15 @@
             android:name=".activities.CropActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Artist Profile-->
-        <activity android:name=".activities.ArtistProfile"
-            android:theme="@style/AppTheme.Fullscreen"></activity>
+        <!-- Artist Profile -->
+        <activity
+            android:name=".activities.ArtistProfileActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--General Images-->
+        <activity
+            android:name=".activities.GeneralImagesActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
     </application>
 
 </manifest>

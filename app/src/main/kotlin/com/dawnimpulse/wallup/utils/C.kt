@@ -40,4 +40,6 @@ object C {
     const val USERNAME = "username"
     const val ID = "id"
     const val COLOR = "color"
+    const val ARTIST_IMAGES = "artistImages"
+    const val RANDOM = "random"
 }

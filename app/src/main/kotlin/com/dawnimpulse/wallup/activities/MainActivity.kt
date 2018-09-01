@@ -21,7 +21,7 @@ import com.dawnimpulse.wallup.fragments.MainFragment
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.sheets.ModalBottomSheet
+import com.dawnimpulse.wallup.utils.sheets.ModalSheetNav
 import com.dawnimpulse.wallup.utils.ViewPagerAdapter
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
     private lateinit var latestFragment: MainFragment
     private lateinit var trendingFragment: MainFragment
     private lateinit var curatedFragment: MainFragment
-    private lateinit var navSheet: ModalBottomSheet
+    private lateinit var navSheet: ModalSheetNav
     private lateinit var navBundle: Bundle
     private var lastItemSelected = 0
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
         setContentView(R.layout.activity_main)
         setSupportActionBar(mainToolbar)
 
-        navSheet = ModalBottomSheet()
+        navSheet = ModalSheetNav()
         navBundle = Bundle()
         navBundle.putInt(C.BOTTOM_SHEET, R.layout.bottom_sheet_navigation)
         navSheet.arguments = navBundle

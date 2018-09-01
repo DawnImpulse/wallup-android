@@ -94,4 +94,12 @@ interface RetroUnsplashSource {
             @Header(C.AUTHORIZATION) authorization: String,
             @Path(C.ID) id: String
     ): Call<ImagePojo>
+
+    // random images
+
+    @GET("/photos/random?count=30")
+    fun randomImages(
+            @Header(C.AUTHORIZATION) authorization: String
+    ): Call<List<ImagePojo>>
+
 }

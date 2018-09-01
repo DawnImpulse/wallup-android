@@ -25,7 +25,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.activities.ArtistProfile
+import com.dawnimpulse.wallup.activities.ArtistProfileActivity
 import com.dawnimpulse.wallup.activities.ImageActivity
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
@@ -115,7 +115,7 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MainViewHolder) {
             var artistClick = View.OnClickListener {
-                var intent = Intent(context, ArtistProfile::class.java)
+                var intent = Intent(context, ArtistProfileActivity::class.java)
                 intent.putExtra(C.USERNAME, images[position]!!.user!!.username)
                 context.startActivity(intent)
             }

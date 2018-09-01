@@ -146,7 +146,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
             }
             imagePreviewAuthorL.id -> {
-                var intent = Intent(this, ArtistProfile::class.java)
+                var intent = Intent(this, ArtistProfileActivity::class.java)
                 intent.putExtra(C.USERNAME, details.user!!.username)
                 startActivity(intent)
             }

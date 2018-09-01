@@ -14,7 +14,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.models
 
 import android.arch.lifecycle.Lifecycle
-import com.dawnimpulse.wallup.respositories.DatabaseRepository
+import com.dawnimpulse.wallup.repositories.DatabaseRepository
 
 /**
  * @author Saksham

@@ -17,22 +17,36 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:id="@+id/bottom_sheet_image_preview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:behavior_hideable="true"
-    app:behavior_peekHeight="0dp"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="128dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+        <LinearLayout
+            android:id="@+id/sheetNavRandom"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:layout_centerVertical="true"
-            android:text="Hello World"
-            android:textSize="64dp" />
+            android:layout_marginLeft="16dp"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vector_drawable_random" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Random Images"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>
