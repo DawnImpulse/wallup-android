@@ -31,21 +31,20 @@ OR PERFORMANCE OF THIS SOFTWARE.
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
-                android:background="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ProgressBar
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:theme="@style/ImageProgress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/imagePreviewLow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
 
                 <com.flaviofaria.kenburnsview.KenBurnsView
                     android:id="@+id/movingImage"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
@@ -59,13 +58,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <include layout="@layout/content_image" />
 
     <FrameLayout
-        android:visibility="gone"
         android:id="@+id/imagePreviewFab"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_margin="16dp"
         android:background="@drawable/round_fab"
         android:elevation="6dp"
+        android:visibility="gone"
         app:layout_anchor="@id/imagePreviewAppBar"
         app:layout_anchorGravity="bottom|right">
 

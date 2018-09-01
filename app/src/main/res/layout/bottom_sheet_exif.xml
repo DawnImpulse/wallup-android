@@ -59,6 +59,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/sheetExifNoData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:letterSpacing="0.3"
+                android:text="NO EXIF DATA"
+                android:visibility="gone" />
+
             <!--Make-->
             <LinearLayout
                 android:id="@+id/sheetExifMakeL"

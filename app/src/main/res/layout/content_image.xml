@@ -25,14 +25,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:orientation="vertical">
 
         <ProgressBar
-            android:id="@+id/progress"
-            android:indeterminate="true"
-            android:max="100"
-            android:progress="0"
-            android:visibility="gone"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:id="@+id/imagePreviewProgress"
+            style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="8dp"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:indeterminate="true" />
 
         <!--Views & Published-->
         <LinearLayout
@@ -42,6 +41,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_marginTop="20dp">
 
             <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imagePreviewViewsI"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_gravity="center"
@@ -99,6 +99,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_toRightOf="@id/imagePreviewAuthorImage">
 
                 <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/imagePreviewAuthorImagesL"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     app:srcCompat="@drawable/vector_drawable_cards_outline" />
@@ -107,13 +108,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:id="@+id/imagePreviewAuthorImages"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
                     android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="8dp"
                     android:text="-"
                     android:textColor="@color/black"
                     android:textSize="10sp" />
 
                 <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/imagePreviewAuthorCollectionsL"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginLeft="16dp"
@@ -123,9 +125,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:id="@+id/imagePreviewAuthorCollections"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
                     android:layout_marginLeft="8dp"
                     android:text="-"
-                    android:layout_marginBottom="2dp"
                     android:textColor="@color/black"
                     android:textSize="10sp" />
             </LinearLayout>
@@ -140,12 +142,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_marginTop="32dp">
 
             <FrameLayout
-                android:background="@drawable/round_transparent"
                 android:id="@+id/imagePreviewShare"
                 android:layout_width="36dp"
-                android:layout_height="36dp">
+                android:layout_height="36dp"
+                android:background="@drawable/round_transparent">
 
                 <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/imagePreviewShareI"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
@@ -168,6 +171,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:paddingRight="24dp">
 
                     <TextView
+                        android:id="@+id/imagePreviewWallpaperT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
@@ -225,15 +229,19 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="14dp"
             android:layout_marginTop="40dp">
 
             <TextView
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:id="@+id/imagePreviewExif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EXIF"
                 android:letterSpacing="0.3"
+                android:text="EXIF"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -249,9 +257,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
         </LinearLayout>
 
         <LinearLayout
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:layout_gravity="center"
             android:layout_marginTop="64dp">
 
             <android.support.v7.widget.AppCompatImageView
@@ -260,14 +268,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 app:srcCompat="@drawable/vector_drawable_wallup_logo_greyscale" />
 
             <TextView
-                android:layout_marginLeft="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
                 android:letterSpacing="0.5"
                 android:text="Wallup"
-                android:textSize="24sp"
                 android:textColor="@color/grey400"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="24sp" />
         </LinearLayout>
 
     </LinearLayout>

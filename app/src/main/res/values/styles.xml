@@ -35,7 +35,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <!--Progress Bar Image View-->
     <style name="ImageProgress" parent="Theme.AppCompat.Light">
-        <item name="colorAccent">@color/white</item>
+        <item name="colorAccent">@color/black</item>
     </style>
 
 

@@ -39,4 +39,5 @@ object C {
     const val BOTTOM_SHEET = "bottomSheet"
     const val USERNAME = "username"
     const val ID = "id"
+    const val COLOR = "color"
 }

@@ -23,7 +23,6 @@ import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.L
-import com.dawnimpulse.wallup.utils.RoundedBottomSheetDialogFragment
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.bottom_sheet_exif.*
 
@@ -74,23 +73,19 @@ class ModalSheetExif : RoundedBottomSheetDialogFragment() {
             setImageExif()
     }
 
-    // on stop
-    override fun onStop() {
-        super.onStop()
-        dismiss()
-    }
-
     /**
      * set image exif
      */
     private fun setImageExif() {
+        if (arguments!!.containsKey(C.COLOR))
+            setColor(arguments!!.getInt(C.COLOR))
         sheetExifL.visibility = View.VISIBLE
 
-        L.dO(NAME, details)
         if (details.exif!!.make != null) {
             sheetExifMake.text = details.exif!!.make
         } else
             sheetExifMakeL.visibility = View.GONE
+
 
         if (details.exif!!.model != null) {
             sheetExifModel.text = details.exif!!.model
@@ -116,7 +111,23 @@ class ModalSheetExif : RoundedBottomSheetDialogFragment() {
             sheetExifIso.text = details.exif!!.iso.toString()
         } else
             sheetExifIsoL.visibility = View.GONE
+
+        L.d(NAME, Gson().toJson(details.exif!!))
+        if (Gson().toJson(details.exif!!).toString() == "{}")
+            sheetExifNoData.visibility = View.VISIBLE
     }
 
+    /**
+     * set color on views
+     */
+    private fun setColor(color: Int) {
+        sheetExifNoData.setTextColor(color)
+        sheetExifApertureText.setTextColor(color)
+        sheetExifMakeText.setTextColor(color)
+        sheetExifModelText.setTextColor(color)
+        sheetExifFocalText.setTextColor(color)
+        sheetExifExposureText.setTextColor(color)
+        sheetExifIsoText.setTextColor(color)
+    }
 
 }

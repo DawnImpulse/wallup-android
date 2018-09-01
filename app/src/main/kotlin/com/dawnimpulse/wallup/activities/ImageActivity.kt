@@ -15,10 +15,14 @@ package com.dawnimpulse.wallup.activities
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.PorterDuff
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.graphics.Palette
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.widget.toast
 import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.DateHandler
@@ -46,10 +50,12 @@ import kotlinx.android.synthetic.main.content_image.*
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "ImageActivity"
+    private var setBitmap = false
+    private var bitmap: Bitmap? = null
     private lateinit var details: ImagePojo
-    private lateinit var bitmap: Bitmap
     private lateinit var model: UnsplashModel
     private lateinit var exifSheet: ModalSheetExif
+    private var color: Int = 0
 
     /**
      * On create
@@ -62,11 +68,23 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
         var params = intent.extras
         details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
+
+        ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full + Config.IMAGE_HEIGHT) {
+            color = ColorModifier.getNonDarkColor(Palette.from(it).generate(), this)
+            color()
+            imagePreviewLow.setImageBitmap(it)
+        }
         ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full) {
             bitmap = it
             movingImage.setImageBitmap(bitmap)
-            //var bottomSheet = BottomSheetImagePreview()
-            //bottomSheet.show(supportFragmentManager, "bottom sheet")
+            movingImage.visibility = View.VISIBLE
+            imagePreviewLow.visibility = View.GONE
+            imagePreviewProgress.visibility = View.GONE
+
+            if (setBitmap) {
+                Config.imageBitmap = bitmap!!
+                WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
+            }
         }
         setImageDetails(details)
 
@@ -86,6 +104,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
             details = Config.imagePojo!!
     }
 
+    /**
+     * On stop
+     */
     override fun onStop() {
         super.onStop()
         Config.imagePojo = null
@@ -103,8 +124,13 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                     if (no != null)
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
                     else {
-                        Config.imageBitmap = bitmap
-                        WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
+                        if (bitmap != null) {
+                            Config.imageBitmap = bitmap!!
+                            WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
+                        } else {
+                            toast("Waiting for High Quality Image to load ...")
+                            setBitmap = true
+                        }
                     }
                 }
             }
@@ -125,10 +151,20 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             imagePreviewExif.id -> {
-                exifSheet.arguments = bundleOf(Pair(C.IMAGE_POJO, Gson().toJson(details)))
+                var bundle = bundleOf(Pair(C.IMAGE_POJO, Gson().toJson(details)))
+                if (color != 0) bundle.putInt(C.COLOR, color)
+
+                exifSheet.arguments = bundle
                 exifSheet.show(supportFragmentManager, exifSheet.tag)
             }
         }
+    }
+
+    /**
+     * On back pressed
+     */
+    override fun onBackPressed() {
+        finish()
     }
 
     /**
@@ -155,7 +191,20 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    override fun onBackPressed() {
-        finish()
+    /**
+     * set color on a resources
+     */
+    private fun color() {
+        var down = imagePreviewDownload.background.current as GradientDrawable
+        var wall = imagePreviewWallpaper.background.current as GradientDrawable
+
+        imagePreviewAuthorImagesL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        imagePreviewAuthorCollectionsL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        imagePreviewShareI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        imagePreviewViewsI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+
+        down.setColor(color)
+        wall.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        imagePreviewWallpaperT.setTextColor(color)
     }
 }

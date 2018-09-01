@@ -17,7 +17,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.RoundedBottomSheetDialogFragment
 
 
 /**
