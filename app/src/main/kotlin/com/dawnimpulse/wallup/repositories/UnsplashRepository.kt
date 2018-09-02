@@ -33,8 +33,9 @@ import retrofit2.Response
  *
  * @note Updates :
  *  2018 08 03 - recent - Saksham - downloaded a photo
- *  2018 08 31 - recent - Saksham - user details
- *  2018 09 01 - recent - Saksham - image details
+ *  2018 08 31 - master - Saksham - user details
+ *  2018 09 01 - master - Saksham - image details
+ *  2018 09 02 - master - Saksham - random user images
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
@@ -227,6 +228,33 @@ object UnsplashRepository {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.randomImages(
                 Config.UNSPLASH_API_KEY
+        )
+
+        call.enqueue(object : Callback<List<ImagePojo>> {
+
+            override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
+                if (response.isSuccessful) {
+                    callback(null, response.body())
+                } else {
+                    callback(Gson().toJson(response.errorBody()).toString(), null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    /**
+     * Get random images
+     * @param callback
+     */
+    fun randomUserImages(username: String, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.randomUserImages(
+                Config.UNSPLASH_API_KEY,
+                username
         )
 
         call.enqueue(object : Callback<List<ImagePojo>> {

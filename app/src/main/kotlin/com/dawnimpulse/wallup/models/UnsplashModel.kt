@@ -25,8 +25,9 @@ import com.dawnimpulse.wallup.repositories.UnsplashRepository
  *
  * @note Updates :
  *  2018 08 03 - recent - Saksham - downloaded a photo
- *  2018 08 31 - recent - Saksham - user details
- *  2018 09 01 - recent - Saksham - image details
+ *  2018 08 31 - master - Saksham - user details
+ *  2018 09 01 - master - Saksham - image details
+ *  2018 09 02 - master - Saksham - random user images
  */
 class UnsplashModel() {
     lateinit var lifecycle: Lifecycle
@@ -132,6 +133,23 @@ class UnsplashModel() {
      */
     fun randomImages(callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.randomImages() { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+                fun onResume() {
+                    callback(e, r)
+                }
+            })
+        }
+
+    }
+
+    /**
+     * Get random user images
+     * @param username
+     * @param callback
+     */
+    fun randomUserImages(username: String, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.randomUserImages(username) { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
                 @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
                 fun onResume() {

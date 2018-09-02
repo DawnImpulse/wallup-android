@@ -48,6 +48,7 @@ import com.google.gson.Gson
 class MainAdapter(private val lifecycle: Lifecycle, private val images: List<ImagePojo?>, recycler: RecyclerView)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private val NAME = "MainAdapter"
     private var lastVisibleItem: Int = 0
     private var totalItemCount: Int = 0
     private val visibleThreshold = 5

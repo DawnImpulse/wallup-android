@@ -32,7 +32,8 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  *
  * @note Updates :
  *  Saksham - 2018 05 20 - recent - curated photos
- *  2018 09 01 - recent - Saksham - image details
+ *  Saksham - 2018 09 01 - recent - image details
+ *  Saksham - 2018 09 02 - recent - random user images
  */
 interface RetroUnsplashSource {
 
@@ -102,4 +103,11 @@ interface RetroUnsplashSource {
             @Header(C.AUTHORIZATION) authorization: String
     ): Call<List<ImagePojo>>
 
+    // random user images
+
+    @GET("/photos/random?count=30")
+    fun randomUserImages(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Query(C.USERNAME) username: String
+    ): Call<List<ImagePojo>>
 }
