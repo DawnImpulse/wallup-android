@@ -7,7 +7,7 @@
 
     <application
         android:name=".utils.App"
-        android:icon="@drawable/vector_drawable_wallup_logo"
+        android:icon="@drawable/vd_wallup_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

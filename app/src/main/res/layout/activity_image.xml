@@ -78,7 +78,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/vector_drawable_heart_outline" />
+                app:srcCompat="@drawable/vd_heart_outline" />
 
             <TextView
                 android:id="@+id/imagePreviewLikesCount"

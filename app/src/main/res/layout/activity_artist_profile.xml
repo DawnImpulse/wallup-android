@@ -164,7 +164,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/vector_drawable_link" />
+                app:srcCompat="@drawable/vd_link" />
 
             <TextView
                 android:id="@+id/artistUrl"
@@ -190,7 +190,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/vector_drawable_location" />
+                app:srcCompat="@drawable/vd_location" />
 
             <TextView
                 android:id="@+id/artistLocation"
@@ -274,7 +274,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="2dp"
-            app:srcCompat="@drawable/vector_drawable_camera_white" />
+            app:srcCompat="@drawable/vd_camera_white" />
 
         <TextView
             android:id="@+id/artistUsername"

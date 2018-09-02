@@ -23,22 +23,22 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/vector_drawable_flash_circle"
+        android:icon="@drawable/vd_flash_circle"
         android:title="Latest" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/vector_drawable_trending_up"
+        android:icon="@drawable/vd_trending_up"
         android:title="Trending" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/vector_drawable_trophy_award"
+        android:icon="@drawable/vd_trophy_award"
         android:title="Curated" />
 
     <item
         android:id="@+id/navigation_up"
-        android:icon="@drawable/vector_drawable_chevron_up"
+        android:icon="@drawable/vd_chevron_up"
         android:title="Up" />
 
 </menu>

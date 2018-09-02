@@ -34,5 +34,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/vector_drawable_refresh" />
+        app:srcCompat="@drawable/vd_refresh" />
 </RelativeLayout>

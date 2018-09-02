@@ -45,7 +45,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/vector_drawable_eye_outline" />
+                app:srcCompat="@drawable/vd_eye_outline" />
 
             <TextView
                 android:id="@+id/imagePreviewViewsCount"
@@ -102,7 +102,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:id="@+id/imagePreviewAuthorImagesL"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
-                    app:srcCompat="@drawable/vector_drawable_cards_outline" />
+                    app:srcCompat="@drawable/vd_cards_outline" />
 
                 <TextView
                     android:id="@+id/imagePreviewAuthorImages"
@@ -119,7 +119,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginLeft="16dp"
-                    app:srcCompat="@drawable/vector_drawable_collage" />
+                    app:srcCompat="@drawable/vd_collage" />
 
                 <TextView
                     android:id="@+id/imagePreviewAuthorCollections"
@@ -152,7 +152,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/vector_drawable_share" />
+                    app:srcCompat="@drawable/vd_share" />
             </FrameLayout>
 
             <LinearLayout
@@ -265,7 +265,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                app:srcCompat="@drawable/vector_drawable_wallup_logo_greyscale" />
+                app:srcCompat="@drawable/vd_wallup_logo_greyscale" />
 
             <TextView
                 android:layout_width="wrap_content"

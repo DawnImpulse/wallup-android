@@ -20,7 +20,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_height="wrap_content"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
+    <View
+        android:layout_width="32dp"
+        android:layout_height="3dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/button_round_complete_corners_grey" />
+
     <FrameLayout
+        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="128dp">
 
@@ -233,7 +241,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_alignParentRight="true"
             android:layout_marginBottom="-60dp"
             android:layout_marginRight="-72dp"
-            app:srcCompat="@drawable/vector_drawable_camera_grey" />
+            app:srcCompat="@drawable/vd_camera_grey" />
 
     </RelativeLayout>
 

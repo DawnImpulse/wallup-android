@@ -44,14 +44,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_marginLeft="16dp"
                     android:layout_height="24dp"
                     android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/vector_drawable_search" />
+                    app:srcCompat="@drawable/vd_search" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/vector_drawable_wallup_logo_greyscale" />
+                    app:srcCompat="@drawable/vd_wallup_logo_greyscale" />
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/mainProfile"

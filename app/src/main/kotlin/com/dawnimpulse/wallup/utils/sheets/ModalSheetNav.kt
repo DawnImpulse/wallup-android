@@ -17,6 +17,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.activities.GeneralImagesActivity
 import com.dawnimpulse.wallup.utils.C
@@ -43,6 +44,7 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         sheetNavRandom.setOnClickListener(this)
+        sheetNavFeedback.setOnClickListener(this)
     }
 
     // clicked
@@ -50,9 +52,17 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
         when (v.id) {
             sheetNavRandom.id -> {
                 var intent = Intent(activity, GeneralImagesActivity::class.java)
-                intent.putExtra(C.TYPE,C.RANDOM)
+                intent.putExtra(C.TYPE, C.RANDOM)
                 startActivity(intent)
                 dismiss()
+            }
+            sheetNavFeedback.id -> {
+                val emailIntent = Intent(android.content.Intent.ACTION_SEND)
+                emailIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                emailIntent.type = "vnd.android.cursor.item/email"
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, arrayOf("dawnimpulse@gmail.com"))
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Wallup Feedback  v${BuildConfig.VERSION_NAME}")
+                startActivity(Intent.createChooser(emailIntent, "Send mail using..."))
             }
         }
     }
