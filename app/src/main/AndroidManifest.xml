@@ -12,16 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- Main Activity -->
+        <!--Splash Screen-->
         <activity
-            android:name=".activities.MainActivity"
-            android:theme="@style/AppTheme.Fullscreen">
+            android:name=".activities.SplashActivity"
+            android:theme="@style/AppTheme.Fullscreen.Preview">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Main Activity -->
+        <activity
+            android:name=".activities.MainActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
 
         <!-- Image Activity -->
         <activity
@@ -38,9 +43,14 @@
             android:name=".activities.ArtistProfileActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--General Images-->
+        <!-- General Images -->
         <activity
             android:name=".activities.GeneralImagesActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--Changes Activity-->
+        <activity
+            android:name=".activities.ChangesActivity"
             android:theme="@style/AppTheme.Fullscreen" />
     </application>
 

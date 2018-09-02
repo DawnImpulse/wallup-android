@@ -24,6 +24,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  * @note Created on 2018-05-27 by Saksham
  *
  * @note Updates :
+ *  Saksham - 2018 09 02 - master - unsplash referral
  */
 object F {
 
@@ -31,7 +32,7 @@ object F {
      * underline a text
      * @param view
      */
-    fun underline(view:TextView){
+    fun underline(view: TextView) {
         view.paintFlags = Paint.UNDERLINE_TEXT_FLAG
     }
 
@@ -46,5 +47,12 @@ object F {
         return String.format("%.1f %c",
                 count / Math.pow(1000.0, exp.toDouble()),
                 "kMGTPE"[exp - 1])
+    }
+
+    /**
+     * create unsplash user referral link
+     */
+    fun unsplashUser(username: String): String {
+        return "https://unsplash.com/@$username${C.UTM}"
     }
 }

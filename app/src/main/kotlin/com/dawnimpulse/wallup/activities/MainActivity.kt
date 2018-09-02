@@ -18,11 +18,9 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.fragments.MainFragment
-import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.sheets.ModalSheetNav
 import com.dawnimpulse.wallup.utils.ViewPagerAdapter
+import com.dawnimpulse.wallup.utils.sheets.ModalSheetNav
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -62,7 +60,7 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
         navigation.setOnMenuItemClickListener(this)
         mainViewPager.addOnPageChangeListener(this)
         mainViewPager.offscreenPageLimit = 2
-        ImageHandler.setImageInView(lifecycle, mainProfile, Config.TEMP_IMAGE)
+        //ImageHandler.setImageInView(lifecycle, mainProfile, Config.TEMP_IMAGE)
     }
 
     /**

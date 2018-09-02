@@ -27,10 +27,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/mainToolbar"
-            app:contentInsetStart="0dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:visibility="gone"
+            app:contentInsetStart="0dp"
             app:layout_scrollFlags="enterAlways|scroll"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -41,9 +42,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/mainSearch"
                     android:layout_width="24dp"
-                    android:layout_marginLeft="16dp"
                     android:layout_height="24dp"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/vd_search" />
 
                 <android.support.v7.widget.AppCompatImageView
@@ -60,6 +62,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"
+                    android:visibility="gone"
                     app:riv_oval="true" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>

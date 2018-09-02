@@ -1,14 +1,21 @@
 package com.dawnimpulse.wallup.utils
 
 import android.app.Application
+import android.content.ContextWrapper
 import android.util.Log
+import com.crashlytics.android.Crashlytics
+import com.crashlytics.android.core.CrashlyticsCore
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.pixplicity.easyprefs.library.Prefs
+import io.fabric.sdk.android.Fabric
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
+
+
 
 
 
@@ -46,7 +53,8 @@ class App : Application() {
         FirebaseDatabase.getInstance().setPersistenceEnabled(false);
         setUpRemoteConfig()
         setFonts()
-        //setDownload()
+        setPrefs()
+        setCrashlytics()
     }
 
     /**
@@ -90,12 +98,24 @@ class App : Application() {
     }
 
     /**
-     * Setup PR Download library
+     * Set shared preferences
      */
-    private fun setDownload(){
-       /* val config = PRDownloaderConfig.newBuilder()
-                .setDatabaseEnabled(true)
+    private fun setPrefs(){
+        Prefs.Builder()
+                .setContext(this)
+                .setMode(ContextWrapper.MODE_PRIVATE)
+                .setPrefsName(packageName)
+                .setUseDefaultSharedPreference(true)
                 .build()
-        PRDownloader.initialize(applicationContext, config)*/
+    }
+
+    /**
+     * disabling crashlytics in debug builds
+     */
+    private fun setCrashlytics(){
+        val crashlyticsCore = CrashlyticsCore.Builder()
+                .disabled(BuildConfig.DEBUG)
+                .build()
+        Fabric.with(this, Crashlytics.Builder().core(crashlyticsCore).build())
     }
 }

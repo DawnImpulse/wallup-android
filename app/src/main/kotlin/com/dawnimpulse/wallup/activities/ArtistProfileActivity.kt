@@ -1,6 +1,20 @@
+/*
+ISC License
+
+Copyright 2018, Saksham (DawnImpulse)
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted,
+provided that the above copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -12,6 +26,7 @@ import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.utils.L
 import com.dawnimpulse.wallup.utils.Toast
 import kotlinx.android.synthetic.main.activity_artist_profile.*
@@ -61,6 +76,8 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         artistPhotosMore.setOnClickListener(this)
+        artistUnsplash.setOnClickListener(this)
+        artistUrl.setOnClickListener(this)
     }
 
     // on click
@@ -72,9 +89,18 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtra(C.USERNAME, userPojo.username)
                 startActivity(intent)
             }
+            artistUnsplash.id -> {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(F.unsplashUser(userPojo.username))))
+            }
+            artistUrl.id -> {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(userPojo.portfolio_url)))
+            }
         }
     }
 
+    /**
+     * setting details
+     */
     private fun details() {
         artistUsername.text = "@ ${userPojo.username}"
         artistFirstName.text = userPojo.first_name
@@ -88,9 +114,10 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
         else
             artistInfo.visibility = View.GONE
 
-        if (userPojo.portfolio_url != null)
+        if (userPojo.portfolio_url != null) {
             artistUrl.text = userPojo.portfolio_url
-        else
+            F.underline(artistUrl)
+        } else
             artistUrlL.visibility = View.GONE
 
         if (userPojo.location != null)

@@ -60,6 +60,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentRight="true"
+            android:visibility="gone"
             app:srcCompat="@drawable/vd_dots_vertical" />
 
         <android.support.v7.widget.AppCompatImageView
@@ -68,6 +69,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="24dp"
             android:layout_marginRight="32dp"
             android:layout_toLeftOf="@id/mainThreeDot"
+            android:visibility="gone"
             app:srcCompat="@drawable/vd_cards_heart___" />
     </RelativeLayout>
 

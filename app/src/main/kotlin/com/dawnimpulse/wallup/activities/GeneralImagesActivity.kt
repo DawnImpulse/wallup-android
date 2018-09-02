@@ -44,6 +44,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         }
 
         generalImagesFab.setOnClickListener(this)
+        generalImagesSwipe.setOnRefreshListener(this)
     }
 
     // on click

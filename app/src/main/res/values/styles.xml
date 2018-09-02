@@ -33,6 +33,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <!--Preview Theme-->
+    <style name="AppTheme.Fullscreen.Preview" parent="AppTheme.Fullscreen">
+        <item name="android:windowBackground">@color/black90</item>
+    </style>
+
     <!--Progress Bar Image View-->
     <style name="ImageProgress" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/black</item>

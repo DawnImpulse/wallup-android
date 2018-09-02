@@ -42,4 +42,6 @@ object C {
     const val COLOR = "color"
     const val ARTIST_IMAGES = "artistImages"
     const val RANDOM = "random"
+    const val VERSION_CODE = "versionCode"
+    const val UTM = "?utm_source=wallup&utm_medium=referral"
 }
