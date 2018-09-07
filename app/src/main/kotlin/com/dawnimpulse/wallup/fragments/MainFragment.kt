@@ -49,6 +49,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
     private lateinit var images: MutableList<ImagePojo?>
     private lateinit var model: UnsplashModel
     private lateinit var modelR: DatabaseModel
+    private var timestamp = 0
     private var nextPage = 2
 
     /**
@@ -66,12 +67,11 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val type = arguments
         model = UnsplashModel(lifecycle)
         modelR = DatabaseModel(lifecycle)
 
-        this.type = type!!.getString(C.TYPE)
-        when (this.type) {
+        type = arguments!!.getString(C.TYPE)
+        when (type) {
             C.LATEST ->
                 model.getLatestImages(1, callback)
             C.CURATED ->
@@ -81,6 +81,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
 
         }
         mainRefresher.setOnRefreshListener(this)
+
     }
 
     /**
@@ -110,7 +111,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
             C.CURATED ->
                 model.getCuratedImages(nextPage, callbackPaginated)
             C.TRENDING ->
-                modelR.getTrendingImages(images[images.size - 2]!!.timestamp, callbackPaginated)
+                modelR.getTrendingImages(timestamp, callbackPaginated)
 
         }
     }
@@ -125,6 +126,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 mainRefresher.isRefreshing = false
             } else {
                 images = (response as List<ImagePojo>).toMutableList()
+                timestamp = images[images.size-1]!!.timestamp
                 mainAdapter = MainAdapter(lifecycle, images, mainRecycler)
                 mainRecycler.layoutManager = LinearLayoutManager(context)
                 mainRecycler.adapter = mainAdapter
@@ -147,7 +149,9 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 nextPage++
                 images.removeAt(images.size - 1)
                 mainAdapter.notifyItemRemoved(images.size - 1)
-                images.addAll(response as List<ImagePojo>)
+                var newImages = response as List<ImagePojo>
+                timestamp = newImages[newImages.size - 1]!!.timestamp
+                images.addAll(newImages)
                 mainAdapter.notifyDataSetChanged()
                 mainAdapter.setLoaded()
             }

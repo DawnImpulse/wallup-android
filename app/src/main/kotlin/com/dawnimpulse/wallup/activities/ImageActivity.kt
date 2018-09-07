@@ -26,10 +26,7 @@ import androidx.core.os.bundleOf
 import androidx.core.widget.toast
 import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.handlers.DateHandler
-import com.dawnimpulse.wallup.handlers.DownloadHandler
-import com.dawnimpulse.wallup.handlers.ImageHandler
-import com.dawnimpulse.wallup.handlers.WallpaperHandler
+import com.dawnimpulse.wallup.handlers.*
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.*
@@ -81,7 +78,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
         }
         ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full + Config.IMAGE_HEIGHT) {
-            color = ColorModifier.getNonDarkColor(Palette.from(it).generate(), this)
+            color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
             color()
             movingImage.setImageBitmap(it)
             imagePreviewProgress.visibility = View.GONE

@@ -13,15 +13,17 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.fragments.MainFragment
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Colors
 import com.dawnimpulse.wallup.utils.ViewPagerAdapter
 import com.dawnimpulse.wallup.utils.sheets.ModalSheetNav
-import it.sephiroth.android.library.bottomnavigation.BottomNavigation
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -34,7 +36,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  *  Saksham - 2018 05 20 - recent - adding multiple fragments
  *  Saksham - 2018 08 19 - master - using bottom modal sheet navigation
  */
-class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionListener, ViewPager.OnPageChangeListener {
+class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.OnClickListener {
     private lateinit var pagerAdapter: ViewPagerAdapter
     private lateinit var latestFragment: MainFragment
     private lateinit var trendingFragment: MainFragment
@@ -43,9 +45,7 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
     private lateinit var navBundle: Bundle
     private var lastItemSelected = 0
 
-    /**
-     * On create
-     */
+    // on create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -57,30 +57,51 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
         navSheet.arguments = navBundle
 
         setupViewPager(mainViewPager)
-        navigation.setOnMenuItemClickListener(this)
+        currentNavItem(0)
         mainViewPager.addOnPageChangeListener(this)
         mainViewPager.offscreenPageLimit = 2
+
+        mainNavTrending.setOnClickListener(this)
+        mainNavCurated.setOnClickListener(this)
+        mainNavLatest.setOnClickListener(this)
+        mainNavUp.setOnClickListener(this)
+        mainRefresh.setOnClickListener(this)
         //ImageHandler.setImageInView(lifecycle, mainProfile, Config.TEMP_IMAGE)
     }
 
-    /**
-     * On menu item select
-     */
-    override fun onMenuItemSelect(p0: Int, position: Int, p2: Boolean) {
-        if (position != 3) {
-            lastItemSelected = position
-            mainViewPager.currentItem = position
-        } else {
-            navSheet.show(supportFragmentManager, C.BOTTOM_SHEET)
-            navigation.setSelectedIndex(lastItemSelected, false)
+    // on click
+    override fun onClick(v: View) {
+        when (v.id) {
+            mainNavTrending.id -> currentNavItem(0)
+            mainNavLatest.id -> currentNavItem(1)
+            mainNavCurated.id -> currentNavItem(2)
+            mainNavUp.id -> {
+                navSheet.show(supportFragmentManager, C.BOTTOM_SHEET)
+                currentNavItem(lastItemSelected)
+            }
+            mainRefresh.id -> {
+                when (lastItemSelected) {
+                    0 -> trendingFragment.onRefresh()
+                    1 -> latestFragment.onRefresh()
+                    2 -> curatedFragment.onRefresh()
+                }
+            }
         }
     }
 
-    /**
-     * On menu item reselect
-     */
-    override fun onMenuItemReselect(p0: Int, p1: Int, p2: Boolean) {
+    // viewpager
+    override fun onPageSelected(position: Int) {
+        currentNavItem(position)
+    }
 
+    // viewpager dummy
+    override fun onPageScrollStateChanged(state: Int) {
+        //
+    }
+
+    // viewpager dummy
+    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+        //
     }
 
     /**
@@ -104,31 +125,64 @@ class MainActivity : AppCompatActivity(), BottomNavigation.OnMenuItemSelectionLi
         trendingFragment.arguments = trendingBundle
         curatedFragment.arguments = curatedBundle
 
-        pagerAdapter.addFragment(latestFragment, C.LATEST)
         pagerAdapter.addFragment(trendingFragment, C.TRENDING)
+        pagerAdapter.addFragment(latestFragment, C.LATEST)
         pagerAdapter.addFragment(curatedFragment, C.CURATED)
         viewPager.adapter = pagerAdapter
     }
 
-
     /**
-     * On page selected (viewpager)
+     * current nav item selected
+     * @param pos
      */
-    override fun onPageSelected(position: Int) {
-        navigation.setSelectedIndex(position, true)
+    private fun currentNavItem(pos: Int) {
+        changeNavColor(pos)
+        when (pos) {
+            0 -> {
+                lastItemSelected = 0
+                mainViewPager.currentItem = 0
+                mainNavTrendingT.visibility = View.VISIBLE
+                mainNavLatestT.visibility = View.GONE
+                mainNavCuratedT.visibility = View.GONE
+            }
+            1 -> {
+                lastItemSelected = 1
+                mainViewPager.currentItem = 1
+                mainNavTrendingT.visibility = View.GONE
+                mainNavLatestT.visibility = View.VISIBLE
+                mainNavCuratedT.visibility = View.GONE
+            }
+            2 -> {
+                lastItemSelected = 2
+                mainViewPager.currentItem = 2
+                mainNavTrendingT.visibility = View.GONE
+                mainNavLatestT.visibility = View.GONE
+                mainNavCuratedT.visibility = View.VISIBLE
+            }
+        }
     }
 
     /**
-     * On page scroll state (viewpager)
+     * change nav icon colors
      */
-    override fun onPageScrollStateChanged(state: Int) {
-        //
-    }
-
-    /**
-     * On page scrolled (viewpager)
-     */
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        //
+    private fun changeNavColor(pos: Int) {
+        val colors = Colors(this)
+        when (pos) {
+            0 -> {
+                mainNavTrendingI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
+                mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+                mainNavCuratedI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+            }
+            1 -> {
+                mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+                mainNavLatestI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
+                mainNavCuratedI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+            }
+            2 -> {
+                mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+                mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+                mainNavCuratedI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
+            }
+        }
     }
 }

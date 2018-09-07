@@ -30,7 +30,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:visibility="gone"
+            android:visibility="visible"
             app:contentInsetStart="0dp"
             app:layout_scrollFlags="enterAlways|scroll"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -55,15 +55,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_centerVertical="true"
                     app:srcCompat="@drawable/vd_wallup_logo_greyscale" />
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/mainProfile"
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/mainRefresh"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="16dp"
-                    android:visibility="gone"
-                    app:riv_oval="true" />
+                    app:srcCompat="@drawable/vd_refresh_black" />
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
@@ -79,12 +78,124 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="match_parent" />
     </RelativeLayout>
 
-    <it.sephiroth.android.library.bottomnavigation.BottomNavigation
-        android:id="@+id/navigation"
+    <!--Bottom nav-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
-        app:bbn_entries="@menu/navigation"
-        app:layout_behavior=".utils.BottomNavigationBehaviour" />
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:orientation="horizontal"
+        app:layout_behavior=".utils.BottomNavigationBehaviour">
+
+        <RelativeLayout
+            android:id="@+id/mainNavTrending"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/mainNavTrendingI"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vd_trending_up" />
+
+                <TextView
+                    android:id="@+id/mainNavTrendingT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mainNavTrendingI"
+                    android:layout_gravity="center"
+                    android:text="Trending"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/mainNavLatest"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/mainNavLatestI"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vd_flash_circle" />
+
+                <TextView
+                    android:id="@+id/mainNavLatestT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Latest"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/mainNavCurated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/mainNavCuratedI"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vd_trophy_award" />
+
+                <TextView
+                    android:id="@+id/mainNavCuratedT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Curated"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/mainNavUp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/vd_chevron_up" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
