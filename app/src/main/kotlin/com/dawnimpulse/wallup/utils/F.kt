@@ -25,6 +25,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  *
  * @note Updates :
  *  Saksham - 2018 09 02 - master - unsplash referral
+ *  Saksham - 2018 09 06 - master - unsplash image referral
  */
 object F {
 
@@ -54,5 +55,12 @@ object F {
      */
     fun unsplashUser(username: String): String {
         return "https://unsplash.com/@$username${C.UTM}"
+    }
+
+    /**
+     * create unsplash image referral link
+     */
+    fun unsplashImage(id: String): String {
+        return "https://unsplash.com/photos/$id${C.UTM}"
     }
 }

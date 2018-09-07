@@ -120,13 +120,13 @@ object UnsplashRepository {
 
     /**
      * Downloaded a photo
-     * @param id
+     * @param url
      */
-    fun downloadedPhoto(id: String) {
+    fun downloadedPhoto(url: String) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.imageDownloaded(
                 Config.UNSPLASH_API_KEY,
-                id)
+                url)
 
         call.enqueue(object : Callback<JSONObject> {
 

@@ -17,6 +17,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.graphics.Palette
@@ -26,6 +27,7 @@ import androidx.core.widget.toast
 import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.DateHandler
+import com.dawnimpulse.wallup.handlers.DownloadHandler
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.handlers.WallpaperHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
@@ -34,7 +36,6 @@ import com.dawnimpulse.wallup.utils.*
 import com.dawnimpulse.wallup.utils.sheets.ModalSheetExif
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
-import kotlinx.android.synthetic.main.content_image.*
 
 /**
  * @author Saksham
@@ -47,15 +48,17 @@ import kotlinx.android.synthetic.main.content_image.*
  *  Saksham - 2018 07 20 - recent - adding listeners
  *  Saksham - 2018 07 26 - recent - downloading
  *  Saksham - 2018 09 01 - master - exif bottom sheet
+ *  Saksham - 2018 09 06 - master - unsplash & image share handling
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "ImageActivity"
     private var setBitmap = false
     private var bitmap: Bitmap? = null
+    private var fullDetails: ImagePojo? = null
+    private var color: Int = 0
     private lateinit var details: ImagePojo
     private lateinit var model: UnsplashModel
     private lateinit var exifSheet: ModalSheetExif
-    private var color: Int = 0
 
     /**
      * On create
@@ -64,27 +67,24 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
 
+        model = UnsplashModel(lifecycle)
         exifSheet = ModalSheetExif()
 
         var params = intent.extras
         details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
 
+        model.getImage(details.id) { _, details ->
+            if (details != null) {
+                fullDetails = details as ImagePojo
+                setImageDetails(fullDetails!!)
+            }
+
+        }
         ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full + Config.IMAGE_HEIGHT) {
             color = ColorModifier.getNonDarkColor(Palette.from(it).generate(), this)
             color()
-            imagePreviewLow.setImageBitmap(it)
-        }
-        ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full) {
-            bitmap = it
-            movingImage.setImageBitmap(bitmap)
-            movingImage.visibility = View.VISIBLE
-            imagePreviewLow.visibility = View.GONE
+            movingImage.setImageBitmap(it)
             imagePreviewProgress.visibility = View.GONE
-
-            if (setBitmap) {
-                Config.imageBitmap = bitmap!!
-                WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
-            }
         }
         setImageDetails(details)
 
@@ -92,24 +92,10 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewDownload.setOnClickListener(this)
         imagePreviewAuthorL.setOnClickListener(this)
         imagePreviewExif.setOnClickListener(this)
+        imagePreviewShare.setOnClickListener(this)
+        imagePreviewStats.setOnClickListener(this)
+        imagePreviewUnsplash.setOnClickListener(this)
 
-    }
-
-    /**
-     * On resume
-     */
-    override fun onResume() {
-        super.onResume()
-        if (Config.imagePojo != null)
-            details = Config.imagePojo!!
-    }
-
-    /**
-     * On stop
-     */
-    override fun onStop() {
-        super.onStop()
-        Config.imagePojo = null
     }
 
     /**
@@ -118,19 +104,26 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             imagePreviewWallpaper.id -> {
-                /*Config.imageBitmap = bitmap
-                startActivity(Intent(this@ImageActivity, CropActivity::class.java))*/
+                imagePreviewProgress.visibility = View.VISIBLE
                 Permissions.askWriteExternalStoragePermission(this) { no, _ ->
-                    if (no != null)
+                    if (no != null) {
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
-                    else {
+                        imagePreviewProgress.visibility = View.GONE
+                    } else {
                         if (bitmap != null) {
                             Config.imageBitmap = bitmap!!
                             WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
+                            imagePreviewProgress.visibility = View.GONE
                         } else {
-                            toast("Waiting for High Quality Image to load ...")
-                            setBitmap = true
+                            toast("Waiting for High Quality Image ...")
+                            ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full) {
+                                bitmap = it
+                                Config.imageBitmap = bitmap!!
+                                WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
+                                imagePreviewProgress.visibility = View.GONE
+                            }
                         }
+                        model.downloadedPhoto(details.links!!.download_location)
                     }
                 }
             }
@@ -139,11 +132,11 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                     if (no != null)
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
                     else {
-                        Download.downloadData(this, details.links!!.download, details.id)
+                        DownloadHandler.downloadData(this, details.links!!.download, details.id)
                         Toast.short(this, "Downloading Image in /Downloads/Wallup/${details.id}.jpg")
+                        model.downloadedPhoto(details.links!!.download_location)
                     }
                 }
-
             }
             imagePreviewAuthorL.id -> {
                 var intent = Intent(this, ArtistProfileActivity::class.java)
@@ -157,6 +150,30 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                 exifSheet.arguments = bundle
                 exifSheet.show(supportFragmentManager, exifSheet.tag)
             }
+            imagePreviewShare.id -> {
+                imagePreviewProgress.visibility = View.VISIBLE
+                Permissions.askWriteExternalStoragePermission(this) { no, _ ->
+                    if (no != null) {
+                        Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
+                        imagePreviewProgress.visibility = View.GONE
+                    } else {
+                        if (bitmap != null) {
+                            ImageHandler.shareImage(bitmap!!, this, F.unsplashImage(details.id))
+                            imagePreviewProgress.visibility = View.GONE
+                        } else {
+                            toast("Waiting for High Quality Image ...")
+                            ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full) {
+                                bitmap = it
+                                ImageHandler.shareImage(it, this, F.unsplashImage(details.id))
+                                imagePreviewProgress.visibility = View.GONE
+                            }
+                        }
+                        model.downloadedPhoto(details.links!!.download_location)
+                    }
+                }
+            }
+            imagePreviewStats.id -> toast("Upcoming feature")
+            imagePreviewUnsplash.id -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(F.unsplashImage(details.id))))
         }
     }
 
@@ -182,12 +199,12 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewPublishedOn.text = "Published on ${DateHandler.convertForImagePreview(details.created_at)}"
 
         ImageHandler.setImageInView(lifecycle, imagePreviewAuthorImage, details.user!!.profile_image!!.large)
-        F.underline(imagePreviewExif)
         //F.underline(imagePreviewStatistics)
 
         if (details.downloads == 0) {
             imagePreviewDownloadCount.visibility = View.GONE
-        }
+        } else
+            imagePreviewDownloadCount.visibility = View.VISIBLE
 
     }
 
@@ -202,9 +219,12 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewAuthorCollectionsL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewShareI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewViewsI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        imagePreviewExifI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        imagePreviewStatsI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        imagePreviewUnsplashI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
 
         down.setColor(color)
         wall.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
-        imagePreviewWallpaperT.setTextColor(color)
+        //imagePreviewWallpaperT.setTextColor(color)
     }
 }

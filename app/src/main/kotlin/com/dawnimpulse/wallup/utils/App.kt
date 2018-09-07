@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.ContextWrapper
 import android.util.Log
 import com.crashlytics.android.Crashlytics
-import com.crashlytics.android.core.CrashlyticsCore
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.google.firebase.FirebaseApp
@@ -14,6 +13,8 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.pixplicity.easyprefs.library.Prefs
 import io.fabric.sdk.android.Fabric
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
+
+
 
 
 
@@ -113,9 +114,7 @@ class App : Application() {
      * disabling crashlytics in debug builds
      */
     private fun setCrashlytics(){
-        val crashlyticsCore = CrashlyticsCore.Builder()
-                .disabled(BuildConfig.DEBUG)
-                .build()
-        Fabric.with(this, Crashlytics.Builder().core(crashlyticsCore).build())
+        if(!BuildConfig.DEBUG)
+            Fabric.with(this, Crashlytics())
     }
 }

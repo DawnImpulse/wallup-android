@@ -44,4 +44,8 @@ object C {
     const val RANDOM = "random"
     const val VERSION_CODE = "versionCode"
     const val UTM = "?utm_source=wallup&utm_medium=referral"
+    const val SHARE = "share"
+
+    const val ERROR_CODE_1 = 1
+    const val ERROR_CODE_2 = 2
 }

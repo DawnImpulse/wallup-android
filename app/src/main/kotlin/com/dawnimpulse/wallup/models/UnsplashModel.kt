@@ -77,10 +77,10 @@ class UnsplashModel() {
 
     /**
      * Downloaded a photo
-     * @param id
+     * @param url
      */
-    fun downloadedPhoto(id: String) {
-        UnsplashRepository.downloadedPhoto(id)
+    fun downloadedPhoto(url: String) {
+        UnsplashRepository.downloadedPhoto(url)
     }
 
     /**

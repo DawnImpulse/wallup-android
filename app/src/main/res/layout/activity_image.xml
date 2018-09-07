@@ -19,76 +19,384 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_height="match_parent"
     tools:context=".activities.ImageActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/imagePreviewAppBar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="420dp">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/imagePreviewCollapsing"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:fillViewport="true">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/imagePreviewLow"
+                <!--image-->
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:layout_height="360dp">
 
-                <com.flaviofaria.kenburnsview.KenBurnsView
-                    android:id="@+id/movingImage"
+                    <com.flaviofaria.kenburnsview.KenBurnsView
+                        android:id="@+id/movingImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </RelativeLayout>
+
+                <!--layout-->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone" />
-            </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/imagePreviewToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                app:layout_collapseMode="parallax" />
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
+                    <ProgressBar
+                        android:id="@+id/imagePreviewProgress"
+                        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="@android:color/transparent"
+                        android:indeterminate="true" />
 
-    <include layout="@layout/content_image" />
+                    <!--Views & Published-->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="32dp">
 
-    <FrameLayout
-        android:id="@+id/imagePreviewFab"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/round_fab"
-        android:elevation="6dp"
-        android:visibility="gone"
-        app:layout_anchor="@id/imagePreviewAppBar"
-        app:layout_anchorGravity="bottom|right">
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/imagePreviewViewsI"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="center"
+                            app:srcCompat="@drawable/vd_eye_outline" />
 
+                        <TextView
+                            android:id="@+id/imagePreviewViewsCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="24dp"
+                            android:text="10"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/imagePreviewPublishedOn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="Published on 13 Jan '18" />
+                    </LinearLayout>
+
+                    <!--Author Layout-->
+                    <RelativeLayout
+                        android:id="@+id/imagePreviewAuthorL"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="40dp">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/imagePreviewAuthorImage"
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            app:riv_oval="true" />
+
+                        <TextView
+                            android:id="@+id/imagePreviewAuthorName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="24dp"
+                            android:layout_toRightOf="@id/imagePreviewAuthorImage"
+                            android:text="August Jenkins"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginLeft="24dp"
+                            android:layout_toRightOf="@id/imagePreviewAuthorImage">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/imagePreviewAuthorImagesL"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                app:srcCompat="@drawable/vd_cards_outline" />
+
+                            <TextView
+                                android:id="@+id/imagePreviewAuthorImages"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginLeft="8dp"
+                                android:text="-"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/imagePreviewAuthorCollectionsL"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_marginLeft="16dp"
+                                app:srcCompat="@drawable/vd_collage" />
+
+                            <TextView
+                                android:id="@+id/imagePreviewAuthorCollections"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="2dp"
+                                android:layout_marginLeft="8dp"
+                                android:text="-"
+                                android:textColor="@color/black"
+                                android:textSize="10sp" />
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <!--Interaction Buttons-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="36dp">
+
+                        <!--<FrameLayout
+                            android:id="@+id/imagePreviewShare"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@drawable/round_transparent"
+                            android:visibility="gone">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/imagePreviewShareI"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/vd_share" />
+                        </FrameLayout>-->
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginRight="16dp">
+
+                            <!--Wallpaper-->
+                            <RelativeLayout
+                                android:id="@+id/imagePreviewWallpaper"
+                                android:layout_width="148dp"
+                                android:layout_height="36dp"
+                                android:background="@drawable/button_round_complete_corners_transparent"
+                                android:paddingLeft="24dp"
+                                android:paddingRight="24dp">
+
+                                <TextView
+                                    android:id="@+id/imagePreviewWallpaperT"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="WALLPAPER"
+                                    android:textColor="@color/black"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </RelativeLayout>
+
+                            <!--DownloadHandler-->
+                            <RelativeLayout
+                                android:id="@+id/imagePreviewDownload"
+                                android:layout_width="148dp"
+                                android:layout_height="36dp"
+                                android:layout_marginLeft="16dp"
+                                android:background="@drawable/button_round_complete_corners"
+                                android:paddingLeft="24dp"
+                                android:paddingRight="24dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_centerVertical="true"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_gravity="center"
+                                        android:text="DOWNLOAD"
+                                        android:textColor="@color/white"
+                                        android:textSize="12sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/imagePreviewDownloadCount"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:letterSpacing="0.3"
+                                        android:text="8"
+                                        android:textColor="@color/white"
+                                        android:textSize="8sp" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <!--Additional Buttons-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="36dp">
+
+                        <FrameLayout
+                            android:id="@+id/imagePreviewShare"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_weight="1">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/imagePreviewShareI"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/vd_share" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/imagePreviewExif"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_weight="1">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/imagePreviewExifI"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/vd_info" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/imagePreviewUnsplash"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_weight="1">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/imagePreviewUnsplashI"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/vd_camera_black" />
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/imagePreviewStats"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_weight="1">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/imagePreviewStatsI"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/vd_trending_up" />
+                        </FrameLayout>
+
+                        <!--<TextView
+                            android:id="@+id/imagePreviewStatistics"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="36dp"
+                            android:text="STATISTICS"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />-->
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/imagePreviewFab"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/round_fab"
+            android:elevation="6dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/vd_heart_outline" />
+
+                <TextView
+                    android:id="@+id/imagePreviewLikesCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:letterSpacing="0.3"
+                    android:text="250"
+                    android:textColor="@color/white"
+                    android:textSize="8sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!--Unsplash Button
         <LinearLayout
+            android:id="@+id/imageUnsplash"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_corners"
+            android:elevation="6dp"
+            android:padding="8dp">
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/vd_heart_outline" />
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="2dp"
+                app:srcCompat="@drawable/vd_camera_white" />
 
             <TextView
-                android:id="@+id/imagePreviewLikesCount"
+                android:id="@+id/artistUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:letterSpacing="0.3"
-                android:text="250"
-                android:textColor="@color/white"
-                android:textSize="8sp" />
-        </LinearLayout>
-    </FrameLayout>
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="4dp"
+                android:text="Unsplash"
+                android:textColor="@color/white" />
+        </LinearLayout>-->
+
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

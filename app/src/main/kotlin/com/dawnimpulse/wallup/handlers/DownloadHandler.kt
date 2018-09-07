@@ -11,7 +11,7 @@ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR 
 INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.*/
-package com.dawnimpulse.wallup.utils
+package com.dawnimpulse.wallup.handlers
 
 import android.app.DownloadManager
 import android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
@@ -30,7 +30,7 @@ import android.os.Environment
  * @note Updates :
  *  2018 08 03 - recent - Saksham - using android default download manager
  */
-object Download {
+object DownloadHandler {
 
     fun downloadData(context: Context, url: String, id: String): Long {
 

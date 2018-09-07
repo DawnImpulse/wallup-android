@@ -5,10 +5,7 @@ import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.C
 import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 /*
 ISC License
@@ -64,10 +61,10 @@ interface RetroUnsplashSource {
 
     // download image call
 
-    @GET("/photos/{id}/download")
+    @GET
     fun imageDownloaded(
             @Header(C.AUTHORIZATION) authorization: String,
-            @Path("id") id: String
+            @Url url: String
     ): Call<JSONObject>
 
     // user details
