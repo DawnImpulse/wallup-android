@@ -59,6 +59,7 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
     implementation 'com.dawnimpulse:permissions:0.1.1'
     implementation 'com.pixplicity.easyprefs:library:1.9.0'
+    implementation 'me.grantland:autofittextview:0.2.1'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0"
 
     //------------------ Additional -------------------------

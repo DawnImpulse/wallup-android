@@ -36,13 +36,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         <!--random-->
         <FrameLayout
+            android:id="@+id/sheetNavRandom"
             android:layout_gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
             <LinearLayout
-                android:id="@+id/sheetNavRandom"
                 android:layout_width="64dp"
                 android:layout_height="68dp"
                 android:layout_gravity="center"
@@ -64,15 +64,47 @@ OR PERFORMANCE OF THIS SOFTWARE.
             </LinearLayout>
         </FrameLayout>
 
-        <!--feedback-->
+        <!--collection-->
         <FrameLayout
+            android:id="@+id/sheetNavCollection"
             android:layout_gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
             <LinearLayout
-                android:id="@+id/sheetNavFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vd_layout" />
+
+                <TextView
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Collections"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!--feedback-->
+        <FrameLayout
+            android:id="@+id/sheetNavFeedback"
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <LinearLayout
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"

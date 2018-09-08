@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--Splash Screen-->
+        <!-- Splash Screen -->
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/AppTheme.Fullscreen.Preview">
@@ -53,9 +53,14 @@
             android:name=".activities.GeneralImagesActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Changes Activity-->
+        <!-- Changes Activity -->
         <activity
             android:name=".activities.ChangesActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--Collections Layout-->
+        <activity
+            android:name=".activities.CollectionLayoutActivity"
             android:theme="@style/AppTheme.Fullscreen" />
     </application>
 

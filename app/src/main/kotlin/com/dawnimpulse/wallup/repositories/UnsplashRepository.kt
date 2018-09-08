@@ -14,6 +14,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.repositories
 
 import com.dawnimpulse.wallup.network.RetroApiClient
+import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.source.RetroUnsplashSource
@@ -36,6 +37,7 @@ import retrofit2.Response
  *  2018 08 31 - master - Saksham - user details
  *  2018 09 01 - master - Saksham - image details
  *  2018 09 02 - master - Saksham - random user images
+ *  2018 09 08 - master - Saksham - featured collections
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
@@ -268,6 +270,34 @@ object UnsplashRepository {
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    /**
+     * featured collections
+     * @param page
+     * @param callback
+     */
+    fun featuredCollections(page: Int, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.featuredCollections(
+                Config.UNSPLASH_API_KEY,
+                page
+        )
+
+        call.enqueue(object : Callback<List<CollectionPojo>> {
+
+            override fun onResponse(call: Call<List<CollectionPojo>>?, response: Response<List<CollectionPojo>>) {
+                if (response.isSuccessful) {
+                    callback(null, response.body())
+                } else {
+                    callback(Gson().toJson(response.errorBody()).toString(), null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<CollectionPojo>>?, t: Throwable?) {
                 callback(t.toString(), null)
             }
         })

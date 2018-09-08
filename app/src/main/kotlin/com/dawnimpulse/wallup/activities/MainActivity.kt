@@ -18,12 +18,13 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.fragments.MainFragment
+import com.dawnimpulse.wallup.sheets.ModalSheetNav
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Colors
 import com.dawnimpulse.wallup.utils.ViewPagerAdapter
-import com.dawnimpulse.wallup.utils.sheets.ModalSheetNav
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -72,9 +73,18 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     // on click
     override fun onClick(v: View) {
         when (v.id) {
-            mainNavTrending.id -> currentNavItem(0)
-            mainNavLatest.id -> currentNavItem(1)
-            mainNavCurated.id -> currentNavItem(2)
+            mainNavTrending.id -> {
+                toast("Refreshing Trending List")
+                currentNavItem(0)
+            }
+            mainNavLatest.id -> {
+                toast("Refreshing Latest List")
+                currentNavItem(1)
+            }
+            mainNavCurated.id -> {
+                toast("Refreshing Curated List")
+                currentNavItem(2)
+            }
             mainNavUp.id -> {
                 navSheet.show(supportFragmentManager, C.BOTTOM_SHEET)
                 currentNavItem(lastItemSelected)

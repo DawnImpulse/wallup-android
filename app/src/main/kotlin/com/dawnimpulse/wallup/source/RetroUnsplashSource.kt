@@ -1,5 +1,6 @@
 package com.dawnimpulse.wallup.source
 
+import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.C
@@ -31,6 +32,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  *  Saksham - 2018 05 20 - recent - curated photos
  *  Saksham - 2018 09 01 - recent - image details
  *  Saksham - 2018 09 02 - recent - random user images
+ *  Saksham - 2018 09 08 - recent - featured collections
  */
 interface RetroUnsplashSource {
 
@@ -107,4 +109,12 @@ interface RetroUnsplashSource {
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.USERNAME) username: String
     ): Call<List<ImagePojo>>
+
+    // featured collections
+
+    @GET("/collections/featured?per_page=30")
+    fun featuredCollections(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Query(C.PAGE) page: Int
+    ): Call<List<CollectionPojo>>
 }

@@ -30,7 +30,7 @@ import com.dawnimpulse.wallup.handlers.*
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.*
-import com.dawnimpulse.wallup.utils.sheets.ModalSheetExif
+import com.dawnimpulse.wallup.sheets.ModalSheetExif
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
 

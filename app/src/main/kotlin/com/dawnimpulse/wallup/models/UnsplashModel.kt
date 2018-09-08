@@ -28,6 +28,7 @@ import com.dawnimpulse.wallup.repositories.UnsplashRepository
  *  2018 08 31 - master - Saksham - user details
  *  2018 09 01 - master - Saksham - image details
  *  2018 09 02 - master - Saksham - random user images
+ *  2018 09 08 - master - Saksham - featured collections
  */
 class UnsplashModel() {
     lateinit var lifecycle: Lifecycle
@@ -158,5 +159,25 @@ class UnsplashModel() {
             })
         }
 
+    }
+
+    /**
+     * featured collections
+     * @param page
+     * @param callback
+     */
+    fun featuredCollections(page: Int, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.featuredCollections(page) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onResume() {
+                    if(once){
+                        callback(e,r)
+                        once = false
+                    }
+                }
+            })
+        }
     }
 }

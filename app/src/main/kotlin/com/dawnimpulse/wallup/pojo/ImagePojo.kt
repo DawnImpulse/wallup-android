@@ -44,6 +44,7 @@ data class ImagePojo(
 data class Urls(
         @SerializedName("raw") val raw: String = "",
         @SerializedName("full") val full: String = "",
+        @SerializedName("small") val small: String = "",
         @SerializedName("thumb") val thumb: String = ""
 )
 

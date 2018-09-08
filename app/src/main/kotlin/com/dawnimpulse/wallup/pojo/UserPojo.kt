@@ -27,6 +27,7 @@ data class UserPojo(
         @SerializedName("id") val id: String = "",
         @SerializedName("first_name") val first_name: String = "",
         @SerializedName("last_name") val last_name: String? = "",
+        @SerializedName("name") val name: String,
         @SerializedName("portfolio_url") val portfolio_url: String? = null,
         @SerializedName("bio") val bio: String? = null,
         @SerializedName("location") val location: String? = null,
