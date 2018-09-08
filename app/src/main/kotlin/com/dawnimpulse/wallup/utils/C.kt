@@ -43,9 +43,11 @@ object C {
     const val ARTIST_IMAGES = "artistImages"
     const val RANDOM = "random"
     const val VERSION_CODE = "versionCode"
-    const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val SHARE = "share"
+    const val COLLECTION = "collection"
 
-    const val ERROR_CODE_1 = 1
-    const val ERROR_CODE_2 = 2
+    const val UTM = "?utm_source=wallup&utm_medium=referral"
+
+    const val ERROR_CODE_1 = 601
+    const val ERROR_CODE_2 = 602
 }

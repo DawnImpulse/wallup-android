@@ -36,7 +36,7 @@ data class UserPojo(
         @SerializedName("total_photos") val total_photos: Int = 0,
         @SerializedName("total_collections") val total_collections: Int = 0,
         @SerializedName("total_likes") val total_likes: Int = 0,
-        @SerializedName("profile_image") val profile_image: ProfileImage? = null
+        @SerializedName("profile_image") val profile_image: ProfileImage
 )
 
 data class UserLinks(

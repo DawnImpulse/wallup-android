@@ -15,6 +15,7 @@ package com.dawnimpulse.wallup.adapters
 
 import android.arch.lifecycle.Lifecycle
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.widget.LinearLayoutManager
@@ -23,12 +24,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.activities.CollectionActivity
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.pojo.CollectionPojo
+import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.viewholders.CollectionsViewHolder
 import com.dawnimpulse.wallup.viewholders.LoadingViewHolder
+import com.google.gson.Gson
 
 /**
  * @author Saksham
@@ -112,19 +116,25 @@ class CollectionsAdapter(private val lifecycle: Lifecycle, private val cols: Lis
             var it = cols[position]!!
             var color = Color.parseColor(it.cover_photo.color!!)
             holder.title.text = it.title
-            holder.artist.text = "Curated by ${it.user.name}"
+            holder.artist.text = "Curated by ${it.user!!.name}"
             holder.count.text = "${it.total_photos} photos"
             holder.image0.background = ColorDrawable(color)
-            holder.title.setTextColor(color)
-            holder.artist.setTextColor(color)
+            /*holder.title.setTextColor(color)
+            holder.artist.setTextColor(color)*/
 
-            ImageHandler.setImageInView(lifecycle, holder.image0, it.cover_photo.urls!!.full)
+            ImageHandler.setImageInView(lifecycle, holder.image0, it.cover_photo.urls!!.full + Config.IMAGE_HEIGHT)
             it.preview_photos?.let {
                 ImageHandler.setImageInView(lifecycle, holder.image1, it[1].urls.full + Config.IMAGE_HEIGHT)
                 if (it.size > 1)
                     ImageHandler.setImageInView(lifecycle, holder.image2, it[2].urls.full + Config.IMAGE_HEIGHT)
                 if (it.size > 2)
                     ImageHandler.setImageInView(lifecycle, holder.image3, it[3].urls.full + Config.IMAGE_HEIGHT)
+            }
+
+            holder.layout.setOnClickListener {
+                var intent = Intent(context,CollectionActivity::class.java)
+                intent.putExtra(C.COLLECTION,Gson().toJson(cols[position]))
+                context.startActivity(intent)
             }
         }
     }

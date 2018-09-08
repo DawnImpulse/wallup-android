@@ -43,7 +43,7 @@ object DatabaseRepository {
                     .orderByChild(C.TIMESTAMP)
                     .startAt(timestamp.toDouble())
                     .limitToFirst(31)
-            RealtimeSource.getDataOnce(ref, { error, response ->
+            RealtimeSource.getDataOnce(ref) { error, response ->
                 if (error != null)
                     callback(error, null)
                 else {
@@ -55,13 +55,13 @@ object DatabaseRepository {
                     data.removeAt(0)
                     callback(null, data)
                 }
-            })
+            }
         } else {
             val ref = FirebaseDatabase.getInstance().reference
                     .child(C.TRENDING)
                     .orderByChild(C.TIMESTAMP)
                     .limitToFirst(30)
-            RealtimeSource.getDataOnce(ref, { error, response ->
+            RealtimeSource.getDataOnce(ref) { error, response ->
                 if (error != null)
                     callback(error, null)
                 else {
@@ -73,7 +73,7 @@ object DatabaseRepository {
                     }
                     callback(null, data)
                 }
-            })
+            }
         }
 
     }

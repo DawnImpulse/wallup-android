@@ -73,27 +73,27 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     // on click
     override fun onClick(v: View) {
         when (v.id) {
-            mainNavTrending.id -> {
-                toast("Refreshing Trending List")
-                currentNavItem(0)
-            }
-            mainNavLatest.id -> {
-                toast("Refreshing Latest List")
-                currentNavItem(1)
-            }
-            mainNavCurated.id -> {
-                toast("Refreshing Curated List")
-                currentNavItem(2)
-            }
+            mainNavTrending.id -> currentNavItem(0)
+            mainNavLatest.id -> currentNavItem(1)
+            mainNavCurated.id -> currentNavItem(2)
             mainNavUp.id -> {
                 navSheet.show(supportFragmentManager, C.BOTTOM_SHEET)
                 currentNavItem(lastItemSelected)
             }
             mainRefresh.id -> {
                 when (lastItemSelected) {
-                    0 -> trendingFragment.onRefresh()
-                    1 -> latestFragment.onRefresh()
-                    2 -> curatedFragment.onRefresh()
+                    0 -> {
+                        toast("Refreshing Trending List")
+                        trendingFragment.onRefresh()
+                    }
+                    1 -> {
+                        toast("Refreshing Latest List")
+                        latestFragment.onRefresh()
+                    }
+                    2 -> {
+                        toast("Refreshing Curated List")
+                        curatedFragment.onRefresh()
+                    }
                 }
             }
         }

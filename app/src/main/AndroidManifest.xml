@@ -58,10 +58,15 @@
             android:name=".activities.ChangesActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Collections Layout-->
+        <!-- Collections Layout -->
         <activity
             android:name=".activities.CollectionLayoutActivity"
             android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--Collection-->
+        <activity
+            android:name=".activities.CollectionActivity"
+            android:theme="@style/AppTheme.Fullscreen"></activity>
     </application>
 
 </manifest>

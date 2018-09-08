@@ -43,8 +43,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_below="@id/mainImage"
         android:layout_marginTop="12dp">
 
-        <TextView
+        <me.grantland.widget.AutofitTextView
             android:id="@+id/mainName"
+            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="24dp"
             android:layout_toLeftOf="@+id/mainLike"

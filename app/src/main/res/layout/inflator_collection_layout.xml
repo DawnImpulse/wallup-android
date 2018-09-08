@@ -34,7 +34,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             app:riv_mutate_background="true" />
 
         <LinearLayout
-            android:layout_width="108dp"
+            android:layout_width="96dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_margin="8dp"
@@ -99,10 +99,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
             <!--title-->
             <me.grantland.widget.AutofitTextView
+                android:textColor="@color/black"
                 android:id="@+id/colLTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="18sp"
+                android:maxLines="1"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -116,7 +118,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="0"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/grey500" />
 
                 <View
                     android:background="@drawable/bg_circle"
