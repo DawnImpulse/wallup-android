@@ -32,7 +32,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  *  Saksham - 2018 05 20 - recent - curated photos
  *  Saksham - 2018 09 01 - recent - image details
  *  Saksham - 2018 09 02 - recent - random user images
- *  Saksham - 2018 09 08 - recent - featured collections
+ *  Saksham - 2018 09 08 - recent - featured curatedCollections
  */
 interface RetroUnsplashSource {
 
@@ -110,7 +110,15 @@ interface RetroUnsplashSource {
             @Query(C.USERNAME) username: String
     ): Call<List<ImagePojo>>
 
-    // featured collections
+    // featured curatedCollections
+
+    @GET("/collections/curated?per_page=30")
+    fun curatedCollections(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Query(C.PAGE) page: Int
+    ): Call<List<CollectionPojo>>
+
+    // featured curatedCollections
 
     @GET("/collections/featured?per_page=30")
     fun featuredCollections(
@@ -118,9 +126,18 @@ interface RetroUnsplashSource {
             @Query(C.PAGE) page: Int
     ): Call<List<CollectionPojo>>
 
-    // featured collection photos
+    // collection photos
     @GET("/collections/{id}/photos")
-    fun featuredCollectionPhotos(
+    fun collectionPhotos(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.ID) id: String,
+            @Query(C.PER_PAGE) per_page: Int,
+            @Query(C.PAGE) page: Int
+    ): Call<List<ImagePojo>>
+
+    // curated collection photos
+    @GET("/collections/curated/{id}/photos")
+    fun curatedCollectionPhotos(
             @Header(C.AUTHORIZATION) authorization: String,
             @Path(C.ID) id: String,
             @Query(C.PER_PAGE) per_page: Int,

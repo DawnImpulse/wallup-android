@@ -37,16 +37,12 @@ import retrofit2.Response
  *  2018 08 31 - master - Saksham - user details
  *  2018 09 01 - master - Saksham - image details
  *  2018 09 02 - master - Saksham - random user images
- *  2018 09 08 - master - Saksham - featured collections
+ *  2018 09 08 - master - Saksham - featured curatedCollections
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
 
-    /**
-     * Get latest photos
-     * @param page
-     * @param callback
-     */
+    // Get latest photos
     fun getLatestPhotos(page: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.getLatestPhotos(
@@ -68,11 +64,7 @@ object UnsplashRepository {
         })
     }
 
-    /**
-     * Get popular photos
-     * @param page
-     * @param callback
-     */
+    // Get popular photos
     fun getPopularPhotos(page: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.getPopularPhotos(
@@ -94,11 +86,7 @@ object UnsplashRepository {
         })
     }
 
-    /**
-     * Get curated photos
-     * @param page
-     * @param callback
-     */
+    // Get curated photos
     fun getCuratedPhotos(page: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.getCuratedPhotos(
@@ -120,10 +108,7 @@ object UnsplashRepository {
         })
     }
 
-    /**
-     * Downloaded a photo
-     * @param url
-     */
+    // Downloaded a photo
     fun downloadedPhoto(url: String) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.imageDownloaded(
@@ -142,9 +127,7 @@ object UnsplashRepository {
         })
     }
 
-    /**
-     * User Details
-     */
+    // User Details
     fun userDetails(username: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.userDetails(
@@ -163,13 +146,7 @@ object UnsplashRepository {
         })
     }
 
-    /**
-     * Get user photos
-     * @param page
-     * @param count
-     * @param username
-     * @param callback
-     */
+    // Get user photos
     fun userPhotos(page: Int, count: Int, username: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.userPhotos(
@@ -194,11 +171,7 @@ object UnsplashRepository {
         })
     }
 
-    /**
-     * Get image details
-     * @param id
-     * @param callback
-     */
+    // Get image details
     fun getImage(id: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.getImage(
@@ -222,10 +195,7 @@ object UnsplashRepository {
         })
     }
 
-    /**
-     * Get random images
-     * @param callback
-     */
+    // Get random images
     fun randomImages(callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.randomImages(
@@ -248,10 +218,7 @@ object UnsplashRepository {
         })
     }
 
-    /**
-     * Get random images
-     * @param callback
-     */
+    // Get random user images
     fun randomUserImages(username: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.randomUserImages(
@@ -275,11 +242,31 @@ object UnsplashRepository {
         })
     }
 
-    /**
-     * featured collections
-     * @param page
-     * @param callback
-     */
+    // curated curatedCollections
+    fun curatedCollections(page: Int, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.curatedCollections(
+                Config.UNSPLASH_API_KEY,
+                page
+        )
+
+        call.enqueue(object : Callback<List<CollectionPojo>> {
+
+            override fun onResponse(call: Call<List<CollectionPojo>>?, response: Response<List<CollectionPojo>>) {
+                if (response.isSuccessful) {
+                    callback(null, response.body())
+                } else {
+                    callback(Gson().toJson(response.errorBody()).toString(), null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<CollectionPojo>>?, t: Throwable?) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    // featured curatedCollections
     fun featuredCollections(page: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.featuredCollections(
@@ -303,10 +290,10 @@ object UnsplashRepository {
         })
     }
 
-    // featured collection photos
-    fun featuredCollectionPhotos(id: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
+    // collection photos
+    fun collectionPhotos(id: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
-        val call = apiClient.featuredCollectionPhotos(
+        val call = apiClient.collectionPhotos(
                 Config.UNSPLASH_API_KEY,
                 id,
                 count,
@@ -319,11 +306,41 @@ object UnsplashRepository {
                 if (response.isSuccessful) {
                     callback(null, response.body())
                 } else {
+                    L.d(NAME,"hiy")
                     callback(Gson().toJson(response.errorBody()).toString(), null)
                 }
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
+                L.d(NAME,"hii")
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    // curated collection photos
+    fun curatedCollectionPhotos(id: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.curatedCollectionPhotos(
+                Config.UNSPLASH_API_KEY,
+                id,
+                count,
+                page
+        )
+
+        call.enqueue(object : Callback<List<ImagePojo>> {
+
+            override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
+                if (response.isSuccessful) {
+                    callback(null, response.body())
+                } else {
+                    L.d(NAME,"hiy")
+                    callback(Gson().toJson(response.errorBody()).toString(), null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
+                L.d(NAME,"hii")
                 callback(t.toString(), null)
             }
         })

@@ -84,7 +84,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         mainAdapter.notifyItemInserted(images.size)
         when (current) {
             1 -> model.userPhotos(nextPage, 30, username, callbackPaginated)
-            2 -> model.featuredCollectionPhotos(colId,nextPage,30,callbackPaginated)
+            2 -> model.collectionPhotos(colId,nextPage,30,callbackPaginated)
         }
     }
 
@@ -149,7 +149,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                 model.userPhotos(1, 30, username, callback)
             }
             2 -> {
-                model.featuredCollectionPhotos(colId, 1, 30, callback)
+                model.collectionPhotos(colId, 1, 30, callback)
             }
         }
     }

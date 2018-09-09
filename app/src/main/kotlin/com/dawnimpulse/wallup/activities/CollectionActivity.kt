@@ -35,6 +35,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
     private var NAME = "CollectionActivity"
     private lateinit var details: CollectionPojo
     private lateinit var model: UnsplashModel
+    private lateinit var type:String
     private var color = 0
 
     // on create
@@ -42,20 +43,35 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_collection)
 
+        type = intent.extras.getString(C.TYPE)
         model = UnsplashModel(lifecycle)
         details = Gson().fromJson(intent.extras.getString(C.COLLECTION), CollectionPojo::class.java)
         setDetails()
 
-        model.featuredCollectionPhotos(details.id, 1, 8) { e, r ->
-            e?.let {
-                L.d(NAME, e.toString())
-                toast("error fetching images")
+        when(type){
+            C.FEATURED -> model.collectionPhotos(details.id, 1, 8) { e, r ->
+                e?.let {
+                    L.d(NAME, e.toString())
+                    toast("error fetching images")
+                }
+                r?.let {
+                    var adapter = ArtistPhotosAdapter(this, lifecycle, r as List<ImagePojo?>)
+                    colRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                    colRecycler.adapter = adapter
+                    colRecycler.clipToPadding = false
+                }
             }
-            r?.let {
-                var adapter = ArtistPhotosAdapter(this, lifecycle, r as List<ImagePojo?>)
-                colRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                colRecycler.adapter = adapter
-                colRecycler.clipToPadding = false
+            C.CURATED -> model.curatedCollectionPhotos(details.id, 1, 8) { e, r ->
+                e?.let {
+                    L.d(NAME, e.toString())
+                    toast("error fetching images")
+                }
+                r?.let {
+                    var adapter = ArtistPhotosAdapter(this, lifecycle, r as List<ImagePojo?>)
+                    colRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                    colRecycler.adapter = adapter
+                    colRecycler.clipToPadding = false
+                }
             }
         }
 

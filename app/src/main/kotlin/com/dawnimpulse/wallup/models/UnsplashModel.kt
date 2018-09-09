@@ -28,23 +28,17 @@ import com.dawnimpulse.wallup.repositories.UnsplashRepository
  *  2018 08 31 - master - Saksham - user details
  *  2018 09 01 - master - Saksham - image details
  *  2018 09 02 - master - Saksham - random user images
- *  2018 09 08 - master - Saksham - featured collections
+ *  2018 09 08 - master - Saksham - featured curatedCollections
  */
 class UnsplashModel() {
     lateinit var lifecycle: Lifecycle
 
-    /**
-     * constructor
-     */
+    // constructor
     constructor(lifecycle: Lifecycle) : this() {
         this.lifecycle = lifecycle
     }
 
-    /**
-     * Get latest photos
-     * @param page
-     * @param callback
-     */
+    // Get latest photos
     fun getLatestImages(page: Int, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.getLatestPhotos(page) { error, response ->
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
@@ -52,11 +46,7 @@ class UnsplashModel() {
         }
     }
 
-    /**
-     * Get popular photos
-     * @param page
-     * @param callback
-     */
+    // Get popular photos
     fun getPopularImages(page: Int, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.getPopularPhotos(page) { error, response ->
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
@@ -64,11 +54,7 @@ class UnsplashModel() {
         }
     }
 
-    /**
-     * Get curated photos
-     * @param page
-     * @param callback
-     */
+    // Get curated photos
     fun getCuratedImages(page: Int, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.getCuratedPhotos(page) { error, response ->
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
@@ -76,17 +62,12 @@ class UnsplashModel() {
         }
     }
 
-    /**
-     * Downloaded a photo
-     * @param url
-     */
+    // Downloaded a photo
     fun downloadedPhoto(url: String) {
         UnsplashRepository.downloadedPhoto(url)
     }
 
-    /**
-     * User details
-     */
+    // User details
     fun userDetails(username: String, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.userDetails(username) { e, r ->
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
@@ -94,13 +75,7 @@ class UnsplashModel() {
         }
     }
 
-    /**
-     * Get user photos
-     * @param page
-     * @param count - no of images to return
-     * @param username
-     * @param callback
-     */
+    // Get user photos
     fun userPhotos(page: Int, count: Int, username: String, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.userPhotos(page, count, username) { error, response ->
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
@@ -108,11 +83,7 @@ class UnsplashModel() {
         }
     }
 
-    /**
-     * Get image details
-     * @param id
-     * @param callback
-     */
+    // Get image details
     fun getImage(id: String, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.getImage(id) { e, r ->
             if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
@@ -128,10 +99,7 @@ class UnsplashModel() {
 
     }
 
-    /**
-     * Get random images
-     * @param callback
-     */
+    // Get random images
     fun randomImages(callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.randomImages() { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
@@ -144,11 +112,7 @@ class UnsplashModel() {
 
     }
 
-    /**
-     * Get random user images
-     * @param username
-     * @param callback
-     */
+    // Get random user images
     fun randomUserImages(username: String, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.randomUserImages(username) { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
@@ -161,11 +125,23 @@ class UnsplashModel() {
 
     }
 
-    /**
-     * featured collections
-     * @param page
-     * @param callback
-     */
+    // curated collections
+    fun curatedCollections(page: Int, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.curatedCollections(page) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onResume() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
+        }
+    }
+
+    // featured collections
     fun featuredCollections(page: Int, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.featuredCollections(page) { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
@@ -181,9 +157,25 @@ class UnsplashModel() {
         }
     }
 
-    // featured collection photo
-    fun featuredCollectionPhotos(id: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
-        UnsplashRepository.featuredCollectionPhotos(id, page, count) { e, r ->
+    // collection photo
+    fun collectionPhotos(id: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.collectionPhotos(id, page, count) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onResume() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
+        }
+    }
+
+    // curated collection photo
+    fun curatedCollectionPhotos(id: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.curatedCollectionPhotos(id, page, count) { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)

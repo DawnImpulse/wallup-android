@@ -1,17 +1,18 @@
 package com.dawnimpulse.wallup.activities
 
+import android.graphics.Typeface.BOLD
+import android.graphics.Typeface.NORMAL
 import android.os.Bundle
-import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import android.util.TypedValue
 import android.view.View
-import androidx.core.widget.toast
+import androidx.core.os.bundleOf
+import com.dawnimpulse.wallup.fragments.CollectionFragment
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.adapters.CollectionsAdapter
-import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
-import com.dawnimpulse.wallup.models.UnsplashModel
-import com.dawnimpulse.wallup.pojo.CollectionPojo
-import com.dawnimpulse.wallup.utils.L
+import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Colors
+import com.dawnimpulse.wallup.utils.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_collection_layout.*
 
 /**
@@ -22,73 +23,80 @@ import kotlinx.android.synthetic.main.activity_collection_layout.*
  *
  * @note Updates :
  */
-class CollectionLayoutActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
+class CollectionLayoutActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "CollectionLayoutActivity"
-    private lateinit var model: UnsplashModel
-    private lateinit var cols: MutableList<CollectionPojo?>
-    private lateinit var adapter: CollectionsAdapter
-    private var nextPage = 2
+    private lateinit var pagerAdapter: ViewPagerAdapter
+    private lateinit var generalFragment: CollectionFragment
+    private lateinit var featuredFragment: CollectionFragment
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_collection_layout)
 
-        model = UnsplashModel(lifecycle)
-        model.featuredCollections(1,callback)
-        colLSwipe.setOnRefreshListener(this)
-    }
+        setupViewPager(colLViewPager)
+        colNavFeaturedL.setOnClickListener(this)
+        colNavGeneralL.setOnClickListener(this)
 
-    // on refresh
-    override fun onRefresh() {
-        model.featuredCollections(1,callback)
-    }
+        colLViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
-    // on load more
-    override fun onLoadMore() {
-        model.featuredCollections(nextPage,callbackPaginated)
-    }
-
-    /**
-     * callback for setting images in adapter
-     */
-    private var callback = object : (Any?, Any?) -> Unit {
-        override fun invoke(error: Any?, response: Any?) {
-            error?.let{
-                L.d(NAME, error)
-                colLSwipe.isRefreshing = false
-                toast("error fetching collections")
+            override fun onPageSelected(position: Int) {
+                currentNav(position)
             }
-            response?.let {
-                cols = (response as List<CollectionPojo>).toMutableList()
-                adapter = CollectionsAdapter(lifecycle, cols, colLRecycler)
-                colLRecycler.layoutManager = LinearLayoutManager(this@CollectionLayoutActivity)
-                colLRecycler.adapter = adapter
-                colLSwipe.isRefreshing = false
-                colLProgress.visibility = View.GONE
-                colLRecycler.visibility = View.VISIBLE
 
-                adapter.setOnLoadMoreListener(this@CollectionLayoutActivity)
+            override fun onPageScrollStateChanged(state: Int) {
+                //
             }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                //
+            }
+        })
+    }
+
+    // on click
+    override fun onClick(v: View) {
+        when (v.id) {
+            colNavGeneralL.id -> currentNav(0)
+            colNavFeaturedL.id -> currentNav(1)
         }
     }
 
-    /**
-     * callback for setting images in adapter
-     */
-    private var callbackPaginated = object : (Any?, Any?) -> Unit {
-        override fun invoke(error: Any?, response: Any?) {
-            error?.let {
-                L.d(NAME, error)
-                toast("unable to fetch collections")
+    // setup view pager
+    private fun setupViewPager(viewPager: ViewPager) {
+        pagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        generalFragment = CollectionFragment()
+        featuredFragment = CollectionFragment()
+
+        featuredFragment.arguments = bundleOf(Pair(C.TYPE, C.FEATURED))
+        generalFragment.arguments = bundleOf(Pair(C.TYPE, C.CURATED))
+
+        pagerAdapter.addFragment(featuredFragment, C.FEATURED)
+        pagerAdapter.addFragment(generalFragment, C.CURATED)
+        viewPager.adapter = pagerAdapter
+    }
+
+    // current nav position
+    private fun currentNav(pos: Int) {
+        var colors = Colors(this)
+        when (pos) {
+            0 -> {
+                colNavFeatured.setTypeface(null, NORMAL)
+                colNavGeneral.setTypeface(null, BOLD)
+                colNavFeatured.setTextColor(colors.GREY_500)
+                colNavGeneral.setTextColor(colors.BLACK)
+                colNavGeneral.setTextSize(TypedValue.COMPLEX_UNIT_SP,16F)
+                colNavFeatured.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14F)
+                colLViewPager.currentItem = 0
             }
-            response?.let{
-                nextPage++
-                cols.removeAt(cols.size - 1)
-                adapter.notifyItemRemoved(cols.size - 1)
-                cols.addAll(response as List<CollectionPojo>)
-                adapter.notifyDataSetChanged()
-                adapter.setLoaded()
+            1 -> {
+                colNavFeatured.setTypeface(null, BOLD)
+                colNavGeneral.setTypeface(null, NORMAL)
+                colNavFeatured.setTextColor(colors.BLACK)
+                colNavGeneral.setTextColor(colors.GREY_500)
+                colNavFeatured.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16F)
+                colNavGeneral.setTextSize(TypedValue.COMPLEX_UNIT_SP,14F)
+                colLViewPager.currentItem = 1
             }
         }
     }

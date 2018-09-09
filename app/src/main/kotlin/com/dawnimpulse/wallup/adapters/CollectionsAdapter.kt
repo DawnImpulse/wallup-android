@@ -43,7 +43,10 @@ import com.google.gson.Gson
  * @note Updates :
  *  Saksham - 2018 05 25 - recent - intent to Image Activity
  */
-class CollectionsAdapter(private val lifecycle: Lifecycle, private val cols: List<CollectionPojo?>, recycler: RecyclerView)
+class CollectionsAdapter(private val lifecycle: Lifecycle,
+                         private val cols: List<CollectionPojo?>,
+                         private val type: String,
+                         recycler: RecyclerView)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val NAME = "CollectionsAdapter"
@@ -132,8 +135,9 @@ class CollectionsAdapter(private val lifecycle: Lifecycle, private val cols: Lis
             }
 
             holder.layout.setOnClickListener {
-                var intent = Intent(context,CollectionActivity::class.java)
-                intent.putExtra(C.COLLECTION,Gson().toJson(cols[position]))
+                var intent = Intent(context, CollectionActivity::class.java)
+                intent.putExtra(C.TYPE,type)
+                intent.putExtra(C.COLLECTION, Gson().toJson(cols[position]))
                 context.startActivity(intent)
             }
         }
