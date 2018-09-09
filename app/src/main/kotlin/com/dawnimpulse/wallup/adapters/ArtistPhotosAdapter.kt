@@ -41,15 +41,17 @@ class ArtistPhotosAdapter(private val context: Context, private val lifecycle: L
                           private val images: List<ImagePojo?>) : RecyclerView.Adapter<ArtistPhotosHolder>() {
 
     override fun getItemCount(): Int {
-        if (images.size < 8) {
-            if (images.size < 2)
-                return 1
-            if (images.size < 4)
-                return 2
-            if (images.size < 7)
-                return 3
-        } else
-            return 4
+        if (images.isNotEmpty()) {
+            if (images.size < 8) {
+                if (images.size < 2)
+                    return 1
+                if (images.size < 4)
+                    return 2
+                if (images.size < 7)
+                    return 3
+            } else
+                return 4
+        }
         return 0
     }
 

@@ -89,11 +89,15 @@ object F {
 
     // capital letter word
     fun capWord(string: String): String {
-        val result = StringBuilder(string.length)
-        val words = string.split("\\ ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        for (i in words.indices) {
-            result.append(Character.toUpperCase(words[i][0])).append(words[i].substring(1)).append(" ")
-        }
-        return result.toString()
+        return if (string.isNotEmpty()) {
+            val result = StringBuilder(string.length)
+            val words = string.split("\\ ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            for (i in words.indices) {
+                if (words[i].isNotEmpty())
+                    result.append(Character.toUpperCase(words[i][0])).append(words[i].substring(1)).append(" ")
+            }
+            result.toString()
+        } else
+            string
     }
 }

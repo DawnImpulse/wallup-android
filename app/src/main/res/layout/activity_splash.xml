@@ -12,9 +12,10 @@
         android:background="@color/black90" />
 
     <android.support.v7.widget.AppCompatImageView
-        android:layout_width="240dp"
-        android:layout_height="240dp"
+        android:layout_width="360dp"
+        android:layout_height="360dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        app:srcCompat="@drawable/vd_wallup_logo" />
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/ic_launcher" />
 </RelativeLayout>

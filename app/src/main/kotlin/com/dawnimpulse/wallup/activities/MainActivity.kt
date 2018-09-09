@@ -73,8 +73,8 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     // on click
     override fun onClick(v: View) {
         when (v.id) {
-            mainNavTrending.id -> currentNavItem(0)
-            mainNavLatest.id -> currentNavItem(1)
+            mainNavLatest.id -> currentNavItem(0)
+            mainNavTrending.id -> currentNavItem(1)
             mainNavCurated.id -> currentNavItem(2)
             mainNavUp.id -> {
                 navSheet.show(supportFragmentManager, C.BOTTOM_SHEET)
@@ -83,12 +83,12 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
             mainRefresh.id -> {
                 when (lastItemSelected) {
                     0 -> {
-                        toast("Refreshing Trending List")
-                        trendingFragment.onRefresh()
-                    }
-                    1 -> {
                         toast("Refreshing Latest List")
                         latestFragment.onRefresh()
+                    }
+                    1 -> {
+                        toast("Refreshing Trending List")
+                        trendingFragment.onRefresh()
                     }
                     2 -> {
                         toast("Refreshing Curated List")
@@ -135,8 +135,8 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         trendingFragment.arguments = trendingBundle
         curatedFragment.arguments = curatedBundle
 
-        pagerAdapter.addFragment(trendingFragment, C.TRENDING)
         pagerAdapter.addFragment(latestFragment, C.LATEST)
+        pagerAdapter.addFragment(trendingFragment, C.TRENDING)
         pagerAdapter.addFragment(curatedFragment, C.CURATED)
         viewPager.adapter = pagerAdapter
     }
@@ -151,15 +151,15 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
             0 -> {
                 lastItemSelected = 0
                 mainViewPager.currentItem = 0
-                mainNavTrendingT.visibility = View.VISIBLE
-                mainNavLatestT.visibility = View.GONE
+                mainNavLatestT.visibility = View.VISIBLE
+                mainNavTrendingT.visibility = View.GONE
                 mainNavCuratedT.visibility = View.GONE
             }
             1 -> {
                 lastItemSelected = 1
                 mainViewPager.currentItem = 1
-                mainNavTrendingT.visibility = View.GONE
-                mainNavLatestT.visibility = View.VISIBLE
+                mainNavLatestT.visibility = View.GONE
+                mainNavTrendingT.visibility = View.VISIBLE
                 mainNavCuratedT.visibility = View.GONE
             }
             2 -> {
@@ -179,13 +179,13 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         val colors = Colors(this)
         when (pos) {
             0 -> {
-                mainNavTrendingI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
-                mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+                mainNavLatestI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
+                mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
                 mainNavCuratedI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
             }
             1 -> {
-                mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
-                mainNavLatestI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
+                mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+                mainNavTrendingI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
                 mainNavCuratedI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
             }
             2 -> {

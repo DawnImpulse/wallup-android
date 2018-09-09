@@ -54,7 +54,7 @@ object L {
      */
     fun e(filename: String, message: Any) {
         if (BuildConfig.DEBUG)
-            Log.d(C.WALLUP, "$filename :: $message")
+            Log.e(C.WALLUP, "$filename :: $message")
     }
 
     /**

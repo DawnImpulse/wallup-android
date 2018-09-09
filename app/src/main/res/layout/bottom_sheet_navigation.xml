@@ -37,14 +37,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <!--random-->
         <FrameLayout
             android:id="@+id/sheetNavRandom"
-            android:layout_gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1">
 
             <LinearLayout
-                android:layout_width="64dp"
-                android:layout_height="68dp"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
                 android:layout_gravity="center"
                 android:orientation="vertical">
 
@@ -52,14 +52,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/vd_random" />
+                    app:srcCompat="@drawable/vd_random"  />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Random Images"
+                    android:text="Random"
                     android:textColor="@color/black" />
             </LinearLayout>
         </FrameLayout>
@@ -67,16 +68,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <!--collection-->
         <FrameLayout
             android:id="@+id/sheetNavCollection"
-            android:layout_gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="64dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="2dp"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.AppCompatImageView
@@ -86,10 +86,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     app:srcCompat="@drawable/vd_layout" />
 
                 <TextView
-                    android:layout_marginTop="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:text="Collections"
                     android:textColor="@color/black" />
@@ -99,16 +99,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <!--feedback-->
         <FrameLayout
             android:id="@+id/sheetNavFeedback"
-            android:layout_gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="2dp"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.AppCompatImageView
@@ -118,10 +117,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     app:srcCompat="@drawable/ic_love" />
 
                 <TextView
-                    android:layout_marginTop="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
                     android:text="Feedback"
                     android:textColor="@color/black" />

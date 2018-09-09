@@ -89,6 +89,36 @@ OR PERFORMANCE OF THIS SOFTWARE.
         app:layout_behavior=".utils.BottomNavigationBehaviour">
 
         <RelativeLayout
+            android:id="@+id/mainNavLatest"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/mainNavLatestI"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vd_flash_circle" />
+
+                <TextView
+                    android:id="@+id/mainNavLatestT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Latest"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/mainNavTrending"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -118,36 +148,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:textColor="@color/black" />
             </LinearLayout>
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/mainNavLatest"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/mainNavLatestI"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/vd_flash_circle" />
-
-                <TextView
-                    android:id="@+id/mainNavLatestT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Latest"
-                    android:textColor="@color/black" />
-            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout

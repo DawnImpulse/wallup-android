@@ -29,7 +29,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
 
     private val NAME = "GeneralImagesActivity"
-    private var current = 0
+    private var current: Int = 0
     private var nextPage = 2
     private lateinit var model: UnsplashModel
     private lateinit var randomAdapter: RandomAdapter
@@ -37,6 +37,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     private lateinit var username: String
     private lateinit var images: MutableList<ImagePojo?>
     private lateinit var colId: String
+    private lateinit var colType: String
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +54,8 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
             }
             C.COLLECTION -> {
                 current = 2
-                colId = intent.extras.getString(C.COLLECTION)
+                colId = intent.extras.getString(C.ID)
+                colType = intent.extras.getString(C.COLLECTION)
                 paginatedImages()
             }
         }
@@ -84,7 +86,12 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         mainAdapter.notifyItemInserted(images.size)
         when (current) {
             1 -> model.userPhotos(nextPage, 30, username, callbackPaginated)
-            2 -> model.collectionPhotos(colId,nextPage,30,callbackPaginated)
+            2 -> {
+                if (colType == C.FEATURED)
+                    model.collectionPhotos(colId, nextPage, 30, callbackPaginated)
+                else
+                    model.curatedCollectionPhotos(colId, nextPage, 30, callbackPaginated)
+            }
         }
     }
 
@@ -103,20 +110,23 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         when (current) {
             0 -> {
                 model.randomImages { e, r ->
-                    setRandomImages(e, r as List<ImagePojo>)
+                    setRandomImages(e, r)
                 }
             }
             1 -> {
                 toast("shuffling images")
                 model.randomUserImages(username) { e, r ->
-                    setRandomImages(e, r as List<ImagePojo>)
+                    setRandomImages(e, r)
                 }
             }
             2 -> {
                 toast("shuffling images")
-                model.randomCollectionPhotos(colId) { e, r ->
-                    setRandomImages(e, r as List<ImagePojo>)
-                }
+                if (colType == C.FEATURED)
+                    model.randomCollectionPhotos(colId) { e, r ->
+                        setRandomImages(e, r)
+                    }
+                else
+                    model.randomImages(callback)
             }
         }
     }
@@ -124,7 +134,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     /**
      * set random images in adapter
      */
-    private fun setRandomImages(error: Any?, images: List<ImagePojo>?) {
+    private fun setRandomImages(error: Any?, images: Any?) {
         if (error != null) {
             L.d(NAME, error.toString())
             generalImagesSwipe.isRefreshing = false
@@ -149,7 +159,10 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                 model.userPhotos(1, 30, username, callback)
             }
             2 -> {
-                model.collectionPhotos(colId, 1, 30, callback)
+                if (colType == C.FEATURED)
+                    model.collectionPhotos(colId, 1, 30, callback)
+                else
+                    model.curatedCollectionPhotos(colId, 1, 30, callback)
             }
         }
     }
@@ -170,9 +183,9 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                 } else {
                     images = response.toMutableList()
                     mainAdapter = MainAdapter(lifecycle, images, generalImagesRecycler)
-                    generalImagesSwipe.visibility = View.VISIBLE
                     generalImagesRecycler.layoutManager = LinearLayoutManager(this@GeneralImagesActivity)
                     generalImagesRecycler.adapter = mainAdapter
+                    generalImagesSwipe.visibility = View.VISIBLE
                     generalImagesSwipe.isRefreshing = false
                     generalImagesProgress.visibility = View.GONE
 

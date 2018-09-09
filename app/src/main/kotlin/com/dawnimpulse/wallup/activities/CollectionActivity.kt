@@ -35,7 +35,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
     private var NAME = "CollectionActivity"
     private lateinit var details: CollectionPojo
     private lateinit var model: UnsplashModel
-    private lateinit var type:String
+    private lateinit var type: String
     private var color = 0
 
     // on create
@@ -48,7 +48,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
         details = Gson().fromJson(intent.extras.getString(C.COLLECTION), CollectionPojo::class.java)
         setDetails()
 
-        when(type){
+        when (type) {
             C.FEATURED -> model.collectionPhotos(details.id, 1, 8) { e, r ->
                 e?.let {
                     L.d(NAME, e.toString())
@@ -86,7 +86,8 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
             colMore.id -> {
                 var intent = Intent(this, GeneralImagesActivity::class.java)
                 intent.putExtra(C.TYPE, C.COLLECTION)
-                intent.putExtra(C.COLLECTION, details.id)
+                intent.putExtra(C.COLLECTION, type)
+                intent.putExtra(C.ID, details.id)
                 startActivity(intent)
             }
             colUserImage.id, colUserImageL.id -> {

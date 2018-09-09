@@ -45,7 +45,7 @@ object C {
     const val VERSION_CODE = "versionCode"
     const val SHARE = "share"
     const val COLLECTION = "collection"
-    const val COLLECTIONS = "curatedCollections"
+    const val COLLECTIONS = "collections"
     const val GENERAL = "general"
     const val FEATURED = "featured"
 
