@@ -1,17 +1,25 @@
 package com.dawnimpulse.wallup.activities
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.graphics.Palette
+import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import android.widget.TextView
+import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.adapters.ArtistPhotosAdapter
 import com.dawnimpulse.wallup.handlers.ColorHandler
 import com.dawnimpulse.wallup.handlers.ImageHandler
+import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
+import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.F
+import com.dawnimpulse.wallup.utils.L
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_collection.*
 
@@ -23,8 +31,10 @@ import kotlinx.android.synthetic.main.activity_collection.*
  *
  * @note Updates :
  */
-class CollectionActivity : AppCompatActivity() {
+class CollectionActivity : AppCompatActivity(), View.OnClickListener {
+    private var NAME = "CollectionActivity"
     private lateinit var details: CollectionPojo
+    private lateinit var model: UnsplashModel
     private var color = 0
 
     // on create
@@ -32,8 +42,43 @@ class CollectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_collection)
 
+        model = UnsplashModel(lifecycle)
         details = Gson().fromJson(intent.extras.getString(C.COLLECTION), CollectionPojo::class.java)
         setDetails()
+
+        model.featuredCollectionPhotos(details.id, 1, 8) { e, r ->
+            e?.let {
+                L.d(NAME, e.toString())
+                toast("error fetching images")
+            }
+            r?.let {
+                var adapter = ArtistPhotosAdapter(this, lifecycle, r as List<ImagePojo?>)
+                colRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                colRecycler.adapter = adapter
+                colRecycler.clipToPadding = false
+            }
+        }
+
+        colMore.setOnClickListener(this)
+        colUserImage.setOnClickListener(this)
+        colUserImageL.setOnClickListener(this)
+    }
+
+    // on click
+    override fun onClick(v: View) {
+        when (v.id) {
+            colMore.id -> {
+                var intent = Intent(this, GeneralImagesActivity::class.java)
+                intent.putExtra(C.TYPE, C.COLLECTION)
+                intent.putExtra(C.COLLECTION, details.id)
+                startActivity(intent)
+            }
+            colUserImage.id, colUserImageL.id -> {
+                var intent = Intent(this, ArtistProfileActivity::class.java)
+                intent.putExtra(C.USERNAME, details.user!!.username)
+                startActivity(intent)
+            }
+        }
     }
 
     // setting details in views
@@ -49,8 +94,8 @@ class CollectionActivity : AppCompatActivity() {
         colImageUpdated.setText(F.fromHtml("<font color=\"#9e9e9e\">updated on</font> ${F.dateConvert(details.updated_at)}"), TextView.BufferType.SPANNABLE)
         colPublished.setText(F.fromHtml("<font color=\"#9e9e9e\">published on</font> ${F.dateConvert(details.published_at)}"), TextView.BufferType.SPANNABLE)
 
-        ImageHandler.getImageAsBitmap(lifecycle,this,details.cover_photo.urls?.full + Config.IMAGE_HEIGHT){
-            val color = ColorHandler.getNonDarkColor(Palette.from(it).generate(),this)
+        ImageHandler.getImageAsBitmap(lifecycle, this, details.cover_photo.urls?.full + Config.IMAGE_HEIGHT) {
+            val color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
             colImage.setImageBitmap(it)
             setColor(color)
         }
@@ -60,7 +105,7 @@ class CollectionActivity : AppCompatActivity() {
     }
 
     // set color on views
-    private fun setColor(color:Int){
+    private fun setColor(color: Int) {
         colTitle.setTextColor(color)
         colImageC.setTextColor(color)
         //colDescription.setTextColor(color)

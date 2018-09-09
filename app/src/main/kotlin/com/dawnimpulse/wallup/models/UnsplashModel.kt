@@ -172,8 +172,40 @@ class UnsplashModel() {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)
                 fun onResume() {
-                    if(once){
-                        callback(e,r)
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
+        }
+    }
+
+    // featured collection photo
+    fun featuredCollectionPhotos(id: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.featuredCollectionPhotos(id, page, count) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onResume() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
+        }
+    }
+
+    // random collection photo
+    fun randomCollectionPhotos(id: String, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.randomCollectionPhotos(id) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onResume() {
+                    if (once) {
+                        callback(e, r)
                         once = false
                     }
                 }

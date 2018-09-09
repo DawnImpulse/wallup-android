@@ -78,7 +78,7 @@ class ArtistPhotosAdapter(private val context: Context, private val lifecycle: L
                 if (images.size > 6) ImageHandler.setImageInView(lifecycle, holder.image7, images[6]!!.urls!!.full + Config.IMAGE_HEIGHT) else holder.image7L.visibility = View.GONE
             }
             3 -> {
-                holder.image1.visibility = View.VISIBLE
+                holder.layout0.visibility = View.VISIBLE
                 ImageHandler.setImageInView(lifecycle, holder.image1, images[7]!!.urls!!.full + Config.IMAGE_HEIGHT)
             }
         }

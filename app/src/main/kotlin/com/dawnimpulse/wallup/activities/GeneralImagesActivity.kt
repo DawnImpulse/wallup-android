@@ -16,6 +16,15 @@ import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.L
 import kotlinx.android.synthetic.main.activity_general_images.*
 
+/**
+ * @author Saksham
+ *
+ * @note Last Branch Update - master
+ * @note Created on 2018-09 by Saksham
+ *
+ * @note Updates :
+ * Saksham - 2018 09 09 - master - collection images
+ */
 class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
 
@@ -27,6 +36,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     private lateinit var mainAdapter: MainAdapter
     private lateinit var username: String
     private lateinit var images: MutableList<ImagePojo?>
+    private lateinit var colId: String
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +49,11 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
             C.ARTIST_IMAGES -> {
                 current = 1
                 username = intent.extras.getString(C.USERNAME)
+                paginatedImages()
+            }
+            C.COLLECTION -> {
+                current = 2
+                colId = intent.extras.getString(C.COLLECTION)
                 paginatedImages()
             }
         }
@@ -59,6 +74,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         when (current) {
             0 -> randomImages()
             1 -> paginatedImages()
+            2 -> paginatedImages()
         }
     }
 
@@ -68,7 +84,13 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         mainAdapter.notifyItemInserted(images.size)
         when (current) {
             1 -> model.userPhotos(nextPage, 30, username, callbackPaginated)
+            2 -> model.featuredCollectionPhotos(colId,nextPage,30,callbackPaginated)
         }
+    }
+
+    // back press
+    override fun onBackPressed() {
+        finish()
     }
 
     /**
@@ -87,6 +109,12 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
             1 -> {
                 toast("shuffling images")
                 model.randomUserImages(username) { e, r ->
+                    setRandomImages(e, r as List<ImagePojo>)
+                }
+            }
+            2 -> {
+                toast("shuffling images")
+                model.randomCollectionPhotos(colId) { e, r ->
                     setRandomImages(e, r as List<ImagePojo>)
                 }
             }
@@ -119,6 +147,9 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         when (current) {
             1 -> {
                 model.userPhotos(1, 30, username, callback)
+            }
+            2 -> {
+                model.featuredCollectionPhotos(colId, 1, 30, callback)
             }
         }
     }

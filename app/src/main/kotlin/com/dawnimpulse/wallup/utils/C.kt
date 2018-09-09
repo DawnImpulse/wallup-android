@@ -45,6 +45,7 @@ object C {
     const val VERSION_CODE = "versionCode"
     const val SHARE = "share"
     const val COLLECTION = "collection"
+    const val COLLECTIONS = "collections"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
 

@@ -111,7 +111,7 @@ class App : Application() {
     }
 
     /**
-     * disabling crashlytics in debug builds
+     * enabling crashlytics in release builds
      */
     private fun setCrashlytics(){
         if(!BuildConfig.DEBUG)

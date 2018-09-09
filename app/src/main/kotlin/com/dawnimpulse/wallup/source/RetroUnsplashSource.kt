@@ -117,4 +117,20 @@ interface RetroUnsplashSource {
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.PAGE) page: Int
     ): Call<List<CollectionPojo>>
+
+    // featured collection photos
+    @GET("/collections/{id}/photos")
+    fun featuredCollectionPhotos(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.ID) id: String,
+            @Query(C.PER_PAGE) per_page: Int,
+            @Query(C.PAGE) page: Int
+    ): Call<List<ImagePojo>>
+
+    // featured collection photos
+    @GET("/photos/random?count=30")
+    fun randomCollectionPhotos(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Query(C.COLLECTIONS) id: String
+    ): Call<List<ImagePojo>>
 }

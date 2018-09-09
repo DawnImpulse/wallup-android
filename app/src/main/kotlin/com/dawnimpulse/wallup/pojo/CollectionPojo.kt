@@ -23,6 +23,7 @@ import com.google.gson.annotations.SerializedName
  * @note Updates :
  */
 data class CollectionPojo(
+        @SerializedName("id") val id: String,
         @SerializedName("title") val title: String,
         @SerializedName("description") val description: String? = null,
         @SerializedName("published_at") val published_at: String,
