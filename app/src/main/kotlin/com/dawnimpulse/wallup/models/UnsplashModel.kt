@@ -204,4 +204,20 @@ class UnsplashModel() {
             })
         }
     }
+
+    // user's collections
+    fun userCollections(username: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.userCollections(username,page,count) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onResume() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
+        }
+    }
 }

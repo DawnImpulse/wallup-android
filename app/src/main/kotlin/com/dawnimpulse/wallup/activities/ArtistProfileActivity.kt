@@ -21,8 +21,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.ArtistPhotosAdapter
+import com.dawnimpulse.wallup.adapters.CollectionsHorizontalAdapter
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
+import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.C
@@ -39,7 +41,8 @@ import kotlinx.android.synthetic.main.activity_artist_profile.*
  * @note Created on 2018-09-31 by Saksham
  *
  * @note Updates :
- *  Saksham - 2018 09 31 - master - click listener
+ *  Saksham - 2018 08 31 - master - click listener
+ *  Saksham - 2018 09 14 - master - inflating collections
  */
 class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var userPojo: UserPojo
@@ -67,11 +70,33 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
             if (error != null) {
                 L.d(NAME, error.toString())
                 Toast.short(this, "Error Occurred In Photos")
+                artistPhotosL.visibility = View.GONE
             } else {
-                var adapter = ArtistPhotosAdapter(this@ArtistProfileActivity, lifecycle, details as List<ImagePojo?>)
-                artistPhotos.layoutManager = LinearLayoutManager(this@ArtistProfileActivity, LinearLayoutManager.HORIZONTAL, false)
-                artistPhotos.adapter = adapter
-                artistPhotos.clipToPadding = false
+                if ((details as List<ImagePojo>).size != 0) {
+                    var adapter = ArtistPhotosAdapter(this@ArtistProfileActivity, lifecycle, details as List<ImagePojo?>)
+                    artistPhotos.layoutManager = LinearLayoutManager(this@ArtistProfileActivity, LinearLayoutManager.HORIZONTAL, false)
+                    artistPhotos.adapter = adapter
+                    artistPhotos.clipToPadding = false
+                } else
+                    artistPhotosL.visibility = View.GONE
+
+            }
+        }
+        model.userCollections(intent.getStringExtra(C.USERNAME), 1, 8) { e, r ->
+            e?.let {
+                L.d(NAME, e.toString())
+                Toast.short(this, "Error Occurred In Collections")
+                artistCollectionL.visibility = View.GONE
+            }
+            r?.let {
+                if ((r as List<CollectionPojo>).size != 0) {
+                    var adapter = CollectionsHorizontalAdapter(lifecycle, r)
+                    artistCollectionRecycler.layoutManager = LinearLayoutManager(this@ArtistProfileActivity, LinearLayoutManager.HORIZONTAL, false)
+                    artistCollectionRecycler.adapter = adapter
+                    artistCollectionRecycler.clipToPadding = false
+                } else
+                    artistCollectionL.visibility = View.GONE
+
             }
         }
 
@@ -98,9 +123,7 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    /**
-     * setting details
-     */
+    // setting details
     private fun details() {
         artistUsername.text = "@ ${userPojo.username}"
         artistFirstName.text = userPojo.first_name

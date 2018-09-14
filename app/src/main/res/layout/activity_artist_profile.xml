@@ -11,6 +11,7 @@
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:paddingBottom="64dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -220,7 +221,7 @@
 
                 <!--Photos-->
                 <RelativeLayout
-                    android:layout_marginBottom="64dp"
+                    android:id="@+id/artistPhotosL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp">
@@ -255,6 +256,51 @@
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
                         android:layout_below="@id/artistPhotosMore"
+                        android:layout_marginTop="16dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </RelativeLayout>
+
+                <!--Collections-->
+                <RelativeLayout
+                    android:id="@+id/artistCollectionL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="36dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp"
+                        android:text="COLLECTIONS"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/artistCollectionMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp"
+                        android:paddingTop="8dp"
+                        android:text="More >"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/artistCollectionRecycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp"
+                        android:layout_below="@id/artistCollectionMore"
                         android:layout_marginTop="16dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp">

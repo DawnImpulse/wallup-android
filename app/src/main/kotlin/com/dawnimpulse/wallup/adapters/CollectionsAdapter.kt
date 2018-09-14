@@ -37,11 +37,10 @@ import com.google.gson.Gson
 /**
  * @author Saksham
  *
- * @note Last Branch Update - recent
- * @note Created on 2018-05-16 by Saksham
+ * @note Last Branch Update - master
+ * @note Created on 2018 09 by Saksham
  *
  * @note Updates :
- *  Saksham - 2018 05 25 - recent - intent to Image Activity
  */
 class CollectionsAdapter(private val lifecycle: Lifecycle,
                          private val cols: List<CollectionPojo?>,

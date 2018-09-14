@@ -32,7 +32,8 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  *  Saksham - 2018 05 20 - recent - curated photos
  *  Saksham - 2018 09 01 - recent - image details
  *  Saksham - 2018 09 02 - recent - random user images
- *  Saksham - 2018 09 08 - recent - featured curatedCollections
+ *  Saksham - 2018 09 08 - recent - featured collections
+ *  Saksham - 2018 09 14 - recent - users's collections
  */
 interface RetroUnsplashSource {
 
@@ -150,4 +151,14 @@ interface RetroUnsplashSource {
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.COLLECTIONS) id: String
     ): Call<List<ImagePojo>>
+
+    // user collections
+    @GET("/users/{username}/collections?count=30")
+    fun getUserCollections(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.USERNAME) username: String,
+            @Query(C.PAGE) page: Int,
+            @Query(C.PER_PAGE) count: Int
+    ): Call<List<CollectionPojo>>
+
 }

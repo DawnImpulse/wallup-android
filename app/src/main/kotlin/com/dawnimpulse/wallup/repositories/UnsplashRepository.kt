@@ -37,7 +37,8 @@ import retrofit2.Response
  *  2018 08 31 - master - Saksham - user details
  *  2018 09 01 - master - Saksham - image details
  *  2018 09 02 - master - Saksham - random user images
- *  2018 09 08 - master - Saksham - featured curatedCollections
+ *  2018 09 08 - master - Saksham - featured collections
+ *  2018 09 14 - master - Saksham - user's collections
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
@@ -306,13 +307,13 @@ object UnsplashRepository {
                 if (response.isSuccessful) {
                     callback(null, response.body())
                 } else {
-                    L.d(NAME,"hiy")
+                    L.d(NAME, "hiy")
                     callback(Gson().toJson(response.errorBody()).toString(), null)
                 }
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                L.d(NAME,"hii")
+                L.d(NAME, "hii")
                 callback(t.toString(), null)
             }
         })
@@ -334,13 +335,13 @@ object UnsplashRepository {
                 if (response.isSuccessful) {
                     callback(null, response.body())
                 } else {
-                    L.d(NAME,"hiy")
+                    L.d(NAME, "hiy")
                     callback(Gson().toJson(response.errorBody()).toString(), null)
                 }
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                L.d(NAME,"hii")
+                L.d(NAME, "hii")
                 callback(t.toString(), null)
             }
         })
@@ -365,6 +366,32 @@ object UnsplashRepository {
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    // user's collections
+    fun userCollections(username: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.getUserCollections(
+                Config.UNSPLASH_API_KEY,
+                username,
+                page,
+                count
+        )
+
+        call.enqueue(object : Callback<List<CollectionPojo>> {
+
+            override fun onResponse(call: Call<List<CollectionPojo>>?, response: Response<List<CollectionPojo>>) {
+                if (response.isSuccessful) {
+                    callback(null, response.body())
+                } else {
+                    callback(Gson().toJson(response.errorBody()).toString(), null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<CollectionPojo>>?, t: Throwable?) {
                 callback(t.toString(), null)
             }
         })
