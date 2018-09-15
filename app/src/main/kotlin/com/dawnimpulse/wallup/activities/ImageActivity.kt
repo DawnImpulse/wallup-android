@@ -158,13 +158,13 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                         imagePreviewProgress.visibility = View.GONE
                     } else {
                         if (bitmap != null) {
-                            ImageHandler.shareImage(bitmap!!, this, F.unsplashImage(details.id))
+                            ImageHandler.shareImage(this, bitmap!!, details.id, F.unsplashImage(details.id))
                             imagePreviewProgress.visibility = View.GONE
                         } else {
                             toast("Waiting for High Quality Image ...")
                             ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full) {
                                 bitmap = it
-                                ImageHandler.shareImage(it, this, F.unsplashImage(details.id))
+                                ImageHandler.shareImage(this, it, details.id, F.unsplashImage(details.id))
                                 imagePreviewProgress.visibility = View.GONE
                             }
                         }

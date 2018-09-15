@@ -51,6 +51,7 @@ object C {
     const val UPDATE = "update"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
+    const val WALLUP_PLAY = "https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup"
 
     const val ERROR_CODE_1 = 601
     const val ERROR_CODE_2 = 602

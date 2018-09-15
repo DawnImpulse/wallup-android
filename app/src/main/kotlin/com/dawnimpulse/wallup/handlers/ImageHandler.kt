@@ -7,6 +7,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.support.v4.content.FileProvider
+import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import androidx.core.widget.toast
 import com.bumptech.glide.Glide
@@ -94,25 +98,40 @@ object ImageHandler {
     /**
      * sharing image via intent
      */
-    fun shareImage(bitmap: Bitmap, context: Context, url: String) {
+    fun shareImage(context: Context, bitmap: Bitmap, name: String, url: String) {
         launch {
             try {
-                val filePath = File(context.externalCacheDir, "${C.WALLUP}.jpg")
+                val folder = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), C.WALLUP)
+                val filePath = File(folder, "$name.jpg")
+
+                if (!folder.exists())
+                    folder.mkdir()
+                if (!filePath.exists())
+                    filePath.createNewFile()
+                //val filePath = File(context.externalCacheDir, "${C.WALLUP}.jpg")
+
                 val stream = FileOutputStream(filePath)
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 95, stream)
                 stream.flush()
                 stream.close()
 
                 val shareIntent = Intent()
+                val uri = FileProvider.getUriForFile(context, context.packageName, filePath)
                 shareIntent.action = Intent.ACTION_SEND
                 shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(filePath));
-                shareIntent.putExtra(Intent.EXTRA_TEXT,"View this image & many more on Unsplash \n $url")
+
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(filePath))
+                else
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "View this image & many more on Unsplash." +
+                        " Download wallup to access Unsplash amazing library \n\nWallup - ${C.WALLUP_PLAY} \n\nImage on Unsplash -  $url")
                 shareIntent.type = "image/jpg"
-                context.startActivity(Intent.createChooser(shareIntent, "Choose an app"))
-
-
+                (context as AppCompatActivity).runOnUiThread {
+                    context.startActivity(Intent.createChooser(shareIntent, "Choose an app"))
+                }
             } catch (e: IOException) {
                 e.printStackTrace()
                 context.toast("error sharing image (${C.ERROR_CODE_2})")

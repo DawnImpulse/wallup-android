@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".utils.App"
@@ -13,13 +14,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.dawnimpulse.wallup"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_path" />
+        </provider>
+
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
-            android:value="false" />
+            android:value="true" />
+
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1" />
 
         <!-- Splash Screen -->
         <activity
             android:name=".activities.SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen.Preview">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,41 +47,49 @@
         <!-- Main Activity -->
         <activity
             android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
 
         <!-- Image Activity -->
         <activity
             android:name=".activities.ImageActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
 
         <!-- Cropping Activity -->
         <activity
             android:name=".activities.CropActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
 
         <!-- Artist Profile -->
         <activity
             android:name=".activities.ArtistProfileActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
 
         <!-- General Images -->
         <activity
             android:name=".activities.GeneralImagesActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
 
         <!-- Changes Activity -->
         <activity
             android:name=".activities.ChangesActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
 
         <!-- Collections Layout -->
         <activity
             android:name=".activities.CollectionLayoutActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
 
         <!--Collection-->
         <activity
             android:name=".activities.CollectionActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen"></activity>
     </application>
 
