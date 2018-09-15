@@ -26,7 +26,7 @@
 
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
-            android:value="true" />
+            android:value="false" />
 
         <meta-data
             android:name="android.max_aspect"

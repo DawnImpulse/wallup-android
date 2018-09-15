@@ -121,17 +121,27 @@ object ImageHandler {
                 shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
+                // if android version smaller that N then we use URI else FileProvider
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N)
                     shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(filePath))
                 else
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
 
+                // scanning the media
+                val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+                intent.data = Uri.fromFile(filePath)
+                context.sendBroadcast(intent)
+
+                //sharing the intent
                 shareIntent.putExtra(Intent.EXTRA_TEXT, "View this image & many more on Unsplash." +
                         " Download wallup to access Unsplash amazing library \n\nWallup - ${C.WALLUP_PLAY} \n\nImage on Unsplash -  $url")
                 shareIntent.type = "image/jpg"
+
+                //running on UI thread to avoid co-routines issue
                 (context as AppCompatActivity).runOnUiThread {
                     context.startActivity(Intent.createChooser(shareIntent, "Choose an app"))
                 }
+
             } catch (e: IOException) {
                 e.printStackTrace()
                 context.toast("error sharing image (${C.ERROR_CODE_2})")

@@ -172,24 +172,30 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
      */
     private var callback = object : (Any?, Any?) -> Unit {
         override fun invoke(error: Any?, response: Any?) {
-            if ((response as List<ImagePojo>).size < 30) {
-                setRandomImages(error, response)
-            } else {
-                if (error != null) {
-                    L.d(NAME, error)
-                    toast("Error in fetching images")
-                    generalImagesProgress.visibility = View.GONE
-                    generalImagesSwipe.isRefreshing = false
+            error?.let {
+                L.d(NAME, error)
+                toast("error fetching images")
+            }
+            response?.let {
+                if ((response as List<ImagePojo>).size < 30) {
+                    setRandomImages(error, response)
                 } else {
-                    images = response.toMutableList()
-                    mainAdapter = MainAdapter(lifecycle, images, generalImagesRecycler)
-                    generalImagesRecycler.layoutManager = LinearLayoutManager(this@GeneralImagesActivity)
-                    generalImagesRecycler.adapter = mainAdapter
-                    generalImagesSwipe.visibility = View.VISIBLE
-                    generalImagesSwipe.isRefreshing = false
-                    generalImagesProgress.visibility = View.GONE
+                    if (error != null) {
+                        L.d(NAME, error)
+                        toast("Error in fetching images")
+                        generalImagesProgress.visibility = View.GONE
+                        generalImagesSwipe.isRefreshing = false
+                    } else {
+                        images = response.toMutableList()
+                        mainAdapter = MainAdapter(lifecycle, images, generalImagesRecycler)
+                        generalImagesRecycler.layoutManager = LinearLayoutManager(this@GeneralImagesActivity)
+                        generalImagesRecycler.adapter = mainAdapter
+                        generalImagesSwipe.visibility = View.VISIBLE
+                        generalImagesSwipe.isRefreshing = false
+                        generalImagesProgress.visibility = View.GONE
 
-                    mainAdapter.setOnLoadMoreListener(this@GeneralImagesActivity)
+                        mainAdapter.setOnLoadMoreListener(this@GeneralImagesActivity)
+                    }
                 }
             }
         }
@@ -200,10 +206,11 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
      */
     private var callbackPaginated = object : (Any?, Any?) -> Unit {
         override fun invoke(error: Any?, response: Any?) {
-            if (error != null) {
+            error?.let {
                 L.d(NAME, error)
                 toast("Error loading images")
-            } else {
+            }
+            response?.let {
                 nextPage++
                 images.removeAt(images.size - 1)
                 mainAdapter.notifyItemRemoved(images.size - 1)

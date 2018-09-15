@@ -49,6 +49,7 @@ object C {
     const val GENERAL = "general"
     const val FEATURED = "featured"
     const val UPDATE = "update"
+    const val DAWN_IMPULSE = "dawnimpulse"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val WALLUP_PLAY = "https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup"

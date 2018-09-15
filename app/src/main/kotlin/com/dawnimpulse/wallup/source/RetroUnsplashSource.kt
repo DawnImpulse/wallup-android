@@ -153,7 +153,7 @@ interface RetroUnsplashSource {
     ): Call<List<ImagePojo>>
 
     // user collections
-    @GET("/users/{username}/collections?count=30")
+    @GET("/users/{username}/collections")
     fun getUserCollections(
             @Header(C.AUTHORIZATION) authorization: String,
             @Path(C.USERNAME) username: String,

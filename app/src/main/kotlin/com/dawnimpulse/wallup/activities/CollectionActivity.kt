@@ -44,6 +44,8 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_collection)
 
         type = intent.extras.getString(C.TYPE)
+        if (type == C.WALLUP)
+            type = C.FEATURED
         model = UnsplashModel(lifecycle)
         details = Gson().fromJson(intent.extras.getString(C.COLLECTION), CollectionPojo::class.java)
         setDetails()

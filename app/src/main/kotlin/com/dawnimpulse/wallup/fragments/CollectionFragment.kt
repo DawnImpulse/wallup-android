@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_collection.*
  * @note Created on 2018-09-09 by Saksham
  *
  * @note Updates :
+ * Saksham - 2018 09 15 - master - adding wallup content
  */
 class CollectionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
     private val NAME = "CollectionFragment"
@@ -51,6 +52,7 @@ class CollectionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnL
         when (type) {
             C.FEATURED -> model.featuredCollections(1, callback)
             C.CURATED -> model.curatedCollections(1, callback)
+            C.WALLUP -> model.userCollections(C.DAWN_IMPULSE, 1, 30, callback)
         }
 
         colLSwipe.setOnRefreshListener(this)
@@ -58,17 +60,21 @@ class CollectionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnL
 
     // on refresh
     override fun onRefresh() {
-        when(type){
-            C.FEATURED -> model.featuredCollections(1,callback)
-            C.CURATED -> model.curatedCollections(1,callback)
+        when (type) {
+            C.FEATURED -> model.featuredCollections(1, callback)
+            C.CURATED -> model.curatedCollections(1, callback)
+            C.WALLUP -> model.userCollections(C.DAWN_IMPULSE, 1, 30, callback)
         }
     }
 
     // on load more
     override fun onLoadMore() {
-        when(type){
+        cols.add(null)
+        adapter.notifyItemInserted(cols.size)
+        when (type) {
             C.FEATURED -> model.featuredCollections(nextPage, callbackPaginated)
             C.CURATED -> model.curatedCollections(nextPage, callbackPaginated)
+            C.WALLUP -> model.userCollections(C.DAWN_IMPULSE, nextPage, 30, callbackPaginated)
         }
     }
 

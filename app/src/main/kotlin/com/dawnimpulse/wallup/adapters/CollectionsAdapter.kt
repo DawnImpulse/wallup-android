@@ -126,16 +126,17 @@ class CollectionsAdapter(private val lifecycle: Lifecycle,
 
             ImageHandler.setImageInView(lifecycle, holder.image0, it.cover_photo.urls!!.full + Config.IMAGE_HEIGHT)
             it.preview_photos?.let {
-                ImageHandler.setImageInView(lifecycle, holder.image1, it[1].urls.full + Config.IMAGE_HEIGHT)
                 if (it.size > 1)
-                    ImageHandler.setImageInView(lifecycle, holder.image2, it[2].urls.full + Config.IMAGE_HEIGHT)
+                    ImageHandler.setImageInView(lifecycle, holder.image1, it[1].urls.full + Config.IMAGE_HEIGHT)
                 if (it.size > 2)
+                    ImageHandler.setImageInView(lifecycle, holder.image2, it[2].urls.full + Config.IMAGE_HEIGHT)
+                if (it.size > 3)
                     ImageHandler.setImageInView(lifecycle, holder.image3, it[3].urls.full + Config.IMAGE_HEIGHT)
             }
 
             holder.layout.setOnClickListener {
                 var intent = Intent(context, CollectionActivity::class.java)
-                intent.putExtra(C.TYPE,type)
+                intent.putExtra(C.TYPE, type)
                 intent.putExtra(C.COLLECTION, Gson().toJson(cols[position]))
                 context.startActivity(intent)
             }

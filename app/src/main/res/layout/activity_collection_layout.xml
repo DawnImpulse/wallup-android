@@ -16,6 +16,7 @@
             android:layout_height="match_parent" />
 
     </RelativeLayout>
+
     <!--Bottom nav-->
     <LinearLayout
         android:id="@+id/colLNav"
@@ -28,25 +29,7 @@
         android:orientation="horizontal"
         app:layout_behavior=".utils.BottomNavigationBehaviour">
 
-        <FrameLayout
-            android:id="@+id/colNavGeneralL"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/colNavGeneral"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/mainNavTrendingI"
-                android:layout_gravity="center"
-                android:text="FEATURED"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-        </FrameLayout>
-
+        <!--featured-->
         <FrameLayout
             android:id="@+id/colNavFeaturedL"
             android:layout_width="wrap_content"
@@ -59,7 +42,46 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/mainNavTrendingI"
                 android:layout_gravity="center"
+                android:text="FEATURED"
+                android:textColor="@color/grey500"
+                android:textSize="14sp" />
+
+        </FrameLayout>
+
+        <!--curated-->
+        <FrameLayout
+            android:id="@+id/colNavGeneralL"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/colNavGeneral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mainNavTrendingI"
+                android:layout_gravity="center"
                 android:text="CURATED"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <!--wallup-->
+        <FrameLayout
+            android:id="@+id/colNavWallupL"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/colNavWallup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mainNavTrendingI"
+                android:layout_gravity="center"
+                android:text="WALLUP"
                 android:textColor="@color/grey500"
                 android:textSize="14sp" />
 
