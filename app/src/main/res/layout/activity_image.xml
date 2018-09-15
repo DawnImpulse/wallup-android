@@ -192,7 +192,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:id="@+id/imagePreviewWallpaper"
                                 android:layout_width="148dp"
                                 android:layout_height="36dp"
-                                android:background="@drawable/button_round_complete_corners_transparent"
+                                android:background="@drawable/bt_round_complete_corners_transparent"
                                 android:paddingLeft="24dp"
                                 android:paddingRight="24dp">
 
@@ -214,7 +214,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:layout_width="148dp"
                                 android:layout_height="36dp"
                                 android:layout_marginLeft="16dp"
-                                android:background="@drawable/button_round_complete_corners"
+                                android:background="@drawable/bt_round_complete_corners"
                                 android:paddingLeft="24dp"
                                 android:paddingRight="24dp">
 

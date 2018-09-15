@@ -18,20 +18,43 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_height="160dp">
 
     <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="4dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:elevation="4dp"
         app:cardCornerRadius="8dp">
 
-        <ImageView
-            android:id="@+id/colHImage"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/colHImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.3"
+                android:background="@color/black" />
+
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/colHText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:text="hello"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
 

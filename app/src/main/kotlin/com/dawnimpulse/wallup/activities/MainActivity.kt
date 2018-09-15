@@ -24,6 +24,7 @@ import com.dawnimpulse.wallup.fragments.MainFragment
 import com.dawnimpulse.wallup.sheets.ModalSheetNav
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Colors
+import com.dawnimpulse.wallup.utils.RemoteConfig
 import com.dawnimpulse.wallup.utils.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -36,6 +37,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  * @note Updates :
  *  Saksham - 2018 05 20 - recent - adding multiple fragments
  *  Saksham - 2018 08 19 - master - using bottom modal sheet navigation
+ *  Saksham - 2018 09 15 - master - remote config for update
  */
 class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.OnClickListener {
     private lateinit var pagerAdapter: ViewPagerAdapter
@@ -67,7 +69,8 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         mainNavLatest.setOnClickListener(this)
         mainNavUp.setOnClickListener(this)
         mainRefresh.setOnClickListener(this)
-        //ImageHandler.setImageInView(lifecycle, mainProfile, Config.TEMP_IMAGE)
+
+        RemoteConfig.update()
     }
 
     // on click

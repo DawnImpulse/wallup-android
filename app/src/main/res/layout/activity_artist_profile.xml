@@ -217,7 +217,7 @@
                     android:layout_height="4dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="24dp"
-                    android:background="@drawable/button_round_complete_corners_grey" />
+                    android:background="@drawable/bt_round_complete_corners_grey" />
 
                 <!--Photos-->
                 <RelativeLayout
@@ -331,7 +331,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/button_corners"
+        android:background="@drawable/bt_corners"
         android:elevation="6dp"
         android:padding="8dp"
         android:visibility="gone">

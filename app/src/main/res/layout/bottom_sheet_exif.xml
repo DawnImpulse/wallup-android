@@ -25,7 +25,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_height="3dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
-        android:background="@drawable/button_round_complete_corners_grey" />
+        android:background="@drawable/bt_round_complete_corners_grey" />
 
     <FrameLayout
         android:layout_marginTop="16dp"

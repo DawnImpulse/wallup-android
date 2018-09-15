@@ -121,12 +121,13 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
      */
     private var callback = object : (Any?, Any?) -> Unit {
         override fun invoke(error: Any?, response: Any?) {
-            if (error != null) {
+            error?.let {
                 L.d(NAME, error)
                 mainRefresher.isRefreshing = false
-            } else {
+            }
+            response?.let {
                 images = (response as List<ImagePojo>).toMutableList()
-                timestamp = images[images.size-1]!!.timestamp
+                timestamp = images[images.size - 1]!!.timestamp
                 mainAdapter = MainAdapter(lifecycle, images, mainRecycler)
                 mainRecycler.layoutManager = LinearLayoutManager(context)
                 mainRecycler.adapter = mainAdapter
@@ -143,9 +144,10 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
      */
     private var callbackPaginated = object : (Any?, Any?) -> Unit {
         override fun invoke(error: Any?, response: Any?) {
-            if (error != null) {
+            error?.let {
                 L.d(NAME, error)
-            } else {
+            }
+            response?.let {
                 nextPage++
                 images.removeAt(images.size - 1)
                 mainAdapter.notifyItemRemoved(images.size - 1)

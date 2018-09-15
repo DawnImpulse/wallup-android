@@ -29,8 +29,11 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.*
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
-import com.dawnimpulse.wallup.utils.*
 import com.dawnimpulse.wallup.sheets.ModalSheetExif
+import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.F
+import com.dawnimpulse.wallup.utils.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
 
@@ -71,7 +74,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
 
         model.getImage(details.id) { _, details ->
-            if (details != null) {
+            details?.let {
                 fullDetails = details as ImagePojo
                 setImageDetails(fullDetails!!)
             }

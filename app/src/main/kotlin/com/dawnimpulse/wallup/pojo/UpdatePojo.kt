@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+/*
 ISC License
 
 Copyright 2018, Saksham (DawnImpulse)
@@ -10,21 +10,18 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
 INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
-OR PERFORMANCE OF THIS SOFTWARE.
--->
-<resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="black90">#191919</color>
-    <color name="black50">#7F7F7F</color>
+OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.pojo
 
-    <color name="grey300">#EEEEEE</color>
-    <color name="grey400">#BDBDBD</color>
-    <color name="grey500">#9E9E9E</color>
-
-    <color name="latest">#E8F5E9</color>
-    <color name="latestDark">#2E7D32</color>
-</resources>
+/**
+ * @author Saksham
+ *
+ * @note Last Branch Update -
+ * @note Created on 2018-09-15 by Saksham
+ *
+ * @note Updates :
+ */
+data class UpdatePojo(
+        val text:String,
+        val text_available:Boolean,
+        val next_version_code:Int
+)

@@ -48,6 +48,7 @@ object C {
     const val COLLECTIONS = "collections"
     const val GENERAL = "general"
     const val FEATURED = "featured"
+    const val UPDATE = "update"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
 

@@ -28,4 +28,5 @@ import kotlinx.android.synthetic.main.inflator_collection_horizontal.view.*
  */
 class CollectionsHorizontalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val image  = itemView.colHImage
+    val text = itemView.colHText
 }

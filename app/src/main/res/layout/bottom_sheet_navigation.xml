@@ -25,107 +25,199 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_height="3dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
-        android:background="@drawable/button_round_complete_corners_grey" />
+        android:background="@drawable/bt_round_complete_corners_grey" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="96dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <!--random-->
-        <FrameLayout
-            android:id="@+id/sheetNavRandom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="64dp"
+            <!--random-->
+            <FrameLayout
+                android:id="@+id/sheetNavRandom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="vertical">
+                android:layout_weight="1">
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/vd_random"  />
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="64dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="Random"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-        </FrameLayout>
+                    android:orientation="vertical">
 
-        <!--collection-->
-        <FrameLayout
-            android:id="@+id/sheetNavCollection"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1">
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_random" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="64dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Random"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <!--collection-->
+            <FrameLayout
+                android:id="@+id/sheetNavCollection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="vertical">
+                android:layout_weight="1">
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/vd_layout" />
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="64dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="Collections"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-        </FrameLayout>
+                    android:orientation="vertical">
 
-        <!--feedback-->
-        <FrameLayout
-            android:id="@+id/sheetNavFeedback"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1">
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_layout" />
 
-            <LinearLayout
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Collections"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <!--feedback-->
+            <FrameLayout
+                android:id="@+id/sheetNavFeedback"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="vertical">
+                android:layout_weight="1">
 
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/ic_love" />
+                    android:orientation="vertical">
 
-                <TextView
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/ic_love" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Feedback"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sheetNavUpdateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <!--update-->
+            <FrameLayout
+                android:id="@+id/sheetNavUpdateL"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="64dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="Feedback"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-        </FrameLayout>
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_update" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Update"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <!--dummy-->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <!--dummy-->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/sheetNavNextUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:textColor="@color/latestDark"
+            android:text="* next update in 4 days" />
 
     </LinearLayout>
 

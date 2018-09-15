@@ -15,13 +15,17 @@ package com.dawnimpulse.wallup.adapters
 
 import android.arch.lifecycle.Lifecycle
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.activities.CollectionActivity
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.pojo.CollectionPojo
+import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.viewholders.CollectionsHorizontalViewHolder
+import com.google.gson.Gson
 
 /**
  * @author Saksham
@@ -44,11 +48,19 @@ class CollectionsHorizontalAdapter(private val lifecycle: Lifecycle,
 
     // create view holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionsHorizontalViewHolder {
+        context = parent.context
         return CollectionsHorizontalViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_collection_horizontal, parent, false))
     }
 
     // bind view
     override fun onBindViewHolder(holder: CollectionsHorizontalViewHolder, position: Int) {
         ImageHandler.setImageInView(lifecycle, holder.image, cols[position]!!.cover_photo.urls!!.small)
+        holder.text.text = cols[position]!!.title
+        holder.image.setOnClickListener {
+            var intent = Intent(context, CollectionActivity::class.java)
+            intent.putExtra(C.TYPE, C.FEATURED)
+            intent.putExtra(C.COLLECTION, Gson().toJson(cols[position]))
+            context.startActivity(intent)
+        }
     }
 }

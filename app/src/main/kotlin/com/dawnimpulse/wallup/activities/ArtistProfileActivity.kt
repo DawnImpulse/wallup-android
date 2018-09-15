@@ -55,23 +55,26 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
 
         var model = UnsplashModel(lifecycle)
         model.userDetails(intent.extras.getString(C.USERNAME)) { error, details ->
-            if (error != null) {
+            error?.let {
                 L.d(NAME, error.toString())
                 Toast.short(this, "Error Occurred")
-            } else {
+            }
+            details?.let{
                 userPojo = details as UserPojo
                 details()
                 artistLayout.visibility = View.VISIBLE
                 artistUnsplash.visibility = View.VISIBLE
                 artistProgress.visibility = View.GONE
             }
+
         }
         model.userPhotos(1, 8, intent.extras.getString(C.USERNAME)) { error, details ->
-            if (error != null) {
+            error?.let {
                 L.d(NAME, error.toString())
                 Toast.short(this, "Error Occurred In Photos")
                 artistPhotosL.visibility = View.GONE
-            } else {
+            }
+            details?.let {
                 if ((details as List<ImagePojo>).size != 0) {
                     var adapter = ArtistPhotosAdapter(this@ArtistProfileActivity, lifecycle, details as List<ImagePojo?>)
                     artistPhotos.layoutManager = LinearLayoutManager(this@ArtistProfileActivity, LinearLayoutManager.HORIZONTAL, false)
@@ -79,7 +82,6 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
                     artistPhotos.clipToPadding = false
                 } else
                     artistPhotosL.visibility = View.GONE
-
             }
         }
         model.userCollections(intent.getStringExtra(C.USERNAME), 1, 8) { e, r ->

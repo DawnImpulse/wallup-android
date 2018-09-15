@@ -10,9 +10,11 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
 INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
-OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.sheets
+OR PERFORMANCE OF THIS SOFTWARE.*/
+package com.dawnimpulse.wallup.sheets
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +24,7 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.activities.CollectionLayoutActivity
 import com.dawnimpulse.wallup.activities.GeneralImagesActivity
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.RemoteConfig
 import kotlinx.android.synthetic.main.bottom_sheet_navigation.*
 
 
@@ -32,6 +35,7 @@ import kotlinx.android.synthetic.main.bottom_sheet_navigation.*
  * @note Created on 2018-08-19 by Saksham
  *
  * @note Updates :
+ * Saksham - 2018 09 15 - master - update handling
  */
 class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
 
@@ -47,6 +51,16 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
         sheetNavRandom.setOnClickListener(this)
         sheetNavFeedback.setOnClickListener(this)
         sheetNavCollection.setOnClickListener(this)
+        sheetNavUpdateL.setOnClickListener(this)
+
+        RemoteConfig.updateValue()?.let {
+            if (it.next_version_code > BuildConfig.VERSION_CODE) {
+                sheetNavUpdateLayout.visibility = View.VISIBLE
+            } else if (it.text_available) {
+                sheetNavNextUpdate.visibility = View.VISIBLE
+                sheetNavNextUpdate.text = it.text
+            }
+        }
     }
 
     // clicked
@@ -69,6 +83,9 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
             sheetNavCollection.id -> {
                 startActivity(Intent(activity, CollectionLayoutActivity::class.java))
                 dismiss()
+            }
+            sheetNavUpdateL.id -> {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.dawnimpulse.wallup")))
             }
         }
     }
