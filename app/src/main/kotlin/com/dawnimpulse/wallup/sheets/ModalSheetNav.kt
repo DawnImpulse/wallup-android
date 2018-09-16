@@ -53,7 +53,7 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
         sheetNavCollection.setOnClickListener(this)
         sheetNavUpdateL.setOnClickListener(this)
 
-        RemoteConfig.updateValue()?.let {
+        RemoteConfig.getProductionUpdateValues()?.let {
             if (it.next_version_code > BuildConfig.VERSION_CODE) {
                 sheetNavUpdateLayout.visibility = View.VISIBLE
             } else if (it.text_available) {

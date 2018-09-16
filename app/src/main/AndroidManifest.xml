@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.dawnimpulse.wallup">
 
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
@@ -54,7 +55,18 @@
         <activity
             android:name=".activities.ImageActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:theme="@style/AppTheme.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="unsplash.com"
+                    android:pathPrefix="/photos/" />
+            </intent-filter>
+        </activity>
 
         <!-- Cropping Activity -->
         <activity
@@ -78,7 +90,8 @@
         <activity
             android:name=".activities.ChangesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen" />
+            android:theme="@style/AppTheme.Fullscreen" >
+        </activity>
 
         <!-- Collections Layout -->
         <activity

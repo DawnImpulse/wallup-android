@@ -49,6 +49,7 @@ import kotlinx.android.synthetic.main.activity_image.*
  *  Saksham - 2018 07 26 - recent - downloading
  *  Saksham - 2018 09 01 - master - exif bottom sheet
  *  Saksham - 2018 09 06 - master - unsplash & image share handling
+ *  Saksham - 2018 09 15 - master - handling direct unsplash links
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "ImageActivity"
@@ -70,23 +71,17 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         model = UnsplashModel(lifecycle)
         exifSheet = ModalSheetExif()
 
-        var params = intent.extras
-        details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
+        // checking to handle the app links
+        if (intent.hasExtra(C.IMAGE_POJO)) {
+            var params = intent.extras
+            details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
 
-        model.getImage(details.id) { _, details ->
-            details?.let {
-                fullDetails = details as ImagePojo
-                setImageDetails(fullDetails!!)
-            }
-
+            getImageDetails(details.id)
+            setImageDetails(details)
+        } else {
+            val appLinkData = intent.data
+            getImageDetails(appLinkData.lastPathSegment)
         }
-        ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full + Config.IMAGE_HEIGHT) {
-            color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
-            color()
-            movingImage.setImageBitmap(it)
-            imagePreviewProgress.visibility = View.GONE
-        }
-        setImageDetails(details)
 
         imagePreviewWallpaper.setOnClickListener(this)
         imagePreviewDownload.setOnClickListener(this)
@@ -98,9 +93,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    /**
-     * On click for various buttons
-     */
+    // On click for various buttons
     override fun onClick(v: View) {
         when (v.id) {
             imagePreviewWallpaper.id -> {
@@ -177,20 +170,25 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    /**
-     * On back pressed
-     */
+    // On back pressed
     override fun onBackPressed() {
         finish()
     }
 
-    /**
-     * set image details on views
-     *
-     */
+    // get image details
+    private fun getImageDetails(id: String) {
+        model.getImage(id) { _, details ->
+            details?.let {
+                fullDetails = details as ImagePojo
+                setImageDetails(fullDetails!!)
+            }
+
+        }
+    }
+
+    // set image details on views
     private fun setImageDetails(details: ImagePojo) {
         imagePreviewAuthorName.text = details.user!!.name
-
         imagePreviewLikesCount.text = F.withSuffix(details.likes)
         imagePreviewAuthorImages.text = F.withSuffix(details.user!!.total_photos)
         imagePreviewAuthorCollections.text = F.withSuffix(details.user!!.total_collections)
@@ -199,6 +197,12 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewPublishedOn.text = "Published on ${DateHandler.convertForImagePreview(details.created_at)}"
 
         ImageHandler.setImageInView(lifecycle, imagePreviewAuthorImage, details.user!!.profile_image!!.large)
+        ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full + Config.IMAGE_HEIGHT) {
+            color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
+            color()
+            movingImage.setImageBitmap(it)
+            imagePreviewProgress.visibility = View.GONE
+        }
         //F.underline(imagePreviewStatistics)
 
         if (details.downloads == 0) {
@@ -208,9 +212,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    /**
-     * set color on a resources
-     */
+    // set color on a resources
     private fun color() {
         var down = imagePreviewDownload.background.current as GradientDrawable
         var wall = imagePreviewWallpaper.background.current as GradientDrawable

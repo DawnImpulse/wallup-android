@@ -88,14 +88,16 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
      * On swipe refresh
      */
     override fun onRefresh() {
-        when (this.type) {
-            C.LATEST ->
-                model.getLatestImages(1, callback)
-            C.CURATED ->
-                model.getCuratedImages(1, callback)
-            C.TRENDING ->
-                modelR.getTrendingImages(null, callback)
+        if (type.isNotEmpty()){
+            when (this.type) {
+                C.LATEST ->
+                    model.getLatestImages(1, callback)
+                C.CURATED ->
+                    model.getCuratedImages(1, callback)
+                C.TRENDING ->
+                    modelR.getTrendingImages(null, callback)
 
+            }
         }
     }
 

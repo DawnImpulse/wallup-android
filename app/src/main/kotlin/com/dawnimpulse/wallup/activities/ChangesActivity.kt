@@ -37,6 +37,14 @@ class ChangesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_changes)
 
+        next()
+        changesFab.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+    }
+
+    private fun next(){
         if (Prefs.contains(C.VERSION_CODE)) {
             if (Prefs.getInt(C.VERSION_CODE, 0) == BuildConfig.VERSION_CODE) {
                 startActivity(Intent(this, MainActivity::class.java))
@@ -46,10 +54,5 @@ class ChangesActivity : AppCompatActivity() {
             }
         } else
             Prefs.putInt(C.VERSION_CODE, BuildConfig.VERSION_CODE)
-
-        changesFab.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
     }
 }

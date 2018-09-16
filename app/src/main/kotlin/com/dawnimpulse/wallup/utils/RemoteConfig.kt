@@ -56,8 +56,8 @@ object RemoteConfig {
     }
 
     // get remote config values
-    fun updateValue(): UpdatePojo? {
-        val value = FirebaseRemoteConfig.getInstance().getString(C.UPDATE)
+    fun getProductionUpdateValues(): UpdatePojo? {
+        val value = FirebaseRemoteConfig.getInstance().getString(C.UPDATE_PRODUCTION)
         value?.let{
             return Gson().fromJson(value,UpdatePojo::class.java)
         }

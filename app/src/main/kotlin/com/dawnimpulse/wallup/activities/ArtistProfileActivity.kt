@@ -66,7 +66,6 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
                 artistUnsplash.visibility = View.VISIBLE
                 artistProgress.visibility = View.GONE
             }
-
         }
         model.userPhotos(1, 8, intent.extras.getString(C.USERNAME)) { error, details ->
             error?.let {
