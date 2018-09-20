@@ -41,7 +41,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     <com.flaviofaria.kenburnsview.KenBurnsView
                         android:id="@+id/movingImage"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
                 </RelativeLayout>
 
                 <!--layout-->
@@ -159,6 +159,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         </LinearLayout>
 
                     </RelativeLayout>
+
+                    <!--Tags-->
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_marginTop="32dp"
+                        android:id="@+id/imagePreviewTags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
 
                     <!--Interaction Buttons-->
                     <RelativeLayout

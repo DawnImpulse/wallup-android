@@ -34,11 +34,11 @@ object RealtimeSource {
      */
     fun getDataOnce(reference: DatabaseReference, callback: (Any?, Any?) -> Unit) {
         reference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 callback(null, p0)
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 callback(p0.toString(), null)
             }
         })
@@ -52,11 +52,11 @@ object RealtimeSource {
      */
     fun getDataOnce(reference: Query, callback: (Any?, Any?) -> Unit) {
         reference.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot?) {
+            override fun onDataChange(p0: DataSnapshot) {
                 callback(null, p0)
             }
 
-            override fun onCancelled(p0: DatabaseError?) {
+            override fun onCancelled(p0: DatabaseError) {
                 callback(p0.toString(), null)
             }
         })

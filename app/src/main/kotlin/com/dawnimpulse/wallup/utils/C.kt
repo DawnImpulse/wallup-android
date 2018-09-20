@@ -54,6 +54,7 @@ object C {
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val WALLUP_PLAY = "https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup"
+    const val TAGS_SOURCE = "https://source.unsplash.com/480x200/?"
 
     const val ERROR_CODE_1 = 601
     const val ERROR_CODE_2 = 602

@@ -21,19 +21,19 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.graphics.Palette
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.widget.toast
 import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.adapters.TagsAdapter
 import com.dawnimpulse.wallup.handlers.*
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.sheets.ModalSheetExif
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.F
-import com.dawnimpulse.wallup.utils.Toast
+import com.dawnimpulse.wallup.utils.*
+import com.google.firebase.ml.vision.label.FirebaseVisionLabel
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
 
@@ -50,6 +50,7 @@ import kotlinx.android.synthetic.main.activity_image.*
  *  Saksham - 2018 09 01 - master - exif bottom sheet
  *  Saksham - 2018 09 06 - master - unsplash & image share handling
  *  Saksham - 2018 09 15 - master - handling direct unsplash links
+ *  Saksham - 2018 09 20 - master - ML for tags
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "ImageActivity"
@@ -202,6 +203,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
             color()
             movingImage.setImageBitmap(it)
             imagePreviewProgress.visibility = View.GONE
+            ML.labels(it) {
+                setTags(it)
+            }
         }
         //F.underline(imagePreviewStatistics)
 
@@ -228,5 +232,13 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         down.setColor(color)
         wall.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         //imagePreviewWallpaperT.setTextColor(color)
+    }
+
+    // set tags
+    private fun setTags(tags: List<FirebaseVisionLabel>) {
+        imagePreviewTags.visibility = View.VISIBLE
+        val sortedTags = F.sortLabels(tags)
+        imagePreviewTags.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        imagePreviewTags.adapter = TagsAdapter(lifecycle, sortedTags)
     }
 }

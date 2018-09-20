@@ -5,7 +5,9 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.widget.TextView
+import com.google.firebase.ml.vision.label.FirebaseVisionLabel
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 /*
@@ -32,8 +34,10 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  *  Saksham - 2018 09 02 - master - unsplash referral
  *  Saksham - 2018 09 06 - master - unsplash image referral
  *  Saksham - 2018 09 08 - master - first word string + date convert
+ *  Saksham - 2018 09 20 - master - sort Firebase Image Labels
  */
 object F {
+    private val NAME = "F"
 
     // underline a text
     fun underline(view: TextView) {
@@ -99,5 +103,13 @@ object F {
             result.toString()
         } else
             string
+    }
+
+    // sort labels
+    fun sortLabels(labels: List<FirebaseVisionLabel>): List<FirebaseVisionLabel> {
+        Collections.sort(labels) { o1, o2 ->
+            o2.confidence.compareTo(o1.confidence)
+        }
+        return labels
     }
 }
