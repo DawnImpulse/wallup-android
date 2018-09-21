@@ -27,12 +27,14 @@
             android:layout_marginBottom="-44dp"
             android:layout_marginLeft="16dp"
             android:background="@color/grey400"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             app:riv_mutate_background="true"
             app:riv_oval="true" />
 
         <!--user name-->
         <FrameLayout
             android:id="@+id/colUserImageL"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_below="@id/colImage"
@@ -63,11 +65,11 @@
                 android:gravity="right">
 
                 <TextView
-                    android:textStyle="bold"
                     android:id="@+id/colImageC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 photos" />
+                    android:text="0 photos"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="4dp"
@@ -116,6 +118,7 @@
 
                 <TextView
                     android:id="@+id/colMore"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -144,11 +147,11 @@
             <!--description-->
 
             <TextView
-                android:layout_margin="16dp"
                 android:id="@+id/colDescription"
-                android:layout_gravity="right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="16dp"
                 android:gravity="right"
                 android:textColor="@color/grey500" />
 
@@ -158,8 +161,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:textStyle="bold" />
 

@@ -28,8 +28,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <android.support.v7.widget.Toolbar
             android:id="@+id/mainToolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="?android:attr/colorPrimary"
             android:visibility="visible"
             app:contentInsetStart="0dp"
             app:layout_scrollFlags="enterAlways|scroll"
@@ -55,14 +55,20 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_centerVertical="true"
                     app:srcCompat="@drawable/vd_wallup_logo_greyscale" />
 
-                <android.support.v7.widget.AppCompatImageView
+                <FrameLayout
                     android:id="@+id/mainRefresh"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="?android:attr/actionBarSize"
+                    android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"
-                    app:srcCompat="@drawable/vd_refresh_black" />
+                    android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_refresh_black" />
+                </FrameLayout>
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
@@ -81,7 +87,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <!--Bottom nav-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="?android:attr/actionBarSize"
         android:layout_gravity="bottom"
         android:background="@color/white"
         android:elevation="8dp"
@@ -92,7 +98,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:id="@+id/mainNavLatest"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -122,7 +129,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:id="@+id/mainNavTrending"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -155,13 +163,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless">
 
             <LinearLayout
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.AppCompatImageView
@@ -186,6 +195,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:orientation="vertical">
 
             <android.support.v7.widget.AppCompatImageView

@@ -45,12 +45,12 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
     private val NAME = "MainFragment"
     private lateinit var mainAdapter: MainAdapter
     private val init: Boolean = true
-    private lateinit var type: String
     private lateinit var images: MutableList<ImagePojo?>
     private lateinit var model: UnsplashModel
     private lateinit var modelR: DatabaseModel
     private var timestamp = 0
     private var nextPage = 2
+    private var type = C.LATEST
 
     /**
      * On create
@@ -88,16 +88,14 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
      * On swipe refresh
      */
     override fun onRefresh() {
-        if (type.isNotEmpty()){
-            when (this.type) {
-                C.LATEST ->
-                    model.getLatestImages(1, callback)
-                C.CURATED ->
-                    model.getCuratedImages(1, callback)
-                C.TRENDING ->
-                    modelR.getTrendingImages(null, callback)
+        when (this.type) {
+            C.LATEST ->
+                model.getLatestImages(1, callback)
+            C.CURATED ->
+                model.getCuratedImages(1, callback)
+            C.TRENDING ->
+                modelR.getTrendingImages(null, callback)
 
-            }
         }
     }
 

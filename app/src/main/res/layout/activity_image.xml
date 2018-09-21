@@ -93,6 +93,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                     <!--Author Layout-->
                     <RelativeLayout
+                        android:background="?android:attr/selectableItemBackground"
                         android:id="@+id/imagePreviewAuthorL"
                         android:layout_width="match_parent"
                         android:layout_height="42dp"
@@ -100,6 +101,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginTop="40dp">
 
                         <com.makeramen.roundedimageview.RoundedImageView
+
                             android:id="@+id/imagePreviewAuthorImage"
                             android:layout_width="42dp"
                             android:layout_height="42dp"
@@ -162,10 +164,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                     <!--Tags-->
                     <android.support.v7.widget.RecyclerView
-                        android:layout_marginTop="32dp"
                         android:id="@+id/imagePreviewTags"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:paddingLeft="16dp"
                         android:visibility="gone" />
 
                     <!--Interaction Buttons-->
@@ -201,6 +204,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:layout_width="148dp"
                                 android:layout_height="36dp"
                                 android:background="@drawable/bt_round_complete_corners_transparent"
+                                android:foreground="?android:attr/selectableItemBackground"
                                 android:paddingLeft="24dp"
                                 android:paddingRight="24dp">
 
@@ -223,6 +227,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:layout_height="36dp"
                                 android:layout_marginLeft="16dp"
                                 android:background="@drawable/bt_round_complete_corners"
+                                android:foreground="?android:attr/selectableItemBackground"
                                 android:paddingLeft="24dp"
                                 android:paddingRight="24dp">
 
@@ -272,7 +277,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:id="@+id/imagePreviewShare"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackgroundBorderless">
 
                             <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewShareI"
@@ -287,7 +293,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:layout_marginLeft="40dp"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackgroundBorderless">
 
                             <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewExifI"
@@ -302,7 +309,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:layout_marginLeft="40dp"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackgroundBorderless">
 
                             <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewUnsplashI"
@@ -317,7 +325,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:layout_marginLeft="40dp"
-                            android:layout_weight="1">
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackgroundBorderless">
 
                             <android.support.v7.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewStatsI"

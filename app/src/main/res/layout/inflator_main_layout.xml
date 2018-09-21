@@ -19,6 +19,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_margin="10dp">
 
     <com.makeramen.roundedimageview.RoundedImageView
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:id="@+id/mainImage"
         android:layout_width="match_parent"
         android:layout_height="260dp"
@@ -28,6 +29,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         app:riv_mutate_background="true" />
 
     <com.makeramen.roundedimageview.RoundedImageView
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:id="@+id/mainCircleImage"
         android:layout_width="44dp"
         android:layout_height="44dp"
@@ -44,6 +46,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_marginTop="12dp">
 
         <me.grantland.widget.AutofitTextView
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:id="@+id/mainName"
             android:textStyle="bold"
             android:layout_width="match_parent"

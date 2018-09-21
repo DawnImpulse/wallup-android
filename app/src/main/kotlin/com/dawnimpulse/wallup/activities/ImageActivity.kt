@@ -92,6 +92,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewStats.setOnClickListener(this)
         imagePreviewUnsplash.setOnClickListener(this)
 
+        //Ripple.add(Colors(this).GREY_400, imagePreviewStats)
+
     }
 
     // On click for various buttons
@@ -238,6 +240,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private fun setTags(tags: List<FirebaseVisionLabel>) {
         imagePreviewTags.visibility = View.VISIBLE
         val sortedTags = F.sortLabels(tags)
+        imagePreviewTags.clipToPadding = false
         imagePreviewTags.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         imagePreviewTags.adapter = TagsAdapter(lifecycle, sortedTags)
     }

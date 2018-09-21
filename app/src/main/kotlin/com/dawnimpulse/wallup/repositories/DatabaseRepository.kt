@@ -16,7 +16,6 @@ package com.dawnimpulse.wallup.repositories
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.source.RealtimeSource
 import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.L
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.FirebaseDatabase
 
@@ -66,7 +65,6 @@ object DatabaseRepository {
                     callback(error, null)
                 else {
                     response as DataSnapshot
-                    L.d(NAME, response.childrenCount)
                     var data = ArrayList<ImagePojo>()
                     for (snapshot in response.children) {
                         data.add(snapshot.getValue(ImagePojo::class.java)!!)

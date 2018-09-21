@@ -29,6 +29,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:id="@+id/colLImage0"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="centerCrop"
             app:riv_corner_radius="6dp"
             app:riv_mutate_background="true" />
@@ -99,12 +100,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
             <!--title-->
             <me.grantland.widget.AutofitTextView
-                android:textColor="@color/black"
                 android:id="@+id/colLTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -121,11 +122,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:textColor="@color/grey500" />
 
                 <View
-                    android:background="@drawable/bg_circle"
                     android:layout_width="4dp"
                     android:layout_height="4dp"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"/>
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/bg_circle" />
 
                 <me.grantland.widget.AutofitTextView
                     android:id="@+id/colLArtist"

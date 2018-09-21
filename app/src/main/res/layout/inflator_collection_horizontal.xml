@@ -35,6 +35,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:id="@+id/colHImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:scaleType="centerCrop" />
 
             <View

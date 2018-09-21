@@ -17,6 +17,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_width="wrap_content"
     android:layout_height="160dp">
 
+    <!--layout 1-->
     <FrameLayout
         android:id="@+id/artistPhotos1L"
         android:layout_width="wrap_content"
@@ -35,10 +36,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_marginLeft="8dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:scaleType="centerCrop"
             app:riv_corner_radius="8dp" />
     </FrameLayout>
 
+    <!--layout 2-->
     <RelativeLayout
         android:id="@+id/artistPhotosL1"
         android:layout_width="wrap_content"
@@ -62,6 +65,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_width="168dp"
                 android:layout_height="76dp"
                 android:layout_marginLeft="8dp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="8dp" />
         </FrameLayout>
@@ -85,6 +89,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:id="@+id/artistPhotos3"
                 android:layout_width="80dp"
                 android:layout_height="76dp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="8dp" />
         </FrameLayout>
@@ -109,12 +114,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:id="@+id/artistPhotos4"
                 android:layout_width="80dp"
                 android:layout_height="76dp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="8dp" />
         </FrameLayout>
 
     </RelativeLayout>
 
+    <!--layout 3-->
     <RelativeLayout
         android:id="@+id/artistPhotosL2"
         android:layout_width="wrap_content"
@@ -138,6 +145,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_width="80dp"
                 android:layout_height="76dp"
                 android:layout_marginLeft="8dp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="8dp" />
         </FrameLayout>
@@ -160,6 +168,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:id="@+id/artistPhotos6"
                 android:layout_width="80dp"
                 android:layout_height="76dp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="8dp" />
         </FrameLayout>
@@ -183,10 +192,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:id="@+id/artistPhotos7"
                 android:layout_width="168dp"
                 android:layout_height="76dp"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:scaleType="centerCrop"
                 app:riv_corner_radius="8dp" />
         </FrameLayout>
     </RelativeLayout>
-
-
 </RelativeLayout>

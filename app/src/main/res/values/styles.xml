@@ -19,6 +19,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/white</item>
         <item name="colorAccent">@color/black</item>
+        <item name="android:statusBarColor">#40000000</item>
     </style>
 
     <!--No action bar-->
@@ -55,5 +56,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="bottomSheetStyle">@style/BottomSheet</item>
     </style>
 
-    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:colorAccent">@color/black</item>
+        <item name="android:navigationBarColor">@color/white</item>
+    </style>
 </resources>
