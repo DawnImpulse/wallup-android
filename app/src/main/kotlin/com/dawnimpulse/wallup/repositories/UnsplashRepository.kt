@@ -39,6 +39,7 @@ import retrofit2.Response
  *  2018 09 02 - master - Saksham - random user images
  *  2018 09 08 - master - Saksham - featured collections
  *  2018 09 14 - master - Saksham - user's collections
+ *  2018 09 22 - master - Saksham - random images tag
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
@@ -392,6 +393,30 @@ object UnsplashRepository {
             }
 
             override fun onFailure(call: Call<List<CollectionPojo>>?, t: Throwable?) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    // random images with a tag
+    fun randomImagesTag(keyword: String, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.randomImagesTag(
+                Config.UNSPLASH_API_KEY,
+                keyword
+        )
+
+        call.enqueue(object : Callback<List<ImagePojo>> {
+
+            override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
+                if (response.isSuccessful) {
+                    callback(null, response.body())
+                } else {
+                    callback(Gson().toJson(response.errorBody()).toString(), null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
                 callback(t.toString(), null)
             }
         })

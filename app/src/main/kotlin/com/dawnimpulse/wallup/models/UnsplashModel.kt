@@ -29,6 +29,7 @@ import com.dawnimpulse.wallup.repositories.UnsplashRepository
  *  2018 09 01 - master - Saksham - image details
  *  2018 09 02 - master - Saksham - random user images
  *  2018 09 08 - master - Saksham - featured curatedCollections
+ *  2018 09 22 - master - Saksham - random images tag
  */
 class UnsplashModel() {
     lateinit var lifecycle: Lifecycle
@@ -208,6 +209,22 @@ class UnsplashModel() {
     // user's collections
     fun userCollections(username: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.userCollections(username,page,count) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onResume() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
+        }
+    }
+
+    // random images with a keyword
+    fun randomImagesTag(keyword: String, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.randomImagesTag(keyword){ e,r ->
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)

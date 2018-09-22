@@ -14,11 +14,15 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import androidx.core.widget.toast
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.RemoteConfig
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_changes.*
 
@@ -31,20 +35,33 @@ import kotlinx.android.synthetic.main.activity_changes.*
  *
  * @note Updates :
  */
-class ChangesActivity : AppCompatActivity() {
+class ChangesActivity : AppCompatActivity(), View.OnClickListener {
 
+    // on create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_changes)
 
         next()
-        changesFab.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+        changesFab.setOnClickListener(this)
+        changesPrivacy.setOnClickListener(this)
+    }
+
+    // on click
+    override fun onClick(v: View) {
+        when (v.id) {
+            changesFab.id -> {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+            changesPrivacy.id -> {
+                toast("opening in browser")
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(RemoteConfig.getPrivacyLink())))
+            }
         }
     }
 
-    private fun next(){
+    private fun next() {
         if (Prefs.contains(C.VERSION_CODE)) {
             if (Prefs.getInt(C.VERSION_CODE, 0) == BuildConfig.VERSION_CODE) {
                 startActivity(Intent(this, MainActivity::class.java))

@@ -21,19 +21,20 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.graphics.Palette
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.widget.toast
 import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.adapters.TagsAdapter
+import com.dawnimpulse.wallup.R.id.*
 import com.dawnimpulse.wallup.handlers.*
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.sheets.ModalSheetExif
-import com.dawnimpulse.wallup.utils.*
-import com.google.firebase.ml.vision.label.FirebaseVisionLabel
+import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.F
+import com.dawnimpulse.wallup.utils.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
 
@@ -205,9 +206,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
             color()
             movingImage.setImageBitmap(it)
             imagePreviewProgress.visibility = View.GONE
-            ML.labels(it) {
+            /*ML.labels(it) {
                 setTags(it)
-            }
+            }*/
         }
         //F.underline(imagePreviewStatistics)
 
@@ -236,12 +237,12 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         //imagePreviewWallpaperT.setTextColor(color)
     }
 
-    // set tags
+   /* // set tags
     private fun setTags(tags: List<FirebaseVisionLabel>) {
         imagePreviewTags.visibility = View.VISIBLE
         val sortedTags = F.sortLabels(tags)
         imagePreviewTags.clipToPadding = false
         imagePreviewTags.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         imagePreviewTags.adapter = TagsAdapter(lifecycle, sortedTags)
-    }
+    }*/
 }

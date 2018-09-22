@@ -20,9 +20,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.ImageHandler
-import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.viewholders.TagsHolder
-import com.google.firebase.ml.vision.label.FirebaseVisionLabel
 
 /**
  * @author Saksham
@@ -32,7 +30,7 @@ import com.google.firebase.ml.vision.label.FirebaseVisionLabel
  *
  * @note Updates :
  */
-class TagsAdapter(private val lifecycle: Lifecycle, private val tags: List<FirebaseVisionLabel?>)
+class TagsAdapter(private val lifecycle: Lifecycle, private val tags: List<ImageHandler?>)
     : RecyclerView.Adapter<TagsHolder>() {
 
     private lateinit var context: Context
@@ -50,7 +48,13 @@ class TagsAdapter(private val lifecycle: Lifecycle, private val tags: List<Fireb
 
     // binding view holder
     override fun onBindViewHolder(holder: TagsHolder, position: Int) {
-        holder.label.text = tags[position]!!.label
-        ImageHandler.setImageInView(lifecycle,holder.image,"${C.TAGS_SOURCE}${tags[position]!!.label}")
+        /*holder.label.text = tags[position]!!.label
+        ImageHandler.setImageInView(lifecycle, holder.image, "${C.TAGS_SOURCE}${tags[position]!!.label}")
+        holder.image.setOnClickListener {
+            var intent = Intent(context, GeneralImagesActivity::class.java)
+            intent.putExtra(C.TYPE, C.TAG)
+            intent.putExtra(C.TAG, tags[position]!!.label)
+            context.startActivity(intent)
+        }*/
     }
 }

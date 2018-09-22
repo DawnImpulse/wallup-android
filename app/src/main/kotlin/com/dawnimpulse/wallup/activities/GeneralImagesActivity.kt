@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_general_images.*
  *
  * @note Updates :
  * Saksham - 2018 09 09 - master - collection images
+ * Saksham - 2018 09 22 - master - random images tag
  */
 class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
@@ -38,6 +39,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     private lateinit var images: MutableList<ImagePojo?>
     private lateinit var colId: String
     private lateinit var colType: String
+    private lateinit var tag: String
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +60,11 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                 colType = intent.extras.getString(C.COLLECTION)
                 paginatedImages()
             }
+            C.TAG -> {
+                current = 3
+                tag = intent.extras.getString(C.TAG)
+                randomImages()
+            }
         }
 
         generalImagesFab.setOnClickListener(this)
@@ -77,6 +84,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
             0 -> randomImages()
             1 -> paginatedImages()
             2 -> paginatedImages()
+            3 -> randomImages()
         }
     }
 
@@ -127,6 +135,11 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                     }
                 else
                     model.randomImages(callback)
+            }
+            3 -> {
+                model.randomImagesTag(tag) { e, r ->
+                    setRandomImages(e, r)
+                }
             }
         }
     }

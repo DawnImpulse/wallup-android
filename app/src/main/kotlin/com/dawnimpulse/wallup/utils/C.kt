@@ -51,6 +51,9 @@ object C {
     const val UPDATE = "update"
     const val UPDATE_PRODUCTION = "update_production"
     const val DAWN_IMPULSE = "dawnimpulse"
+    const val QUERY = "query"
+    const val TAG = "tag"
+    const val PRIVACY = "privacy"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val WALLUP_PLAY = "https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup"

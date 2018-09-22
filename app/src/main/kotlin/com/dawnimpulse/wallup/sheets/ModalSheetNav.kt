@@ -85,7 +85,7 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
                 dismiss()
             }
             sheetNavUpdateL.id -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.dawnimpulse.wallup")))
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup")))
             }
         }
     }

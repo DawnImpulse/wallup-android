@@ -5,9 +5,7 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.widget.TextView
-import com.google.firebase.ml.vision.label.FirebaseVisionLabel
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 /*
@@ -106,10 +104,10 @@ object F {
     }
 
     // sort labels
-    fun sortLabels(labels: List<FirebaseVisionLabel>): List<FirebaseVisionLabel> {
+    /*fun sortLabels(labels: List<FirebaseVisionLabel>): List<FirebaseVisionLabel> {
         Collections.sort(labels) { o1, o2 ->
             o2.confidence.compareTo(o1.confidence)
         }
         return labels
-    }
+    }*/
 }

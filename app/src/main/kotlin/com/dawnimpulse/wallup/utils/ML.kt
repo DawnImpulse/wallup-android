@@ -12,12 +12,6 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.utils
 
-import android.graphics.Bitmap
-import com.google.firebase.ml.vision.FirebaseVision
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
-import com.google.firebase.ml.vision.label.FirebaseVisionLabel
-import com.google.firebase.ml.vision.label.FirebaseVisionLabelDetectorOptions
-
 
 /**
  * @author Saksham
@@ -31,7 +25,7 @@ object ML {
     private val NAME = "ML"
 
     // predicting image labels
-    fun labels(bitmap: Bitmap, callback: (List<FirebaseVisionLabel>) -> Unit) {
+    /*fun labels(bitmap: Bitmap, callback: (List<FirebaseVisionLabel>) -> Unit) {
         val options = FirebaseVisionLabelDetectorOptions.Builder()
                 .setConfidenceThreshold(0.6f)
                 .build()
@@ -51,5 +45,5 @@ object ML {
                     L.e(NAME, it.message!!)
                 }
 
-    }
+    }*/
 }

@@ -34,6 +34,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  *  Saksham - 2018 09 02 - recent - random user images
  *  Saksham - 2018 09 08 - recent - featured collections
  *  Saksham - 2018 09 14 - recent - users's collections
+ *  Saksham - 2018 09 22 - recent - random photos with a tag
  */
 interface RetroUnsplashSource {
 
@@ -160,5 +161,12 @@ interface RetroUnsplashSource {
             @Query(C.PAGE) page: Int,
             @Query(C.PER_PAGE) count: Int
     ): Call<List<CollectionPojo>>
+
+    // random photos with a tag
+    @GET("/photos/random?count=30")
+    fun randomImagesTag(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Query(C.QUERY) query: String
+    ): Call<List<ImagePojo>>
 
 }

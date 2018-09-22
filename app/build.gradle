@@ -13,6 +13,9 @@ android {
         versionName version_name
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
     }
     buildTypes {
         release {
@@ -48,8 +51,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-config:16.0.0'
     implementation 'com.google.firebase:firebase-database:16.0.2'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
-    implementation 'com.google.firebase:firebase-ml-vision:17.0.0'
-    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:15.0.0'
+    /*implementation 'com.google.firebase:firebase-ml-vision:17.0.0'
+    implementation 'com.google.firebase:firebase-ml-vision-image-label-model:15.0.0'*/
 
     //--------------- 3rd Party Libraries -------------------
     implementation 'com.github.bumptech.glide:glide:3.7.0' //image loading
@@ -63,7 +66,6 @@ dependencies {
     implementation 'com.dawnimpulse:permissions:0.1.1' //permission manager
     implementation 'com.pixplicity.easyprefs:library:1.9.0' //preferences manager
     implementation 'me.grantland:autofittextview:0.2.1' //text auto-fit
-    implementation 'com.balysv:material-ripple:1.0.2'//material ripple
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0' //kotlin co-routines
 
     //------------------ Additional -------------------------

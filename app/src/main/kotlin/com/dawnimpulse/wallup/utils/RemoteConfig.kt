@@ -55,13 +55,18 @@ object RemoteConfig {
 
     }
 
-    // get remote config values
+    // get remote config update value
     fun getProductionUpdateValues(): UpdatePojo? {
         val value = FirebaseRemoteConfig.getInstance().getString(C.UPDATE_PRODUCTION)
         value?.let{
             return Gson().fromJson(value,UpdatePojo::class.java)
         }
         return null;
+    }
+
+    // get remote config values
+    fun getPrivacyLink(): String {
+        return FirebaseRemoteConfig.getInstance().getString(C.PRIVACY)
     }
 
 }

@@ -19,6 +19,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <string name="privacy"><b>NOTE: </b>This app is Open Source hence completely free to use with no Ads at all. Kindly go through our <a href="https://wallup.sourcei.org/privacy">Privacy Policy</a> .</string>
     <string name="changeNote1"><b>NOTE: </b>Trending Images are updated here everyday around 5.30 AM GMT</string>
     <string name="change4_1"><b>New: </b>Photographer\'s collections in their profile.</string>
     <string name="change4_2"><b>New: </b>Open unsplash photo links directly in Wallup.</string>
@@ -27,4 +28,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="change4_5"><b>New: </b>Shared images will be now saved in Downloads/Wallup/ .</string>
     <string name="change4_6"><b>Bug Fixed: </b>Image sharing crash on device running Android 7 &amp; above.</string>
     <string name="change4_7"><b>Improvements: </b>Many other bugs fixes &amp; performance improvements.</string>
+
+    <string name="changes5_1"><b>New: </b>Using machine learning to predict tags for a image (can sometimes give irrelevant results). </string>
+    <string name="changes5_2"><b>New: </b>Using ripple animations for click throughout app. </string>
+    <string name="change5_3"><b>Improvements: </b>Many other bugs fixes &amp; performance improvements.</string>
 </resources>
