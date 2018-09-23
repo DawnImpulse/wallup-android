@@ -13,6 +13,7 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v4.view.ViewPager
@@ -69,6 +70,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         mainNavLatest.setOnClickListener(this)
         mainNavUp.setOnClickListener(this)
         mainRefresh.setOnClickListener(this)
+        mainSearch.setOnClickListener(this)
 
         RemoteConfig.update()
     }
@@ -98,6 +100,10 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                         curatedFragment.onRefresh()
                     }
                 }
+            }
+            mainSearch.id ->{
+                startActivity(Intent(this,SearchActivity::class.java))
+                overridePendingTransition(R.anim.enter_from_left,R.anim.fade_out)
             }
         }
     }

@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--File provider for Android 7+-->
+        <!-- File provider for Android 7+ -->
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.dawnimpulse.wallup"
@@ -26,17 +26,17 @@
                 android:resource="@xml/file_provider_path" />
         </provider>
 
-        <!--Crashlytics-->
+        <!-- Crashlytics -->
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
 
-        <!--New Aspect Ratio-->
+        <!-- New Aspect Ratio -->
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
 
-        <!--ML Model-->
+        <!-- ML Model -->
         <meta-data
             android:name="com.google.firebase.ml.vision.DEPENDENCIES"
             android:value="label" />
@@ -66,13 +66,14 @@
             android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="https"
                     android:host="unsplash.com"
-                    android:pathPrefix="/photos/" />
+                    android:pathPrefix="/photos/"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 
@@ -98,8 +99,7 @@
         <activity
             android:name=".activities.ChangesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen" >
-        </activity>
+            android:theme="@style/AppTheme.Fullscreen"></activity>
 
         <!-- Collections Layout -->
         <activity
@@ -107,11 +107,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Collection-->
+        <!-- Collection -->
         <activity
             android:name=".activities.CollectionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen"></activity>
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--Search-->
+        <activity android:name=".activities.SearchActivity"
+            android:theme="@style/AppTheme.Fullscreen"/>
     </application>
 
 </manifest>
