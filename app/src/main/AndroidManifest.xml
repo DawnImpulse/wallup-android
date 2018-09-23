@@ -46,11 +46,7 @@
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen.Preview">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- Main Activity -->
@@ -99,7 +95,7 @@
         <activity
             android:name=".activities.ChangesActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Fullscreen"></activity>
+            android:theme="@style/AppTheme.Fullscreen" />
 
         <!-- Collections Layout -->
         <activity
@@ -113,9 +109,21 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Search-->
-        <activity android:name=".activities.SearchActivity"
-            android:theme="@style/AppTheme.Fullscreen"/>
+        <!-- Search -->
+        <activity
+            android:name=".activities.SearchActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--About-->
+        <activity
+            android:name=".AboutActivity"
+            android:theme="@style/AppTheme.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
