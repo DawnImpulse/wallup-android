@@ -14,7 +14,6 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -59,7 +58,7 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
                 L.d(NAME, error.toString())
                 Toast.short(this, "Error Occurred")
             }
-            details?.let{
+            details?.let {
                 userPojo = details as UserPojo
                 details()
                 artistLayout.visibility = View.VISIBLE
@@ -115,12 +114,11 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtra(C.USERNAME, userPojo.username)
                 startActivity(intent)
             }
-            artistUnsplash.id -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(F.unsplashUser(userPojo.username))))
-            }
-            artistUrl.id -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(userPojo.portfolio_url)))
-            }
+            artistUnsplash.id ->
+                F.startWeb(this, F.unsplashUser(userPojo.username))
+            artistUrl.id ->
+                F.startWeb(this, userPojo.portfolio_url!!)
+
         }
     }
 

@@ -42,12 +42,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
             <!--random-->
             <FrameLayout
-                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:id="@+id/sheetNavRandom"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -74,12 +74,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
             <!--collection-->
             <FrameLayout
-                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:id="@+id/sheetNavCollection"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -106,12 +106,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
             <!--feedback-->
             <FrameLayout
-                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:id="@+id/sheetNavFeedback"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
 
                 <LinearLayout
                     android:layout_width="64dp"
@@ -140,22 +140,54 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         <!--row 2-->
         <LinearLayout
-            android:id="@+id/sheetNavUpdateLayout"
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:layout_marginTop="16dp"
             android:background="@color/white"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:orientation="horizontal">
+
+            <!--about-->
+            <FrameLayout
+                android:id="@+id/sheetNavAbout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                <LinearLayout
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_about" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="About"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+            </FrameLayout>
 
             <!--update-->
             <FrameLayout
-                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:id="@+id/sheetNavUpdateL"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:visibility="invisible">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -177,21 +209,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:gravity="center"
                         android:text="Update"
                         android:textColor="@color/black" />
-                </LinearLayout>
-            </FrameLayout>
-
-            <!--dummy-->
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
 
                 </LinearLayout>
             </FrameLayout>
@@ -219,12 +236,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:id="@+id/sheetNavNextUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_gravity="center"
             android:layout_margin="8dp"
             android:gravity="center"
+            android:text="* next update in 4 days"
             android:textColor="@color/latestDark"
-            android:text="* next update in 4 days" />
+            android:visibility="gone" />
 
     </LinearLayout>
 

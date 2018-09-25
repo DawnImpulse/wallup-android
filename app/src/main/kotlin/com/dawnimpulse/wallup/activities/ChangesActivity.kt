@@ -42,7 +42,9 @@ class ChangesActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_changes)
 
-        next()
+        intent.extras?.let{
+            next()
+        }
         changesFab.setOnClickListener(this)
         changesPrivacy.setOnClickListener(this)
     }
@@ -51,7 +53,9 @@ class ChangesActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             changesFab.id -> {
-                startActivity(Intent(this, MainActivity::class.java))
+                intent.extras?.let {
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
                 finish()
             }
             changesPrivacy.id -> {

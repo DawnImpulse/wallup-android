@@ -21,9 +21,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.activities.AboutActivity
 import com.dawnimpulse.wallup.activities.CollectionLayoutActivity
 import com.dawnimpulse.wallup.activities.GeneralImagesActivity
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.utils.RemoteConfig
 import kotlinx.android.synthetic.main.bottom_sheet_navigation.*
 
@@ -51,11 +53,12 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
         sheetNavRandom.setOnClickListener(this)
         sheetNavFeedback.setOnClickListener(this)
         sheetNavCollection.setOnClickListener(this)
-        sheetNavUpdateL.setOnClickListener(this)
+        sheetNavAbout.setOnClickListener(this)
 
         RemoteConfig.getProductionUpdateValues()?.let {
             if (it.next_version_code > BuildConfig.VERSION_CODE) {
-                sheetNavUpdateLayout.visibility = View.VISIBLE
+                sheetNavUpdateL.visibility = View.VISIBLE
+                sheetNavUpdateL.setOnClickListener(this)
             } else if (it.text_available) {
                 sheetNavNextUpdate.visibility = View.VISIBLE
                 sheetNavNextUpdate.text = it.text
@@ -84,9 +87,14 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
                 startActivity(Intent(activity, CollectionLayoutActivity::class.java))
                 dismiss()
             }
-            sheetNavUpdateL.id -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup")))
+
+            sheetNavAbout.id -> {
+                startActivity(Intent(activity, AboutActivity::class.java))
+                dismiss()
             }
+
+            sheetNavUpdateL.id ->
+                F.startWeb(context!!, C.WALLUP_PLAY)
         }
     }
 }

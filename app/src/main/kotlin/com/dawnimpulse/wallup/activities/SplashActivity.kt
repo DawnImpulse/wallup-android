@@ -17,6 +17,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.utils.C
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 
@@ -40,7 +41,9 @@ class SplashActivity : AppCompatActivity() {
 
         launch {
             delay(2000)
-            startActivity(Intent(this@SplashActivity, ChangesActivity::class.java))
+            val intent = Intent(this@SplashActivity, ChangesActivity::class.java)
+            intent.putExtra(C.NEXT,true)
+            startActivity(intent)
             finish()
         }
     }

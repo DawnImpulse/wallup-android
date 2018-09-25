@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    tools:context=".AboutActivity">
+    tools:context=".activities.AboutActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,10 +65,13 @@
 
         <!--update-->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/aboutUpdate"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="24dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:visibility="gone">
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="24dp"
@@ -111,10 +114,12 @@
 
         <!--Next update-->
         <RelativeLayout
+            android:id="@+id/aboutNextUpdateL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -137,7 +142,8 @@
             android:id="@+id/changelog"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="36dp">
+            android:layout_marginTop="36dp"
+            android:background="?android:attr/selectableItemBackground">
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="20dp"
@@ -157,6 +163,7 @@
 
         <!--rate-->
         <LinearLayout
+            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/rate"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -180,6 +187,7 @@
 
         <!--source-->
         <LinearLayout
+            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/source"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -203,6 +211,7 @@
 
         <!--bug feature-->
         <LinearLayout
+            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/bugFeature"
             android:layout_width="match_parent"
             android:layout_height="48dp"
@@ -243,12 +252,14 @@
                 android:layout_height="64dp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
+                    android:scaleType="centerCrop"
                     android:id="@+id/aboutAuthorImage"
                     android:layout_width="64dp"
                     android:layout_height="match_parent"
                     app:riv_oval="true" />
 
                 <LinearLayout
+                    android:layout_marginLeft="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -276,6 +287,7 @@
 
             <!--play-->
             <LinearLayout
+                android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/aboutPlay"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -298,6 +310,7 @@
 
             <!--github-->
             <LinearLayout
+                android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/aboutGithub"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -320,6 +333,7 @@
 
             <!--twitter-->
             <LinearLayout
+                android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/aboutTwitter"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -342,6 +356,7 @@
 
             <!--linkedin-->
             <LinearLayout
+                android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/aboutLinkedin"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -396,6 +411,7 @@
 
             <!--button-->
             <RelativeLayout
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:id="@+id/aboutUnsplash"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -428,6 +444,7 @@
 
         <!--donate-->
         <RelativeLayout
+            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/donate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -465,6 +482,7 @@
 
         <!--license-->
         <LinearLayout
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -501,10 +519,10 @@
                         app:srcCompat="@drawable/vd_license" />
 
                     <TextView
-                        android:layout_marginTop="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginTop="3dp"
                         android:text="Libraries"
                         android:textStyle="bold" />
 
@@ -548,6 +566,7 @@
 
         <!--privacy-->
         <LinearLayout
+            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/privacy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -561,14 +580,14 @@
                 app:srcCompat="@drawable/vd_privacy" />
 
             <TextView
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="Privacy Policy"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -584,6 +603,7 @@
 
         <!--tnc-->
         <LinearLayout
+            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/terms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -597,14 +617,14 @@
                 app:srcCompat="@drawable/vd_terms" />
 
             <TextView
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="Terms &amp; Conditions"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -620,10 +640,11 @@
 
         <!--contact-->
         <LinearLayout
-            android:layout_marginBottom="16dp"
+            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginTop="32dp"
             android:orientation="vertical">
 
@@ -634,14 +655,14 @@
                 app:srcCompat="@drawable/vd_contact" />
 
             <TextView
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="Contact Us"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"

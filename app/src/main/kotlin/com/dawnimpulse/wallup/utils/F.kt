@@ -1,6 +1,9 @@
 package com.dawnimpulse.wallup.utils
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
@@ -102,6 +105,12 @@ object F {
         } else
             string
     }
+
+    // start intent
+    fun startWeb(context: Context,string: String){
+        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(string)))
+    }
+
 
     // sort labels
     /*fun sortLabels(labels: List<FirebaseVisionLabel>): List<FirebaseVisionLabel> {

@@ -21,7 +21,9 @@ OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.pojo
  * @note Updates :
  */
 data class UpdatePojo(
-        val text:String,
-        val text_available:Boolean,
-        val next_version_code:Int
+        val text: String,
+        val text_available: Boolean,
+        val next_version_code: Int,
+        val next_update_date: String,
+        val last_update_date: String
 )

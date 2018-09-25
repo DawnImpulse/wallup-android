@@ -54,10 +54,21 @@ object C {
     const val QUERY = "query"
     const val TAG = "tag"
     const val PRIVACY = "privacy"
+    const val REMOTE_IMAGE = "remoteImage"
+    const val NEXT = "next"
+    const val TNC = "tnc"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
+    const val UNSPLASH = "https://unsplash.com$UTM"
     const val WALLUP_PLAY = "https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup"
+    const val WALLUP_GITHUB = "https://github.com/DawnImpulse/wallup-android"
     const val TAGS_SOURCE = "https://source.unsplash.com/480x200/?"
+    const val DI_IMAGE = "https://images.unsplash.com/profile-1537068896212-ce047daade8d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=128&w=128&s=9df1802c5fea08031aa44a85f67da0be"
+    const val DI_PLAY = "https://play.google.com/store/apps/dev?id=8265907307839036400"
+    const val DI_GITHUB = "https://github.com/DawnImpulse/"
+    const val DI_TWITTER = "https://twitter.com/dawnimpulse"
+    const val DI_LINKEDIN = "https://linkedin.com/in/00saksham/"
+    const val DI_PAYPAL = "https://paypal.me/00saksham"
 
     const val ERROR_CODE_1 = 601
     const val ERROR_CODE_2 = 602
