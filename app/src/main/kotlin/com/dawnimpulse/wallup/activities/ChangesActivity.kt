@@ -14,15 +14,12 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import androidx.core.widget.toast
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.RemoteConfig
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_changes.*
 
@@ -46,7 +43,7 @@ class ChangesActivity : AppCompatActivity(), View.OnClickListener {
             next()
         }
         changesFab.setOnClickListener(this)
-        changesPrivacy.setOnClickListener(this)
+        //changesPrivacy.setOnClickListener(this)
     }
 
     // on click
@@ -58,10 +55,10 @@ class ChangesActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 finish()
             }
-            changesPrivacy.id -> {
+            /*changesPrivacy.id -> {
                 toast("opening in browser")
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(RemoteConfig.getPrivacyLink())))
-            }
+            }*/
         }
     }
 

@@ -59,8 +59,8 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
                 sheetNavUpdateL.visibility = View.VISIBLE
                 sheetNavUpdateL.setOnClickListener(this)
             } else if (it.text_available) {
-                /*sheetNavNextUpdate.visibility = View.VISIBLE
-                sheetNavNextUpdate.text = it.text*/
+                sheetNavNextUpdate.visibility = View.VISIBLE
+                sheetNavNextUpdate.text = it.text
             }
         }
     }

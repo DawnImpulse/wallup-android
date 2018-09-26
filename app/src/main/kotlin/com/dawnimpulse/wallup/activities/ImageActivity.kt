@@ -182,7 +182,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private fun getImageDetails(id: String) {
         model.getImage(id) { _, details ->
             details?.let {
-                fullDetails = details as ImagePojo
+                this.details = it as ImagePojo
+                fullDetails = it
                 setImageDetails(fullDetails!!)
             }
 
@@ -236,12 +237,12 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         //imagePreviewWallpaperT.setTextColor(color)
     }
 
-   /* // set tags
-    private fun setTags(tags: List<FirebaseVisionLabel>) {
-        imagePreviewTags.visibility = View.VISIBLE
-        val sortedTags = F.sortLabels(tags)
-        imagePreviewTags.clipToPadding = false
-        imagePreviewTags.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        imagePreviewTags.adapter = TagsAdapter(lifecycle, sortedTags)
-    }*/
+    /* // set tags
+     private fun setTags(tags: List<FirebaseVisionLabel>) {
+         imagePreviewTags.visibility = View.VISIBLE
+         val sortedTags = F.sortLabels(tags)
+         imagePreviewTags.clipToPadding = false
+         imagePreviewTags.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+         imagePreviewTags.adapter = TagsAdapter(lifecycle, sortedTags)
+     }*/
 }
