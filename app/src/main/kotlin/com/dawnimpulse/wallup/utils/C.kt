@@ -57,6 +57,8 @@ object C {
     const val REMOTE_IMAGE = "remoteImage"
     const val NEXT = "next"
     const val TNC = "tnc"
+    const val FEATURE = "feature"
+    const val BUG = "bug"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val UNSPLASH = "https://unsplash.com$UTM"

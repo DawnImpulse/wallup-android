@@ -31,6 +31,16 @@
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
 
+        <!--Analytics-->
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
+
+        <!--Disable Advertising ID-->
+        <meta-data
+            android:name="google_analytics_adid_collection_enabled"
+            android:value="false" />
+
         <!-- New Aspect Ratio -->
         <meta-data
             android:name="android.max_aspect"

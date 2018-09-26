@@ -14,7 +14,6 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.sheets
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -60,8 +59,8 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
                 sheetNavUpdateL.visibility = View.VISIBLE
                 sheetNavUpdateL.setOnClickListener(this)
             } else if (it.text_available) {
-                sheetNavNextUpdate.visibility = View.VISIBLE
-                sheetNavNextUpdate.text = it.text
+                /*sheetNavNextUpdate.visibility = View.VISIBLE
+                sheetNavNextUpdate.text = it.text*/
             }
         }
     }
@@ -75,14 +74,7 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
                 startActivity(intent)
                 dismiss()
             }
-            sheetNavFeedback.id -> {
-                val emailIntent = Intent(android.content.Intent.ACTION_SEND)
-                emailIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                emailIntent.type = "vnd.android.cursor.item/email"
-                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, arrayOf("dawnimpulse@gmail.com"))
-                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Wallup Feedback  v${BuildConfig.VERSION_NAME}")
-                startActivity(Intent.createChooser(emailIntent, "Send mail using..."))
-            }
+            sheetNavFeedback.id -> F.sendMail(activity!!)
             sheetNavCollection.id -> {
                 startActivity(Intent(activity, CollectionLayoutActivity::class.java))
                 dismiss()

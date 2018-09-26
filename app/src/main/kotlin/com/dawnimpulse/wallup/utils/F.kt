@@ -8,6 +8,7 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.widget.TextView
+import com.dawnimpulse.wallup.BuildConfig
 import java.text.SimpleDateFormat
 
 
@@ -107,10 +108,23 @@ object F {
     }
 
     // start intent
-    fun startWeb(context: Context,string: String){
+    fun startWeb(context: Context, string: String) {
         context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(string)))
     }
 
+    // send mail
+    fun sendMail(context: Context) {
+        val emailIntent = Intent(android.content.Intent.ACTION_SEND)
+        val text = "SDK INT : ${android.os.Build.VERSION.SDK_INT} \n" +
+                "MODEL : ${android.os.Build.MODEL} \n"
+
+        emailIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        emailIntent.type = "vnd.android.cursor.item/email"
+        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, arrayOf("dawnimpulse@gmail.com"))
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Wallup Feedback  v${BuildConfig.VERSION_NAME}")
+        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, text)
+        context.startActivity(Intent.createChooser(emailIntent, "Send mail using..."))
+    }
 
     // sort labels
     /*fun sortLabels(labels: List<FirebaseVisionLabel>): List<FirebaseVisionLabel> {

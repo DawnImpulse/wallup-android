@@ -79,4 +79,14 @@ object RemoteConfig {
         return FirebaseRemoteConfig.getInstance().getString(C.REMOTE_IMAGE)
     }
 
+    // get bug url
+    fun getBugUrl(): String {
+        return FirebaseRemoteConfig.getInstance().getString(C.BUG)
+    }
+
+    // get bug url
+    fun getFeatureUrl(): String {
+        return FirebaseRemoteConfig.getInstance().getString(C.FEATURE)
+    }
+
 }

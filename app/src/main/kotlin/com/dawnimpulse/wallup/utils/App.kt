@@ -7,6 +7,7 @@ import com.crashlytics.android.Crashlytics
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
@@ -55,7 +56,7 @@ class App : Application() {
         setUpRemoteConfig()
         setFonts()
         setPrefs()
-        setCrashlytics()
+        analytics()
     }
 
     /**
@@ -113,8 +114,10 @@ class App : Application() {
     /**
      * enabling crashlytics in release builds
      */
-    private fun setCrashlytics(){
-        if(!BuildConfig.DEBUG)
+    private fun analytics(){
+        if(!BuildConfig.DEBUG){
             Fabric.with(this, Crashlytics())
+            FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(true)
+        }
     }
 }

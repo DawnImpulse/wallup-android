@@ -34,7 +34,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="change5_3"><b>Improvements: </b>Many other bugs fixes &amp; performance improvements.</string>
 
     <string name="aboutUsername">\@dawnimpulse</string>
-    <string name="aboutUnsplash">This application features images from Unsplash via their APIs i.e. Wallup was possible because of Unsplash. Cheers to them.</string>
+    <string name="aboutUnsplash">This application features images from Unsplash via their APIs. All images are free to use and share although kindly read Unsplash guidelines / license for the same.</string>
     <string name="aboutTerms">To avoid any misuse of this app, kindly go through the Terms &amp; Conditions.</string>
-    <string name="aboutContact">For any query / help contact me via <b>Twitter</b> or send me a mail on <b>saksham@sourcei.org</b></string>
+    <string name="aboutContact">For any query / help contact me via <b>Twitter</b> or send me a mail on <b>dawnimpulse@gmail.com</b></string>
 </resources>

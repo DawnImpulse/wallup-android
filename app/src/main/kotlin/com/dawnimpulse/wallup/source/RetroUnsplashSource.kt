@@ -2,6 +2,7 @@ package com.dawnimpulse.wallup.source
 
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.pojo.SlackPojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.C
 import org.json.JSONObject
@@ -168,5 +169,13 @@ interface RetroUnsplashSource {
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.QUERY) query: String
     ): Call<List<ImagePojo>>
+
+    // post a bug
+
+    @POST
+    fun postSlack(
+            @Url url: String,
+            @Body body: SlackPojo
+    ): Call<Any>
 
 }

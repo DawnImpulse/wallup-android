@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import androidx.core.widget.toast
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.ImageHandler
@@ -43,13 +44,14 @@ class AboutActivity : AppCompatActivity(), View.OnClickListener {
         changelog.setOnClickListener(this)
         rate.setOnClickListener(this)
         source.setOnClickListener(this)
-        bugFeature.setOnClickListener(this)
-        aboutPlay.setOnClickListener(this)
+        //bugFeature.setOnClickListener(this)
         aboutGithub.setOnClickListener(this)
         aboutTwitter.setOnClickListener(this)
         aboutLinkedin.setOnClickListener(this)
         aboutUnsplash.setOnClickListener(this)
         donate.setOnClickListener(this)
+        licenseLibs.setOnClickListener(this)
+        licenseIcons.setOnClickListener(this)
         privacy.setOnClickListener(this)
         terms.setOnClickListener(this)
         contact.setOnClickListener(this)
@@ -62,18 +64,18 @@ class AboutActivity : AppCompatActivity(), View.OnClickListener {
                 aboutUpdate.id -> F.startWeb(this, C.WALLUP_PLAY)
                 changelog.id -> startActivity(Intent(this, ChangesActivity::class.java))
                 rate.id -> F.startWeb(this, C.WALLUP_PLAY)
-                source.id -> F.startWeb(this,C.WALLUP_GITHUB)
-                bugFeature.id -> {
-                }
-                aboutPlay.id -> F.startWeb(this,C.DI_PLAY)
-                aboutGithub.id -> F.startWeb(this,C.DI_GITHUB)
-                aboutTwitter.id -> F.startWeb(this,C.DI_TWITTER)
-                aboutLinkedin.id -> F.startWeb(this,C.DI_LINKEDIN)
-                aboutUnsplash.id -> F.startWeb(this,C.UNSPLASH)
-                donate.id -> F.startWeb(this,C.DI_PAYPAL)
-                privacy.id -> F.startWeb(this,RemoteConfig.getPrivacyLink())
-                terms.id -> F.startWeb(this,RemoteConfig.getTnC())
-                contact.id -> {
+                source.id -> F.startWeb(this, C.WALLUP_GITHUB)
+                aboutGithub.id -> F.startWeb(this, C.DI_GITHUB)
+                aboutTwitter.id -> F.startWeb(this, C.DI_TWITTER)
+                aboutLinkedin.id -> F.startWeb(this, C.DI_LINKEDIN)
+                aboutUnsplash.id -> F.startWeb(this, C.UNSPLASH)
+                donate.id -> F.startWeb(this, C.DI_PAYPAL)
+                licenseLibs.id -> toast("upcoming")
+                licenseIcons.id -> toast("upcoming")
+                privacy.id -> F.startWeb(this, RemoteConfig.getPrivacyLink())
+                terms.id -> F.startWeb(this, RemoteConfig.getTnC())
+                contact.id -> F.sendMail(this)
+                else -> {
                 }
             }
         }

@@ -129,7 +129,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
                     else {
                         DownloadHandler.downloadData(this, details.links!!.download, details.id)
-                        Toast.short(this, "Downloading Image in /Downloads/Wallup/${details.id}.jpg")
+                        Toast.short(this, "Downloading Image in /Downloads/Wallup/${details.id}.jpg .Check notification for progress.")
                         model.downloadedPhoto(details.links!!.download_location)
                     }
                 }

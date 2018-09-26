@@ -66,7 +66,7 @@
         <!--update-->
         <LinearLayout
             android:id="@+id/aboutUpdate"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
@@ -210,7 +210,7 @@
         </LinearLayout>
 
         <!--bug feature-->
-        <LinearLayout
+        <!--<LinearLayout
             android:background="?android:attr/selectableItemBackground"
             android:id="@+id/bugFeature"
             android:layout_width="match_parent"
@@ -231,7 +231,7 @@
                 android:layout_marginLeft="16dp"
                 android:text="Bug Reports / Feature Requests"
                 android:textSize="16sp" />
-        </LinearLayout>
+        </LinearLayout>-->
 
         <!--author-->
         <LinearLayout
@@ -286,7 +286,7 @@
             </RelativeLayout>
 
             <!--play-->
-            <LinearLayout
+            <!--<LinearLayout
                 android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/aboutPlay"
                 android:layout_width="match_parent"
@@ -306,7 +306,7 @@
                     android:layout_height="24dp"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/vd_play" />
-            </LinearLayout>
+            </LinearLayout>-->
 
             <!--github-->
             <LinearLayout
