@@ -41,25 +41,49 @@ class UnsplashModel() {
 
     // Get latest photos
     fun getLatestImages(page: Int, callback: (Any?, Any?) -> Unit) {
-        UnsplashRepository.getLatestPhotos(page) { error, response ->
-            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
-                callback(error, response)
+        UnsplashRepository.getLatestPhotos(page) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
         }
     }
 
     // Get popular photos
     fun getPopularImages(page: Int, callback: (Any?, Any?) -> Unit) {
-        UnsplashRepository.getPopularPhotos(page) { error, response ->
-            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
-                callback(error, response)
+        UnsplashRepository.getPopularPhotos(page) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
         }
     }
 
     // Get curated photos
     fun getCuratedImages(page: Int, callback: (Any?, Any?) -> Unit) {
-        UnsplashRepository.getCuratedPhotos(page) { error, response ->
-            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
-                callback(error, response)
+        UnsplashRepository.getCuratedPhotos(page) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
         }
     }
 
@@ -71,31 +95,48 @@ class UnsplashModel() {
     // User details
     fun userDetails(username: String, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.userDetails(username) { e, r ->
-            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
-                callback(e, r)
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
         }
     }
 
     // Get user photos
     fun userPhotos(page: Int, count: Int, username: String, callback: (Any?, Any?) -> Unit) {
-        UnsplashRepository.userPhotos(page, count, username) { error, response ->
-            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
-                callback(error, response)
+        UnsplashRepository.userPhotos(page, count, username) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
         }
     }
 
     // Get image details
     fun getImage(id: String, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.getImage(id) { e, r ->
-            if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED))
-                callback(e, r)
-            else
-                lifecycle.addObserver(object : LifecycleObserver {
-                    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-                    fun onResume() {
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
                         callback(e, r)
+                        once = false
                     }
-                })
+                }
+            })
         }
 
     }
@@ -104,8 +145,8 @@ class UnsplashModel() {
     fun randomImages(callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.randomImages() { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
-                @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-                fun onResume() {
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
                     callback(e, r)
                 }
             })
@@ -117,8 +158,8 @@ class UnsplashModel() {
     fun randomUserImages(username: String, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.randomUserImages(username) { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
-                @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-                fun onResume() {
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
                     callback(e, r)
                 }
             })
@@ -132,7 +173,7 @@ class UnsplashModel() {
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)
-                fun onResume() {
+                fun onStart() {
                     if (once) {
                         callback(e, r)
                         once = false
@@ -148,7 +189,7 @@ class UnsplashModel() {
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)
-                fun onResume() {
+                fun onStart() {
                     if (once) {
                         callback(e, r)
                         once = false
@@ -164,7 +205,7 @@ class UnsplashModel() {
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)
-                fun onResume() {
+                fun onStart() {
                     if (once) {
                         callback(e, r)
                         once = false
@@ -180,7 +221,7 @@ class UnsplashModel() {
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)
-                fun onResume() {
+                fun onStart() {
                     if (once) {
                         callback(e, r)
                         once = false
@@ -196,7 +237,7 @@ class UnsplashModel() {
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)
-                fun onResume() {
+                fun onStart() {
                     if (once) {
                         callback(e, r)
                         once = false
@@ -208,11 +249,11 @@ class UnsplashModel() {
 
     // user's collections
     fun userCollections(username: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
-        UnsplashRepository.userCollections(username,page,count) { e, r ->
+        UnsplashRepository.userCollections(username, page, count) { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)
-                fun onResume() {
+                fun onStart() {
                     if (once) {
                         callback(e, r)
                         once = false
@@ -224,11 +265,11 @@ class UnsplashModel() {
 
     // random images with a keyword
     fun randomImagesTag(keyword: String, callback: (Any?, Any?) -> Unit) {
-        UnsplashRepository.randomImagesTag(keyword){ e,r ->
+        UnsplashRepository.randomImagesTag(keyword) { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)
-                fun onResume() {
+                fun onStart() {
                     if (once) {
                         callback(e, r)
                         once = false
