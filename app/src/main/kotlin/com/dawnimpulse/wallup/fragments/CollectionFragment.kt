@@ -2,13 +2,13 @@ package com.dawnimpulse.wallup.fragments
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.CollectionsAdapter
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener

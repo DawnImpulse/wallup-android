@@ -7,12 +7,12 @@
     tools:context=".activities.SearchActivity">
 
     <!--toolbar search inside-->
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/searchAppBar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/searchToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,7 +30,7 @@
                     android:layout_height="match_parent"
                     android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/searchLeft"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
@@ -59,7 +59,7 @@
                     android:layout_alignParentRight="true"
                     android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
@@ -67,11 +67,11 @@
                 </FrameLayout>
 
             </RelativeLayout>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <!--recycler-->
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/searchRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -79,7 +79,7 @@
         android:visibility="gone" />
 
     <!--illustration-->
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/searchIl"
         android:layout_width="256dp"
         android:layout_height="256dp"
@@ -99,7 +99,7 @@
         android:visibility="gone" />
 
     <!--fab-->
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/searchFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

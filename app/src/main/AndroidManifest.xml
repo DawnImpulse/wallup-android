@@ -17,7 +17,7 @@
 
         <!-- File provider for Android 7+ -->
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="com.dawnimpulse.wallup"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -31,12 +31,12 @@
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
 
-        <!--Analytics-->
+        <!-- Analytics -->
         <meta-data
             android:name="firebase_analytics_collection_enabled"
             android:value="false" />
 
-        <!--Disable Advertising ID-->
+        <!-- Disable Advertising ID -->
         <meta-data
             android:name="google_analytics_adid_collection_enabled"
             android:value="false" />
@@ -58,6 +58,7 @@
             android:theme="@style/AppTheme.Fullscreen.Preview">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -75,7 +76,6 @@
             android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
@@ -127,11 +127,21 @@
             android:name=".activities.SearchActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--About-->
+        <!-- About -->
         <activity
             android:name=".activities.AboutActivity"
-            android:theme="@style/AppTheme.Fullscreen">
+            android:theme="@style/AppTheme.Fullscreen"></activity>
 
+        <!-- Login -->
+        <activity android:name=".activities.LoginActivity">
+            <intent-filter>
+                <data
+                    android:host="sourcei.org"
+                    android:scheme="wallup" />
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
     </application>
 

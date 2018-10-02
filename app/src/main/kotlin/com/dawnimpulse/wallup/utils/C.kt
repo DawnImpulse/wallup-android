@@ -28,6 +28,7 @@ object C {
     const val PAGE = "page"
     const val PER_PAGE = "per_page"
     const val UNSPLASH_API_KEY = "unsplash_api_key"
+    const val UNSPLASH_SECRET = "unsplash_secret"
     const val TRENDING = "trending"
     const val TIMESTAMP = "timestamp"
     const val WALLUP = "wallup"
@@ -71,6 +72,9 @@ object C {
     const val DI_TWITTER = "https://twitter.com/dawnimpulse"
     const val DI_LINKEDIN = "https://linkedin.com/in/00saksham/"
     const val DI_PAYPAL = "https://paypal.me/00saksham"
+    const val REDIRECT = "wallup://sourcei.org"
+    const val UNSPLASH_OAUTH = "https://unsplash.com/oauth/authorize"
+    const val UNSPLASH_TOKEN = "https://unsplash.com/oauth/token"
 
     const val ERROR_CODE_1 = 601
     const val ERROR_CODE_2 = 602

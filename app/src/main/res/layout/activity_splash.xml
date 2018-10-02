@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:background="@color/black90" />
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="360dp"
         android:layout_height="360dp"
         android:layout_centerHorizontal="true"

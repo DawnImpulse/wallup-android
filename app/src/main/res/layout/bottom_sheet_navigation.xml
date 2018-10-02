@@ -55,7 +55,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_gravity="center"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
@@ -87,7 +87,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_gravity="center"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
@@ -119,7 +119,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_gravity="center"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
@@ -161,7 +161,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_gravity="center"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
@@ -195,7 +195,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_gravity="center"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"

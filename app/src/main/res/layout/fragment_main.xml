@@ -19,7 +19,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_height="match_parent"
     tools:context=".fragments.MainFragment">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/mainRefresher"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -62,14 +62,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:gravity="bottom"
                             android:text="                                " />
 
-                        <android.support.v7.widget.AppCompatImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/m3"
                             android:layout_width="8dp"
                             android:layout_height="24dp"
                             android:layout_alignParentRight="true"
                             android:background="@drawable/round_corners" />
 
-                        <android.support.v7.widget.AppCompatImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_marginRight="48dp"
@@ -106,14 +106,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:gravity="bottom"
                             android:text="                                " />
 
-                        <android.support.v7.widget.AppCompatImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/m4"
                             android:layout_width="8dp"
                             android:layout_height="24dp"
                             android:layout_alignParentRight="true"
                             android:background="@drawable/round_corners" />
 
-                        <android.support.v7.widget.AppCompatImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:layout_marginRight="48dp"
@@ -126,7 +126,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
             </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mainRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -134,6 +134,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:paddingTop="10dp"
                 android:visibility="visible" />
         </RelativeLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>

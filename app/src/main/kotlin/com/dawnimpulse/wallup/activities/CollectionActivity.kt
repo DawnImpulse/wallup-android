@@ -3,12 +3,12 @@ package com.dawnimpulse.wallup.activities
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.graphics.Palette
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.toast
+import androidx.palette.graphics.Palette
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.ArtistPhotosAdapter
 import com.dawnimpulse.wallup.handlers.ColorHandler

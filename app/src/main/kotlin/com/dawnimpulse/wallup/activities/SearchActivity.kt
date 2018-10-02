@@ -1,14 +1,15 @@
 package com.dawnimpulse.wallup.activities
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.widget.toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.RandomAdapter
 import com.dawnimpulse.wallup.models.UnsplashModel
@@ -24,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_search.*
  *
  * @note Updates :
  */
+@SuppressLint("RestrictedApi")
 class SearchActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "SearchActivity"
     private var close = true // will be false if text is present i.e. clear it
@@ -123,6 +125,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
     // callback
     private var callback = object : (Any?, Any?) -> Unit {
+
         override fun invoke(e: Any?, r: Any?) {
             e?.let {
                 toast("error while searching")

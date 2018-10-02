@@ -12,9 +12,10 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.models
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
+import com.dawnimpulse.wallup.pojo.BearerBody
 import com.dawnimpulse.wallup.repositories.UnsplashRepository
 
 /**
@@ -30,6 +31,7 @@ import com.dawnimpulse.wallup.repositories.UnsplashRepository
  *  2018 09 02 - master - Saksham - random user images
  *  2018 09 08 - master - Saksham - featured curatedCollections
  *  2018 09 22 - master - Saksham - random images tag
+ *  2018 10 01 - master - Saksham - generate bearer token
  */
 class UnsplashModel() {
     lateinit var lifecycle: Lifecycle
@@ -266,6 +268,22 @@ class UnsplashModel() {
     // random images with a keyword
     fun randomImagesTag(keyword: String, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.randomImagesTag(keyword) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
+        }
+    }
+
+    // generate bearer token
+    fun bearerToken(body: BearerBody,callback: (Any?, Any?) -> Unit){
+        UnsplashRepository.bearerToken(body) { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)

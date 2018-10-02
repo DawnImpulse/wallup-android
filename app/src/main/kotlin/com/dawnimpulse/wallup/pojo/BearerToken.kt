@@ -10,28 +10,30 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
 INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
-OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.extras
+OR PERFORMANCE OF THIS SOFTWARE.*/
+package com.dawnimpulse.wallup.pojo
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.dawnimpulse.wallup.R
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-
+import com.google.gson.annotations.SerializedName
 
 /**
  * @author Saksham
  *
  * @note Last Branch Update -
- * @note Created on 2018-05-26 by Saksham
+ * @note Created on 2018-10-01 by Saksham
  *
  * @note Updates :
  */
-class BottomSheetImagePreview : BottomSheetDialogFragment() {
+data class BearerToken(
+        @SerializedName("access_token") val access_token: String,
+        @SerializedName("token_type") val token_type: String,
+        @SerializedName("scope") val scope: String,
+        @SerializedName("created_at") val created_at: String
+)
 
-    /*on create view*/
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.bottom_sheet_exif, container, false)
-    }
-}
+data class BearerBody(
+        @SerializedName("client_id") val client_id: String,
+        @SerializedName("client_secret") val client_secret: String,
+        @SerializedName("redirect_uri") val redirect_uri: String,
+        @SerializedName("code") val code: String,
+        @SerializedName("grant_type") val grant_type: String
+)

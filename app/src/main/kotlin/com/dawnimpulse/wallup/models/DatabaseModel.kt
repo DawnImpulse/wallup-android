@@ -13,7 +13,7 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.models
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import com.dawnimpulse.wallup.repositories.DatabaseRepository
 
 /**

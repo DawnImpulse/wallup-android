@@ -12,7 +12,7 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -66,7 +66,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="32dp">
 
-                        <android.support.v7.widget.AppCompatImageView
+                        <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imagePreviewViewsI"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
@@ -126,7 +126,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_marginLeft="24dp"
                             android:layout_toRightOf="@id/imagePreviewAuthorImage">
 
-                            <android.support.v7.widget.AppCompatImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewAuthorImagesL"
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
@@ -142,7 +142,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:textColor="@color/black"
                                 android:textSize="10sp" />
 
-                            <android.support.v7.widget.AppCompatImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewAuthorCollectionsL"
                                 android:layout_width="12dp"
                                 android:layout_height="12dp"
@@ -163,7 +163,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     </RelativeLayout>
 
                     <!--Tags-->
-                    <android.support.v7.widget.RecyclerView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/imagePreviewTags"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -280,7 +280,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_weight="1"
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                            <android.support.v7.widget.AppCompatImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewShareI"
                                 android:layout_width="28dp"
                                 android:layout_height="28dp"
@@ -296,7 +296,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_weight="1"
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                            <android.support.v7.widget.AppCompatImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewExifI"
                                 android:layout_width="28dp"
                                 android:layout_height="28dp"
@@ -312,7 +312,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_weight="1"
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                            <android.support.v7.widget.AppCompatImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewUnsplashI"
                                 android:layout_width="28dp"
                                 android:layout_height="28dp"
@@ -328,7 +328,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_weight="1"
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                            <android.support.v7.widget.AppCompatImageView
+                            <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewStatsI"
                                 android:layout_width="28dp"
                                 android:layout_height="28dp"
@@ -368,7 +368,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     app:srcCompat="@drawable/vd_heart_outline" />
@@ -416,4 +416,4 @@ OR PERFORMANCE OF THIS SOFTWARE.
         </LinearLayout>-->
 
     </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

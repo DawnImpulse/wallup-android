@@ -15,9 +15,9 @@ package com.dawnimpulse.wallup.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.ArtistPhotosAdapter
 import com.dawnimpulse.wallup.adapters.CollectionsHorizontalAdapter

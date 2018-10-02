@@ -14,17 +14,17 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.repositories
 
 import com.dawnimpulse.wallup.network.RetroApiClient
-import com.dawnimpulse.wallup.pojo.CollectionPojo
-import com.dawnimpulse.wallup.pojo.ImagePojo
-import com.dawnimpulse.wallup.pojo.UserPojo
+import com.dawnimpulse.wallup.pojo.*
 import com.dawnimpulse.wallup.source.RetroUnsplashSource
+import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.ErrorUtils
 import com.dawnimpulse.wallup.utils.L
-import com.google.gson.Gson
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 /**
  * @author Saksham
@@ -40,6 +40,7 @@ import retrofit2.Response
  *  2018 09 08 - master - Saksham - featured collections
  *  2018 09 14 - master - Saksham - user's collections
  *  2018 09 22 - master - Saksham - random images tag
+ *  2018 10 01 - master - Saksham - generate bearer token
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
@@ -54,10 +55,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<ImagePojo>> {
 
             override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else
-                    callback(response.errorBody().toString(), null)
+                else
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
@@ -76,10 +77,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<ImagePojo>> {
 
             override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else
-                    callback(response.errorBody().toString(), null)
+                 else
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
@@ -98,10 +99,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<ImagePojo>> {
 
             override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else
-                    callback(response.errorBody().toString(), null)
+                else
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
@@ -139,7 +140,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<UserPojo> {
 
             override fun onResponse(call: Call<UserPojo>?, response: Response<UserPojo>) {
-                callback(null, response.body())
+                if (response.isSuccessful)
+                    callback(null, response.body())
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<UserPojo>?, t: Throwable?) {
@@ -160,11 +164,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<ImagePojo>> {
 
             override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else {
-                    callback(Gson().toJson(response.errorBody()).toString(), null)
-                }
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
@@ -184,11 +187,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<ImagePojo> {
 
             override fun onResponse(call: Call<ImagePojo>?, response: Response<ImagePojo>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else {
-                    callback(Gson().toJson(response.errorBody()).toString(), null)
-                }
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<ImagePojo>?, t: Throwable?) {
@@ -207,11 +209,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<ImagePojo>> {
 
             override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else {
-                    callback(Gson().toJson(response.errorBody()).toString(), null)
-                }
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
@@ -231,11 +232,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<ImagePojo>> {
 
             override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else {
-                    callback(Gson().toJson(response.errorBody()).toString(), null)
-                }
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
@@ -255,11 +255,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<CollectionPojo>> {
 
             override fun onResponse(call: Call<List<CollectionPojo>>?, response: Response<List<CollectionPojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else {
-                    callback(Gson().toJson(response.errorBody()).toString(), null)
-                }
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<List<CollectionPojo>>?, t: Throwable?) {
@@ -279,11 +278,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<CollectionPojo>> {
 
             override fun onResponse(call: Call<List<CollectionPojo>>?, response: Response<List<CollectionPojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else {
-                    callback(Gson().toJson(response.errorBody()).toString(), null)
-                }
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<List<CollectionPojo>>?, t: Throwable?) {
@@ -305,16 +303,13 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<ImagePojo>> {
 
             override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else {
-                    L.d(NAME, "hiy")
-                    callback(Gson().toJson(response.errorBody()).toString(), null)
-                }
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                L.d(NAME, "hii")
                 callback(t.toString(), null)
             }
         })
@@ -333,16 +328,13 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<ImagePojo>> {
 
             override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else {
-                    L.d(NAME, "hiy")
-                    callback(Gson().toJson(response.errorBody()).toString(), null)
-                }
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                L.d(NAME, "hii")
                 callback(t.toString(), null)
             }
         })
@@ -359,11 +351,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<ImagePojo>> {
 
             override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else {
-                    callback(Gson().toJson(response.errorBody()).toString(), null)
-                }
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
@@ -385,11 +376,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<CollectionPojo>> {
 
             override fun onResponse(call: Call<List<CollectionPojo>>?, response: Response<List<CollectionPojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else {
-                    callback(Gson().toJson(response.errorBody()).toString(), null)
-                }
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<List<CollectionPojo>>?, t: Throwable?) {
@@ -409,11 +399,10 @@ object UnsplashRepository {
         call.enqueue(object : Callback<List<ImagePojo>> {
 
             override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful)
                     callback(null, response.body())
-                } else {
-                    callback(Gson().toJson(response.errorBody()).toString(), null)
-                }
+                else
+                    callback(ErrorUtils.parseError(response),null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
@@ -422,4 +411,29 @@ object UnsplashRepository {
         })
     }
 
+    // generate bearer token
+    fun bearerToken(body: BearerBody, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.bearerToken(
+                C.UNSPLASH_TOKEN,
+                body
+        )
+
+        call.enqueue(object : Callback<BearerToken> {
+
+            override fun onResponse(call: Call<BearerToken>?, response: Response<BearerToken>) {
+                if (response.isSuccessful) {
+                    callback(null, response.body())
+                } else {
+                    callback(ErrorUtils.parseErrorAuth(response), null)
+                }
+            }
+
+            override fun onFailure(call: Call<BearerToken>?, t: Throwable?) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
 }
+

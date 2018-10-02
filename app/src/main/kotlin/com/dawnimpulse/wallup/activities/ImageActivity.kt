@@ -19,11 +19,11 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.graphics.Palette
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.widget.toast
+import androidx.palette.graphics.Palette
 import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.*

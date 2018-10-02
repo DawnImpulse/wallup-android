@@ -14,9 +14,9 @@ OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.sheets
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.design.widget.BottomSheetDialog
-import android.support.design.widget.BottomSheetDialogFragment
 import com.dawnimpulse.wallup.R
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 /**
  * @author Saksham

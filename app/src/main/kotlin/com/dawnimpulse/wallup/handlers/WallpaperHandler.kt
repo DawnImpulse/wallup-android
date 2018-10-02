@@ -16,9 +16,9 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Point
-import android.support.v7.app.AppCompatActivity
 import android.view.Display
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.Toast
 

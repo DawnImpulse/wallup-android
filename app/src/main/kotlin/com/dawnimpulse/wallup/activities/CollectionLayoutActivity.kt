@@ -3,11 +3,11 @@ package com.dawnimpulse.wallup.activities
 import android.graphics.Typeface.BOLD
 import android.graphics.Typeface.NORMAL
 import android.os.Bundle
-import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
 import android.util.TypedValue
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.fragments.CollectionFragment
 import com.dawnimpulse.wallup.utils.C

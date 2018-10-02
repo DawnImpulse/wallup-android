@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/aboutImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -29,7 +29,7 @@
                 android:alpha="0.3"
                 android:background="@color/black" />
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="128dp"
                 android:layout_height="128dp"
                 android:layout_centerHorizontal="true"
@@ -73,7 +73,7 @@
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:visibility="gone">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
@@ -145,7 +145,7 @@
             android:layout_marginTop="36dp"
             android:background="?android:attr/selectableItemBackground">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
@@ -169,7 +169,7 @@
             android:layout_height="48dp"
             android:layout_marginTop="8dp">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
@@ -193,7 +193,7 @@
             android:layout_height="48dp"
             android:layout_marginTop="8dp">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
@@ -324,7 +324,7 @@
                     android:layout_marginRight="8dp"
                     android:text="Many other Open Source projects" />
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
@@ -347,7 +347,7 @@
                     android:layout_marginRight="8dp"
                     android:text="Follow me / Get in touch" />
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
@@ -370,7 +370,7 @@
                     android:layout_marginRight="8dp"
                     android:text="My Professional Profile" />
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
@@ -393,7 +393,7 @@
             android:paddingRight="16dp"
             android:paddingTop="16dp">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"
@@ -429,7 +429,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignParentRight="true"
@@ -450,7 +450,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/paypal"
                 android:layout_width="88dp"
                 android:layout_height="88dp"
@@ -512,7 +512,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_gravity="center"
@@ -537,7 +537,7 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <android.support.v7.widget.AppCompatImageView
+                    <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_gravity="center"
@@ -573,7 +573,7 @@
             android:layout_marginTop="24dp"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"
@@ -610,7 +610,7 @@
             android:layout_marginTop="32dp"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"
@@ -648,7 +648,7 @@
             android:layout_marginTop="32dp"
             android:orientation="vertical">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"

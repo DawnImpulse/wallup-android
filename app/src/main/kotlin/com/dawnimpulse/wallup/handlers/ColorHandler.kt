@@ -15,8 +15,8 @@ package com.dawnimpulse.wallup.handlers
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
-import android.support.v7.graphics.Palette
+import androidx.core.content.ContextCompat
+import androidx.palette.graphics.Palette
 import com.dawnimpulse.wallup.R
 
 

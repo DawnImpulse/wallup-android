@@ -131,7 +131,7 @@
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/colRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
@@ -140,7 +140,7 @@
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp">
 
-                </android.support.v7.widget.RecyclerView>
+                </androidx.recyclerview.widget.RecyclerView>
 
             </RelativeLayout>
 

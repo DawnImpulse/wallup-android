@@ -82,7 +82,7 @@ class App : Application() {
                     if (task.isSuccessful) {
                         mFirebaseRemoteConfig.activateFetched()
                         Config.UNSPLASH_API_KEY = mFirebaseRemoteConfig.getString(C.UNSPLASH_API_KEY)
-                        Log.d("Test",Config.UNSPLASH_API_KEY)
+                        Config.UNSPLASH_SECRET = mFirebaseRemoteConfig.getString(C.UNSPLASH_SECRET)
                     } else
                         Log.d("Test", "Fetch failed")
                 }

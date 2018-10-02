@@ -14,7 +14,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.Config
 import com.theartofdev.edmodo.cropper.CropImageView
