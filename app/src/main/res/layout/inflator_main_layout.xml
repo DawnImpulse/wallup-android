@@ -19,17 +19,16 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_margin="10dp">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:id="@+id/mainImage"
         android:layout_width="match_parent"
         android:layout_height="260dp"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:scaleType="centerCrop"
         app:riv_border_color="@color/white"
         app:riv_corner_radius="4dp"
         app:riv_mutate_background="true" />
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:id="@+id/mainCircleImage"
         android:layout_width="44dp"
         android:layout_height="44dp"
@@ -37,6 +36,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_marginLeft="16dp"
         android:layout_marginTop="208dp"
         android:elevation="2dp"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         app:riv_oval="true" />
 
     <RelativeLayout
@@ -46,18 +46,17 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_marginTop="12dp">
 
         <me.grantland.widget.AutofitTextView
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_centerVertical="true"
             android:id="@+id/mainName"
-            android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="24dp"
-            android:layout_toLeftOf="@+id/mainLike"
-            android:gravity="bottom"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:paddingLeft="16dp"
             android:paddingRight="8dp"
             android:text="Amy Blake"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/mainThreeDot"
@@ -67,14 +66,20 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:visibility="gone"
             app:srcCompat="@drawable/vd_dots_vertical" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/mainLike"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginRight="32dp"
-            android:layout_toLeftOf="@id/mainThreeDot"
-            android:visibility="gone"
-            app:srcCompat="@drawable/vd_cards_heart___" />
+        <FrameLayout
+            android:id="@+id/mainLikeL"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:layout_alignParentRight="true"
+            android:layout_width="48dp"
+            android:layout_height="30dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/mainLike"
+                android:layout_gravity="center"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:srcCompat="@drawable/vd_like_outline" />
+        </FrameLayout>
     </RelativeLayout>
 
 </RelativeLayout>

@@ -32,12 +32,10 @@ android {
 }
 
 dependencies {
-    def ktx_version = '1.0.0-alpha1'
     def x_version = '1.0.0'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //--------------- Support Libraries ---------------------
-    implementation "androidx.core:core-ktx:$ktx_version"
     implementation "com.google.android.material:material:$x_version"
     implementation "androidx.appcompat:appcompat:$x_version"
     implementation "androidx.exifinterface:exifinterface:$x_version"
@@ -67,9 +65,10 @@ dependencies {
     implementation 'com.dawnimpulse:permissions:0.1.1' //permission manager
     implementation 'com.pixplicity.easyprefs:library:1.9.0' //preferences manager
     implementation 'me.grantland:autofittextview:0.2.1' //text auto-fit
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0' //kotlin co-routines
 
     //------------------ Additional -------------------------
+    implementation 'androidx.core:core-ktx:1.0.0-alpha1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0' //kotlin co-routines
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 }

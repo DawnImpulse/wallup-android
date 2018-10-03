@@ -34,7 +34,7 @@ import com.dawnimpulse.wallup.repositories.UnsplashRepository
  *  2018 10 01 - master - Saksham - generate bearer token
  */
 class UnsplashModel() {
-    lateinit var lifecycle: Lifecycle
+    private lateinit var lifecycle: Lifecycle
 
     // constructor
     constructor(lifecycle: Lifecycle) : this() {
@@ -279,6 +279,16 @@ class UnsplashModel() {
                 }
             })
         }
+    }
+
+    // like a photo
+    fun likePhoto(id: String) {
+       UnsplashRepository.likePhoto(id)
+    }
+
+    // like a photo
+    fun unlikePhoto(id: String) {
+        UnsplashRepository.unlikePhoto(id)
     }
 
     // generate bearer token

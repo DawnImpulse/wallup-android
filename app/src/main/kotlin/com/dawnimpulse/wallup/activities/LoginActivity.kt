@@ -19,11 +19,12 @@ import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.BearerBody
+import com.dawnimpulse.wallup.pojo.BearerToken
+import com.dawnimpulse.wallup.pojo.UnsplashAuthError
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.utils.L
-import kotlinx.android.synthetic.main.activity_login.*
+import com.pixplicity.easyprefs.library.Prefs
 
 /**
  * @author Saksham
@@ -43,29 +44,30 @@ class LoginActivity : AppCompatActivity() {
         intent?.let {
             it.data?.let { uri ->
                 val code = uri.getQueryParameter("code")
-                toast("making next call")
                 val model = UnsplashModel(lifecycle)
-                val body = BearerBody(Config.UNSPLASH_API_KEY.replace("Client-ID ",""), Config.UNSPLASH_SECRET, C.REDIRECT, code, "authorization_code")
-                //val body = BearerBody(Config.UNSPLASH_API_KEY.replace("Client-ID ",""), Config.UNSPLASH_SECRET, C.REDIRECT, "7cf79952614bca27b93f8e1812878a52f9347d2ac2f4898ffb54cf17ccdd7eea", "authorization_code")
+                val body = BearerBody(
+                        Config.UNSPLASH_API_KEY.replace("Client-ID ", ""),
+                        Config.UNSPLASH_SECRET,
+                        C.REDIRECT,
+                        code,
+                        "authorization_code")
+
                 model.bearerToken(body) { e, r ->
-                    L.dO(NAME,body)
                     e?.let {
-                        L.d(NAME,e)
-                        toast(e.toString())
+                        L.dO(NAME, e)
+                        toast((e as UnsplashAuthError).error)
+                        finish()
                     }
                     r?.let {
-                        L.dO(NAME, r)
+                        it as BearerToken
+                        toast("Logged in successfully")
+                        Config.USER_API_KEY = "Bearer ${it.access_token}"
+                        Prefs.putString(C.USER_TOKEN,Config.USER_API_KEY)
+                        finish()
                     }
 
                 }
             }
-        }
-        loginButton.setOnClickListener {
-            F.startWeb(this, "${C.UNSPLASH_OAUTH}" +
-                    "?client_id=${Config.UNSPLASH_API_KEY.replace("Client-ID ", "")}" +
-                    "&redirect_uri=${C.REDIRECT}" +
-                    "&response_type=code" +
-                    "&scope=public+read_user+write_user+read_photos+write_photos+write_likes+write_followers+read_collections+write_collections")
         }
     }
 }

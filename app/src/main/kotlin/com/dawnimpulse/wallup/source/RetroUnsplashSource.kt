@@ -37,48 +37,112 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 interface RetroUnsplashSource {
 
 
-    // get latest photos
+    //________________________________
+    //           PHOTOS
+    //________________________________
 
+
+    // ------------------------------
+    //         Latest Photos
+    // ------------------------------
     @GET("/photos?per_page=30")
     fun getLatestPhotos(
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.PAGE) page: Int
     ): Call<List<ImagePojo>>
 
-    //get popular photos
 
+    // ------------------------------
+    //      Popular Photos
+    // ------------------------------
     @GET("/photos?order_by=popular&per_page=30")
     fun getPopularPhotos(
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.PAGE) page: Int
     ): Call<List<ImagePojo>>
 
-    // get curated photos
 
+    // ------------------------------
+    //      Curated Photos
+    // ------------------------------
     @GET("/photos/curated?per_page=30")
     fun getCuratedPhotos(
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.PAGE) page: Int
     ): Call<List<ImagePojo>>
 
-    // download image call
+    // ------------------------------
+    //      Search Photos
+    // ------------------------------
+    @GET("/photos/random?count=30")
+    fun randomImagesTag(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Query(C.QUERY) query: String
+    ): Call<List<ImagePojo>>
 
+    // ------------------------------
+    //      Details Photo
+    // ------------------------------
+    @GET("/photos/{id}")
+    fun getImage(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.ID) id: String
+    ): Call<ImagePojo>
+
+    // ------------------------------
+    //      Random Photos
+    // ------------------------------
+    @GET("/photos/random?count=30")
+    fun randomImages(
+            @Header(C.AUTHORIZATION) authorization: String
+    ): Call<List<ImagePojo>>
+
+    // ------------------------------
+    //      Download Photo
+    // ------------------------------
     @GET
     fun imageDownloaded(
             @Header(C.AUTHORIZATION) authorization: String,
             @Url url: String
     ): Call<JSONObject>
 
-    // user details
+    // ------------------------------
+    //      Like Photo
+    // ------------------------------
+    @POST("/photos/{id}/like")
+    fun likeImage(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.ID) id:String
+    ): Call<ImagePojo>
 
+    // ------------------------------
+    //      UnLike Photo
+    // ------------------------------
+    @DELETE("/photos/{id}/like")
+    fun unlikeImage(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.ID) id:String
+    ): Call<ImagePojo>
+
+
+    //________________________________
+    //           USER
+    //________________________________
+
+
+    // ------------------------------
+    //      User Details
+    // ------------------------------
     @GET("/users/{username}")
     fun userDetails(
             @Header(C.AUTHORIZATION) authorization: String,
             @Path("username") username: String
     ): Call<UserPojo>
 
-    // user images
 
+    // ------------------------------
+    //      User Photos
+    // ------------------------------
     @GET("/users/{username}/photos")
     fun userPhotos(
             @Header(C.AUTHORIZATION) authorization: String,
@@ -87,46 +151,44 @@ interface RetroUnsplashSource {
             @Query(C.PER_PAGE) count: Int
     ): Call<List<ImagePojo>>
 
-    // image details
 
-    @GET("/photos/{id}")
-    fun getImage(
-            @Header(C.AUTHORIZATION) authorization: String,
-            @Path(C.ID) id: String
-    ): Call<ImagePojo>
-
-    // random images
-
-    @GET("/photos/random?count=30")
-    fun randomImages(
-            @Header(C.AUTHORIZATION) authorization: String
-    ): Call<List<ImagePojo>>
-
-    // random user images
-
+    // ------------------------------
+    //      Random User Photos
+    // ------------------------------
     @GET("/photos/random?count=30")
     fun randomUserImages(
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.USERNAME) username: String
     ): Call<List<ImagePojo>>
 
-    // featured curatedCollections
 
+    //________________________________
+    //          Collection
+    //________________________________
+
+
+    // ------------------------------
+    //      Curated Collection
+    // ------------------------------
     @GET("/collections/curated?per_page=30")
     fun curatedCollections(
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.PAGE) page: Int
     ): Call<List<CollectionPojo>>
 
-    // featured curatedCollections
 
+    // ------------------------------
+    //      Featured Collection
+    // ------------------------------
     @GET("/collections/featured?per_page=30")
     fun featuredCollections(
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.PAGE) page: Int
     ): Call<List<CollectionPojo>>
 
-    // collection photos
+    // ------------------------------
+    //      Collection Photos
+    // ------------------------------
     @GET("/collections/{id}/photos")
     fun collectionPhotos(
             @Header(C.AUTHORIZATION) authorization: String,
@@ -135,7 +197,9 @@ interface RetroUnsplashSource {
             @Query(C.PAGE) page: Int
     ): Call<List<ImagePojo>>
 
-    // curated collection photos
+    // ------------------------------
+    //    Curated Collection Photos
+    // ------------------------------
     @GET("/collections/curated/{id}/photos")
     fun curatedCollectionPhotos(
             @Header(C.AUTHORIZATION) authorization: String,
@@ -144,15 +208,19 @@ interface RetroUnsplashSource {
             @Query(C.PAGE) page: Int
     ): Call<List<ImagePojo>>
 
-    // featured collection photos
+    // ------------------------------
+    //    Random Collection Photos
+    // ------------------------------
     @GET("/photos/random?count=30")
     fun randomCollectionPhotos(
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.COLLECTIONS) id: String
     ): Call<List<ImagePojo>>
 
-    // user collections
-    @GET("/users/{username}/collections")
+    // ------------------------------
+    //      User Collections
+    // ------------------------------
+    @GET("/users/{username}/collections?order_by=updated")
     fun getUserCollections(
             @Header(C.AUTHORIZATION) authorization: String,
             @Path(C.USERNAME) username: String,
@@ -160,25 +228,28 @@ interface RetroUnsplashSource {
             @Query(C.PER_PAGE) count: Int
     ): Call<List<CollectionPojo>>
 
-    // random photos with a tag
-    @GET("/photos/random?count=30")
-    fun randomImagesTag(
-            @Header(C.AUTHORIZATION) authorization: String,
-            @Query(C.QUERY) query: String
-    ): Call<List<ImagePojo>>
 
-    // post a bug
-    @POST
-    fun postSlack(
-            @Url url: String,
-            @Body body: SlackPojo
-    ): Call<Any>
+    //________________________________
+    //           EXTRAS
+    //________________________________
 
-    // bearer token
+
+    // ------------------------------
+    //      Bearer Token
+    // ------------------------------
     @POST
     fun bearerToken(
             @Url url: String,
             @Body body: BearerBody
     ): Call<BearerToken>
+
+    // ------------------------------
+    //         Post Slack
+    // ------------------------------
+    @POST
+    fun postSlack(
+            @Url url: String,
+            @Body body: SlackPojo
+    ): Call<Any>
 
 }

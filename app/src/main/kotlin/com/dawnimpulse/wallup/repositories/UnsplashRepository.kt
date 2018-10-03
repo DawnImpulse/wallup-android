@@ -49,7 +49,7 @@ object UnsplashRepository {
     fun getLatestPhotos(page: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.getLatestPhotos(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 page)
 
         call.enqueue(object : Callback<List<ImagePojo>> {
@@ -62,7 +62,7 @@ object UnsplashRepository {
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -71,29 +71,7 @@ object UnsplashRepository {
     fun getPopularPhotos(page: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.getPopularPhotos(
-                Config.UNSPLASH_API_KEY,
-                page)
-
-        call.enqueue(object : Callback<List<ImagePojo>> {
-
-            override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
-                if (response.isSuccessful)
-                    callback(null, response.body())
-                 else
-                    callback(ErrorUtils.parseError(response), null)
-            }
-
-            override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
-            }
-        })
-    }
-
-    // Get curated photos
-    fun getCuratedPhotos(page: Int, callback: (Any?, Any?) -> Unit) {
-        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
-        val call = apiClient.getCuratedPhotos(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 page)
 
         call.enqueue(object : Callback<List<ImagePojo>> {
@@ -106,7 +84,29 @@ object UnsplashRepository {
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
+            }
+        })
+    }
+
+    // Get curated photos
+    fun getCuratedPhotos(page: Int, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.getCuratedPhotos(
+                Config.apiKey(),
+                page)
+
+        call.enqueue(object : Callback<List<ImagePojo>> {
+
+            override fun onResponse(call: Call<List<ImagePojo>>?, response: Response<List<ImagePojo>>) {
+                if (response.isSuccessful)
+                    callback(null, response.body())
+                else
+                    callback(ErrorUtils.parseError(response), null)
+            }
+
+            override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -115,7 +115,7 @@ object UnsplashRepository {
     fun downloadedPhoto(url: String) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.imageDownloaded(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 url)
 
         call.enqueue(object : Callback<JSONObject> {
@@ -134,7 +134,7 @@ object UnsplashRepository {
     fun userDetails(username: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.userDetails(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 username)
 
         call.enqueue(object : Callback<UserPojo> {
@@ -143,11 +143,11 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<UserPojo>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -156,7 +156,7 @@ object UnsplashRepository {
     fun userPhotos(page: Int, count: Int, username: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.userPhotos(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 username,
                 page,
                 count)
@@ -167,11 +167,11 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -180,7 +180,7 @@ object UnsplashRepository {
     fun getImage(id: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.getImage(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 id
         )
 
@@ -190,11 +190,11 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<ImagePojo>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -203,7 +203,7 @@ object UnsplashRepository {
     fun randomImages(callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.randomImages(
-                Config.UNSPLASH_API_KEY
+                Config.apiKey()
         )
 
         call.enqueue(object : Callback<List<ImagePojo>> {
@@ -212,11 +212,11 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -225,7 +225,7 @@ object UnsplashRepository {
     fun randomUserImages(username: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.randomUserImages(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 username
         )
 
@@ -235,11 +235,11 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -248,7 +248,7 @@ object UnsplashRepository {
     fun curatedCollections(page: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.curatedCollections(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 page
         )
 
@@ -258,11 +258,11 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<CollectionPojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -271,7 +271,7 @@ object UnsplashRepository {
     fun featuredCollections(page: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.featuredCollections(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 page
         )
 
@@ -281,11 +281,11 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<CollectionPojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -294,7 +294,7 @@ object UnsplashRepository {
     fun collectionPhotos(id: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.collectionPhotos(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 id,
                 count,
                 page
@@ -306,11 +306,11 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -319,7 +319,7 @@ object UnsplashRepository {
     fun curatedCollectionPhotos(id: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.curatedCollectionPhotos(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 id,
                 count,
                 page
@@ -331,11 +331,11 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -344,7 +344,7 @@ object UnsplashRepository {
     fun randomCollectionPhotos(id: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.randomCollectionPhotos(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 id
         )
 
@@ -354,11 +354,11 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -367,7 +367,7 @@ object UnsplashRepository {
     fun userCollections(username: String, page: Int, count: Int, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.getUserCollections(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 username,
                 page,
                 count
@@ -379,11 +379,11 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<CollectionPojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }
@@ -392,7 +392,7 @@ object UnsplashRepository {
     fun randomImagesTag(keyword: String, callback: (Any?, Any?) -> Unit) {
         val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
         val call = apiClient.randomImagesTag(
-                Config.UNSPLASH_API_KEY,
+                Config.apiKey(),
                 keyword
         )
 
@@ -402,11 +402,57 @@ object UnsplashRepository {
                 if (response.isSuccessful)
                     callback(null, response.body())
                 else
-                    callback(ErrorUtils.parseError(response),null)
+                    callback(ErrorUtils.parseError(response), null)
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
+            }
+        })
+    }
+
+    // like a photo
+    fun likePhoto(id: String) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.likeImage(
+                Config.apiKey(),
+                id
+        )
+
+        call.enqueue(object : Callback<ImagePojo> {
+
+            override fun onResponse(call: Call<ImagePojo>?, response: Response<ImagePojo>) {
+                if (!response.isSuccessful)
+                    L.dO(NAME, ErrorUtils.parseError(response))
+                else
+                    L.d(NAME,"Liked Photo")
+            }
+
+            override fun onFailure(call: Call<ImagePojo>?, t: Throwable?) {
+                t?.toString()?.let { L.d(NAME, it) }
+            }
+        })
+    }
+
+    // unlike a photo
+    fun unlikePhoto(id: String) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.unlikeImage(
+                Config.apiKey(),
+                id
+        )
+
+        call.enqueue(object : Callback<ImagePojo> {
+
+            override fun onResponse(call: Call<ImagePojo>?, response: Response<ImagePojo>) {
+                if (!response.isSuccessful)
+                    L.dO(NAME, ErrorUtils.parseError(response))
+                else
+                    L.d(NAME,"Unliked Photo")
+            }
+
+            override fun onFailure(call: Call<ImagePojo>?, t: Throwable?) {
+                t?.toString()?.let { L.d(NAME, it) }
             }
         })
     }
@@ -430,7 +476,7 @@ object UnsplashRepository {
             }
 
             override fun onFailure(call: Call<BearerToken>?, t: Throwable?) {
-                callback(t.toString(), null)
+                t?.toString()?.let { callback(t.toString(), null) }
             }
         })
     }

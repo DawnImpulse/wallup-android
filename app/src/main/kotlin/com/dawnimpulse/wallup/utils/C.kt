@@ -60,6 +60,7 @@ object C {
     const val TNC = "tnc"
     const val FEATURE = "feature"
     const val BUG = "bug"
+    const val USER_TOKEN = "userToken"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val UNSPLASH = "https://unsplash.com$UTM"

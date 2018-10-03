@@ -31,4 +31,5 @@ class Colors(context: Context){
     val GREY_300 = ContextCompat.getColor(context, R.color.grey300)
     val GREY_400 = ContextCompat.getColor(context, R.color.grey400)
     val GREY_500 = ContextCompat.getColor(context, R.color.grey500)
+    val LIKE = ContextCompat.getColor(context, R.color.like)
 }

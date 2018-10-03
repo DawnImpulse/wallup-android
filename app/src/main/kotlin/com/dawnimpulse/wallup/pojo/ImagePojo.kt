@@ -38,7 +38,9 @@ data class ImagePojo(
         @SerializedName("timestamp") val timestamp: Int = 0,
         @SerializedName("views") val views: Int = 0,
         @SerializedName("downloads") val downloads: Int = 0,
-        @SerializedName("exif") val exif: Exif? = null
+        @SerializedName("exif") val exif: Exif? = null,
+        @SerializedName("liked_by_user") val liked_by_user: Boolean = false,
+        @SerializedName("current_user_collections") val current_user_collections: List<CollectionPojo>? = null
 )
 
 data class Urls(

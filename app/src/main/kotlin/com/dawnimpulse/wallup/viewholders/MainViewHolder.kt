@@ -26,5 +26,7 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val image = itemView.mainImage!!
     val circleImage = itemView.mainCircleImage!!
     val name = itemView.mainName!!
+    val like = itemView.mainLike!!
+    val likeL = itemView.mainLikeL!!
 
 }

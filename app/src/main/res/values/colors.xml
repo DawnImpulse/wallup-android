@@ -29,4 +29,5 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <color name="latestDark">#2E7D32</color>
     <color name="info">#ffee33</color>
     <color name="infoDark">#b28704</color>
+    <color name="like">#FF0000</color>
 </resources>

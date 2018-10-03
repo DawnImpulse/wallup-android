@@ -16,11 +16,6 @@ import io.fabric.sdk.android.Fabric
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
 
 
-
-
-
-
-
 /*
 ISC License
 
@@ -45,6 +40,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  * Saksham - 2018 07 22 - recent -
  */
 class App : Application() {
+    private val NAME = "App"
 
     /**
      * On Create
@@ -92,7 +88,7 @@ class App : Application() {
     /**
      * Set fonts
      */
-    private fun setFonts(){
+    private fun setFonts() {
         CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
                 .setDefaultFontPath("font/product_sans.xml")
                 .setFontAttrId(R.attr.fontPath)
@@ -102,20 +98,23 @@ class App : Application() {
     /**
      * Set shared preferences
      */
-    private fun setPrefs(){
+    private fun setPrefs() {
         Prefs.Builder()
                 .setContext(this)
                 .setMode(ContextWrapper.MODE_PRIVATE)
                 .setPrefsName(packageName)
                 .setUseDefaultSharedPreference(true)
                 .build()
+
+        if (Prefs.contains(C.USER_TOKEN))
+            Config.USER_API_KEY = Prefs.getString(C.USER_TOKEN, "")
     }
 
     /**
      * enabling crashlytics in release builds
      */
-    private fun analytics(){
-        if(!BuildConfig.DEBUG){
+    private fun analytics() {
+        if (!BuildConfig.DEBUG) {
             Fabric.with(this, Crashlytics())
             FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(true)
         }

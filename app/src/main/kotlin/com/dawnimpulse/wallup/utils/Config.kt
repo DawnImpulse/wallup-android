@@ -31,11 +31,17 @@ object Config {
     const val TEMP_IMAGE = "https://images.unsplash.com/profile-1509765804209-a406dae9ac02?dpr=1&auto=format&fit=crop&w=128&h=128&q=60&cs=tinysrgb&crop=faces&bg=fff"
 
     var UNSPLASH_API_KEY = ""
+    var USER_API_KEY = ""
     var UNSPLASH_SECRET = ""
     var HEIGHT = "720"
     var IMAGE_HEIGHT = "&h=$HEIGHT"
 
     lateinit var imageBitmap: Bitmap
     lateinit var userPojo: UserPojo
-    var imagePojo:ImagePojo? = null
+    var imagePojo: ImagePojo? = null
+
+    // return api key
+    fun apiKey(): String {
+        return if (USER_API_KEY.isNotEmpty()) USER_API_KEY else UNSPLASH_API_KEY
+    }
 }

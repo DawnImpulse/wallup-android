@@ -21,6 +21,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,7 @@ import com.dawnimpulse.wallup.activities.ImageActivity
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.F
@@ -127,11 +129,23 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
             holder.image.background = ColorDrawable(Color.parseColor(images[position]!!.color!!))
             holder.name.text = F.capWord(images[position]!!.user!!.name)
 
+            if (images[position]!!.liked_by_user)
+                holder.like.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.vd_like))
+
+
             holder.image.setOnClickListener {
                 var intent = Intent(context, ImageActivity::class.java)
                 intent.putExtra(C.TYPE, "")
                 intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[position]))
                 (context as AppCompatActivity).startActivity(intent)
+            }
+            holder.likeL.setOnClickListener {
+                if (Config.USER_API_KEY.isNotEmpty())
+                    F.like(context, holder.like, images[position]!!.id)
+                else {
+                    var sheet = ModalSheetUnsplash()
+                    sheet.show((context as AppCompatActivity).supportFragmentManager, sheet.tag)
+                }
             }
             holder.name.setOnClickListener(artistClick)
             holder.circleImage.setOnClickListener(artistClick)

@@ -3,12 +3,18 @@ package com.dawnimpulse.wallup.utils
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.BuildConfig
+import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.models.UnsplashModel
 import java.text.SimpleDateFormat
 
 
@@ -37,6 +43,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  *  Saksham - 2018 09 06 - master - unsplash image referral
  *  Saksham - 2018 09 08 - master - first word string + date convert
  *  Saksham - 2018 09 20 - master - sort Firebase Image Labels
+ *  Saksham - 2018 10 03 - master - like button
  */
 object F {
     private val NAME = "F"
@@ -124,6 +131,30 @@ object F {
         emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Wallup Feedback  v${BuildConfig.VERSION_NAME}")
         emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, text)
         context.startActivity(Intent.createChooser(emailIntent, "Send mail using..."))
+    }
+
+    // like image
+    // @param view - view to change
+    // @param id - photo id
+    // @param color - false for red / true for white
+    // @param liked - if image is liked / not
+    fun like(context: Context, view: AppCompatImageView, id: String, color: Boolean = false) {
+        var model = UnsplashModel((context as AppCompatActivity).lifecycle)
+        var like = ContextCompat.getDrawable(context, R.drawable.vd_like)
+        var unlike = ContextCompat.getDrawable(context, R.drawable.vd_like_outline)
+
+        if (color) {
+            like!!.setColorFilter(Colors(context).WHITE, PorterDuff.Mode.SRC_ATOP)
+            unlike!!.setColorFilter(Colors(context).WHITE, PorterDuff.Mode.SRC_ATOP)
+        }
+
+        if (view.drawable.constantState == like!!.constantState) {
+            view.setImageDrawable(unlike)
+            model.unlikePhoto(id)
+        } else {
+            view.setImageDrawable(like)
+            model.likePhoto(id)
+        }
     }
 
     // sort labels
