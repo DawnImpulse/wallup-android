@@ -131,7 +131,7 @@
         <!-- About -->
         <activity
             android:name=".activities.AboutActivity"
-            android:theme="@style/AppTheme.Fullscreen"></activity>
+            android:theme="@style/AppTheme.Fullscreen" />
 
         <!-- Login -->
         <activity
@@ -141,12 +141,18 @@
                 <data
                     android:host="sourcei.org"
                     android:scheme="wallup" />
+
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!--User Profile-->
+        <activity
+            android:name=".activities.UserActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
     </application>
 
 </manifest>

@@ -32,6 +32,7 @@ import com.dawnimpulse.wallup.repositories.UnsplashRepository
  *  2018 09 08 - master - Saksham - featured curatedCollections
  *  2018 09 22 - master - Saksham - random images tag
  *  2018 10 01 - master - Saksham - generate bearer token
+ *  2018 10 04 - master - Saksham - self profile
  */
 class UnsplashModel() {
     private lateinit var lifecycle: Lifecycle
@@ -294,6 +295,22 @@ class UnsplashModel() {
     // generate bearer token
     fun bearerToken(body: BearerBody,callback: (Any?, Any?) -> Unit){
         UnsplashRepository.bearerToken(body) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
+        }
+    }
+
+    // self profile
+    fun selfProfile(callback: (Any?, Any?) -> Unit){
+        UnsplashRepository.selfProfile() { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)

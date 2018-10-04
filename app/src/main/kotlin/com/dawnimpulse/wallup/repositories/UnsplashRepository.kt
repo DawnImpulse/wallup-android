@@ -41,6 +41,7 @@ import retrofit2.Response
  *  2018 09 14 - master - Saksham - user's collections
  *  2018 09 22 - master - Saksham - random images tag
  *  2018 10 01 - master - Saksham - generate bearer token
+ *  2018 10 04 - master - Saksham - user profile
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
@@ -481,5 +482,26 @@ object UnsplashRepository {
         })
     }
 
+    // user profile
+    fun selfProfile(callback: (Any?, Any?) -> Unit){
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.selfProfile(
+                Config.apiKey()
+        )
+
+        call.enqueue(object : Callback<UserPojo> {
+
+            override fun onResponse(call: Call<UserPojo>?, response: Response<UserPojo>) {
+                if (response.isSuccessful)
+                    callback(null, response.body())
+                else
+                    callback(ErrorUtils.parseError(response), null)
+            }
+
+            override fun onFailure(call: Call<UserPojo>?, t: Throwable?) {
+                t?.toString()?.let { L.d(NAME, it) }
+            }
+        })
+    }
 }
 

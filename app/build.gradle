@@ -71,6 +71,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.24.0' //kotlin co-routines
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
 }
 
 apply plugin: 'com.google.gms.google-services'

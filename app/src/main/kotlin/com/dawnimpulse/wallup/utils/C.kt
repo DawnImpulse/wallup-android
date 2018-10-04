@@ -61,6 +61,9 @@ object C {
     const val FEATURE = "feature"
     const val BUG = "bug"
     const val USER_TOKEN = "userToken"
+    const val USER = "user"
+
+
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val UNSPLASH = "https://unsplash.com$UTM"
@@ -76,6 +79,7 @@ object C {
     const val REDIRECT = "wallup://sourcei.org"
     const val UNSPLASH_OAUTH = "https://unsplash.com/oauth/authorize"
     const val UNSPLASH_TOKEN = "https://unsplash.com/oauth/token"
+    const val UNSPLASH_SOURCE = "https://source.unsplash.com"
 
     const val ERROR_CODE_1 = 601
     const val ERROR_CODE_2 = 602

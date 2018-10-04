@@ -18,14 +18,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.activities.AboutActivity
 import com.dawnimpulse.wallup.activities.CollectionLayoutActivity
 import com.dawnimpulse.wallup.activities.GeneralImagesActivity
+import com.dawnimpulse.wallup.activities.UserActivity
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.utils.RemoteConfig
+import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.bottom_sheet_navigation.*
 
 
@@ -37,8 +40,10 @@ import kotlinx.android.synthetic.main.bottom_sheet_navigation.*
  *
  * @note Updates :
  * Saksham - 2018 09 15 - master - update handling
+ * Saksham - 2018 10 04 - master - user
  */
 class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
+    private lateinit var sheet: ModalSheetUnsplash
 
     // on create
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,10 +54,13 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sheet = ModalSheetUnsplash()
+
         sheetNavRandom.setOnClickListener(this)
         sheetNavFeedback.setOnClickListener(this)
         sheetNavCollection.setOnClickListener(this)
         sheetNavAbout.setOnClickListener(this)
+        sheetNavUser.setOnClickListener(this)
 
         RemoteConfig.getProductionUpdateValues()?.let {
             if (it.next_version_code > BuildConfig.VERSION_CODE) {
@@ -74,19 +82,24 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
                 startActivity(intent)
                 dismiss()
             }
-            sheetNavFeedback.id -> F.sendMail(activity!!)
             sheetNavCollection.id -> {
                 startActivity(Intent(activity, CollectionLayoutActivity::class.java))
                 dismiss()
             }
-
             sheetNavAbout.id -> {
                 startActivity(Intent(activity, AboutActivity::class.java))
                 dismiss()
             }
+            sheetNavFeedback.id -> F.sendMail(activity!!)
+            sheetNavUpdateL.id -> F.startWeb(context!!, C.WALLUP_PLAY)
+            sheetNavUser.id -> {
+                if (!Prefs.contains(C.USER_TOKEN))
+                    sheet.show((context as AppCompatActivity).supportFragmentManager, sheet.tag)
+                else
+                    startActivity(Intent(context, UserActivity::class.java))
 
-            sheetNavUpdateL.id ->
-                F.startWeb(context!!, C.WALLUP_PLAY)
+                dismiss()
+            }
         }
     }
 }

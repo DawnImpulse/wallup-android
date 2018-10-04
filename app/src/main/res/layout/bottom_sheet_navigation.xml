@@ -179,6 +179,39 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 </LinearLayout>
             </FrameLayout>
 
+            <!--user-->
+            <FrameLayout
+                android:id="@+id/sheetNavUser"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_account" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="User"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+            </FrameLayout>
+
             <!--update-->
             <FrameLayout
                 android:id="@+id/sheetNavUpdateL"
@@ -209,22 +242,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:gravity="center"
                         android:text="Update"
                         android:textColor="@color/black" />
-
-                </LinearLayout>
-            </FrameLayout>
-
-            <!--dummy-->
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1">
-
-                <LinearLayout
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
 
                 </LinearLayout>
             </FrameLayout>

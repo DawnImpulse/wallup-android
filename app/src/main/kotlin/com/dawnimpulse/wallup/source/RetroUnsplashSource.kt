@@ -112,7 +112,7 @@ interface RetroUnsplashSource {
     @POST("/photos/{id}/like")
     fun likeImage(
             @Header(C.AUTHORIZATION) authorization: String,
-            @Path(C.ID) id:String
+            @Path(C.ID) id: String
     ): Call<ImagePojo>
 
     // ------------------------------
@@ -121,9 +121,8 @@ interface RetroUnsplashSource {
     @DELETE("/photos/{id}/like")
     fun unlikeImage(
             @Header(C.AUTHORIZATION) authorization: String,
-            @Path(C.ID) id:String
+            @Path(C.ID) id: String
     ): Call<ImagePojo>
-
 
     //________________________________
     //           USER
@@ -160,6 +159,11 @@ interface RetroUnsplashSource {
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.USERNAME) username: String
     ): Call<List<ImagePojo>>
+
+    @GET("/me")
+    fun selfProfile(
+            @Header(C.AUTHORIZATION) authorization: String
+    ): Call<UserPojo>
 
 
     //________________________________

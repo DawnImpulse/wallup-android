@@ -25,6 +25,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <color name="grey400">#BDBDBD</color>
     <color name="grey500">#9E9E9E</color>
 
+    <color name="blue">#0091EA</color>
+
     <color name="latest">#E8F5E9</color>
     <color name="latestDark">#2E7D32</color>
     <color name="info">#ffee33</color>

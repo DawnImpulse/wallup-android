@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.UserActivity">
+
+    <ImageView
+        android:id="@+id/userBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="156dp"
+        android:scaleType="centerCrop"
+        android:src="@color/grey300"
+        tools:src="@tools:sample/backgrounds/scenic[16]" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="156dp"
+        android:layout_gravity="bottom">
+
+        <!--logout-->
+        <FrameLayout
+            android:id="@+id/logoutL"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_logout" />
+        </FrameLayout>
+
+        <!--name-->
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/userFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="84dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
+            android:text="- - -"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <!--username-->
+        <me.grantland.widget.AutofitTextView
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/userFullName"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:textSize="18sp"
+            android:layout_marginRight="16dp"
+            android:gravity="center"
+            android:text="- -" />
+
+    </RelativeLayout>
+
+    <!--user image-->
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/userImage"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:src="@color/grey400"
+        app:layout_anchor="@id/userBg"
+        app:layout_anchorGravity="bottom|center"
+        app:riv_oval="true"
+        tools:src="@tools:sample/avatars" />
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
