@@ -1,5 +1,6 @@
 package com.dawnimpulse.wallup.activities
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -48,6 +49,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     private lateinit var tag: String
 
     // on create
+    @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_general_images)
@@ -70,6 +72,13 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                 current = 3
                 tag = intent.extras.getString(C.TAG)
                 randomImages()
+            }
+            C.LIKE -> {
+                current = 4
+                username = intent.extras.getString(C.USERNAME)
+                L.d(NAME,username)
+                paginatedImages()
+                generalImagesFab.visibility = View.GONE
             }
         }
 
@@ -105,6 +114,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
             1 -> paginatedImages()
             2 -> paginatedImages()
             3 -> randomImages()
+            4 -> paginatedImages()
         }
     }
 
@@ -120,6 +130,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                 else
                     model.curatedCollectionPhotos(colId, nextPage, 30, callbackPaginated)
             }
+            4 -> model.userLikedPhotos(username,nextPage, callbackPaginated)
         }
     }
 
@@ -191,6 +202,9 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                     model.collectionPhotos(colId, 1, 30, callback)
                 else
                     model.curatedCollectionPhotos(colId, 1, 30, callback)
+            }
+            4 -> {
+                model.userLikedPhotos(username, 1,callback)
             }
         }
     }

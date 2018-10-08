@@ -37,6 +37,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="changes6_2"><b>New: </b>About/Help screen (moved update info here). </string>
     <string name="changes6_3">Minor performance improvements.</string>
 
+    <string name="changes7_1"><b>New: </b>Login with Unsplash.</string>
+    <string name="changes7_2"><b>New: </b>Sync your image likes with Unsplash.</string>
+
     <string name="aboutUsername">\@dawnimpulse</string>
     <string name="aboutUnsplash">This application features images from Unsplash via their APIs. All images are free to use and share although kindly read Unsplash guidelines / license for the same.</string>
     <string name="aboutTerms">To avoid any misuse of this app, kindly go through the Terms &amp; Conditions.</string>

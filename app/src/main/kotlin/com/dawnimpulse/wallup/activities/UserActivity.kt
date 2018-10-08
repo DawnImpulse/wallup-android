@@ -14,7 +14,9 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
@@ -37,9 +39,10 @@ import kotlinx.android.synthetic.main.activity_user.*
  *
  * @note Updates :
  */
-class UserActivity : AppCompatActivity() {
+class UserActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "UserActivity"
     private lateinit var model: UnsplashModel
+    private var user: UserPojo? = null
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,23 +68,45 @@ class UserActivity : AppCompatActivity() {
         }
 
         // logout user
-        logoutL.setOnClickListener {
-            Dialog.simpleOk(this,
-                    "User Profile Logout",
-                    "Wish to logout from your profile ?",
-                    DialogInterface.OnClickListener { dialog, _ ->
-                        Prefs.remove(C.USER_TOKEN)
-                        Prefs.remove(C.USER)
-                        Config.USER_API_KEY = ""
-                        dialog.dismiss()
-                        toast("Successfully logout from your profile")
-                        finish()
-                    })
+        logoutL.setOnClickListener(this)
+        userLikes.setOnClickListener(this)
+    }
+
+    // on click
+    override fun onClick(v: View?) {
+        v?.let {
+            when (v.id) {
+                logoutL.id -> {
+                    Dialog.simpleOk(this,
+                            "User Profile Logout",
+                            "Wish to logout from your profile ?",
+                            DialogInterface.OnClickListener { dialog, _ ->
+                                Prefs.remove(C.USER_TOKEN)
+                                Prefs.remove(C.USER)
+                                Config.USER_API_KEY = ""
+                                dialog.dismiss()
+                                toast("Successfully logout from your profile")
+                                finish()
+                            })
+                }
+                userLikes.id -> {
+                    if (user != null) {
+                        var intent = Intent(this, GeneralImagesActivity::class.java)
+                        intent.putExtra(C.TYPE, C.LIKE)
+                        intent.putExtra(C.USERNAME, user?.username)
+                        startActivity(intent)
+                    } else
+                        toast("kindly wait while loading user details.")
+                }
+                else -> {
+                }
+            }
         }
     }
 
     //set user details
     private fun setDetails(user: UserPojo) {
+        this.user = user
         userFullName.text = user.name
         userName.text = "@${user.username}"
         ImageHandler.setImageInView(lifecycle, userImage, user.profile_image.large)

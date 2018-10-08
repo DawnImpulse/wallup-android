@@ -160,10 +160,24 @@ interface RetroUnsplashSource {
             @Query(C.USERNAME) username: String
     ): Call<List<ImagePojo>>
 
+    // ------------------------------
+    //        User Profile
+    // ------------------------------
     @GET("/me")
     fun selfProfile(
             @Header(C.AUTHORIZATION) authorization: String
     ): Call<UserPojo>
+
+    // ------------------------------
+    //      User Liked Photos
+    // ------------------------------
+    @GET("/users/{username}/likes?per_page=30")
+    fun userLikedPhotos(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.USERNAME) username: String,
+            @Query(C.PAGE) page: Int
+    ): Call<List<ImagePojo>>
+
 
 
     //________________________________

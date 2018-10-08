@@ -68,12 +68,81 @@
 
                 </LinearLayout>-->
 
-                <!--v0.6.0-->
+                <!--v0.7.0-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:background="@drawable/bg_latest"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="v0.7.0 ( 08th Oct '18 )"
+                        android:textColor="@color/latestDark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="4dp">
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bt_round_complete_corners" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="8dp"
+                                android:text="@string/changes7_1"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="4dp">
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bt_round_complete_corners" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="8dp"
+                                android:text="@string/changes7_2"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--v0.6.0-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
                     android:orientation="vertical"
                     android:padding="8dp">
 
@@ -565,242 +634,6 @@
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
                                 android:text="Additional bug fixes &amp; internal handling."
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!--v0.2.0-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:orientation="vertical"
-                    android:padding="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="v0.2.0 ( 2nd Sept '18 )"
-                        android:textColor="@color/latestDark"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="8dp">
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="4dp"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="8dp"
-                                android:text="You can now find downloaded images in /Download folder"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="4dp">
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="4dp"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="8dp"
-                                android:text="Addition of photographers profile when clicked on name/image"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="4dp">
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="4dp"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="8dp"
-                                android:text="Changes to Image Preview activity"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="4dp">
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="4dp"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="8dp"
-                                android:text="Exif data is available"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="4dp">
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="4dp"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="8dp"
-                                android:text="Temporary image while full image is loading"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="4dp">
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="4dp"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="8dp"
-                                android:text="Crashed fixed while setting wallpaper"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="4dp">
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="4dp"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="8dp"
-                                android:text="Color changes based on image"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="4dp">
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="4dp"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="8dp"
-                                android:text="Random images in main screen bottom navigation"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="4dp">
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="4dp"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="8dp"
-                                android:text="New Splash Screen"
-                                android:textSize="14sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="4dp">
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="4dp"
-                                android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginLeft="8dp"
-                                android:text="New Latest Changes Screen"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
