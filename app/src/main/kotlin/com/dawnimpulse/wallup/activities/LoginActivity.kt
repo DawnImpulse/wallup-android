@@ -24,6 +24,7 @@ import com.dawnimpulse.wallup.pojo.UnsplashAuthError
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.L
+import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 
 /**
@@ -63,6 +64,15 @@ class LoginActivity : AppCompatActivity() {
                         toast("Logged in successfully")
                         Config.USER_API_KEY = "Bearer ${it.access_token}"
                         Prefs.putString(C.USER_TOKEN,Config.USER_API_KEY)
+                        model.selfProfile() { e, r ->
+                            e?.let {
+                                L.d(NAME, e)
+                                toast("error fetching profile")
+                            }
+                            r?.let {
+                                Prefs.putString(C.USER, Gson().toJson(it))
+                            }
+                        }
                         finish()
                     }
 

@@ -136,9 +136,9 @@ object F {
     // like image
     // @param view - view to change
     // @param id - photo id
+    // @param toLike - to like the image
     // @param color - false for red / true for white
-    // @param liked - if image is liked / not
-    fun like(context: Context, view: AppCompatImageView, id: String, color: Boolean = false) {
+    fun like(context: Context, view: AppCompatImageView, id: String, toLike: Boolean, color: Boolean = false) {
         var model = UnsplashModel((context as AppCompatActivity).lifecycle)
         var like = ContextCompat.getDrawable(context, R.drawable.vd_like)
         var unlike = ContextCompat.getDrawable(context, R.drawable.vd_like_outline)
@@ -148,13 +148,40 @@ object F {
             unlike!!.setColorFilter(Colors(context).WHITE, PorterDuff.Mode.SRC_ATOP)
         }
 
-        if (view.drawable.constantState == like!!.constantState) {
-            view.setImageDrawable(unlike)
-            model.unlikePhoto(id)
-        } else {
+        if (toLike) {
             view.setImageDrawable(like)
             model.likePhoto(id)
+        } else {
+            view.setImageDrawable(unlike)
+            model.unlikePhoto(id)
         }
+    }
+
+    // @param liked - needed if we have to only state change
+    fun like(context: Context, view: AppCompatImageView, color: Boolean = false, liked: Boolean) {
+        var model = UnsplashModel((context as AppCompatActivity).lifecycle)
+        var like = ContextCompat.getDrawable(context, R.drawable.vd_like)
+        var unlike = ContextCompat.getDrawable(context, R.drawable.vd_like_outline)
+
+        if (color) {
+            like!!.setColorFilter(Colors(context).WHITE, PorterDuff.Mode.SRC_ATOP)
+            unlike!!.setColorFilter(Colors(context).WHITE, PorterDuff.Mode.SRC_ATOP)
+        }
+
+        if (liked)
+            view.setImageDrawable(like)
+        else
+            view.setImageDrawable(unlike)
+
+    }
+
+    // searching position from image
+    fun findPosition(ids: List<String>, id: String): Int {
+        for ((i, idA) in ids.withIndex()) {
+            if (id == idA)
+                return i
+        }
+        return -1
     }
 
     // sort labels

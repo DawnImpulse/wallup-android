@@ -45,6 +45,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="loginText1">Perform various actions directly on \n<b>Unsplash</b></string>
     <string name="loginText2">Like\nImages</string>
     <string name="loginText3">Add Images\nto your\nCollections</string>
-    <string name="loginText4">Manage your\nProfile</string>
+    <string name="loginText4">Manage \nProfile</string>
     <string name="loginText5"><b>Wallup</b> need access to your <b>Unsplash profile</b> with various <b>permissions</b> to help manage your profile  (some permissions provided now will be required in future updates). Be assured that we will <b>never</b> collect/store your profile, images or any other info at all.</string>
 </resources>

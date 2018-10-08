@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.MainAdapter
@@ -13,8 +14,12 @@ import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Event
 import com.dawnimpulse.wallup.utils.L
 import kotlinx.android.synthetic.main.activity_general_images.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author Saksham
@@ -32,6 +37,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     private val NAME = "GeneralImagesActivity"
     private var current: Int = 0
     private var nextPage = 2
+    private var randomImages = false //if random images are set
     private lateinit var model: UnsplashModel
     private lateinit var randomAdapter: RandomAdapter
     private lateinit var mainAdapter: MainAdapter
@@ -71,6 +77,20 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         generalImagesSwipe.setOnRefreshListener(this)
     }
 
+    // on start
+    override fun onStart() {
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
+    // on destroy
+    override fun onDestroy() {
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
     // on click
     override fun onClick(v: View) {
         when (v.id) {
@@ -108,64 +128,59 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         finish()
     }
 
-    /**
-     * random images
-     */
+    // on message event
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    fun onEvent(event: Event) {
+        if (event.obj.has(C.TYPE)) {
+            if (event.obj.getString(C.TYPE) == C.LIKE) {
+                // get id of the image
+                val id = event.obj.getString(C.ID)
+                // get position array for the image
+                var position = images.asSequence().withIndex().filter { it.value!!.id == id }.map { it.index }.toList()
+                // if position found
+                if (position.isNotEmpty()) {
+                    // change like state in images array
+                    for (pos in position) {
+                        L.d(NAME, pos)
+                        images[pos]!!.liked_by_user = event.obj.getBoolean(C.LIKE)
+                        if (randomImages)
+                            randomAdapter.notifyItemChanged(pos)
+                        else
+                            mainAdapter.notifyItemChanged(pos)
+                    }
+                }
+            }
+        }
+    }
+
+    // random images
     private fun randomImages() {
+        randomImages = true
         generalImagesProgress.visibility = View.VISIBLE
         generalImagesSwipe.visibility = View.GONE
 
         when (current) {
             0 -> {
-                model.randomImages { e, r ->
-                    setRandomImages(e, r)
-                }
+                model.randomImages(callbackR)
             }
             1 -> {
                 toast("shuffling images")
-                model.randomUserImages(username) { e, r ->
-                    setRandomImages(e, r)
-                }
+                model.randomUserImages(username, callbackR)
             }
             2 -> {
                 toast("shuffling images")
                 if (colType == C.FEATURED)
-                    model.randomCollectionPhotos(colId) { e, r ->
-                        setRandomImages(e, r)
-                    }
-                else
-                    model.randomImages(callback)
+                    model.randomCollectionPhotos(colId, callbackR)
+                else // we cant get curated random images hence shuffling normal ones
+                    model.randomImages(callbackR)
             }
             3 -> {
-                model.randomImagesTag(tag) { e, r ->
-                    setRandomImages(e, r)
-                }
+                model.randomImagesTag(tag, callbackR)
             }
         }
     }
 
-    /**
-     * set random images in adapter
-     */
-    private fun setRandomImages(error: Any?, images: Any?) {
-        if (error != null) {
-            L.d(NAME, error.toString())
-            generalImagesSwipe.isRefreshing = false
-            generalImagesProgress.visibility = View.GONE
-            toast("Error while fetching random images")
-        } else {
-            generalImagesProgress.visibility = View.GONE
-            generalImagesSwipe.visibility = View.VISIBLE
-            randomAdapter = RandomAdapter(lifecycle, images as List<ImagePojo?>)
-            generalImagesSwipe.isRefreshing = false
-            generalImagesRecycler.layoutManager = LinearLayoutManager(this)
-            generalImagesRecycler.adapter = randomAdapter
-        }
-    }
-
-    /**
-     * paginated images
-     */
+    // paginated images
     private fun paginatedImages() {
         when (current) {
             1 -> {
@@ -180,43 +195,63 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         }
     }
 
-    /**
-     * callback for setting images in adapter
-     */
-    private var callback = object : (Any?, Any?) -> Unit {
-        override fun invoke(error: Any?, response: Any?) {
+    // set random images in adapter
+    private var callbackR = object : (Any?, Any?) -> Unit {
+        override fun invoke(error: Any?, r: Any?) {
+            L.d(NAME, "called")
             error?.let {
                 L.d(NAME, error)
+                generalImagesSwipe.isRefreshing = false
+                generalImagesProgress.visibility = View.GONE
+                toast("Error while fetching random images")
+            }
+            r?.let {
+                images = (r as List<ImagePojo?>).toMutableList()
+                generalImagesProgress.visibility = View.GONE
+                generalImagesSwipe.visibility = View.VISIBLE
+
+                randomAdapter = RandomAdapter(lifecycle, images)
+                generalImagesSwipe.isRefreshing = false
+                generalImagesRecycler.layoutManager = LinearLayoutManager(this@GeneralImagesActivity)
+                generalImagesRecycler.adapter = randomAdapter
+                (generalImagesRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            }
+        }
+    }
+
+    // callback for setting images in adapter
+    private var callback = object : (Any?, Any?) -> Unit {
+        override fun invoke(error: Any?, response: Any?) {
+            randomImages = false
+
+            error?.let {
+                L.d(NAME, error)
+                generalImagesProgress.visibility = View.GONE
+                generalImagesSwipe.isRefreshing = false
                 toast("error fetching images")
             }
             response?.let {
                 if ((response as List<ImagePojo>).size < 30) {
-                    setRandomImages(error, response)
+                    randomImages = true
+                    callbackR(error, response)
                 } else {
-                    if (error != null) {
-                        L.d(NAME, error)
-                        toast("Error in fetching images")
-                        generalImagesProgress.visibility = View.GONE
-                        generalImagesSwipe.isRefreshing = false
-                    } else {
-                        images = response.toMutableList()
-                        mainAdapter = MainAdapter(lifecycle, images, generalImagesRecycler)
-                        generalImagesRecycler.layoutManager = LinearLayoutManager(this@GeneralImagesActivity)
-                        generalImagesRecycler.adapter = mainAdapter
-                        generalImagesSwipe.visibility = View.VISIBLE
-                        generalImagesSwipe.isRefreshing = false
-                        generalImagesProgress.visibility = View.GONE
+                    images = response.toMutableList()
+                    mainAdapter = MainAdapter(lifecycle, images, generalImagesRecycler)
+                    generalImagesRecycler.layoutManager = LinearLayoutManager(this@GeneralImagesActivity)
+                    generalImagesRecycler.adapter = mainAdapter
 
-                        mainAdapter.setOnLoadMoreListener(this@GeneralImagesActivity)
-                    }
+                    generalImagesSwipe.isRefreshing = false
+                    generalImagesSwipe.visibility = View.VISIBLE
+                    generalImagesProgress.visibility = View.GONE
+                    (generalImagesRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+
+                    mainAdapter.setOnLoadMoreListener(this@GeneralImagesActivity)
                 }
             }
         }
     }
 
-    /**
-     * callback for setting images in adapter
-     */
+    // callback for setting images in adapter
     private var callbackPaginated = object : (Any?, Any?) -> Unit {
         override fun invoke(error: Any?, response: Any?) {
             error?.let {

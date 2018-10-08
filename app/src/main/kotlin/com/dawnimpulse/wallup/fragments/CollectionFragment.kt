@@ -78,9 +78,7 @@ class CollectionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnL
         }
     }
 
-    /**
-     * callback for setting images in adapter
-     */
+    // callback for setting images in adapter
     private var callback = object : (Any?, Any?) -> Unit {
         override fun invoke(error: Any?, response: Any?) {
             error?.let {
@@ -102,9 +100,7 @@ class CollectionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnL
         }
     }
 
-    /**
-     * callback for setting images in adapter
-     */
+    // callback for setting images in adapter
     private var callbackPaginated = object : (Any?, Any?) -> Unit {
         override fun invoke(error: Any?, response: Any?) {
             error?.let {

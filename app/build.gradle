@@ -65,6 +65,7 @@ dependencies {
     implementation 'com.dawnimpulse:permissions:0.1.1' //permission manager
     implementation 'com.pixplicity.easyprefs:library:1.9.0' //preferences manager
     implementation 'me.grantland:autofittextview:0.2.1' //text auto-fit
+    implementation 'org.greenrobot:eventbus:3.1.1' //event bus
 
     //------------------ Additional -------------------------
     implementation 'androidx.core:core-ktx:1.0.0-alpha1'

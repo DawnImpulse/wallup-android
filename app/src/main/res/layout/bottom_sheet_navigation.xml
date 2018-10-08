@@ -194,20 +194,23 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_gravity="center"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/sheetNavUserI"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_account" />
+                        android:src="@drawable/vd_account_grey"
+                        app:riv_oval="true" />
 
                     <TextView
+                        android:id="@+id/sheetNavUserT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
-                        android:text="User"
-                        android:textColor="@color/black" />
+                        android:text="Login"
+                        android:textColor="@color/grey500" />
 
                 </LinearLayout>
             </FrameLayout>

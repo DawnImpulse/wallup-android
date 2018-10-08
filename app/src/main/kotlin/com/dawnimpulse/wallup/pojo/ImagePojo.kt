@@ -32,14 +32,14 @@ data class ImagePojo(
         @SerializedName("color") val color: String? = "",
         @SerializedName("urls") val urls: Urls? = null,
         @SerializedName("links") val links: Links? = null,
-        @SerializedName("likes") val likes: Int = 0,
+        @SerializedName("likes") var likes: Int = 0,
         @SerializedName("user") val user: UserPojoRefined? = null,
         @SerializedName("key") val key: String = "",
         @SerializedName("timestamp") val timestamp: Int = 0,
         @SerializedName("views") val views: Int = 0,
         @SerializedName("downloads") val downloads: Int = 0,
         @SerializedName("exif") val exif: Exif? = null,
-        @SerializedName("liked_by_user") val liked_by_user: Boolean = false,
+        @SerializedName("liked_by_user") var liked_by_user: Boolean = false,
         @SerializedName("current_user_collections") val current_user_collections: List<CollectionPojo>? = null
 )
 

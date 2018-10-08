@@ -28,10 +28,15 @@ import com.dawnimpulse.wallup.activities.ArtistProfileActivity
 import com.dawnimpulse.wallup.activities.ImageActivity
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.Event
+import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.viewholders.MainViewHolder
 import com.google.gson.Gson
+import org.greenrobot.eventbus.EventBus
+import org.json.JSONObject
 
 /**
  * @author Saksham
@@ -46,42 +51,65 @@ class RandomAdapter(private val lifecycle: Lifecycle, private val images: List<I
 
     private lateinit var context: Context
 
-    /**
-     * get total no of items for adapter
-     */
+    // get total no of items for adapter
     override fun getItemCount(): Int {
         return images.size
     }
 
-    /**
-     * create view holder
-     */
+    // create view holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         context = parent.context
         return MainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_main_layout, parent, false))
     }
 
-    /**
-     * binding view holder
-     */
+    // binding view holder
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
+        var image = images[position]!!
         var artistClick = View.OnClickListener {
             var intent = Intent(context, ArtistProfileActivity::class.java)
             intent.putExtra(C.USERNAME, images[position]!!.user!!.username)
             context.startActivity(intent)
         }
 
+        // setting image in view
         ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full + Config.IMAGE_HEIGHT)
+        // setting artist image
         ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position]!!.user!!.profile_image!!.large)
-        holder.image.background = ColorDrawable(Color.parseColor(images[position]!!.color!!))
-        holder.name.text = images[position]!!.user!!.name
 
+        holder.image.background = ColorDrawable(Color.parseColor(images[position]!!.color!!))
+        holder.name.text = F.capWord(images[position]!!.user!!.name)
+
+        // setting the like button
+        F.like(context, holder.like, false, image.liked_by_user)
+
+        // open image details
         holder.image.setOnClickListener {
             var intent = Intent(context, ImageActivity::class.java)
             intent.putExtra(C.TYPE, "")
+            intent.putExtra(C.POSITION, position)
             intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[position]))
             (context as AppCompatActivity).startActivity(intent)
         }
+
+        // like an image
+        holder.likeL.setOnClickListener {
+            // checking if user is logged
+            if (Config.USER_API_KEY.isNotEmpty()) {
+                //firing image liked event
+                var obj = JSONObject()
+                obj.put(C.TYPE, C.LIKE)
+                obj.put(C.LIKE, !image.liked_by_user)
+                obj.put(C.ID, image.id)
+                EventBus.getDefault().postSticky(Event(obj))
+            }
+            // opening login sheet if user not logged in
+            else {
+                var sheet = ModalSheetUnsplash()
+                sheet.show((context as AppCompatActivity).supportFragmentManager, sheet.tag)
+            }
+        }
+
+        // open artist page
         holder.name.setOnClickListener(artistClick)
         holder.circleImage.setOnClickListener(artistClick)
     }

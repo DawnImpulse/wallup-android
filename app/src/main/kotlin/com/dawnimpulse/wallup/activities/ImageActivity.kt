@@ -30,12 +30,12 @@ import com.dawnimpulse.wallup.handlers.*
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.sheets.ModalSheetExif
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.F
-import com.dawnimpulse.wallup.utils.Toast
+import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
+import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
+import org.greenrobot.eventbus.EventBus
+import org.json.JSONObject
 
 /**
  * @author Saksham
@@ -58,19 +58,22 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private var bitmap: Bitmap? = null
     private var fullDetails: ImagePojo? = null
     private var color: Int = 0
+    private var position = -1
+    private var like = false //state of like button
+    private var likeStateChange = false //since we make multiple calls we set like once
     private lateinit var details: ImagePojo
     private lateinit var model: UnsplashModel
     private lateinit var exifSheet: ModalSheetExif
+    private lateinit var loginSheet: ModalSheetUnsplash
 
-    /**
-     * On create
-     */
+    // On create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
 
         model = UnsplashModel(lifecycle)
         exifSheet = ModalSheetExif()
+        loginSheet = ModalSheetUnsplash()
 
         // checking to handle the app links
         if (intent.hasExtra(C.IMAGE_POJO)) {
@@ -84,6 +87,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
             getImageDetails(appLinkData.lastPathSegment)
         }
 
+        position = intent.getIntExtra(C.POSITION, -1)
+
         imagePreviewWallpaper.setOnClickListener(this)
         imagePreviewDownload.setOnClickListener(this)
         imagePreviewAuthorL.setOnClickListener(this)
@@ -91,6 +96,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewShare.setOnClickListener(this)
         imagePreviewStats.setOnClickListener(this)
         imagePreviewUnsplash.setOnClickListener(this)
+        imagePreviewFab.setOnClickListener(this)
 
         //Ripple.add(Colors(this).GREY_400, imagePreviewStats)
 
@@ -170,6 +176,28 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
             }
             imagePreviewStats.id -> toast("Upcoming feature")
             imagePreviewUnsplash.id -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(F.unsplashImage(details.id))))
+            imagePreviewFab.id -> {
+                if (Config.USER_API_KEY.isNotEmpty()) {
+                    details?.let {
+                        like = !like
+                        F.like(this, imagePreviewFabI, it.id, like, true)
+                        if (like) {
+                            imagePreviewLikesCount.text = (it.likes + 1).toString()
+                            details.likes = details.likes + 1
+                        } else {
+                            imagePreviewLikesCount.text = (it.likes - 1).toString()
+                            details.likes = details.likes - 1
+                        }
+
+                        var obj = JSONObject()
+                        obj.put(C.TYPE, C.LIKE)
+                        obj.put(C.LIKE, like)
+                        obj.put(C.ID, details.id)
+                        EventBus.getDefault().postSticky(Event(obj))
+                    }
+                } else
+                    loginSheet.show(supportFragmentManager, loginSheet.tag)
+            }
         }
     }
 
@@ -217,12 +245,20 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         } else
             imagePreviewDownloadCount.visibility = View.VISIBLE
 
+        if (details.liked_by_user && !likeStateChange)
+            F.like(this, imagePreviewFabI, true, true)
+
+        if (!likeStateChange)
+            like = details.liked_by_user
+
+        likeStateChange = true
     }
 
     // set color on a resources
     private fun color() {
         var down = imagePreviewDownload.background.current as GradientDrawable
         var wall = imagePreviewWallpaper.background.current as GradientDrawable
+        var fab = imagePreviewFab.background.current as GradientDrawable
 
         imagePreviewAuthorImagesL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewAuthorCollectionsL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
@@ -231,8 +267,10 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewExifI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewStatsI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewUnsplashI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        //imagePreviewLikeI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
 
         down.setColor(color)
+        fab.setColor(color)
         wall.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         //imagePreviewWallpaperT.setTextColor(color)
     }

@@ -19,6 +19,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.MainAdapter
@@ -27,8 +28,15 @@ import com.dawnimpulse.wallup.models.DatabaseModel
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Event
 import com.dawnimpulse.wallup.utils.L
 import kotlinx.android.synthetic.main.fragment_main.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+
+
+
 
 /**
  * @author Saksham
@@ -44,26 +52,24 @@ import kotlinx.android.synthetic.main.fragment_main.*
 class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
     private val NAME = "MainFragment"
     private lateinit var mainAdapter: MainAdapter
-    private val init: Boolean = true
     private lateinit var images: MutableList<ImagePojo?>
     private lateinit var model: UnsplashModel
     private lateinit var modelR: DatabaseModel
+    private val init: Boolean = true
     private var timestamp = 0
     private var nextPage = 2
     private var type = C.LATEST
+    private var likePos = -1
+    private var like = true
 
-    /**
-     * On create
-     */
+    // On create
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
-    /**
-     * On view created
-     */
+    // On view created
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -84,9 +90,21 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
 
     }
 
-    /**
-     * On swipe refresh
-     */
+    // on start
+    override fun onStart() {
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
+    // on destroy
+    override fun onDestroy() {
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
+    // On swipe refresh
     override fun onRefresh() {
         when (this.type) {
             C.LATEST ->
@@ -99,9 +117,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
         }
     }
 
-    /**
-     * on load more items
-     */
+    // On load more items
     override fun onLoadMore() {
         images.add(null)
         mainAdapter.notifyItemInserted(images.size)
@@ -116,9 +132,29 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
         }
     }
 
-    /**
-     * callback for setting images in adapter
-     */
+    // on message event
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    fun onEvent(event: Event) {
+        if (event.obj.has(C.TYPE)) {
+            if (event.obj.getString(C.TYPE) == C.LIKE) {
+                // get id of the image
+                val id = event.obj.getString(C.ID)
+                // get position array for the image
+                var position = images.asSequence().withIndex().filter { it.value!!.id == id }.map { it.index }.toList()
+                // if position found
+                if (position.isNotEmpty()) {
+                    // change like state in images array
+                    for (pos in position){
+                        L.d(NAME,pos)
+                        images[pos]!!.liked_by_user = event.obj.getBoolean(C.LIKE)
+                        mainAdapter.notifyItemChanged(pos)
+                    }
+                }
+            }
+        }
+    }
+
+    // callback for setting images in adapter
     private var callback = object : (Any?, Any?) -> Unit {
         override fun invoke(error: Any?, response: Any?) {
             error?.let {
@@ -131,6 +167,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 mainAdapter = MainAdapter(lifecycle, images, mainRecycler)
                 mainRecycler.layoutManager = LinearLayoutManager(context)
                 mainRecycler.adapter = mainAdapter
+                (mainRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
                 mainRefresher.isRefreshing = false
                 mainDummyLoading.visibility = View.GONE
 
@@ -139,9 +176,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
         }
     }
 
-    /**
-     * callback for setting images in adapter
-     */
+    // callback for setting images in adapter
     private var callbackPaginated = object : (Any?, Any?) -> Unit {
         override fun invoke(error: Any?, response: Any?) {
             error?.let {

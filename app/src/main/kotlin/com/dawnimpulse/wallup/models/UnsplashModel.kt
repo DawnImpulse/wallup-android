@@ -148,9 +148,13 @@ class UnsplashModel() {
     fun randomImages(callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.randomImages() { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)
                 fun onStart() {
-                    callback(e, r)
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
                 }
             })
         }
@@ -161,9 +165,13 @@ class UnsplashModel() {
     fun randomUserImages(username: String, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.randomUserImages(username) { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)
                 fun onStart() {
-                    callback(e, r)
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
                 }
             })
         }

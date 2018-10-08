@@ -25,9 +25,13 @@ import com.dawnimpulse.wallup.activities.AboutActivity
 import com.dawnimpulse.wallup.activities.CollectionLayoutActivity
 import com.dawnimpulse.wallup.activities.GeneralImagesActivity
 import com.dawnimpulse.wallup.activities.UserActivity
+import com.dawnimpulse.wallup.handlers.ImageHandler
+import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Colors
 import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.utils.RemoteConfig
+import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.bottom_sheet_navigation.*
 
@@ -70,6 +74,13 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
                 sheetNavNextUpdate.visibility = View.VISIBLE
                 sheetNavNextUpdate.text = it.text
             }
+        }
+
+        if (Prefs.contains(C.USER)) {
+            var user = Gson().fromJson(Prefs.getString(C.USER, ""), UserPojo::class.java)
+            ImageHandler.setImageInView(lifecycle, sheetNavUserI, user.profile_image.large)
+            sheetNavUserT.text = user.first_name
+            sheetNavUserT.setTextColor(Colors(context!!).BLACK)
         }
     }
 

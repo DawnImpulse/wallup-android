@@ -62,6 +62,9 @@ object C {
     const val BUG = "bug"
     const val USER_TOKEN = "userToken"
     const val USER = "user"
+    const val LIKE = "like"
+    const val POSITION = "position"
+    const val NAME = "name"
 
 
 

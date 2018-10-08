@@ -58,9 +58,7 @@ class CollectionsAdapter(private val lifecycle: Lifecycle,
     private var VIEW_TYPE_ITEM = 1
     private lateinit var context: Context
 
-    /**
-     * initialization for Load More Listener
-     */
+    // initialization for Load More Listener
     init {
         recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -81,23 +79,17 @@ class CollectionsAdapter(private val lifecycle: Lifecycle,
         })
     }
 
-    /**
-     * get total no of items for adapter
-     */
+    // get total no of items for adapter
     override fun getItemCount(): Int {
         return cols.size
     }
 
-    /**
-     * get item view type
-     */
+    // get item view type
     override fun getItemViewType(position: Int): Int {
         return if (cols.elementAtOrNull(position) == null) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
     }
 
-    /**
-     * create view holder
-     */
+    // create view holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val v: View
         context = parent.context
@@ -110,9 +102,7 @@ class CollectionsAdapter(private val lifecycle: Lifecycle,
         }
     }
 
-    /**
-     * binding view holder
-     */
+    // binding view holder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is CollectionsViewHolder) {
             var it = cols[position]!!
@@ -143,16 +133,12 @@ class CollectionsAdapter(private val lifecycle: Lifecycle,
         }
     }
 
-    /**
-     * set load more listener
-     */
+    // set load more listener
     fun setOnLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
         this.loadMoreListener = loadMoreListener
     }
 
-    /**
-     * is loading
-     */
+    // is loading
     fun setLoaded() {
         isLoading = false
     }

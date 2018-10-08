@@ -28,15 +28,16 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="match_parent"
             android:fillViewport="true">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <!--image-->
                 <RelativeLayout
+                    android:id="@+id/imageL"
                     android:layout_width="match_parent"
-                    android:layout_height="360dp">
+                    android:layout_height="420dp">
 
                     <com.flaviofaria.kenburnsview.KenBurnsView
                         android:id="@+id/movingImage"
@@ -44,10 +45,48 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_height="match_parent" />
                 </RelativeLayout>
 
+                <!--fab-->
+                <FrameLayout
+                    android:id="@+id/imagePreviewFab"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_alignBottom="@id/imageL"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="-28dp"
+                    android:background="@drawable/round_fab"
+                    android:elevation="6dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imagePreviewFabI"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            app:srcCompat="@drawable/vd_heart_outline" />
+
+                        <TextView
+                            android:id="@+id/imagePreviewLikesCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:letterSpacing="0.3"
+                            android:text="250"
+                            android:textColor="@color/white"
+                            android:textSize="8sp" />
+                    </LinearLayout>
+                </FrameLayout>
+
                 <!--layout-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/imageL"
                     android:orientation="vertical">
 
                     <ProgressBar
@@ -60,45 +99,80 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:indeterminate="true" />
 
                     <!--Views & Published-->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="32dp">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/imagePreviewViewsI"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_gravity="center"
-                            app:srcCompat="@drawable/vd_eye_outline" />
-
-                        <TextView
-                            android:id="@+id/imagePreviewViewsCount"
+                        <LinearLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="24dp"
-                            android:text="10"
-                            android:textColor="@color/black" />
+                            android:layout_height="20dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20dp">
 
-                        <TextView
-                            android:id="@+id/imagePreviewPublishedOn"
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/imagePreviewViewsI"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/vd_eye_outline" />
+
+                            <TextView
+                                android:id="@+id/imagePreviewViewsCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="8dp"
+                                android:text="10"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/imagePreviewPublishedOn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="16dp"
+                                android:text="Published on 13 Jan '18" />
+                        </LinearLayout>
+
+                        <!--<LinearLayout
+                            android:id="@+id/imagePreviewLikeL"
+                            android:background="?android:attr/selectableItemBackgroundBorderless"
+                            android:layout_alignParentRight="true"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="48dp"
                             android:layout_gravity="center"
-                            android:text="Published on 13 Jan '18" />
-                    </LinearLayout>
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/imagePreviewLikesCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:letterSpacing="0.3"
+                                android:text="250"
+                                android:textSize="8sp" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_marginRight="8dp"
+                                android:id="@+id/imagePreviewLikeI"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/vd_heart_outline" />
+                        </LinearLayout>-->
+
+                    </RelativeLayout>
 
                     <!--Author Layout-->
                     <RelativeLayout
-                        android:background="?android:attr/selectableItemBackground"
                         android:id="@+id/imagePreviewAuthorL"
                         android:layout_width="match_parent"
                         android:layout_height="42dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="40dp">
+                        android:layout_marginTop="40dp"
+                        android:background="?android:attr/selectableItemBackground">
 
                         <com.makeramen.roundedimageview.RoundedImageView
 
@@ -136,8 +210,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:id="@+id/imagePreviewAuthorImages"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="2dp"
                                 android:layout_marginLeft="8dp"
+                                android:layout_marginBottom="2dp"
                                 android:text="-"
                                 android:textColor="@color/black"
                                 android:textSize="10sp" />
@@ -153,8 +227,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:id="@+id/imagePreviewAuthorCollections"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="2dp"
                                 android:layout_marginLeft="8dp"
+                                android:layout_marginBottom="2dp"
                                 android:text="-"
                                 android:textColor="@color/black"
                                 android:textSize="10sp" />
@@ -268,10 +342,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
                         android:layout_marginLeft="16dp"
+                        android:layout_marginTop="36dp"
                         android:layout_marginRight="16dp"
-                        android:layout_marginTop="36dp">
+                        android:layout_marginBottom="8dp">
 
                         <FrameLayout
                             android:id="@+id/imagePreviewShare"
@@ -348,72 +422,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </ScrollView>
-
-        <FrameLayout
-            android:id="@+id/imagePreviewFab"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_margin="16dp"
-            android:background="@drawable/round_fab"
-            android:elevation="6dp"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    app:srcCompat="@drawable/vd_heart_outline" />
-
-                <TextView
-                    android:id="@+id/imagePreviewLikesCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:letterSpacing="0.3"
-                    android:text="250"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
-            </LinearLayout>
-        </FrameLayout>
-
-        <!--Unsplash Button
-        <LinearLayout
-            android:id="@+id/imageUnsplash"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/button_corners"
-            android:elevation="6dp"
-            android:padding="8dp">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="2dp"
-                app:srcCompat="@drawable/vd_camera_white" />
-
-            <TextView
-                android:id="@+id/artistUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="4dp"
-                android:text="Unsplash"
-                android:textColor="@color/white" />
-        </LinearLayout>-->
 
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
