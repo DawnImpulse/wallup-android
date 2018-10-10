@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/black"
         android:orientation="vertical">
 
         <!--image-->
@@ -50,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="0.2"
                 android:text="WALLUP"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -60,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginRight="4dp"
-                android:text="v0.0.0" />
+                android:text="v0.0.0"
+                android:textColor="@color/grey400" />
         </LinearLayout>
 
         <!--update-->
@@ -86,6 +88,7 @@
                 android:layout_marginLeft="16dp"
                 android:letterSpacing="0.1"
                 android:text="Update Available"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -99,7 +102,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Last Update" />
+                android:text="Last Update"
+                android:textColor="@color/grey400" />
 
             <TextView
                 android:id="@+id/aboutLastUpdate"
@@ -108,7 +112,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="16dp"
                 android:text="23rd Sept"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -124,7 +128,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Next Update" />
+                android:text="Next Update"
+                android:textColor="@color/grey400" />
 
             <TextView
                 android:id="@+id/aboutNextUpdate"
@@ -133,7 +138,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="16dp"
                 android:text="28th Sept"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -158,16 +163,17 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
                 android:text="Changelog"
+                android:textColor="@color/grey400"
                 android:textSize="16sp" />
         </LinearLayout>
 
         <!--rate-->
         <LinearLayout
-            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/rate"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:background="?android:attr/selectableItemBackground">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="24dp"
@@ -182,16 +188,17 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
                 android:text="Rate on Play Store"
+                android:textColor="@color/grey400"
                 android:textSize="16sp" />
         </LinearLayout>
 
         <!--source-->
         <LinearLayout
-            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/source"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:background="?android:attr/selectableItemBackground">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="24dp"
@@ -206,6 +213,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
                 android:text="Source Code on Github"
+                android:textColor="@color/grey400"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -238,13 +246,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginTop="24dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/bg_round_corners"
             android:orientation="vertical"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="16dp">
+            android:paddingTop="16dp"
+            android:paddingRight="16dp">
 
             <!--image and name-->
             <RelativeLayout
@@ -252,17 +260,17 @@
                 android:layout_height="64dp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:scaleType="centerCrop"
                     android:id="@+id/aboutAuthorImage"
                     android:layout_width="64dp"
                     android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
                     app:riv_oval="true" />
 
                 <LinearLayout
-                    android:layout_marginLeft="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
                     android:layout_toRightOf="@id/aboutAuthorImage"
                     android:orientation="vertical">
 
@@ -271,14 +279,15 @@
                         android:layout_height="wrap_content"
                         android:letterSpacing="0.1"
                         android:text="Saksham Khurana"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/aboutUsername" />
+                        android:text="@string/aboutUsername"
+                        android:textColor="@color/grey400" />
 
                 </LinearLayout>
 
@@ -310,11 +319,11 @@
 
             <!--github-->
             <LinearLayout
-                android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/aboutGithub"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="right">
 
                 <TextView
@@ -322,7 +331,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="8dp"
-                    android:text="Many other Open Source projects" />
+                    android:text="Many other Open Source projects"
+                    android:textColor="@color/grey400" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="24dp"
@@ -333,11 +343,11 @@
 
             <!--twitter-->
             <LinearLayout
-                android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/aboutTwitter"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="right">
 
                 <TextView
@@ -345,7 +355,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="8dp"
-                    android:text="Follow me / Get in touch" />
+                    android:text="Follow me / Get in touch"
+                    android:textColor="@color/grey400" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="24dp"
@@ -356,11 +367,11 @@
 
             <!--linkedin-->
             <LinearLayout
-                android:background="?android:attr/selectableItemBackground"
                 android:id="@+id/aboutLinkedin"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
+                android:background="?android:attr/selectableItemBackground"
                 android:gravity="right">
 
                 <TextView
@@ -368,7 +379,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginRight="8dp"
-                    android:text="My Professional Profile" />
+                    android:text="My Professional Profile"
+                    android:textColor="@color/grey400" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="24dp"
@@ -384,20 +396,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginTop="24dp"
-            android:background="@drawable/bg_round_corners_black"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_round_corners_white"
             android:orientation="vertical"
-            android:paddingBottom="16dp"
             android:paddingLeft="16dp"
+            android:paddingTop="16dp"
             android:paddingRight="16dp"
-            android:paddingTop="16dp">
+            android:paddingBottom="16dp">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/vd_camera_white" />
+                app:srcCompat="@drawable/vd_camera_black" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -407,16 +419,16 @@
                 android:gravity="center"
                 android:text="@string/aboutUnsplash"
                 android:textAlignment="center"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <!--button-->
             <RelativeLayout
-                android:foreground="?android:attr/selectableItemBackgroundBorderless"
                 android:id="@+id/aboutUnsplash"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/bg_round_corners_white">
+                android:background="@drawable/bg_round_corners_black"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -425,7 +437,7 @@
                     android:layout_centerVertical="true"
                     android:letterSpacing="0.2"
                     android:text="VISIT"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -444,11 +456,11 @@
 
         <!--donate-->
         <RelativeLayout
-            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/donate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:background="?android:attr/selectableItemBackground">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/paypal"
@@ -464,10 +476,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="64dp"
+                android:layout_marginRight="16dp"
                 android:text="Kindly Donate if you can. Your support will help me building more good products."
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/grey400" />
 
         </RelativeLayout>
 
@@ -475,17 +488,17 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/line_dashed"
             android:layerType="software" />
 
         <!--license-->
         <LinearLayout
-            android:background="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical">
 
             <me.grantland.widget.AutofitTextView
@@ -496,7 +509,7 @@
                 android:gravity="center"
                 android:text="License for 3rd party works in this app"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <LinearLayout
@@ -524,6 +537,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="3dp"
                         android:text="Libraries"
+                        android:textColor="@color/grey400"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -548,6 +562,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Icons"
+                        android:textColor="@color/grey400"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -559,18 +574,18 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
             android:background="@drawable/line_dashed"
             android:layerType="software" />
 
         <!--privacy-->
         <LinearLayout
-            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/privacy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -585,7 +600,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="Privacy Policy"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -594,20 +609,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginRight="16dp"
                 android:gravity="center"
                 android:text="To improve Wallup, we collect analytics &amp; crash data for this app. Read Privacy Policy for more info."
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/grey400" />
         </LinearLayout>
 
         <!--tnc-->
         <LinearLayout
-            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/terms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -622,7 +638,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="Terms &amp; Conditions"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -631,21 +647,22 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginRight="16dp"
                 android:gravity="center"
                 android:text="To avoid any misuse of this app, kindly go through the Terms &amp; Conditions."
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/grey400" />
         </LinearLayout>
 
         <!--contact-->
         <LinearLayout
-            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="?android:attr/selectableItemBackground"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -660,7 +677,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:text="Contact Us"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -669,11 +686,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginRight="16dp"
                 android:gravity="center"
                 android:text="@string/aboutContact"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/grey400" />
         </LinearLayout>
 
     </LinearLayout>

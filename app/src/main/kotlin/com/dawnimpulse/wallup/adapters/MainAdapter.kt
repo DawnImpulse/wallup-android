@@ -113,6 +113,7 @@ class MainAdapter(
 
     // binding view holder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
         if (holder is MainViewHolder) {
             var image = images[position]!!
             var artistClick = View.OnClickListener {
@@ -123,7 +124,7 @@ class MainAdapter(
 
             // show/hide like button
             if (!showLike)
-                holder.likeL.visibility = View.GONE
+                holder.likeL.visibility = View.INVISIBLE
 
             // set image
             ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full + Config.IMAGE_HEIGHT)

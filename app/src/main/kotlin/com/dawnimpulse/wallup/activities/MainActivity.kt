@@ -185,19 +185,19 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         val colors = Colors(this)
         when (pos) {
             0 -> {
-                mainNavLatestI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
-                mainNavRandomI.drawable.setColorFilter(colors.GREY_400,PorterDuff.Mode.SRC_ATOP)
-                mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+                mainNavLatestI.drawable.setColorFilter(colors.WHITE, PorterDuff.Mode.SRC_ATOP)
+                mainNavRandomI.drawable.setColorFilter(colors.GREY_500,PorterDuff.Mode.SRC_ATOP)
+                mainNavTrendingI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
             }
             1 -> {
-                mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
-                mainNavRandomI.drawable.setColorFilter(colors.BLACK,PorterDuff.Mode.SRC_ATOP)
-                mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+                mainNavLatestI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
+                mainNavRandomI.drawable.setColorFilter(colors.WHITE,PorterDuff.Mode.SRC_ATOP)
+                mainNavTrendingI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
             }
             2 -> {
-                mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
-                mainNavRandomI.drawable.setColorFilter(colors.GREY_400,PorterDuff.Mode.SRC_ATOP)
-                mainNavTrendingI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
+                mainNavLatestI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
+                mainNavRandomI.drawable.setColorFilter(colors.GREY_500,PorterDuff.Mode.SRC_ATOP)
+                mainNavTrendingI.drawable.setColorFilter(colors.WHITE, PorterDuff.Mode.SRC_ATOP)
             }
         }
     }

@@ -220,7 +220,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
     // set image details on views
     private fun setImageDetails(details: ImagePojo) {
-        imagePreviewAuthorName.text = details.user!!.name
+        imagePreviewAuthorName.text = F.capWord(details.user!!.name)
         imagePreviewLikesCount.text = F.withSuffix(details.likes)
         imagePreviewAuthorImages.text = F.withSuffix(details.user!!.total_photos)
         imagePreviewAuthorCollections.text = F.withSuffix(details.user!!.total_collections)
@@ -246,7 +246,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
             imagePreviewDownloadCount.visibility = View.VISIBLE
 
         //if (details.liked_by_user && !likeStateChange)
-        F.like(this, imagePreviewFabI, true, true)
+        F.like(this, imagePreviewFabI, true, details.liked_by_user)
 
         if (!likeStateChange)
             like = details.liked_by_user

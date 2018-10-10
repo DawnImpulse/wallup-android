@@ -14,5 +14,5 @@ OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-    <solid android:color="@color/black" />
+    <solid android:color="@color/colorAccent" />
 </shape>

@@ -78,7 +78,7 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
             var user = Gson().fromJson(Prefs.getString(C.USER, ""), UserPojo::class.java)
             ImageHandler.setImageInView(lifecycle, sheetNavUserI, user.profile_image.large)
             sheetNavUserT.text = user.first_name
-            sheetNavUserT.setTextColor(Colors(context!!).BLACK)
+            sheetNavUserT.setTextColor(Colors(context!!).WHITE)
         }
     }
 

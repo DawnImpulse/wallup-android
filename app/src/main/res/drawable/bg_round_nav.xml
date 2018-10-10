@@ -17,5 +17,5 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <corners
         android:topLeftRadius="12dp"
         android:topRightRadius="12dp" />
-    <solid android:color="@color/white" />
+    <solid android:color="@color/black" />
 </shape>

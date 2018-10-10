@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:fillViewport="true"
     tools:context=".activities.CollectionActivity">
 
@@ -24,8 +25,8 @@
             android:layout_width="88dp"
             android:layout_height="88dp"
             android:layout_alignBottom="@id/colImage"
-            android:layout_marginBottom="-44dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginBottom="-44dp"
             android:background="@color/grey400"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
             app:riv_mutate_background="true"
@@ -34,11 +35,11 @@
         <!--user name-->
         <FrameLayout
             android:id="@+id/colUserImageL"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:layout_below="@id/colImage"
-            android:layout_toRightOf="@id/colUserImage">
+            android:layout_toRightOf="@id/colUserImage"
+            android:background="?android:attr/selectableItemBackgroundBorderless">
 
             <me.grantland.widget.AutofitTextView
                 android:id="@+id/colUserName"
@@ -47,6 +48,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
+                android:textColor="@color/grey400"
                 android:gravity="right"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -68,6 +70,7 @@
                     android:id="@+id/colImageC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/grey400"
                     android:text="0 photos"
                     android:textStyle="bold" />
 
@@ -83,6 +86,7 @@
                     android:id="@+id/colImageUpdated"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/grey400"
                     android:layout_marginRight="8dp"
                     android:text="updated on 12th Aug '18"
                     android:textStyle="bold" />
@@ -96,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:gravity="center"
+                android:textColor="@color/grey400"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -109,25 +114,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
-                    android:paddingBottom="8dp"
                     android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:text="PHOTOS"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/colMore"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:paddingBottom="8dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:paddingLeft="16dp"
-                    android:paddingRight="8dp"
                     android:paddingTop="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingBottom="8dp"
                     android:text="More >"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -153,7 +158,7 @@
                 android:layout_gravity="right"
                 android:layout_margin="16dp"
                 android:gravity="right"
-                android:textColor="@color/grey500" />
+                android:textColor="@color/grey400" />
 
             <!--published-->
             <TextView
@@ -161,8 +166,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
+                android:textColor="@color/grey400"
+                android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:textStyle="bold" />
 

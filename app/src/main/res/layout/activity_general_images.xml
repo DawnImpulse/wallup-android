@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".activities.GeneralImagesActivity">
 
     <ProgressBar
@@ -34,5 +35,5 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/vd_refresh" />
+        app:srcCompat="@drawable/vd_refresh_black" />
 </RelativeLayout>

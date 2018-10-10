@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black"
     tools:context=".activities.LoginActivity">
 
     <LinearLayout
@@ -18,7 +19,7 @@
             android:layout_height="128dp"
             android:layout_gravity="center"
             android:layout_marginTop="32dp"
-            app:srcCompat="@drawable/vd_camera_black" />
+            app:srcCompat="@drawable/vd_camera_white" />
 
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
+            android:textColor="@color/grey400"
             android:text="Just few more seconds ..." />
     </LinearLayout>
 

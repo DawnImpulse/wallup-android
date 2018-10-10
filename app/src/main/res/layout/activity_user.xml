@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/black"
     tools:context=".activities.UserActivity">
 
     <ImageView
@@ -44,7 +45,7 @@
             </FrameLayout>
 
             <TextView
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -65,7 +66,6 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
-
                 android:background="?android:attr/selectableItemBackgroundBorderless">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -76,7 +76,7 @@
             </FrameLayout>
 
             <TextView
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -93,7 +93,7 @@
             android:layout_marginRight="16dp"
             android:gravity="center"
             android:text="- - -"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -103,6 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/userFullName"
+            android:textColor="@color/grey400"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginRight="16dp"

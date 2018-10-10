@@ -103,15 +103,15 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
     // setting details in views
     private fun setDetails() {
         var name = details.user!!.name
-        name = "<font color=\"#9e9e9e\">${F.firstWord(name)}</font> ${name.replace(F.firstWord(name), "")}"
+        name = "<font color=\"#ffffff\">${F.firstWord(name)}</font> ${name.replace(F.firstWord(name), "")}"
         color = Color.parseColor(details.cover_photo.color!!)
         colUserName.setTextColor(color)
         colTitle.text = details.title
         colDescription.text = details.description
         colUserName.setText(F.fromHtml(name), TextView.BufferType.SPANNABLE)
-        colImageC.setText(F.fromHtml("${details.total_photos} <font color=\"#9e9e9e\">photos</font>"), TextView.BufferType.SPANNABLE)
-        colImageUpdated.setText(F.fromHtml("<font color=\"#9e9e9e\">updated on</font> ${F.dateConvert(details.updated_at)}"), TextView.BufferType.SPANNABLE)
-        colPublished.setText(F.fromHtml("<font color=\"#9e9e9e\">published on</font> ${F.dateConvert(details.published_at)}"), TextView.BufferType.SPANNABLE)
+        colImageC.setText(F.fromHtml("${details.total_photos} <font color=\"#ffffff\">photos</font>"), TextView.BufferType.SPANNABLE)
+        colImageUpdated.setText(F.fromHtml("<font color=\"#ffffff\">updated on</font> ${F.dateConvert(details.updated_at)}"), TextView.BufferType.SPANNABLE)
+        colPublished.setText(F.fromHtml("<font color=\"#ffffff\">published on</font> ${F.dateConvert(details.published_at)}"), TextView.BufferType.SPANNABLE)
 
         ImageHandler.getImageAsBitmap(lifecycle, this, details.cover_photo.urls?.full + Config.IMAGE_HEIGHT) {
             val color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)

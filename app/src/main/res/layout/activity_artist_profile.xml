@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".activities.ArtistProfileActivity">
 
     <ScrollView
@@ -35,7 +36,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="August"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="32sp"
                         android:textStyle="bold" />
 
@@ -46,7 +47,7 @@
                         android:layout_below="@id/artistFirstName"
                         android:layout_marginTop="2dp"
                         android:text="Jenkins"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="32sp"
                         android:textStyle="bold" />
 
@@ -68,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="32dp"
+                    android:textColor="@color/grey400"
                     android:text="This is the artist information."
                     android:textSize="14sp" />
 
@@ -90,7 +92,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="20"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -99,6 +101,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="Photos"
+                            android:textColor="@color/grey400"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -117,7 +120,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="20"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -126,6 +129,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="Collections"
+                            android:textColor="@color/grey400"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -144,11 +148,12 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="20"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:textColor="@color/grey400"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -183,7 +188,7 @@
                         android:layout_marginLeft="24dp"
                         android:background="?android:attr/selectableItemBackground"
                         android:text="--"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
@@ -209,7 +214,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="24dp"
                         android:text="--"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
 
@@ -234,7 +239,7 @@
                         android:paddingBottom="8dp"
                         android:paddingTop="8dp"
                         android:text="PHOTOS"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -249,7 +254,7 @@
                         android:paddingRight="16dp"
                         android:paddingTop="8dp"
                         android:text="More >"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -280,7 +285,7 @@
                         android:paddingBottom="8dp"
                         android:paddingTop="8dp"
                         android:text="COLLECTIONS"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -295,7 +300,7 @@
                         android:paddingRight="16dp"
                         android:paddingTop="8dp"
                         android:text="More >"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -334,9 +339,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/bt_corners"
+        android:background="@drawable/bt_corners_white"
         android:elevation="6dp"
-        android:foreground="@drawable/ripple_white"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:padding="8dp"
         android:visibility="gone">
 
@@ -345,7 +350,7 @@
             android:layout_height="24dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="2dp"
-            app:srcCompat="@drawable/vd_camera_white" />
+            app:srcCompat="@drawable/vd_camera_black" />
 
         <TextView
             android:id="@+id/artistUsername"
@@ -355,7 +360,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="4dp"
             android:text="username"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
     </LinearLayout>
 

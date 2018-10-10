@@ -94,9 +94,9 @@ class CollectionLayoutActivity : AppCompatActivity(), View.OnClickListener {
                 colNavGeneral.setTypeface(null, NORMAL)
                 colNavWallup.setTypeface(null, NORMAL)
 
-                colNavFeatured.setTextColor(colors.BLACK)
-                colNavGeneral.setTextColor(colors.GREY_500)
-                colNavWallup.setTextColor(colors.GREY_500)
+                colNavFeatured.setTextColor(colors.WHITE)
+                colNavGeneral.setTextColor(colors.GREY_400)
+                colNavWallup.setTextColor(colors.GREY_400)
 
                 colNavFeatured.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16F)
                 colNavGeneral.setTextSize(TypedValue.COMPLEX_UNIT_SP,14F)
@@ -108,9 +108,9 @@ class CollectionLayoutActivity : AppCompatActivity(), View.OnClickListener {
                 colNavGeneral.setTypeface(null, BOLD)
                 colNavWallup.setTypeface(null, NORMAL)
 
-                colNavFeatured.setTextColor(colors.GREY_500)
-                colNavGeneral.setTextColor(colors.BLACK)
-                colNavWallup.setTextColor(colors.GREY_500)
+                colNavFeatured.setTextColor(colors.GREY_400)
+                colNavGeneral.setTextColor(colors.WHITE)
+                colNavWallup.setTextColor(colors.GREY_400)
 
                 colNavFeatured.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14F)
                 colNavGeneral.setTextSize(TypedValue.COMPLEX_UNIT_SP,16F)
@@ -122,9 +122,9 @@ class CollectionLayoutActivity : AppCompatActivity(), View.OnClickListener {
                 colNavGeneral.setTypeface(null, NORMAL)
                 colNavWallup.setTypeface(null, BOLD)
 
-                colNavFeatured.setTextColor(colors.GREY_500)
-                colNavGeneral.setTextColor(colors.GREY_500)
-                colNavWallup.setTextColor(colors.BLACK)
+                colNavFeatured.setTextColor(colors.GREY_400)
+                colNavGeneral.setTextColor(colors.GREY_400)
+                colNavWallup.setTextColor(colors.WHITE)
 
                 colNavFeatured.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14F)
                 colNavGeneral.setTextSize(TypedValue.COMPLEX_UNIT_SP,14F)

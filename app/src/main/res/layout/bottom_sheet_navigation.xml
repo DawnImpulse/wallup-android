@@ -17,7 +17,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:id="@+id/bottom_sheet_image_preview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/black"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <View
@@ -37,7 +37,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:layout_marginTop="16dp"
-            android:background="@color/white"
             android:orientation="horizontal">
 
             <!--collection-->
@@ -68,7 +67,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="Collections"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
                 </LinearLayout>
             </FrameLayout>
 
@@ -136,7 +135,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="Feedback"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
                 </LinearLayout>
             </FrameLayout>
 
@@ -147,7 +146,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:layout_marginTop="16dp"
-            android:background="@color/white"
+            android:background="@color/black"
             android:orientation="horizontal">
 
             <!--about-->
@@ -178,7 +177,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="About"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
             </FrameLayout>
@@ -212,7 +211,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="Update"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
 
                 </LinearLayout>
             </FrameLayout>

@@ -20,6 +20,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
+    <!--app bar-->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,7 +52,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:visibility="visible"
-                        app:srcCompat="@drawable/vd_search_black" />
+                        app:srcCompat="@drawable/vd_search" />
 
                 </FrameLayout>
 
@@ -74,12 +75,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_refresh_black" />
+                        app:srcCompat="@drawable/vd_refresh" />
                 </FrameLayout>
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!--viewpager-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -129,7 +131,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Latest"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -162,7 +164,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_below="@id/mainNavTrendingI"
                     android:layout_gravity="center"
                     android:text="Random"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </RelativeLayout>
@@ -196,7 +198,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_below="@id/mainNavTrendingI"
                     android:layout_gravity="center"
                     android:text="Trending"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
             </LinearLayout>
 
         </RelativeLayout>

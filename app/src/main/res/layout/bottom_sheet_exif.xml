@@ -17,6 +17,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_sheet_image_preview"
     android:layout_width="match_parent"
+    android:background="@color/black"
     android:layout_height="wrap_content"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
@@ -47,7 +48,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_width="match_parent"
         android:layout_height="360dp"
         android:layout_marginTop="16dp"
-        android:background="@color/white"
+        android:background="@color/black"
         android:visibility="invisible">
 
         <LinearLayout
@@ -63,7 +64,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_marginBottom="8dp"
                 android:letterSpacing="0.2"
                 android:text="CAMERA EXIF"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -73,6 +74,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:letterSpacing="0.3"
+                android:textColor="@color/grey400"
                 android:text="NO EXIF DATA"
                 android:visibility="gone" />
 
@@ -90,6 +92,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.2"
                     android:text="MAKE"
+                    android:textColor="@color/grey400"
                     android:textStyle="bold" />
 
                 <TextView
@@ -97,7 +100,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.2"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="10sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -115,6 +118,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.2"
+                    android:textColor="@color/grey400"
                     android:text="MODEL"
                     android:textStyle="bold" />
 
@@ -123,7 +127,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.2"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="10sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -137,6 +141,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@color/grey400"
                     android:id="@+id/sheetExifExposureText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -149,7 +154,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.2"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="10sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -163,6 +168,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:orientation="vertical">
 
                 <TextView
+                    android:textColor="@color/grey400"
                     android:id="@+id/sheetExifApertureText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -175,7 +181,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.2"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="10sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -194,6 +200,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.2"
                     android:text="FOCAL LENGTH"
+                    android:textColor="@color/grey400"
                     android:textStyle="bold" />
 
                 <TextView
@@ -201,7 +208,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.2"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="10sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -217,6 +224,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 <TextView
                     android:id="@+id/sheetExifIsoText"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/grey400"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.2"
                     android:text="ISO"
@@ -227,7 +235,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.2"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="10sp"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -17,6 +17,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".activities.ImageActivity">
 
     <RelativeLayout
@@ -125,13 +126,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
                                 android:text="10"
-                                android:textColor="@color/black" />
+                                android:textColor="@color/white" />
 
                             <TextView
                                 android:id="@+id/imagePreviewPublishedOn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:textColor="@color/grey400"
                                 android:layout_marginLeft="16dp"
                                 android:text="Published on 13 Jan '18" />
                         </LinearLayout>
@@ -175,7 +177,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:background="?android:attr/selectableItemBackground">
 
                         <com.makeramen.roundedimageview.RoundedImageView
-
                             android:id="@+id/imagePreviewAuthorImage"
                             android:layout_width="42dp"
                             android:layout_height="42dp"
@@ -189,7 +190,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:layout_marginLeft="24dp"
                             android:layout_toRightOf="@id/imagePreviewAuthorImage"
                             android:text="August Jenkins"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -213,7 +214,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginBottom="2dp"
                                 android:text="-"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textSize="10sp" />
 
                             <androidx.appcompat.widget.AppCompatImageView
@@ -230,7 +231,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginBottom="2dp"
                                 android:text="-"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textSize="10sp" />
                         </LinearLayout>
 
@@ -289,7 +290,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                     android:layout_centerHorizontal="true"
                                     android:layout_centerVertical="true"
                                     android:text="WALLPAPER"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/white"
                                     android:textSize="12sp"
                                     android:textStyle="bold" />
                             </RelativeLayout>

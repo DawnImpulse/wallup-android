@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/black"
     android:layout_height="match_parent"
     tools:context=".activities.SearchActivity">
 
@@ -49,6 +50,8 @@
                     android:hint="Search"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
+                    android:textColorHint="@color/grey400"
+                    android:textColor="@color/white"
                     android:paddingLeft="16dp" />
 
                 <!--search button-->
@@ -107,6 +110,6 @@
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
         android:visibility="gone"
-        app:srcCompat="@drawable/vd_refresh" />
+        app:srcCompat="@drawable/vd_refresh_black" />
 
 </RelativeLayout>

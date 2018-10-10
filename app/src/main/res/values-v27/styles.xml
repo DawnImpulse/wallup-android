@@ -17,7 +17,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:colorAccent">@color/black</item>
-        <item name="android:windowLightNavigationBar">true</item>
-        <item name="android:navigationBarColor">@color/white</item>
+        <!--<item name="android:windowLightNavigationBar">true</item>
+        <item name="android:navigationBarColor">@color/white</item>-->
     </style>
 </resources>
