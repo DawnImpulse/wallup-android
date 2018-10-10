@@ -36,8 +36,6 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
 
-
-
 /**
  * @author Saksham
  *
@@ -53,8 +51,8 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
     private val NAME = "MainFragment"
     private lateinit var mainAdapter: MainAdapter
     private lateinit var images: MutableList<ImagePojo?>
-    private lateinit var model: UnsplashModel
     private lateinit var modelR: DatabaseModel
+    private var model: UnsplashModel? = null
     private val init: Boolean = true
     private var timestamp = 0
     private var nextPage = 2
@@ -79,11 +77,13 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
         type = arguments!!.getString(C.TYPE)
         when (type) {
             C.LATEST ->
-                model.getLatestImages(1, callback)
+                model?.getLatestImages(1, callback)
             C.CURATED ->
-                model.getCuratedImages(1, callback)
+                model?.getCuratedImages(1, callback)
             C.TRENDING ->
                 modelR.getTrendingImages(null, callback)
+            C.RANDOM ->
+                model?.randomImages(callback)
 
         }
         mainRefresher.setOnRefreshListener(this)
@@ -108,11 +108,13 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
     override fun onRefresh() {
         when (this.type) {
             C.LATEST ->
-                model.getLatestImages(1, callback)
+                model?.getLatestImages(1, callback)
             C.CURATED ->
-                model.getCuratedImages(1, callback)
+                model?.getCuratedImages(1, callback)
             C.TRENDING ->
                 modelR.getTrendingImages(null, callback)
+            C.RANDOM ->
+                model?.randomImages(callback)
 
         }
     }
@@ -123,11 +125,13 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
         mainAdapter.notifyItemInserted(images.size)
         when (this.type) {
             C.LATEST ->
-                model.getLatestImages(nextPage, callbackPaginated)
+                model?.getLatestImages(nextPage, callbackPaginated)
             C.CURATED ->
-                model.getCuratedImages(nextPage, callbackPaginated)
+                model?.getCuratedImages(nextPage, callbackPaginated)
             C.TRENDING ->
                 modelR.getTrendingImages(timestamp, callbackPaginated)
+            C.RANDOM ->
+                model?.randomImages(callbackPaginated)
 
         }
     }
@@ -144,8 +148,8 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 // if position found
                 if (position.isNotEmpty()) {
                     // change like state in images array
-                    for (pos in position){
-                        L.d(NAME,pos)
+                    for (pos in position) {
+                        L.d(NAME, pos)
                         images[pos]!!.liked_by_user = event.obj.getBoolean(C.LIKE)
                         mainAdapter.notifyItemChanged(pos)
                     }
@@ -164,7 +168,12 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
             response?.let {
                 images = (response as List<ImagePojo>).toMutableList()
                 timestamp = images[images.size - 1]!!.timestamp
-                mainAdapter = MainAdapter(lifecycle, images, mainRecycler)
+
+                if (arguments?.containsKey(C.LIKE)!!)
+                    mainAdapter = MainAdapter(lifecycle, images, mainRecycler,false)
+                else
+                    mainAdapter = MainAdapter(lifecycle, images, mainRecycler)
+
                 mainRecycler.layoutManager = LinearLayoutManager(context)
                 mainRecycler.adapter = mainAdapter
                 (mainRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false

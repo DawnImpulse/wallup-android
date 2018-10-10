@@ -39,9 +39,11 @@ import kotlinx.android.synthetic.main.activity_main.*
  *  Saksham - 2018 05 20 - recent - adding multiple fragments
  *  Saksham - 2018 08 19 - master - using bottom modal sheet navigation
  *  Saksham - 2018 09 15 - master - remote config for update
+ *  Saksham - 2018 10 10 - master - random fragment
  */
 class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.OnClickListener {
     private lateinit var pagerAdapter: ViewPagerAdapter
+    private lateinit var randomFragment:MainFragment
     private lateinit var latestFragment: MainFragment
     private lateinit var trendingFragment: MainFragment
     private lateinit var curatedFragment: MainFragment
@@ -66,6 +68,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         mainViewPager.offscreenPageLimit = 2
 
         mainNavTrending.setOnClickListener(this)
+        mainNavRandom.setOnClickListener(this)
         mainNavCurated.setOnClickListener(this)
         mainNavLatest.setOnClickListener(this)
         mainNavUp.setOnClickListener(this)
@@ -79,8 +82,9 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     override fun onClick(v: View) {
         when (v.id) {
             mainNavLatest.id -> currentNavItem(0)
-            mainNavTrending.id -> currentNavItem(1)
-            mainNavCurated.id -> currentNavItem(2)
+            mainNavRandom.id -> currentNavItem(1)
+            mainNavTrending.id -> currentNavItem(2)
+            mainNavCurated.id -> currentNavItem(3)
             mainNavUp.id -> {
                 navSheet.show(supportFragmentManager, C.BOTTOM_SHEET)
                 currentNavItem(lastItemSelected)
@@ -92,10 +96,14 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                         latestFragment.onRefresh()
                     }
                     1 -> {
+                        toast("Refreshing Random List")
+                        randomFragment.onRefresh()
+                    }
+                    2 -> {
                         toast("Refreshing Trending List")
                         trendingFragment.onRefresh()
                     }
-                    2 -> {
+                    3 -> {
                         toast("Refreshing Curated List")
                         curatedFragment.onRefresh()
                     }
@@ -123,37 +131,39 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         //
     }
 
-    /**
-     * Setup our viewpager
-     */
+    // Setup our viewpager
     private fun setupViewPager(viewPager: ViewPager) {
         val latestBundle = Bundle()
         val trendingBundle = Bundle()
         val curatedBundle = Bundle()
+        val randomBundle = Bundle()
 
         pagerAdapter = ViewPagerAdapter(supportFragmentManager)
         latestFragment = MainFragment()
+        randomFragment = MainFragment()
         trendingFragment = MainFragment()
         curatedFragment = MainFragment()
 
         latestBundle.putString(C.TYPE, C.LATEST)
+        randomBundle.putString(C.TYPE, C.RANDOM)
         trendingBundle.putString(C.TYPE, C.TRENDING)
         curatedBundle.putString(C.TYPE, C.CURATED)
 
+        trendingBundle.putBoolean(C.LIKE,false)
+
         latestFragment.arguments = latestBundle
+        randomFragment.arguments = randomBundle
         trendingFragment.arguments = trendingBundle
         curatedFragment.arguments = curatedBundle
 
         pagerAdapter.addFragment(latestFragment, C.LATEST)
+        pagerAdapter.addFragment(randomFragment, C.RANDOM)
         pagerAdapter.addFragment(trendingFragment, C.TRENDING)
         pagerAdapter.addFragment(curatedFragment, C.CURATED)
         viewPager.adapter = pagerAdapter
     }
 
-    /**
-     * current nav item selected
-     * @param pos
-     */
+    // current nav item selected
     private fun currentNavItem(pos: Int) {
         changeNavColor(pos)
         when (pos) {
@@ -161,6 +171,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                 lastItemSelected = 0
                 mainViewPager.currentItem = 0
                 mainNavLatestT.visibility = View.VISIBLE
+                mainNavRandomT.visibility = View.GONE
                 mainNavTrendingT.visibility = View.GONE
                 mainNavCuratedT.visibility = View.GONE
             }
@@ -168,37 +179,54 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                 lastItemSelected = 1
                 mainViewPager.currentItem = 1
                 mainNavLatestT.visibility = View.GONE
-                mainNavTrendingT.visibility = View.VISIBLE
+                mainNavRandomT.visibility = View.VISIBLE
+                mainNavTrendingT.visibility = View.GONE
                 mainNavCuratedT.visibility = View.GONE
             }
             2 -> {
                 lastItemSelected = 2
                 mainViewPager.currentItem = 2
+                mainNavLatestT.visibility = View.GONE
+                mainNavRandomT.visibility = View.GONE
+                mainNavTrendingT.visibility = View.VISIBLE
+                mainNavCuratedT.visibility = View.GONE
+            }
+            3 -> {
+                lastItemSelected = 3
+                mainViewPager.currentItem = 3
                 mainNavTrendingT.visibility = View.GONE
+                mainNavRandomT.visibility = View.GONE
                 mainNavLatestT.visibility = View.GONE
                 mainNavCuratedT.visibility = View.VISIBLE
             }
         }
     }
 
-    /**
-     * change nav icon colors
-     */
+    // change nav icon colors
     private fun changeNavColor(pos: Int) {
         val colors = Colors(this)
         when (pos) {
             0 -> {
                 mainNavLatestI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
+                mainNavRandomI.drawable.setColorFilter(colors.GREY_400,PorterDuff.Mode.SRC_ATOP)
                 mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
                 mainNavCuratedI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
             }
             1 -> {
                 mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
-                mainNavTrendingI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
+                mainNavRandomI.drawable.setColorFilter(colors.BLACK,PorterDuff.Mode.SRC_ATOP)
+                mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
                 mainNavCuratedI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
             }
             2 -> {
+                mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+                mainNavRandomI.drawable.setColorFilter(colors.GREY_400,PorterDuff.Mode.SRC_ATOP)
+                mainNavTrendingI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
+                mainNavCuratedI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+            }
+            3 -> {
                 mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
+                mainNavRandomI.drawable.setColorFilter(colors.GREY_400,PorterDuff.Mode.SRC_ATOP)
                 mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
                 mainNavCuratedI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
             }

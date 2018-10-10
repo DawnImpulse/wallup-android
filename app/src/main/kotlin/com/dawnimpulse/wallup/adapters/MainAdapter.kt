@@ -50,7 +50,11 @@ import org.json.JSONObject
  * @note Updates :
  *  Saksham - 2018 05 25 - recent - intent to Image Activity
  */
-class MainAdapter(private val lifecycle: Lifecycle, private val images: List<ImagePojo?>, recycler: RecyclerView)
+class MainAdapter(
+        private val lifecycle: Lifecycle,
+        private val images: List<ImagePojo?>,
+        recycler: RecyclerView,
+        private val showLike: Boolean = true)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val NAME = "MainAdapter"
@@ -116,6 +120,10 @@ class MainAdapter(private val lifecycle: Lifecycle, private val images: List<Ima
                 intent.putExtra(C.USERNAME, images[position]!!.user!!.username)
                 context.startActivity(intent)
             }
+
+            // show/hide like button
+            if (!showLike)
+                holder.likeL.visibility = View.GONE
 
             // set image
             ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full + Config.IMAGE_HEIGHT)

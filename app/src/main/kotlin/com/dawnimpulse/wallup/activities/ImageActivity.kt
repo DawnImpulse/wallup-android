@@ -56,7 +56,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "ImageActivity"
     private var setBitmap = false
     private var bitmap: Bitmap? = null
-    private var fullDetails: ImagePojo? = null
+    //private var fullDetails: ImagePojo? = null
     private var color: Int = 0
     private var position = -1
     private var like = false //state of like button
@@ -211,8 +211,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         model.getImage(id) { _, details ->
             details?.let {
                 this.details = it as ImagePojo
-                fullDetails = it
-                setImageDetails(fullDetails!!)
+                //fullDetails = it
+                setImageDetails(this.details)
             }
 
         }
@@ -245,13 +245,13 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         } else
             imagePreviewDownloadCount.visibility = View.VISIBLE
 
-        if (details.liked_by_user && !likeStateChange)
-            F.like(this, imagePreviewFabI, true, true)
+        //if (details.liked_by_user && !likeStateChange)
+        F.like(this, imagePreviewFabI, true, true)
 
         if (!likeStateChange)
             like = details.liked_by_user
 
-        likeStateChange = true
+        //likeStateChange = true
     }
 
     // set color on a resources

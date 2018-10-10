@@ -93,14 +93,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <!--Bottom nav-->
     <LinearLayout
+        android:elevation="8dp"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_gravity="bottom"
-        android:background="@color/white"
-        android:elevation="8dp"
+        android:background="@drawable/bg_round_nav"
         android:orientation="horizontal"
         app:layout_behavior=".utils.BottomNavigationBehaviour">
 
+        <!--latest-->
         <RelativeLayout
             android:id="@+id/mainNavLatest"
             android:layout_width="wrap_content"
@@ -132,6 +133,41 @@ OR PERFORMANCE OF THIS SOFTWARE.
             </LinearLayout>
         </RelativeLayout>
 
+        <!--random-->
+        <RelativeLayout
+            android:id="@+id/mainNavRandom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/mainNavRandomI"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vd_shuffle" />
+
+                <TextView
+                    android:id="@+id/mainNavRandomT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mainNavTrendingI"
+                    android:layout_gravity="center"
+                    android:text="Random"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!--trending-->
         <RelativeLayout
             android:id="@+id/mainNavTrending"
             android:layout_width="wrap_content"
@@ -165,6 +201,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         </RelativeLayout>
 
+        <!--curated-->
         <RelativeLayout
             android:id="@+id/mainNavCurated"
             android:layout_width="wrap_content"
@@ -197,6 +234,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             </LinearLayout>
         </RelativeLayout>
 
+        <!--navigate-->
         <RelativeLayout
             android:id="@+id/mainNavUp"
             android:layout_width="wrap_content"

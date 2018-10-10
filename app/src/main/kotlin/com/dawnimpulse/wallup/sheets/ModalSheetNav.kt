@@ -23,7 +23,6 @@ import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.activities.AboutActivity
 import com.dawnimpulse.wallup.activities.CollectionLayoutActivity
-import com.dawnimpulse.wallup.activities.GeneralImagesActivity
 import com.dawnimpulse.wallup.activities.UserActivity
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.pojo.UserPojo
@@ -60,7 +59,6 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
 
         sheet = ModalSheetUnsplash()
 
-        sheetNavRandom.setOnClickListener(this)
         sheetNavFeedback.setOnClickListener(this)
         sheetNavCollection.setOnClickListener(this)
         sheetNavAbout.setOnClickListener(this)
@@ -87,12 +85,6 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
     // clicked
     override fun onClick(v: View) {
         when (v.id) {
-            sheetNavRandom.id -> {
-                var intent = Intent(activity, GeneralImagesActivity::class.java)
-                intent.putExtra(C.TYPE, C.RANDOM)
-                startActivity(intent)
-                dismiss()
-            }
             sheetNavCollection.id -> {
                 startActivity(Intent(activity, CollectionLayoutActivity::class.java))
                 dismiss()

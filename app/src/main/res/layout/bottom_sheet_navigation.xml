@@ -40,38 +40,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <!--random-->
-            <FrameLayout
-                android:id="@+id/sheetNavRandom"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="?android:attr/selectableItemBackgroundBorderless">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="64dp"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_random" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="Random"
-                        android:textColor="@color/black" />
-                </LinearLayout>
-            </FrameLayout>
-
             <!--collection-->
             <FrameLayout
                 android:id="@+id/sheetNavCollection"
@@ -101,6 +69,42 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:gravity="center"
                         android:text="Collections"
                         android:textColor="@color/black" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <!--user-->
+            <FrameLayout
+                android:id="@+id/sheetNavUser"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/sheetNavUserI"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/vd_account_grey"
+                        app:riv_oval="true" />
+
+                    <TextView
+                        android:id="@+id/sheetNavUserT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Login"
+                        android:textColor="@color/grey500" />
+
                 </LinearLayout>
             </FrameLayout>
 
@@ -179,42 +183,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 </LinearLayout>
             </FrameLayout>
 
-            <!--user-->
-            <FrameLayout
-                android:id="@+id/sheetNavUser"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="?android:attr/selectableItemBackgroundBorderless">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="64dp"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/sheetNavUserI"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/vd_account_grey"
-                        app:riv_oval="true" />
-
-                    <TextView
-                        android:id="@+id/sheetNavUserT"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="Login"
-                        android:textColor="@color/grey500" />
-
-                </LinearLayout>
-            </FrameLayout>
-
             <!--update-->
             <FrameLayout
                 android:id="@+id/sheetNavUpdateL"
@@ -245,6 +213,40 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:gravity="center"
                         android:text="Update"
                         android:textColor="@color/black" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <!--dummy-->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:visibility="invisible"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/vd_account_grey"
+                        app:riv_oval="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Login"
+                        android:textColor="@color/grey500" />
 
                 </LinearLayout>
             </FrameLayout>
