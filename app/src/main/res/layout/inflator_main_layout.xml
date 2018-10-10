@@ -15,71 +15,78 @@ OR PERFORMANCE OF THIS SOFTWARE.
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_height="300dp"
+    android:layout_marginLeft="4dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginRight="4dp">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/mainImage"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:layout_height="match_parent"
+        android:foreground="@drawable/bg_gradient"
         android:scaleType="centerCrop"
         app:riv_border_color="@color/white"
-        app:riv_corner_radius="4dp"
+        app:riv_corner_radius="6dp"
         app:riv_mutate_background="true" />
-
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/mainCircleImage"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="208dp"
-        android:elevation="2dp"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless"
-        app:riv_oval="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/mainImage"
-        android:layout_marginTop="12dp">
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp">
 
+        <!--image-->
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/mainCircleImage"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginLeft="8dp"
+            android:elevation="2dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            app:riv_oval="true" />
+
+        <!--name-->
         <me.grantland.widget.AutofitTextView
-            android:layout_centerVertical="true"
             android:id="@+id/mainName"
             android:layout_width="match_parent"
             android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/mainCircleImage"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:paddingLeft="16dp"
             android:paddingRight="8dp"
             android:text="Amy Blake"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/mainThreeDot"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentRight="true"
-            android:visibility="gone"
-            app:srcCompat="@drawable/vd_dots_vertical" />
-
+        <!--like-->
         <FrameLayout
             android:id="@+id/mainLikeL"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:layout_alignParentRight="true"
             android:layout_width="48dp"
-            android:layout_height="30dp">
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackgroundBorderless">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/mainLike"
-                android:layout_gravity="center"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:layout_gravity="center"
                 app:srcCompat="@drawable/vd_like_outline" />
         </FrameLayout>
+
+        <!--3 dot-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/mainThreeDot"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            app:srcCompat="@drawable/vd_dots_vertical" />
     </RelativeLayout>
 
 </RelativeLayout>

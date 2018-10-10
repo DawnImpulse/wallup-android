@@ -28,6 +28,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!--dummy-->
             <LinearLayout
                 android:id="@+id/mainDummyLoading"
                 android:layout_width="match_parent"
@@ -126,13 +127,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
             </LinearLayout>
 
+            <!--recycler-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/mainRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="4dp"
                 android:clipToPadding="false"
-                android:paddingTop="10dp"
                 android:visibility="visible" />
+
         </RelativeLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

@@ -69,7 +69,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
 
         mainNavTrending.setOnClickListener(this)
         mainNavRandom.setOnClickListener(this)
-        mainNavCurated.setOnClickListener(this)
         mainNavLatest.setOnClickListener(this)
         mainNavUp.setOnClickListener(this)
         mainRefresh.setOnClickListener(this)
@@ -84,7 +83,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
             mainNavLatest.id -> currentNavItem(0)
             mainNavRandom.id -> currentNavItem(1)
             mainNavTrending.id -> currentNavItem(2)
-            mainNavCurated.id -> currentNavItem(3)
             mainNavUp.id -> {
                 navSheet.show(supportFragmentManager, C.BOTTOM_SHEET)
                 currentNavItem(lastItemSelected)
@@ -102,10 +100,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                     2 -> {
                         toast("Refreshing Trending List")
                         trendingFragment.onRefresh()
-                    }
-                    3 -> {
-                        toast("Refreshing Curated List")
-                        curatedFragment.onRefresh()
                     }
                 }
             }
@@ -135,31 +129,26 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     private fun setupViewPager(viewPager: ViewPager) {
         val latestBundle = Bundle()
         val trendingBundle = Bundle()
-        val curatedBundle = Bundle()
         val randomBundle = Bundle()
 
         pagerAdapter = ViewPagerAdapter(supportFragmentManager)
         latestFragment = MainFragment()
         randomFragment = MainFragment()
         trendingFragment = MainFragment()
-        curatedFragment = MainFragment()
 
         latestBundle.putString(C.TYPE, C.LATEST)
         randomBundle.putString(C.TYPE, C.RANDOM)
         trendingBundle.putString(C.TYPE, C.TRENDING)
-        curatedBundle.putString(C.TYPE, C.CURATED)
 
         trendingBundle.putBoolean(C.LIKE,false)
 
         latestFragment.arguments = latestBundle
         randomFragment.arguments = randomBundle
         trendingFragment.arguments = trendingBundle
-        curatedFragment.arguments = curatedBundle
 
         pagerAdapter.addFragment(latestFragment, C.LATEST)
         pagerAdapter.addFragment(randomFragment, C.RANDOM)
         pagerAdapter.addFragment(trendingFragment, C.TRENDING)
-        pagerAdapter.addFragment(curatedFragment, C.CURATED)
         viewPager.adapter = pagerAdapter
     }
 
@@ -173,7 +162,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                 mainNavLatestT.visibility = View.VISIBLE
                 mainNavRandomT.visibility = View.GONE
                 mainNavTrendingT.visibility = View.GONE
-                mainNavCuratedT.visibility = View.GONE
             }
             1 -> {
                 lastItemSelected = 1
@@ -181,7 +169,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                 mainNavLatestT.visibility = View.GONE
                 mainNavRandomT.visibility = View.VISIBLE
                 mainNavTrendingT.visibility = View.GONE
-                mainNavCuratedT.visibility = View.GONE
             }
             2 -> {
                 lastItemSelected = 2
@@ -189,15 +176,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                 mainNavLatestT.visibility = View.GONE
                 mainNavRandomT.visibility = View.GONE
                 mainNavTrendingT.visibility = View.VISIBLE
-                mainNavCuratedT.visibility = View.GONE
-            }
-            3 -> {
-                lastItemSelected = 3
-                mainViewPager.currentItem = 3
-                mainNavTrendingT.visibility = View.GONE
-                mainNavRandomT.visibility = View.GONE
-                mainNavLatestT.visibility = View.GONE
-                mainNavCuratedT.visibility = View.VISIBLE
             }
         }
     }
@@ -210,25 +188,16 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                 mainNavLatestI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
                 mainNavRandomI.drawable.setColorFilter(colors.GREY_400,PorterDuff.Mode.SRC_ATOP)
                 mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
-                mainNavCuratedI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
             }
             1 -> {
                 mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
                 mainNavRandomI.drawable.setColorFilter(colors.BLACK,PorterDuff.Mode.SRC_ATOP)
                 mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
-                mainNavCuratedI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
             }
             2 -> {
                 mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
                 mainNavRandomI.drawable.setColorFilter(colors.GREY_400,PorterDuff.Mode.SRC_ATOP)
                 mainNavTrendingI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
-                mainNavCuratedI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
-            }
-            3 -> {
-                mainNavTrendingI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
-                mainNavRandomI.drawable.setColorFilter(colors.GREY_400,PorterDuff.Mode.SRC_ATOP)
-                mainNavLatestI.drawable.setColorFilter(colors.GREY_400, PorterDuff.Mode.SRC_ATOP)
-                mainNavCuratedI.drawable.setColorFilter(colors.BLACK, PorterDuff.Mode.SRC_ATOP)
             }
         }
     }
