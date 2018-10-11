@@ -70,6 +70,7 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         // logout user
         logoutL.setOnClickListener(this)
         userLikes.setOnClickListener(this)
+        userBack.setOnClickListener(this)
     }
 
     // on click
@@ -98,6 +99,7 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
                     } else
                         toast("kindly wait while loading user details.")
                 }
+                userBack.id -> finish()
                 else -> {
                 }
             }

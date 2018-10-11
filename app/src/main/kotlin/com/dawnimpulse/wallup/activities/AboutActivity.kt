@@ -26,6 +26,7 @@ import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.utils.RemoteConfig
 import kotlinx.android.synthetic.main.activity_about.*
+import kotlinx.android.synthetic.main.activity_image.*
 
 /**
  * @author Saksham
@@ -76,6 +77,7 @@ class AboutActivity : AppCompatActivity(), View.OnClickListener {
         privacy.setOnClickListener(this)
         terms.setOnClickListener(this)
         contact.setOnClickListener(this)
+        aboutBack.setOnClickListener(this)
     }
 
     // on click
@@ -96,6 +98,7 @@ class AboutActivity : AppCompatActivity(), View.OnClickListener {
                 privacy.id -> F.startWeb(this, RemoteConfig.getPrivacyLink())
                 terms.id -> F.startWeb(this, RemoteConfig.getTnC())
                 contact.id -> F.sendMail(this)
+                aboutBack.id -> finish()
                 else -> {
                 }
             }

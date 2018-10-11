@@ -144,7 +144,9 @@ object ImageHandler {
 
             } catch (e: IOException) {
                 e.printStackTrace()
-                context.toast("error sharing image (${C.ERROR_CODE_2})")
+                (context as AppCompatActivity).runOnUiThread {
+                    context.toast("error sharing image (${C.ERROR_CODE_2})")
+                }
             }
         }
     }

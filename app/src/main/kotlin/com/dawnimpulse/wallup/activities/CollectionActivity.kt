@@ -2,6 +2,7 @@ package com.dawnimpulse.wallup.activities
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -80,6 +81,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
         colMore.setOnClickListener(this)
         colUserImage.setOnClickListener(this)
         colUserImageL.setOnClickListener(this)
+        colBack.setOnClickListener(this)
     }
 
     // on click
@@ -97,6 +99,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtra(C.USERNAME, details.user!!.username)
                 startActivity(intent)
             }
+            colBack.id -> finish()
         }
     }
 
@@ -131,5 +134,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
         colUserName.setTextColor(color)
         colImageUpdated.setTextColor(color)
         colPublished.setTextColor(color)
+
+        (colBack.background.current as GradientDrawable).setColor(color)
     }
 }

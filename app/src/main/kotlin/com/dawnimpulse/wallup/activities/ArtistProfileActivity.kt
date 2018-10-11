@@ -103,6 +103,7 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
         artistPhotosMore.setOnClickListener(this)
         artistUnsplash.setOnClickListener(this)
         artistUrl.setOnClickListener(this)
+        artistBack.setOnClickListener(this)
     }
 
     // on click
@@ -118,6 +119,7 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
                 F.startWeb(this, F.unsplashUser(userPojo.username))
             artistUrl.id ->
                 F.startWeb(this, userPojo.portfolio_url!!)
+            artistBack.id -> finish()
 
         }
     }

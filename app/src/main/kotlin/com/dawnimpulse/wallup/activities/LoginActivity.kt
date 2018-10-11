@@ -46,36 +46,43 @@ class LoginActivity : AppCompatActivity() {
             it.data?.let { uri ->
                 val code = uri.getQueryParameter("code")
                 val model = UnsplashModel(lifecycle)
-                val body = BearerBody(
-                        Config.UNSPLASH_API_KEY.replace("Client-ID ", ""),
-                        Config.UNSPLASH_SECRET,
-                        C.REDIRECT,
-                        code,
-                        "authorization_code")
 
-                model.bearerToken(body) { e, r ->
-                    e?.let {
-                        L.dO(NAME, e)
-                        toast((e as UnsplashAuthError).error)
-                        finish()
-                    }
-                    r?.let {
-                        it as BearerToken
-                        toast("Logged in successfully")
-                        Config.USER_API_KEY = "Bearer ${it.access_token}"
-                        Prefs.putString(C.USER_TOKEN,Config.USER_API_KEY)
-                        model.selfProfile() { e, r ->
-                            e?.let {
-                                L.d(NAME, e)
-                                toast("error fetching profile")
-                            }
-                            r?.let {
-                                Prefs.putString(C.USER, Gson().toJson(it))
-                            }
+                // if some issue with code or anything else
+                if (code == null || code.isEmpty()) {
+                    toast("Issue while authenticating with Unsplash. Please try again.")
+                    finish()
+                } else {
+                    val body = BearerBody(
+                            Config.UNSPLASH_API_KEY.replace("Client-ID ", ""),
+                            Config.UNSPLASH_SECRET,
+                            C.REDIRECT,
+                            code,
+                            "authorization_code")
+
+                    model.bearerToken(body) { e, r ->
+                        e?.let {
+                            L.dO(NAME, e)
+                            toast((e as UnsplashAuthError).error)
+                            finish()
                         }
-                        finish()
-                    }
+                        r?.let {
+                            it as BearerToken
+                            toast("Logged in successfully")
+                            Config.USER_API_KEY = "Bearer ${it.access_token}"
+                            Prefs.putString(C.USER_TOKEN, Config.USER_API_KEY)
+                            model.selfProfile() { e, r ->
+                                e?.let {
+                                    L.d(NAME, e)
+                                    toast("error fetching profile")
+                                }
+                                r?.let {
+                                    Prefs.putString(C.USER, Gson().toJson(it))
+                                }
+                            }
+                            finish()
+                        }
 
+                    }
                 }
             }
         }

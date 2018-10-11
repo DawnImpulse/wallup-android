@@ -84,6 +84,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
 
         generalImagesFab.setOnClickListener(this)
         generalImagesSwipe.setOnRefreshListener(this)
+        generalBack.setOnClickListener(this)
     }
 
     // on start
@@ -104,6 +105,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     override fun onClick(v: View) {
         when (v.id) {
             generalImagesFab.id -> randomImages()
+            generalBack.id -> finish()
         }
     }
 

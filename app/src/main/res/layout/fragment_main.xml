@@ -30,103 +30,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="match_parent">
 
             <!--dummy-->
-            <LinearLayout
+            <ProgressBar
                 android:id="@+id/mainDummyLoading"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical">
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="260dp"
-                        android:background="@color/grey300"
-                        app:riv_border_color="@color/white"
-                        app:riv_corner_radius="4dp"
-                        app:riv_mutate_background="true" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="24dp"
-                            android:layout_marginLeft="16dp"
-                            android:background="@drawable/round_corners"
-                            android:gravity="bottom"
-                            android:text="                                " />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/m3"
-                            android:layout_width="8dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentRight="true"
-                            android:background="@drawable/round_corners" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_marginRight="48dp"
-                            android:layout_toLeftOf="@id/m3"
-                            android:background="@drawable/round_corners" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical">
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="260dp"
-                        android:background="@color/grey300"
-                        app:riv_border_color="@color/white"
-                        app:riv_corner_radius="4dp"
-                        app:riv_mutate_background="true" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="24dp"
-                            android:layout_marginLeft="16dp"
-                            android:background="@drawable/round_corners"
-                            android:gravity="bottom"
-                            android:text="                                " />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/m4"
-                            android:layout_width="8dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentRight="true"
-                            android:background="@drawable/round_corners" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_marginRight="48dp"
-                            android:layout_toLeftOf="@id/m4"
-                            android:background="@drawable/round_corners" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="128dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:indeterminate="true" />
 
             <!--recycler-->
             <androidx.recyclerview.widget.RecyclerView

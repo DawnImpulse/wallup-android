@@ -146,7 +146,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:layout_marginTop="16dp"
-            android:background="@color/black"
             android:orientation="horizontal">
 
             <!--about-->

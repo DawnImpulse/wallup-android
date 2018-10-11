@@ -54,13 +54,17 @@ class CollectionsHorizontalAdapter(private val lifecycle: Lifecycle,
 
     // bind view
     override fun onBindViewHolder(holder: CollectionsHorizontalViewHolder, position: Int) {
-        ImageHandler.setImageInView(lifecycle, holder.image, cols[position]?.cover_photo?.urls!!.small)
-        holder.text.text = cols[position]!!.title
-        holder.image.setOnClickListener {
-            var intent = Intent(context, CollectionActivity::class.java)
-            intent.putExtra(C.TYPE, C.FEATURED)
-            intent.putExtra(C.COLLECTION, Gson().toJson(cols[position]))
-            context.startActivity(intent)
+        cols[position]?.let {
+            it.cover_photo?.let {
+                ImageHandler.setImageInView(lifecycle, holder.image, cols[position]?.cover_photo?.urls!!.small)
+            }
+            holder.text.text = cols[position]!!.title
+            holder.image.setOnClickListener {
+                var intent = Intent(context, CollectionActivity::class.java)
+                intent.putExtra(C.TYPE, C.FEATURED)
+                intent.putExtra(C.COLLECTION, Gson().toJson(cols[position]))
+                context.startActivity(intent)
+            }
         }
     }
 }

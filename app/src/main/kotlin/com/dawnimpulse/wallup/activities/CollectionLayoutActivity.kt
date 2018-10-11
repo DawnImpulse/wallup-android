@@ -40,6 +40,7 @@ class CollectionLayoutActivity : AppCompatActivity(), View.OnClickListener {
         colNavFeaturedL.setOnClickListener(this)
         colNavGeneralL.setOnClickListener(this)
         colNavWallupL.setOnClickListener(this)
+        colNavBack.setOnClickListener(this)
 
         colLViewPager.offscreenPageLimit = 2
         colLViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -65,6 +66,7 @@ class CollectionLayoutActivity : AppCompatActivity(), View.OnClickListener {
             colNavFeaturedL.id -> currentNav(0)
             colNavGeneralL.id -> currentNav(1)
             colNavWallupL.id -> currentNav(2)
+            colNavBack.id -> finish()
         }
     }
 

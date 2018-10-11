@@ -91,6 +91,22 @@
 
         </FrameLayout>
 
+        <!--back-->
+        <FrameLayout
+            android:id="@+id/colNavBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackgroundBorderless">
+
+            <ImageView
+                android:layout_gravity="center"
+                android:src="@drawable/vd_left_accent"
+                android:layout_width="28dp"
+                android:layout_height="28dp" />
+
+        </FrameLayout>
+
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

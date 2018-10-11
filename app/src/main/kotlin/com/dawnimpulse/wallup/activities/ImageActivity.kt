@@ -61,7 +61,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private var position = -1
     private var like = false //state of like button
     private var likeStateChange = false //since we make multiple calls we set like once
-    private lateinit var details: ImagePojo
+    private var details: ImagePojo? = null
     private lateinit var model: UnsplashModel
     private lateinit var exifSheet: ModalSheetExif
     private lateinit var loginSheet: ModalSheetUnsplash
@@ -80,8 +80,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
             var params = intent.extras
             details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
 
-            getImageDetails(details.id)
-            setImageDetails(details)
+            getImageDetails(details!!.id)
+            setImageDetails(details!!)
         } else {
             val appLinkData = intent.data
             getImageDetails(appLinkData.lastPathSegment)
@@ -97,6 +97,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewStats.setOnClickListener(this)
         imagePreviewUnsplash.setOnClickListener(this)
         imagePreviewFab.setOnClickListener(this)
+        imageBack.setOnClickListener(this)
 
         //Ripple.add(Colors(this).GREY_400, imagePreviewStats)
 
@@ -118,14 +119,14 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                             imagePreviewProgress.visibility = View.GONE
                         } else {
                             toast("Waiting for High Quality Image ...")
-                            ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full) {
+                            ImageHandler.getImageAsBitmap(lifecycle, this, details!!.urls!!.full) {
                                 bitmap = it
                                 Config.imageBitmap = bitmap!!
                                 WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
                                 imagePreviewProgress.visibility = View.GONE
                             }
                         }
-                        model.downloadedPhoto(details.links!!.download_location)
+                        model.downloadedPhoto(details!!.links!!.download_location)
                     }
                 }
             }
@@ -134,23 +135,26 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                     if (no != null)
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
                     else {
-                        DownloadHandler.downloadData(this, details.links!!.download, details.id)
-                        Toast.short(this, "Downloading Image in /Downloads/Wallup/${details.id}.jpg .Check notification for progress.")
-                        model.downloadedPhoto(details.links!!.download_location)
+                        DownloadHandler.downloadData(this, details!!.links!!.download, details!!.id)
+                        Toast.short(this, "Downloading Image in /Downloads/Wallup/${details!!.id}.jpg .Check notification for progress.")
+                        model.downloadedPhoto(details!!.links!!.download_location)
                     }
                 }
             }
             imagePreviewAuthorL.id -> {
                 var intent = Intent(this, ArtistProfileActivity::class.java)
-                intent.putExtra(C.USERNAME, details.user!!.username)
+                intent.putExtra(C.USERNAME, details!!.user!!.username)
                 startActivity(intent)
             }
             imagePreviewExif.id -> {
-                var bundle = bundleOf(Pair(C.IMAGE_POJO, Gson().toJson(details)))
-                if (color != 0) bundle.putInt(C.COLOR, color)
+                if (details != null) {
+                    var bundle = bundleOf(Pair(C.IMAGE_POJO, Gson().toJson(details)))
+                    if (color != 0) bundle.putInt(C.COLOR, color)
 
-                exifSheet.arguments = bundle
-                exifSheet.show(supportFragmentManager, exifSheet.tag)
+                    exifSheet.arguments = bundle
+                    exifSheet.show(supportFragmentManager, exifSheet.tag)
+                } else
+                    toast("kindly wait for image details to be loaded")
             }
             imagePreviewShare.id -> {
                 imagePreviewProgress.visibility = View.VISIBLE
@@ -160,22 +164,22 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                         imagePreviewProgress.visibility = View.GONE
                     } else {
                         if (bitmap != null) {
-                            ImageHandler.shareImage(this, bitmap!!, details.id, F.unsplashImage(details.id))
+                            ImageHandler.shareImage(this, bitmap!!, details!!.id, F.unsplashImage(details!!.id))
                             imagePreviewProgress.visibility = View.GONE
                         } else {
                             toast("Waiting for High Quality Image ...")
-                            ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full) {
+                            ImageHandler.getImageAsBitmap(lifecycle, this, details!!.urls!!.full) {
                                 bitmap = it
-                                ImageHandler.shareImage(this, it, details.id, F.unsplashImage(details.id))
+                                ImageHandler.shareImage(this, it, details!!.id, F.unsplashImage(details!!.id))
                                 imagePreviewProgress.visibility = View.GONE
                             }
                         }
-                        model.downloadedPhoto(details.links!!.download_location)
+                        model.downloadedPhoto(details!!.links!!.download_location)
                     }
                 }
             }
             imagePreviewStats.id -> toast("Upcoming feature")
-            imagePreviewUnsplash.id -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(F.unsplashImage(details.id))))
+            imagePreviewUnsplash.id -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(F.unsplashImage(details!!.id))))
             imagePreviewFab.id -> {
                 if (Config.USER_API_KEY.isNotEmpty()) {
                     details?.let {
@@ -183,21 +187,22 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                         F.like(this, imagePreviewFabI, it.id, like, true)
                         if (like) {
                             imagePreviewLikesCount.text = (it.likes + 1).toString()
-                            details.likes = details.likes + 1
+                            details!!.likes = details!!.likes + 1
                         } else {
                             imagePreviewLikesCount.text = (it.likes - 1).toString()
-                            details.likes = details.likes - 1
+                            details!!.likes = details!!.likes - 1
                         }
 
                         var obj = JSONObject()
                         obj.put(C.TYPE, C.LIKE)
                         obj.put(C.LIKE, like)
-                        obj.put(C.ID, details.id)
+                        obj.put(C.ID, details!!.id)
                         EventBus.getDefault().postSticky(Event(obj))
                     }
                 } else
                     loginSheet.show(supportFragmentManager, loginSheet.tag)
             }
+            imageBack.id -> finish()
         }
     }
 
@@ -212,7 +217,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
             details?.let {
                 this.details = it as ImagePojo
                 //fullDetails = it
-                setImageDetails(this.details)
+                setImageDetails(this.details!!)
             }
 
         }
@@ -259,6 +264,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         var down = imagePreviewDownload.background.current as GradientDrawable
         var wall = imagePreviewWallpaper.background.current as GradientDrawable
         var fab = imagePreviewFab.background.current as GradientDrawable
+        var back = imageBack.background.current as GradientDrawable
 
         imagePreviewAuthorImagesL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewAuthorCollectionsL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
@@ -271,6 +277,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
         down.setColor(color)
         fab.setColor(color)
+        back.setColor(color)
         wall.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         //imagePreviewWallpaperT.setTextColor(color)
     }

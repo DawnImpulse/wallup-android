@@ -44,6 +44,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         searchLeftL.setOnClickListener(this)
         searchRightL.setOnClickListener(this)
         searchFab.setOnClickListener(this)
+        searchBack.setOnClickListener(this)
 
         searchText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -91,6 +92,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
             searchFab.id -> {
                 model.randomImagesTag(text!!, callback)
             }
+            searchBack.id -> finish()
         }
     }
 

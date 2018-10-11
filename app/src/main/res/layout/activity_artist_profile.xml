@@ -364,4 +364,21 @@
 
     </LinearLayout>
 
+    <!--Back button-->
+    <FrameLayout
+        android:id="@+id/artistBack"
+        android:layout_width="36dp"
+        android:layout_height="28dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_back"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/vd_left_black" />
+    </FrameLayout>
+
 </RelativeLayout>

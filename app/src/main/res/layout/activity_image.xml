@@ -133,9 +133,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:textColor="@color/grey400"
                                 android:layout_marginLeft="16dp"
-                                android:text="Published on 13 Jan '18" />
+                                android:text="Published on 13 Jan '18"
+                                android:textColor="@color/grey400" />
                         </LinearLayout>
 
                         <!--<LinearLayout
@@ -345,7 +345,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
                         android:layout_marginTop="36dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginRight="36dp"
                         android:layout_marginBottom="8dp">
 
                         <FrameLayout
@@ -426,6 +426,23 @@ OR PERFORMANCE OF THIS SOFTWARE.
             </RelativeLayout>
 
         </ScrollView>
+
+        <!--Back button-->
+        <FrameLayout
+            android:id="@+id/imageBack"
+            android:layout_width="36dp"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/bg_back"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_left_black" />
+        </FrameLayout>
 
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
