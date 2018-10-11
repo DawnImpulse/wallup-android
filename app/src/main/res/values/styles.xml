@@ -29,6 +29,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!--No action bar translucent -->
+    <style name="AppTheme.NoActionBar.Trans" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">#40000000</item>
+    </style>
+
     <!--Fullscreen-->
     <style name="AppTheme.Fullscreen" parent="AppTheme.NoActionBar">
         <item name="android:windowNoTitle">true</item>
@@ -59,8 +66,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog">
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:colorAccent">@color/black</item>
-        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
         <item name="colorControlHighlight">@color/grey300</item>
     </style>
 </resources>

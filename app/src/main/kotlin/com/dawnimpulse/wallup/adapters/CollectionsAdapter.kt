@@ -30,6 +30,7 @@ import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.viewholders.CollectionsViewHolder
 import com.dawnimpulse.wallup.viewholders.LoadingViewHolder
 import com.google.gson.Gson
@@ -107,7 +108,7 @@ class CollectionsAdapter(private val lifecycle: Lifecycle,
         if (holder is CollectionsViewHolder) {
             var it = cols[position]!!
             var color = Color.parseColor(it.cover_photo.color!!)
-            holder.title.text = it.title
+            holder.title.text = F.capWord(it.title)
             holder.artist.text = "Curated by ${it.user!!.name}"
             holder.count.text = "${it.total_photos} photos"
             holder.image0.background = ColorDrawable(color)

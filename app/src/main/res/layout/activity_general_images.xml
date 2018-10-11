@@ -17,10 +17,10 @@
         android:indeterminate="true" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:visibility="gone"
         android:id="@+id/generalImagesSwipe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/generalImagesRecycler"
@@ -32,8 +32,8 @@
         android:id="@+id/generalImagesFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         app:srcCompat="@drawable/vd_refresh_black" />
 
@@ -44,7 +44,8 @@
         android:layout_height="28dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_back_left"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless">
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="24dp"

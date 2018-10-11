@@ -73,13 +73,13 @@ class LoginActivity : AppCompatActivity() {
                             model.selfProfile() { e, r ->
                                 e?.let {
                                     L.d(NAME, e)
-                                    toast("error fetching profile")
+                                    finish()
                                 }
                                 r?.let {
                                     Prefs.putString(C.USER, Gson().toJson(it))
+                                    finish()
                                 }
                             }
-                            finish()
                         }
 
                     }

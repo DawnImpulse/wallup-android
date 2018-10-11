@@ -24,6 +24,7 @@ import com.dawnimpulse.wallup.activities.CollectionActivity
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.viewholders.CollectionsHorizontalViewHolder
 import com.google.gson.Gson
 
@@ -58,7 +59,7 @@ class CollectionsHorizontalAdapter(private val lifecycle: Lifecycle,
             it.cover_photo?.let {
                 ImageHandler.setImageInView(lifecycle, holder.image, cols[position]?.cover_photo?.urls!!.small)
             }
-            holder.text.text = cols[position]!!.title
+            holder.text.text = F.capWord(cols[position]!!.title)
             holder.image.setOnClickListener {
                 var intent = Intent(context, CollectionActivity::class.java)
                 intent.putExtra(C.TYPE, C.FEATURED)

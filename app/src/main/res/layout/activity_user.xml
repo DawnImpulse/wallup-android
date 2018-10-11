@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/black"
+    android:orientation="vertical"
     tools:context=".activities.UserActivity">
 
     <ImageView
@@ -45,11 +45,11 @@
             </FrameLayout>
 
             <TextView
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Likes" />
+                android:text="Likes"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <!--logout-->
@@ -76,11 +76,11 @@
             </FrameLayout>
 
             <TextView
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Logout" />
+                android:text="Logout"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <!--name-->
@@ -103,12 +103,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/userFullName"
-            android:textColor="@color/grey400"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
             android:text="- -"
+            android:textColor="@color/grey400"
             android:textSize="18sp" />
 
         <!--Back button-->
@@ -119,7 +119,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:background="@drawable/bg_back"
-            android:foreground="?android:attr/selectableItemBackgroundBorderless">
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="24dp"

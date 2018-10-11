@@ -69,8 +69,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="32dp"
-                    android:textColor="@color/grey400"
                     android:text="This is the artist information."
+                    android:textColor="@color/grey400"
                     android:textSize="14sp" />
 
                 <!--Numbers-->
@@ -153,11 +153,11 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:textColor="@color/grey400"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="Likes"
+                            android:textColor="@color/grey400"
                             android:textSize="12sp"
                             android:textStyle="bold" />
 
@@ -236,8 +236,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:paddingBottom="8dp"
                         android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
                         android:text="PHOTOS"
                         android:textColor="@color/white"
                         android:textSize="14sp"
@@ -249,10 +249,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:background="?android:attr/selectableItemBackgroundBorderless"
-                        android:paddingBottom="8dp"
                         android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
                         android:paddingTop="8dp"
+                        android:paddingRight="16dp"
+                        android:paddingBottom="8dp"
                         android:text="More >"
                         android:textColor="@color/white"
                         android:textSize="14sp"
@@ -282,8 +282,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:paddingBottom="8dp"
                         android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
                         android:text="COLLECTIONS"
                         android:textColor="@color/white"
                         android:textSize="14sp"
@@ -295,10 +295,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:background="?android:attr/selectableItemBackgroundBorderless"
-                        android:paddingBottom="8dp"
                         android:paddingLeft="16dp"
-                        android:paddingRight="16dp"
                         android:paddingTop="8dp"
+                        android:paddingRight="16dp"
+                        android:paddingBottom="8dp"
                         android:text="More >"
                         android:textColor="@color/white"
                         android:textSize="14sp"
@@ -372,7 +372,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_back"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless">
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="24dp"

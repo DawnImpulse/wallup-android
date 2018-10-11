@@ -40,6 +40,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="changes7_1"><b>New: </b>Login with Unsplash.</string>
     <string name="changes7_2"><b>New: </b>Sync your image likes with Unsplash.</string>
 
+    <string name="changes8_1"><b>New: </b>All black theme. Easy on eyes, great for amoled devices &amp; images looks stunning on it.</string>
+    <string name="changes8_2"><b>New: </b>Redesigned layout for main screen.</string>
+    <string name="changes8_3"><b>Bug Fixes: </b>Various crash handling throughout the app.</string>
+
     <string name="aboutUsername">\@dawnimpulse</string>
     <string name="aboutUnsplash">This application features images from Unsplash via their APIs. All images are free to use and share although kindly read Unsplash guidelines / license for the same.</string>
     <string name="aboutTerms">To avoid any misuse of this app, kindly go through the Terms &amp; Conditions.</string>
@@ -50,4 +54,5 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="loginText3">Add Images\nto your\nCollections</string>
     <string name="loginText4">Manage \nProfile</string>
     <string name="loginText5"><b>Wallup</b> need access to your <b>Unsplash profile</b> with various <b>permissions</b> to help manage your profile  (some permissions provided now will be required in future updates). Be assured that we will <b>never</b> collect/store your profile, images or any other info at all.</string>
+
 </resources>

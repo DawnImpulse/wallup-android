@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/black"
     tools:context=".activities.ChangesActivity">
 
     <ScrollView
@@ -22,7 +22,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
                 android:text="LATEST CHANGES"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -33,7 +33,7 @@
                 android:orientation="vertical">
 
                 <!--Images note-->
-                <LinearLayout
+                <!--<LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_margin="8dp"
@@ -47,7 +47,7 @@
                         android:padding="4dp"
                         android:text="@string/changeNote1" />
 
-                </LinearLayout>
+                </LinearLayout>-->
 
                 <!--Privacy Policy-->
                 <!--<LinearLayout
@@ -68,7 +68,7 @@
 
                 </LinearLayout>-->
 
-                <!--v0.7.0-->
+                <!--v0.8.0-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="v0.7.0 ( 08th Oct '18 )"
+                        android:text="v0.8.0 ( 11th Oct '18 )"
                         android:textColor="@color/latestDark"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -108,7 +108,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
-                                android:text="@string/changes7_1"
+                                android:text="@string/changes8_1"
                                 android:textSize="14sp" />
                         </LinearLayout>
 
@@ -127,6 +127,98 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="8dp"
+                                android:text="@string/changes8_2"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="4dp">
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bt_round_complete_corners" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="8dp"
+                                android:text="@string/changes8_3"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--v0.7.0-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="v0.7.0 ( 08th Oct '18 )"
+                        android:textColor="@color/latestDark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="4dp">
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bt_round_complete_corners_white" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="8dp"
+                                android:textColor="@color/white"
+                                android:text="@string/changes7_1"
+                                android:textSize="14sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="4dp">
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/bt_round_complete_corners_white" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
                                 android:text="@string/changes7_2"
@@ -170,11 +262,12 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
                                 android:text="@string/changes6_1"
@@ -191,13 +284,14 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
+                                android:textColor="@color/white"
                                 android:text="@string/changes6_2"
                                 android:textSize="14sp" />
                         </LinearLayout>
@@ -212,11 +306,12 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
                                 android:text="@string/changes6_3"
@@ -259,10 +354,11 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
@@ -280,11 +376,12 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
                                 android:text="@string/change5_3"
@@ -327,12 +424,13 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:textColor="@color/white"
                                 android:layout_marginLeft="8dp"
                                 android:text="@string/change4_1"
                                 android:textSize="14sp" />
@@ -348,9 +446,10 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
+                                android:textColor="@color/white"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -369,12 +468,13 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:textColor="@color/white"
                                 android:layout_marginLeft="8dp"
                                 android:text="@string/change4_3"
                                 android:textSize="14sp" />
@@ -390,11 +490,12 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
                                 android:text="@string/change4_4"
@@ -411,13 +512,14 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
+                                android:textColor="@color/white"
                                 android:text="@string/change4_5"
                                 android:textSize="14sp" />
                         </LinearLayout>
@@ -432,11 +534,12 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
                                 android:text="@string/change4_6"
@@ -453,12 +556,13 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:textColor="@color/white"
                                 android:layout_marginLeft="8dp"
                                 android:text="@string/change4_7"
                                 android:textSize="14sp" />
@@ -500,11 +604,12 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
                                 android:text="New collections screen (open navigation)."
@@ -521,10 +626,11 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
@@ -542,12 +648,13 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:textColor="@color/white"
                                 android:layout_marginLeft="8dp"
                                 android:text="Changes to User Interface"
                                 android:textSize="14sp" />
@@ -563,12 +670,13 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:textColor="@color/white"
                                 android:layout_marginLeft="8dp"
                                 android:text="Fixed views &amp; download counter"
                                 android:textSize="14sp" />
@@ -584,11 +692,12 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
                                 android:text="Sharing of image &amp; image link to unsplash"
@@ -605,10 +714,11 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
@@ -626,11 +736,12 @@
                                 android:layout_width="4dp"
                                 android:layout_height="4dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/bt_round_complete_corners" />
+                                android:background="@drawable/bt_round_complete_corners_white" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:textColor="@color/white"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="8dp"
                                 android:text="Additional bug fixes &amp; internal handling."
@@ -653,6 +764,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/vd_right" />
+        app:srcCompat="@drawable/vd_right_black" />
 
 </RelativeLayout>

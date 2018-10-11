@@ -105,11 +105,11 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
 
     // setting details in views
     private fun setDetails() {
-        var name = details.user!!.name
+        var name = F.capWord(details.user!!.name)
         name = "<font color=\"#ffffff\">${F.firstWord(name)}</font> ${name.replace(F.firstWord(name), "")}"
         color = Color.parseColor(details.cover_photo.color!!)
         colUserName.setTextColor(color)
-        colTitle.text = details.title
+        colTitle.text = F.capWord(details.title)
         colDescription.text = details.description
         colUserName.setText(F.fromHtml(name), TextView.BufferType.SPANNABLE)
         colImageC.setText(F.fromHtml("${details.total_photos} <font color=\"#ffffff\">photos</font>"), TextView.BufferType.SPANNABLE)

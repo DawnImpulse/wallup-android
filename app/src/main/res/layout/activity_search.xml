@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/black"
     android:layout_height="match_parent"
+    android:background="@color/black"
     tools:context=".activities.SearchActivity">
 
     <!--toolbar search inside-->
@@ -50,9 +50,9 @@
                     android:hint="Search"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
-                    android:textColorHint="@color/grey400"
+                    android:paddingLeft="16dp"
                     android:textColor="@color/white"
-                    android:paddingLeft="16dp" />
+                    android:textColorHint="@color/grey400" />
 
                 <!--search button-->
                 <FrameLayout
@@ -106,8 +106,8 @@
         android:id="@+id/searchFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:visibility="gone"
         app:srcCompat="@drawable/vd_refresh_black" />
@@ -119,7 +119,8 @@
         android:layout_height="28dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_back_left"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless">
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="24dp"
