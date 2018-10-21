@@ -178,6 +178,16 @@ interface RetroUnsplashSource {
             @Query(C.PAGE) page: Int
     ): Call<List<ImagePojo>>
 
+    // ------------------------------
+    //      User Collections
+    // ------------------------------
+    @GET("/users/{username}/collections?order_by=updated")
+    fun getUserCollections(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.USERNAME) username: String,
+            @Query(C.PAGE) page: Int,
+            @Query(C.PER_PAGE) count: Int
+    ): Call<List<CollectionPojo>>
 
 
     //________________________________
@@ -234,17 +244,6 @@ interface RetroUnsplashSource {
             @Header(C.AUTHORIZATION) authorization: String,
             @Query(C.COLLECTIONS) id: String
     ): Call<List<ImagePojo>>
-
-    // ------------------------------
-    //      User Collections
-    // ------------------------------
-    @GET("/users/{username}/collections?order_by=updated")
-    fun getUserCollections(
-            @Header(C.AUTHORIZATION) authorization: String,
-            @Path(C.USERNAME) username: String,
-            @Query(C.PAGE) page: Int,
-            @Query(C.PER_PAGE) count: Int
-    ): Call<List<CollectionPojo>>
 
 
     //________________________________

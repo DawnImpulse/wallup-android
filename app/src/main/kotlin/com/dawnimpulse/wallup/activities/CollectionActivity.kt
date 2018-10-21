@@ -107,7 +107,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
     private fun setDetails() {
         var name = F.capWord(details.user!!.name)
         name = "<font color=\"#ffffff\">${F.firstWord(name)}</font> ${name.replace(F.firstWord(name), "")}"
-        color = Color.parseColor(details.cover_photo.color!!)
+        color = Color.parseColor(details.cover_photo!!.color!!)
         colUserName.setTextColor(color)
         colTitle.text = F.capWord(details.title)
         colDescription.text = details.description
@@ -116,7 +116,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
         colImageUpdated.setText(F.fromHtml("<font color=\"#ffffff\">updated on</font> ${F.dateConvert(details.updated_at)}"), TextView.BufferType.SPANNABLE)
         colPublished.setText(F.fromHtml("<font color=\"#ffffff\">published on</font> ${F.dateConvert(details.published_at)}"), TextView.BufferType.SPANNABLE)
 
-        ImageHandler.getImageAsBitmap(lifecycle, this, details.cover_photo.urls?.full + Config.IMAGE_HEIGHT) {
+        ImageHandler.getImageAsBitmap(lifecycle, this, details.cover_photo!!.urls?.full + Config.IMAGE_HEIGHT) {
             val color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
             colImage.setImageBitmap(it)
             setColor(color)

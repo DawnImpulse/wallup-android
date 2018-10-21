@@ -348,6 +348,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginRight="36dp"
                         android:layout_marginBottom="8dp">
 
+                        <!--share-->
                         <FrameLayout
                             android:id="@+id/imagePreviewShare"
                             android:layout_width="36dp"
@@ -363,6 +364,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 app:srcCompat="@drawable/vd_share" />
                         </FrameLayout>
 
+                        <!--exif-->
                         <FrameLayout
                             android:id="@+id/imagePreviewExif"
                             android:layout_width="36dp"
@@ -379,6 +381,24 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 app:srcCompat="@drawable/vd_info" />
                         </FrameLayout>
 
+                        <!--add-->
+                        <FrameLayout
+                            android:id="@+id/imagePreviewCollect"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginLeft="40dp"
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/imagePreviewCollectI"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/vd_plus" />
+                        </FrameLayout>
+
+                        <!--unsplash-->
                         <FrameLayout
                             android:id="@+id/imagePreviewUnsplash"
                             android:layout_width="36dp"
@@ -392,9 +412,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 android:layout_width="28dp"
                                 android:layout_height="28dp"
                                 android:layout_gravity="center"
-                                app:srcCompat="@drawable/vd_camera_black" />
+                                app:srcCompat="@drawable/vd_camera_white" />
                         </FrameLayout>
 
+                        <!--stats-->
                         <FrameLayout
                             android:id="@+id/imagePreviewStats"
                             android:layout_width="36dp"

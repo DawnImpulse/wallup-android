@@ -21,6 +21,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.widget.toast
 import androidx.palette.graphics.Palette
@@ -29,6 +30,7 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.*
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.sheets.ModalSheetCollection
 import com.dawnimpulse.wallup.sheets.ModalSheetExif
 import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
 import com.dawnimpulse.wallup.utils.*
@@ -51,6 +53,7 @@ import org.json.JSONObject
  *  Saksham - 2018 09 06 - master - unsplash & image share handling
  *  Saksham - 2018 09 15 - master - handling direct unsplash links
  *  Saksham - 2018 09 20 - master - ML for tags
+ *  Saksham - 2018 10 20 - master - Add to collection
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "ImageActivity"
@@ -65,6 +68,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var model: UnsplashModel
     private lateinit var exifSheet: ModalSheetExif
     private lateinit var loginSheet: ModalSheetUnsplash
+    private lateinit var colSheet: ModalSheetCollection
 
     // On create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +78,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         model = UnsplashModel(lifecycle)
         exifSheet = ModalSheetExif()
         loginSheet = ModalSheetUnsplash()
+        colSheet = ModalSheetCollection()
 
         // checking to handle the app links
         if (intent.hasExtra(C.IMAGE_POJO)) {
@@ -97,6 +102,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewStats.setOnClickListener(this)
         imagePreviewUnsplash.setOnClickListener(this)
         imagePreviewFab.setOnClickListener(this)
+        imagePreviewCollect.setOnClickListener(this)
         imageBack.setOnClickListener(this)
 
         //Ripple.add(Colors(this).GREY_400, imagePreviewStats)
@@ -202,6 +208,18 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                 } else
                     loginSheet.show(supportFragmentManager, loginSheet.tag)
             }
+            imagePreviewCollect.id -> {
+                if (Config.USER_API_KEY.isNotEmpty()) {
+                    details?.let {
+                        it.current_user_collections?.let { cols ->
+                            if (cols.isNotEmpty())
+                                colSheet.arguments = bundleOf(Pair(C.COLLECTIONS, Gson().toJson(cols)))
+                        }
+                    }
+                    colSheet.show(supportFragmentManager, colSheet.tag)
+                } else
+                    loginSheet.show(supportFragmentManager, loginSheet.tag)
+            }
             imageBack.id -> finish()
         }
     }
@@ -233,6 +251,12 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewDownloadCount.text = F.withSuffix(details.downloads)
         imagePreviewPublishedOn.text = "Published on ${DateHandler.convertForImagePreview(details.created_at)}"
 
+        // change add icon if user has image in any collection
+        details.current_user_collections?.let {
+            if (details.current_user_collections.isNotEmpty())
+                imagePreviewCollectI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_plus_circle))
+        }
+
         ImageHandler.setImageInView(lifecycle, imagePreviewAuthorImage, details.user!!.profile_image!!.large)
         ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full + Config.IMAGE_HEIGHT) {
             color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
@@ -255,7 +279,6 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
         if (!likeStateChange)
             like = details.liked_by_user
-
         //likeStateChange = true
     }
 
@@ -273,6 +296,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewExifI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewStatsI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewUnsplashI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        imagePreviewCollectI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         //imagePreviewLikeI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
 
         down.setColor(color)

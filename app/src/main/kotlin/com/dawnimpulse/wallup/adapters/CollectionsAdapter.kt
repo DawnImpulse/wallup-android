@@ -107,7 +107,7 @@ class CollectionsAdapter(private val lifecycle: Lifecycle,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is CollectionsViewHolder) {
             var it = cols[position]!!
-            var color = Color.parseColor(it.cover_photo.color!!)
+            var color = Color.parseColor(it.cover_photo!!.color!!)
             holder.title.text = F.capWord(it.title)
             holder.artist.text = "Curated by ${it.user!!.name}"
             holder.count.text = "${it.total_photos} photos"
@@ -115,7 +115,7 @@ class CollectionsAdapter(private val lifecycle: Lifecycle,
             /*holder.title.setTextColor(color)
             holder.artist.setTextColor(color)*/
 
-            ImageHandler.setImageInView(lifecycle, holder.image0, it.cover_photo.urls!!.full + Config.IMAGE_HEIGHT)
+            ImageHandler.setImageInView(lifecycle, holder.image0, it.cover_photo!!.urls!!.full + Config.IMAGE_HEIGHT)
             it.preview_photos?.let {
                 if (it.size > 1)
                     ImageHandler.setImageInView(lifecycle, holder.image1, it[1].urls.full + Config.IMAGE_HEIGHT)

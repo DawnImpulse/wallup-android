@@ -108,6 +108,8 @@ class App : Application() {
 
         if (Prefs.contains(C.USER_TOKEN))
             Config.USER_API_KEY = Prefs.getString(C.USER_TOKEN, "")
+
+        L.d(NAME,Config.USER_API_KEY)
     }
 
     /**

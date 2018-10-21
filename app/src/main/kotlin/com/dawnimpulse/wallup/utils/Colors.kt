@@ -24,12 +24,13 @@ import com.dawnimpulse.wallup.R
  *
  * @note Updates :
  */
-class Colors(context: Context){
-    val TRANSPARENT = ContextCompat.getColor(context,android.R.color.transparent)
+class Colors(context: Context) {
+    val TRANSPARENT = ContextCompat.getColor(context, android.R.color.transparent)
     val BLACK = ContextCompat.getColor(context, R.color.black)
     val WHITE = ContextCompat.getColor(context, R.color.white)
     val GREY_300 = ContextCompat.getColor(context, R.color.grey300)
     val GREY_400 = ContextCompat.getColor(context, R.color.grey400)
     val GREY_500 = ContextCompat.getColor(context, R.color.grey500)
     val LIKE = ContextCompat.getColor(context, R.color.like)
+    val GREEN = ContextCompat.getColor(context, R.color.latestDark)
 }
