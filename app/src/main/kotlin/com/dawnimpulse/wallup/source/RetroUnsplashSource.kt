@@ -33,6 +33,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  *  Saksham - 2018 09 08 - recent - featured collections
  *  Saksham - 2018 09 14 - recent - users's collections
  *  Saksham - 2018 09 22 - recent - random photos with a tag
+ *  Saksham - 2018 10 21 - recent - add image in collection
  */
 interface RetroUnsplashSource {
 
@@ -188,6 +189,26 @@ interface RetroUnsplashSource {
             @Query(C.PAGE) page: Int,
             @Query(C.PER_PAGE) count: Int
     ): Call<List<CollectionPojo>>
+
+    // ------------------------------
+    //    Add Photo to Collection
+    // ------------------------------
+    @POST("/collections/{id}/add")
+    fun addImageInCollection(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.ID) collection_id: String,
+            @Query(C.PHOTO_ID) photo_id: String
+    ): Call<ImagePojo>
+
+    // ------------------------------
+    //    Remove Photo to Collection
+    // ------------------------------
+    @DELETE("/collections/{id}/remove")
+    fun removeImageInCollection(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.ID) collection_id: String,
+            @Query(C.PHOTO_ID) photo_id: String
+    ): Call<ImagePojo>
 
 
     //________________________________

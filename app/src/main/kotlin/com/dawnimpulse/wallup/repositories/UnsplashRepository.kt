@@ -43,6 +43,7 @@ import retrofit2.Response
  *  2018 10 01 - master - Saksham - generate bearer token
  *  2018 10 04 - master - Saksham - user profile
  *  2018 10 08 - master - Saksham - user likes
+ *  2018 10 21 - master - Saksham - add image in user collection
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
@@ -523,6 +524,54 @@ object UnsplashRepository {
             }
 
             override fun onFailure(call: Call<List<ImagePojo>>?, t: Throwable?) {
+                t?.toString()?.let { callback(t.toString(), null) }
+            }
+        })
+    }
+
+    // add image in collection
+    fun addImageInCollection(photo_id: String, collection_id: String, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.addImageInCollection(
+                Config.apiKey(),
+                collection_id,
+                photo_id
+        )
+
+        call.enqueue(object : Callback<ImagePojo> {
+
+            override fun onResponse(call: Call<ImagePojo>?, response: Response<ImagePojo>) {
+                if (response.isSuccessful)
+                    callback(null, response.body())
+                else
+                    callback(ErrorUtils.parseError(response), null)
+            }
+
+            override fun onFailure(call: Call<ImagePojo>?, t: Throwable?) {
+                t?.toString()?.let { callback(t.toString(), null) }
+            }
+        })
+    }
+
+    // remove image in collection
+    fun removeImageInCollection(photo_id: String, collection_id: String, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.removeImageInCollection(
+                Config.apiKey(),
+                collection_id,
+                photo_id
+        )
+
+        call.enqueue(object : Callback<ImagePojo> {
+
+            override fun onResponse(call: Call<ImagePojo>?, response: Response<ImagePojo>) {
+                if (response.isSuccessful)
+                    callback(null, response.body())
+                else
+                    callback(ErrorUtils.parseError(response), null)
+            }
+
+            override fun onFailure(call: Call<ImagePojo>?, t: Throwable?) {
                 t?.toString()?.let { callback(t.toString(), null) }
             }
         })

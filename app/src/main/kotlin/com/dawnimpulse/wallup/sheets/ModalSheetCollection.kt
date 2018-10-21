@@ -45,6 +45,7 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
     private lateinit var model: UnsplashModel
     private lateinit var user: UserPojo
     private lateinit var adapter: ImageCollectionAdapter
+    private lateinit var image: String
 
     // on create
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,10 +58,14 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
 
         model = UnsplashModel(lifecycle)
         user = Gson().fromJson(Prefs.getString(C.USER, ""), UserPojo::class.java)
-        arguments?.let{
-            if (arguments!!.containsKey(C.COLLECTIONS))
-                imageCols = Gson().fromJson(arguments!!.getString(C.COLLECTIONS), Array<CollectionPojo>::class.java).toList()
-        }
+        image = arguments!!.getString(C.ID)
+        if (arguments!!.containsKey(C.COLLECTIONS)) {
+            imageCols = Gson().fromJson(arguments!!.getString(C.COLLECTIONS), Array<CollectionPojo>::class.java).toList()
+            L.d(NAME, imageCols!!.size)
+        } else
+            imageCols = null
+
+
 
         getCollections()
         sheetColRefresh.setOnClickListener {
@@ -82,11 +87,11 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
             r?.let { r ->
                 cols = (r as List<CollectionPojo>).toMutableList()
                 adapter = if (imageCols != null) {
-                    ImageCollectionAdapter(lifecycle, cols, imageCols!!.map { it.id })
+                    ImageCollectionAdapter(lifecycle, cols, imageCols!!.map { it.id }, image)
                 } else
-                    ImageCollectionAdapter(lifecycle, cols, imageCols)
-                var c = sheetColRecycler.context
-                sheetColRecycler.layoutManager = LinearLayoutManager(context)
+                    ImageCollectionAdapter(lifecycle, cols, imageCols, image)
+
+                sheetColRecycler.layoutManager = LinearLayoutManager(sheetColRecycler.context)
                 sheetColRecycler.adapter = adapter
                 sheetColProgress.visibility = View.GONE
                 sheetColRecycler.visibility = View.VISIBLE

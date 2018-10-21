@@ -29,6 +29,7 @@ import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.*
 import com.dawnimpulse.wallup.models.UnsplashModel
+import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.sheets.ModalSheetCollection
 import com.dawnimpulse.wallup.sheets.ModalSheetExif
@@ -37,6 +38,8 @@ import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.json.JSONObject
 
 /**
@@ -107,6 +110,20 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
         //Ripple.add(Colors(this).GREY_400, imagePreviewStats)
 
+    }
+
+    // on start
+    override fun onStart() {
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
+    // on destroy
+    override fun onDestroy() {
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 
     // On click for various buttons
@@ -210,12 +227,15 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
             }
             imagePreviewCollect.id -> {
                 if (Config.USER_API_KEY.isNotEmpty()) {
+                    var bundle = Bundle()
                     details?.let {
+                        bundle.putString(C.ID, details!!.id)
                         it.current_user_collections?.let { cols ->
                             if (cols.isNotEmpty())
-                                colSheet.arguments = bundleOf(Pair(C.COLLECTIONS, Gson().toJson(cols)))
+                                bundle.putString(C.COLLECTIONS, Gson().toJson(cols))
                         }
                     }
+                    colSheet.arguments = bundle
                     colSheet.show(supportFragmentManager, colSheet.tag)
                 } else
                     loginSheet.show(supportFragmentManager, loginSheet.tag)
@@ -227,6 +247,35 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     // On back pressed
     override fun onBackPressed() {
         finish()
+    }
+
+    // on message event
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: Event) {
+        if (event.obj.has(C.TYPE)) {
+            if (event.obj.getString(C.TYPE) == C.IMAGE_TO_COLLECTION) {
+                // if image is added to a collection
+                if (event.obj.getBoolean(C.IS_ADDED)) {
+                    var col = Gson().fromJson(event.obj.getString(C.COLLECTION), CollectionPojo::class.java)
+                    details!!.current_user_collections!!.add(0, col)
+                    imagePreviewCollectI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_plus_circle))
+                } else {
+                    //if image is removed from collection
+                    var cid = details!!.current_user_collections!!
+                            .asSequence()
+                            .withIndex()
+                            .filter { it.value.id == event.obj.getString(C.COLLECTION_ID) }
+                            .map { it.index }
+                            .toList()
+
+                    L.d(NAME,cid)
+                    details!!.current_user_collections!!.removeAt(cid[0])
+                    if (details!!.current_user_collections == null || details!!.current_user_collections!!.isEmpty())
+                        imagePreviewCollectI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_plus))
+
+                }
+            }
+        }
     }
 
     // get image details
@@ -255,6 +304,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         details.current_user_collections?.let {
             if (details.current_user_collections.isNotEmpty())
                 imagePreviewCollectI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_plus_circle))
+            else
+                imagePreviewCollectI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_plus))
         }
 
         ImageHandler.setImageInView(lifecycle, imagePreviewAuthorImage, details.user!!.profile_image!!.large)

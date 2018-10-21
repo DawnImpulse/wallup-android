@@ -23,7 +23,9 @@ import kotlinx.android.synthetic.main.inflator_image_collection.view.*
  * @note Updates :
  */
 class ImageColViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val image = itemView.imageColI
-    val bg = itemView.imageColB
-    val text = itemView.imageColT
+    var image = itemView.imageColI
+    var bg = itemView.imageColB
+    var bgS = itemView.imageColBS
+    var text = itemView.imageColT
+    var button = itemView.imageColBB
 }

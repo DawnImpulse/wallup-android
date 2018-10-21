@@ -127,7 +127,7 @@ class MainAdapter(
                 holder.likeL.visibility = View.INVISIBLE
 
             // set image
-            ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full + Config.IMAGE_HEIGHT)
+            ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full + "&h=480")
             // set artist image
             ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position]!!.user!!.profile_image!!.large)
 

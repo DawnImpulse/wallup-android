@@ -34,6 +34,7 @@ import com.dawnimpulse.wallup.repositories.UnsplashRepository
  *  2018 10 01 - master - Saksham - generate bearer token
  *  2018 10 04 - master - Saksham - self profile
  *  2018 10 08 - master - Saksham - user liked photos
+ *  2018 10 21 - master - Saksham - add image in user's collection
  */
 class UnsplashModel() {
     private lateinit var lifecycle: Lifecycle
@@ -336,6 +337,38 @@ class UnsplashModel() {
     // user liked photos
     fun userLikedPhotos(username: String,page:Int, callback: (Any?, Any?) -> Unit) {
         UnsplashRepository.userLikedPhotos(username,page) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
+        }
+    }
+
+    // add image in user's collection
+    fun addImageInCollection(photo_id: String,collection_id:String, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.addImageInCollection(photo_id,collection_id) { e, r ->
+            lifecycle.addObserver(object : LifecycleObserver {
+                var once = true
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        callback(e, r)
+                        once = false
+                    }
+                }
+            })
+        }
+    }
+
+    // remove image in user's collection
+    fun removeImageInCollection(photo_id: String,collection_id:String, callback: (Any?, Any?) -> Unit) {
+        UnsplashRepository.removeImageInCollection(photo_id,collection_id) { e, r ->
             lifecycle.addObserver(object : LifecycleObserver {
                 var once = true
                 @OnLifecycleEvent(Lifecycle.Event.ON_START)

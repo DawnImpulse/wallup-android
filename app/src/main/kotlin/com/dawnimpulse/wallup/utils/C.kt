@@ -65,6 +65,10 @@ object C {
     const val LIKE = "like"
     const val POSITION = "position"
     const val NAME = "name"
+    const val PHOTO_ID = "photo_id"
+    const val COLLECTION_ID = "collection_id"
+    const val IMAGE_TO_COLLECTION = "imageToCollection"
+    const val IS_ADDED = "isAdded"
 
 
 

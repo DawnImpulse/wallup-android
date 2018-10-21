@@ -17,14 +17,20 @@
     android:layout_margin="8dp"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:cardCornerRadius="8dp">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/imageColBB"
+                android:visibility="gone"
+                android:text="Hiiiii"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <ImageView
                 android:scaleType="centerCrop"
@@ -39,6 +45,14 @@
                 android:alpha="0.5"
                 android:background="@color/black" />
 
+            <View
+                android:id="@+id/imageColBS"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.6"
+                android:background="@color/latestDark" />
+
             <me.grantland.widget.AutofitTextView
                 android:id="@+id/imageColT"
                 android:layout_width="match_parent"
@@ -50,6 +64,6 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
 </RelativeLayout>
