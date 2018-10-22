@@ -14,12 +14,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:layout_margin="8dp"
-    android:orientation="vertical">
+    android:layout_margin="4dp">
 
-    <RelativeLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:cardCornerRadius="8dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -27,16 +27,17 @@
 
             <Button
                 android:id="@+id/imageColBB"
-                android:visibility="gone"
-                android:text="Hiiiii"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="Hiiiii"
+                android:visibility="gone" />
 
             <ImageView
-                android:scaleType="centerCrop"
                 android:id="@+id/imageColI"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerCrop" />
 
             <View
                 android:id="@+id/imageColB"
@@ -47,11 +48,11 @@
 
             <View
                 android:id="@+id/imageColBS"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.6"
-                android:background="@color/latestDark" />
+                android:background="@color/latestDark"
+                android:visibility="gone" />
 
             <me.grantland.widget.AutofitTextView
                 android:id="@+id/imageColT"
@@ -64,6 +65,6 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </RelativeLayout>
-    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

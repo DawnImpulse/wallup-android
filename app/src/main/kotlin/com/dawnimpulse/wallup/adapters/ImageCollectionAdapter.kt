@@ -44,7 +44,7 @@ import org.json.JSONObject
  */
 class ImageCollectionAdapter(private val lifecycle: Lifecycle,
                              private val cols: List<CollectionPojo?>,
-                             private val imageCols: List<String>?,
+                             private var imageCols: MutableList<String?>?,
                              private val image: String)
     : RecyclerView.Adapter<ImageColViewHolder>() {
 
@@ -72,50 +72,47 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
             ImageHandler.setImageInView(lifecycle, holder.image, it.urls!!.full + Config.IMAGE_HEIGHT)
         }
 
-        imageCols?.let {
-            for (it in imageCols) {
-                if (it == cols[position]!!.id) {
+        /*imageCols?.let {
+            for (i in it) {
+                if (i == cols[position]!!.id) {
                     holder.bg.visibility = View.GONE
                     holder.bgS.visibility = View.VISIBLE
                     available = true
+                    break
+                }else{
+                    holder.bg.visibility = View.VISIBLE
+                    holder.bgS.visibility = View.GONE
                 }
             }
+        }*/
+
+        if (imageCols!![position] != null){
+            holder.bg.visibility = View.GONE
+            holder.bgS.visibility = View.VISIBLE
+            available = true
+        }else{
+            holder.bg.visibility = View.VISIBLE
+            holder.bgS.visibility = View.GONE
         }
 
         holder.image.setOnClickListener {
             if (available) {
-                holder.bg.visibility = View.VISIBLE
-                holder.bgS.visibility = View.GONE
-                available = false
-                sendEvent(cols[position]!!,false)
-
+                sendEvent(cols[position]!!,false,position)
                 model.removeImageInCollection(image, cols[position]!!.id) { e, _ ->
                     e?.let {
                         L.d(NAME, e)
                         context.toast("error removing from collection")
-                        holder.bg.visibility = View.GONE
-                        holder.bgS.visibility = View.VISIBLE
-                        available = true
-
-                        sendEvent(cols[position]!!,true)
+                        sendEvent(cols[position]!!,true,position)
                     }
                 }
 
             } else {
-                /*holder.bg.visibility = View.GONE
-                holder.bgS.visibility = View.VISIBLE*/
-                holder.button.visibility = View.VISIBLE
-                available = true
-                sendEvent(cols[position]!!,true)
-
+                sendEvent(cols[position]!!,true,position)
                 model.addImageInCollection(image, cols[position]!!.id) { e, _ ->
                     e?.let {
                         L.d(NAME, e)
                         context.toast("error adding to collection")
-                        holder.bg.visibility = View.VISIBLE
-                        holder.bgS.visibility = View.GONE
-                        available = false
-                        sendEvent(cols[position]!!,false)
+                        sendEvent(cols[position]!!,false,position)
                     }
                 }
             }
@@ -123,12 +120,13 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
     }
 
     // send event to the image activity
-    private fun sendEvent(col: CollectionPojo, isAdded: Boolean) {
+    private fun sendEvent(col: CollectionPojo, isAdded: Boolean,position: Int) {
         var json = JSONObject()
         json.put(C.TYPE, C.IMAGE_TO_COLLECTION)
         json.put(C.IS_ADDED, isAdded)
-        json.put(C.COLLECTION, Gson().toJson(col))
         json.put(C.COLLECTION_ID, col.id)
+        json.put(C.POSITION,position)
+        json.put(C.COLLECTION, Gson().toJson(col))
         EventBus.getDefault().post(Event(json))
     }
 }

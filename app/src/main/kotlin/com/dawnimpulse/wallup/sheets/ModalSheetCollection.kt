@@ -19,16 +19,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.ImageCollectionAdapter
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Event
 import com.dawnimpulse.wallup.utils.L
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.bottom_sheet_collection.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author Saksham
@@ -40,7 +45,8 @@ import kotlinx.android.synthetic.main.bottom_sheet_collection.*
  */
 class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
     private var NAME = "ModalSheetCollection"
-    private var imageCols: List<CollectionPojo>? = null
+    private var imageCols: MutableList<CollectionPojo>? = null
+    private var imageColString: MutableList<String?>? = null
     private lateinit var cols: MutableList<CollectionPojo>
     private lateinit var model: UnsplashModel
     private lateinit var user: UserPojo
@@ -60,18 +66,48 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
         user = Gson().fromJson(Prefs.getString(C.USER, ""), UserPojo::class.java)
         image = arguments!!.getString(C.ID)
         if (arguments!!.containsKey(C.COLLECTIONS)) {
-            imageCols = Gson().fromJson(arguments!!.getString(C.COLLECTIONS), Array<CollectionPojo>::class.java).toList()
-            L.d(NAME, imageCols!!.size)
-        } else
-            imageCols = null
-
-
+            imageCols = Gson().fromJson(arguments!!.getString(C.COLLECTIONS), Array<CollectionPojo>::class.java).toMutableList()
+            imageColString = (imageCols!!.map { it.id }).toMutableList()
+        }
 
         getCollections()
         sheetColRefresh.setOnClickListener {
             sheetColRefresh.visibility = View.GONE
             sheetColProgress.visibility = View.VISIBLE
             getCollections()
+        }
+    }
+
+    // on start
+    override fun onStart() {
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
+    // on destroy
+    override fun onDestroy() {
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
+    // on message event
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: Event) {
+        L.d(NAME, event.obj)
+        if (event.obj.has(C.TYPE)) {
+            if (event.obj.getString(C.TYPE) == C.IMAGE_TO_COLLECTION) {
+                // if image is added to a collection
+                if (event.obj.getBoolean(C.IS_ADDED)) {
+                    imageColString!!.add(event.obj.getInt(C.POSITION), event.obj.getString(C.COLLECTION_ID))
+                    adapter.notifyItemChanged(event.obj.getInt(C.POSITION))
+                } else {
+                    //if image is removed from collection
+                    imageColString!![event.obj.getInt(C.POSITION)] = null
+                    adapter.notifyItemChanged(event.obj.getInt(C.POSITION))
+                }
+            }
         }
     }
 
@@ -86,17 +122,41 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
             }
             r?.let { r ->
                 cols = (r as List<CollectionPojo>).toMutableList()
+                if (cols != null || cols!!.isNotEmpty())
+                    imageColString = imageCollections(imageColString, cols)
                 adapter = if (imageCols != null) {
-                    ImageCollectionAdapter(lifecycle, cols, imageCols!!.map { it.id }, image)
+                    ImageCollectionAdapter(lifecycle, cols, imageColString, image)
                 } else
-                    ImageCollectionAdapter(lifecycle, cols, imageCols, image)
+                    ImageCollectionAdapter(lifecycle, cols, imageColString, image)
 
                 sheetColRecycler.layoutManager = LinearLayoutManager(sheetColRecycler.context)
                 sheetColRecycler.adapter = adapter
+                (sheetColRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
                 sheetColProgress.visibility = View.GONE
                 sheetColRecycler.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun imageCollections(imageCols: MutableList<String?>?, cols: MutableList<CollectionPojo>): MutableList<String?> {
+        var i = 0
+        var list: MutableList<String?> = ArrayList()
+        while (i < cols.size) {
+            var done = false
+            imageCols?.let {
+                for (image in it) {
+                    if (image == cols[i].id) {
+                        list.add(image)
+                        done = true
+                        break
+                    }
+                }
+            }
+            if (!done)
+                list.add(null)
+            i++
+        }
+        return list
     }
 
 }

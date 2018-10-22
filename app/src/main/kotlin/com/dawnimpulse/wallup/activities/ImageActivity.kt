@@ -268,11 +268,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                             .map { it.index }
                             .toList()
 
-                    L.d(NAME,cid)
                     details!!.current_user_collections!!.removeAt(cid[0])
                     if (details!!.current_user_collections == null || details!!.current_user_collections!!.isEmpty())
                         imagePreviewCollectI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_plus))
-
                 }
             }
         }

@@ -16,6 +16,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:shape="rectangle">
     <solid android:color="@android:color/transparent" />
     <corners android:radius="32dp" />
-    <stroke android:color="@color/black"
+    <stroke android:color="@color/colorAccent"
         android:width="1dp"/>
 </shape>
