@@ -72,20 +72,6 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
             ImageHandler.setImageInView(lifecycle, holder.image, it.urls!!.full + Config.IMAGE_HEIGHT)
         }
 
-        /*imageCols?.let {
-            for (i in it) {
-                if (i == cols[position]!!.id) {
-                    holder.bg.visibility = View.GONE
-                    holder.bgS.visibility = View.VISIBLE
-                    available = true
-                    break
-                }else{
-                    holder.bg.visibility = View.VISIBLE
-                    holder.bgS.visibility = View.GONE
-                }
-            }
-        }*/
-
         if (imageCols!![position] != null){
             holder.bg.visibility = View.GONE
             holder.bgS.visibility = View.VISIBLE

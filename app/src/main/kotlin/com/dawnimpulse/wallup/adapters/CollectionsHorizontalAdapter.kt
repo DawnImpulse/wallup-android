@@ -57,7 +57,7 @@ class CollectionsHorizontalAdapter(private val lifecycle: Lifecycle,
     override fun onBindViewHolder(holder: CollectionsHorizontalViewHolder, position: Int) {
         cols[position]?.let {
             it.cover_photo?.let {
-                ImageHandler.setImageInView(lifecycle, holder.image, cols[position]?.cover_photo?.urls!!.small)
+                ImageHandler.setImageInView(lifecycle, holder.image, it.urls!!.small)
             }
             holder.text.text = F.capWord(cols[position]!!.title)
             holder.image.setOnClickListener {

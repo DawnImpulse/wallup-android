@@ -17,10 +17,7 @@ import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.F
-import com.dawnimpulse.wallup.utils.L
+import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_collection.*
 
@@ -106,8 +103,11 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
     // setting details in views
     private fun setDetails() {
         var name = F.capWord(details.user!!.name)
+        color = Colors(this).GREY_500
+        details.cover_photo?.let {
+            color = Color.parseColor(details.cover_photo!!.color!!)
+        }
         name = "<font color=\"#ffffff\">${F.firstWord(name)}</font> ${name.replace(F.firstWord(name), "")}"
-        color = Color.parseColor(details.cover_photo!!.color!!)
         colUserName.setTextColor(color)
         colTitle.text = F.capWord(details.title)
         colDescription.text = details.description
@@ -116,10 +116,12 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
         colImageUpdated.setText(F.fromHtml("<font color=\"#ffffff\">updated on</font> ${F.dateConvert(details.updated_at)}"), TextView.BufferType.SPANNABLE)
         colPublished.setText(F.fromHtml("<font color=\"#ffffff\">published on</font> ${F.dateConvert(details.published_at)}"), TextView.BufferType.SPANNABLE)
 
-        ImageHandler.getImageAsBitmap(lifecycle, this, details.cover_photo!!.urls?.full + Config.IMAGE_HEIGHT) {
-            val color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
-            colImage.setImageBitmap(it)
-            setColor(color)
+        details.cover_photo?.let {
+            ImageHandler.getImageAsBitmap(lifecycle, this, details.cover_photo!!.urls?.full + Config.IMAGE_HEIGHT) {
+                val color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
+                colImage.setImageBitmap(it)
+                setColor(color)
+            }
         }
         ImageHandler.setImageInView(lifecycle, colUserImage, details.user?.profile_image!!.large)
 
