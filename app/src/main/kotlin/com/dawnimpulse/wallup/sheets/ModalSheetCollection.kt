@@ -24,6 +24,7 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.ImageCollectionAdapter
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
+import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Event
@@ -51,7 +52,7 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
     private lateinit var model: UnsplashModel
     private lateinit var user: UserPojo
     private lateinit var adapter: ImageCollectionAdapter
-    private lateinit var image: String
+    private lateinit var image: ImagePojo
 
     // on create
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,7 +65,7 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
 
         model = UnsplashModel(lifecycle)
         user = Gson().fromJson(Prefs.getString(C.USER, ""), UserPojo::class.java)
-        image = arguments!!.getString(C.ID)
+        image = Gson().fromJson(arguments!!.getString(C.IMAGE_POJO),ImagePojo::class.java)
         if (arguments!!.containsKey(C.COLLECTIONS)) {
             imageCols = Gson().fromJson(arguments!!.getString(C.COLLECTIONS), Array<CollectionPojo>::class.java).toMutableList()
             imageColString = (imageCols!!.map { it.id }).toMutableList()
@@ -100,11 +101,18 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
             if (event.obj.getString(C.TYPE) == C.IMAGE_TO_COLLECTION) {
                 // if image is added to a collection
                 if (event.obj.getBoolean(C.IS_ADDED)) {
-                    imageColString!!.add(event.obj.getInt(C.POSITION), event.obj.getString(C.COLLECTION_ID))
+                    val pos = event.obj.getInt(C.POSITION)
+                    imageColString!!.add(pos, event.obj.getString(C.COLLECTION_ID))
+                    cols[pos].cover_photo = image
                     adapter.notifyItemChanged(event.obj.getInt(C.POSITION))
                 } else {
                     //if image is removed from collection
+                    val pos = event.obj.getInt(C.POSITION)
                     imageColString!![event.obj.getInt(C.POSITION)] = null
+                    if (cols[pos].preview_photos != null)
+                        cols[pos].cover_photo = ImagePojo(urls = cols[pos].preview_photos!![0].urls)
+                    else
+                        cols[pos].cover_photo = null
                     adapter.notifyItemChanged(event.obj.getInt(C.POSITION))
                 }
             }
@@ -125,9 +133,9 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
                 if (cols != null || cols!!.isNotEmpty())
                     imageColString = imageCollections(imageColString, cols)
                 adapter = if (imageCols != null) {
-                    ImageCollectionAdapter(lifecycle, cols, imageColString, image)
+                    ImageCollectionAdapter(lifecycle, cols, imageColString, image.id)
                 } else
-                    ImageCollectionAdapter(lifecycle, cols, imageColString, image)
+                    ImageCollectionAdapter(lifecycle, cols, imageColString, image.id)
 
                 sheetColRecycler.layoutManager = LinearLayoutManager(sheetColRecycler.context)
                 sheetColRecycler.adapter = adapter
@@ -138,6 +146,7 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
         }
     }
 
+    //create image collection array
     private fun imageCollections(imageCols: MutableList<String?>?, cols: MutableList<CollectionPojo>): MutableList<String?> {
         var i = 0
         var list: MutableList<String?> = ArrayList()

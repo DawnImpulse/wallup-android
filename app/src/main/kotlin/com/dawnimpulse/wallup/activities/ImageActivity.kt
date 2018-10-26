@@ -229,7 +229,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                 if (Config.USER_API_KEY.isNotEmpty()) {
                     var bundle = Bundle()
                     details?.let {
-                        bundle.putString(C.ID, details!!.id)
+                        bundle.putString(C.IMAGE_POJO, Gson().toJson(details!!))
                         it.current_user_collections?.let { cols ->
                             if (cols.isNotEmpty())
                                 bundle.putString(C.COLLECTIONS, Gson().toJson(cols))
@@ -272,6 +272,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                     if (details!!.current_user_collections == null || details!!.current_user_collections!!.isEmpty())
                         imagePreviewCollectI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_plus))
                 }
+
+                if(color !=0)
+                    imagePreviewCollectI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
             }
         }
     }
