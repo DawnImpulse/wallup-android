@@ -46,13 +46,14 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
     private var NAME = "ModalSheetCollection"
+    private var toView: Boolean = false
     private var imageCols: MutableList<CollectionPojo>? = null
     private var imageColString: MutableList<String?>? = null
+    private var image: ImagePojo? = null
     private lateinit var cols: MutableList<CollectionPojo>
     private lateinit var model: UnsplashModel
     private lateinit var user: UserPojo
     private lateinit var adapter: ImageCollectionAdapter
-    private lateinit var image: ImagePojo
 
     // on create
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -65,10 +66,14 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
 
         model = UnsplashModel(lifecycle)
         user = Gson().fromJson(Prefs.getString(C.USER, ""), UserPojo::class.java)
-        image = Gson().fromJson(arguments!!.getString(C.IMAGE_POJO),ImagePojo::class.java)
         if (arguments!!.containsKey(C.COLLECTIONS)) {
             imageCols = Gson().fromJson(arguments!!.getString(C.COLLECTIONS), Array<CollectionPojo>::class.java).toMutableList()
             imageColString = (imageCols!!.map { it.id }).toMutableList()
+        }
+        if (arguments!!.containsKey(C.VIEW)) {
+            toView = arguments!!.getBoolean(C.VIEW)
+        } else {
+            image = Gson().fromJson(arguments!!.getString(C.IMAGE_POJO), ImagePojo::class.java)
         }
 
         getCollections()
@@ -130,12 +135,16 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
             }
             r?.let { r ->
                 cols = (r as List<CollectionPojo>).toMutableList()
+                var id: String? = null
+                image?.let {
+                    id = it.id
+                }
                 if (cols != null || cols!!.isNotEmpty())
                     imageColString = imageCollections(imageColString, cols)
                 adapter = if (imageCols != null) {
-                    ImageCollectionAdapter(lifecycle, cols, imageColString, image.id)
+                    ImageCollectionAdapter(lifecycle, cols, imageColString, id)
                 } else
-                    ImageCollectionAdapter(lifecycle, cols, imageColString, image.id)
+                    ImageCollectionAdapter(lifecycle, cols, imageColString, id)
 
                 sheetColRecycler.layoutManager = LinearLayoutManager(sheetColRecycler.context)
                 sheetColRecycler.adapter = adapter

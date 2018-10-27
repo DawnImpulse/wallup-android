@@ -14,6 +14,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import androidx.core.widget.toast
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.activities.CollectionActivity
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
@@ -36,6 +38,7 @@ import org.json.JSONObject
 /**
  * @author Saksham
  * @info - adding image to collection adapter
+ * @info - if image is null then we need to view image only
  *
  * @note Last Branch Update - master
  * @note Created on 2018-10-21 by Saksham
@@ -45,7 +48,7 @@ import org.json.JSONObject
 class ImageCollectionAdapter(private val lifecycle: Lifecycle,
                              private val cols: List<CollectionPojo?>,
                              private var imageCols: MutableList<String?>?,
-                             private val image: String)
+                             private val image: String?)
     : RecyclerView.Adapter<ImageColViewHolder>() {
 
     private var NAME = "ImageCollectionAdapter"
@@ -82,23 +85,31 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
         }
 
         holder.image.setOnClickListener {
-            if (available) {
-                sendEvent(cols[position]!!,false,position)
-                model.removeImageInCollection(image, cols[position]!!.id) { e, _ ->
-                    e?.let {
-                        L.d(NAME, e)
-                        context.toast("error removing from collection")
-                        sendEvent(cols[position]!!,true,position)
+            if (image == null){
+                // to only view collection
+                var intent = Intent(context, CollectionActivity::class.java)
+                intent.putExtra(C.TYPE, C.FEATURED)
+                intent.putExtra(C.COLLECTION, Gson().toJson(cols[position]))
+                context.startActivity(intent)
+            }else{
+                if (available) {
+                    sendEvent(cols[position]!!,false,position)
+                    model.removeImageInCollection(image!!, cols[position]!!.id) { e, _ ->
+                        e?.let {
+                            L.d(NAME, e)
+                            context.toast("error removing from collection")
+                            sendEvent(cols[position]!!,true,position)
+                        }
                     }
-                }
 
-            } else {
-                sendEvent(cols[position]!!,true,position)
-                model.addImageInCollection(image, cols[position]!!.id) { e, _ ->
-                    e?.let {
-                        L.d(NAME, e)
-                        context.toast("error adding to collection")
-                        sendEvent(cols[position]!!,false,position)
+                } else {
+                    sendEvent(cols[position]!!,true,position)
+                    model.addImageInCollection(image!!, cols[position]!!.id) { e, _ ->
+                        e?.let {
+                            L.d(NAME, e)
+                            context.toast("error adding to collection")
+                            sendEvent(cols[position]!!,false,position)
+                        }
                     }
                 }
             }

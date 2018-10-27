@@ -52,6 +52,16 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="colorAccent">@color/black</item>
     </style>
 
+    <!--Dialog theme-->
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
+    </style>
+
 
     <!--Bottom Sheet-->
     <!-- set the rounded drawable as background to your bottom sheet -->

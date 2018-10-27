@@ -15,6 +15,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.utils
 import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
+import com.dawnimpulse.wallup.R
 
 
 /**
@@ -30,7 +31,7 @@ object Dialog {
 
     // simple ok dialog
     fun simpleOk(context: Context, title: String,message: String, positive: DialogInterface.OnClickListener) {
-        var builder = AlertDialog.Builder(context)
+        var builder = AlertDialog.Builder(context, R.style.MyDialogTheme)
         builder
                 .setTitle(title)
                 .setMessage(message)
