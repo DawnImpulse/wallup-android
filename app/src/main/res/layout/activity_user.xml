@@ -99,11 +99,13 @@
                     android:orientation="vertical">
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_gravity="center"
                         android:layout_width="44dp"
                         android:layout_height="44dp"
                         app:srcCompat="@drawable/vd_collage_blue" />
 
                     <TextView
+                        android:gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -121,9 +123,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <TextView
+            <me.grantland.widget.AutofitTextView
                 android:id="@+id/userFullName"
-                android:layout_width="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"

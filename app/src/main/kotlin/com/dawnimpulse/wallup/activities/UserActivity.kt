@@ -118,7 +118,7 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
     //set user details
     private fun setDetails(user: UserPojo) {
         this.user = user
-        userFullName.text = user.name.replace(" ", "\n")
+        userFullName.text = user.name
         userName.text = "@${user.username}"
         ImageHandler.setImageInView(lifecycle, userImage, user.profile_image.large)
     }

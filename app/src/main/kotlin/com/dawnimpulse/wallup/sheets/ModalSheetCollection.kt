@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.ImageCollectionAdapter
+import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
@@ -44,13 +45,15 @@ import org.greenrobot.eventbus.ThreadMode
  *
  * @note Updates :
  */
-class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
+class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListener {
     private var NAME = "ModalSheetCollection"
     private var toView: Boolean = false
     private var imageCols: MutableList<CollectionPojo>? = null
     private var imageColString: MutableList<String?>? = null
+    private var originalImageColString: MutableList<String?>? = null
     private var image: ImagePojo? = null
-    private lateinit var cols: MutableList<CollectionPojo>
+    private var nextPage = 2
+    private lateinit var cols: MutableList<CollectionPojo?>
     private lateinit var model: UnsplashModel
     private lateinit var user: UserPojo
     private lateinit var adapter: ImageCollectionAdapter
@@ -69,6 +72,7 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
         if (arguments!!.containsKey(C.COLLECTIONS)) {
             imageCols = Gson().fromJson(arguments!!.getString(C.COLLECTIONS), Array<CollectionPojo>::class.java).toMutableList()
             imageColString = (imageCols!!.map { it.id }).toMutableList()
+            originalImageColString = imageColString
         }
         if (arguments!!.containsKey(C.VIEW)) {
             toView = arguments!!.getBoolean(C.VIEW)
@@ -98,6 +102,29 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
         super.onDestroy()
     }
 
+    // on load more
+    override fun onLoadMore() {
+        cols.add(null)
+        adapter.notifyItemInserted(cols.size)
+        model.userCollections(user.username, nextPage, 30) { e, r ->
+            e?.let {
+                L.d(NAME, e)
+                context!!.toast("error fetching user collections")
+            }
+            r?.let {
+                nextPage++
+                cols.removeAt(cols.size - 1)
+                adapter.notifyItemRemoved(cols.size - 1)
+                var list = (r as List<CollectionPojo?>).toMutableList()
+                var temp = imageCollections(originalImageColString,list)
+                cols.addAll(list)
+                imageColString!!.addAll(temp)
+                adapter.notifyDataSetChanged()
+                adapter.setLoaded()
+            }
+        }
+    }
+
     // on message event
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: Event) {
@@ -108,16 +135,16 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
                 if (event.obj.getBoolean(C.IS_ADDED)) {
                     val pos = event.obj.getInt(C.POSITION)
                     imageColString!!.add(pos, event.obj.getString(C.COLLECTION_ID))
-                    cols[pos].cover_photo = image
+                    cols[pos]!!.cover_photo = image
                     adapter.notifyItemChanged(event.obj.getInt(C.POSITION))
                 } else {
                     //if image is removed from collection
                     val pos = event.obj.getInt(C.POSITION)
                     imageColString!![event.obj.getInt(C.POSITION)] = null
-                    if (cols[pos].preview_photos != null)
-                        cols[pos].cover_photo = ImagePojo(urls = cols[pos].preview_photos!![0].urls)
+                    if (cols[pos]!!.preview_photos != null)
+                        cols[pos]!!.cover_photo = ImagePojo(urls = cols[pos]!!.preview_photos!![0].urls)
                     else
-                        cols[pos].cover_photo = null
+                        cols[pos]!!.cover_photo = null
                     adapter.notifyItemChanged(event.obj.getInt(C.POSITION))
                 }
             }
@@ -134,36 +161,38 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment() {
                 sheetColProgress.visibility = View.GONE
             }
             r?.let { r ->
-                cols = (r as List<CollectionPojo>).toMutableList()
                 var id: String? = null
+                cols = (r as List<CollectionPojo>).toMutableList()
                 image?.let {
                     id = it.id
                 }
                 if (cols != null || cols!!.isNotEmpty())
                     imageColString = imageCollections(imageColString, cols)
                 adapter = if (imageCols != null) {
-                    ImageCollectionAdapter(lifecycle, cols, imageColString, id)
+                    ImageCollectionAdapter(lifecycle, cols, imageColString, id, sheetColRecycler)
                 } else
-                    ImageCollectionAdapter(lifecycle, cols, imageColString, id)
+                    ImageCollectionAdapter(lifecycle, cols, imageColString, id, sheetColRecycler)
 
                 sheetColRecycler.layoutManager = LinearLayoutManager(sheetColRecycler.context)
                 sheetColRecycler.adapter = adapter
                 (sheetColRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
                 sheetColProgress.visibility = View.GONE
                 sheetColRecycler.visibility = View.VISIBLE
+                adapter.setOnLoadMoreListener(this)
             }
         }
     }
 
     //create image collection array
-    private fun imageCollections(imageCols: MutableList<String?>?, cols: MutableList<CollectionPojo>): MutableList<String?> {
+    private fun imageCollections(imageCols: MutableList<String?>?,
+                                 cols: MutableList<CollectionPojo?>): MutableList<String?> {
         var i = 0
         var list: MutableList<String?> = ArrayList()
         while (i < cols.size) {
             var done = false
             imageCols?.let {
                 for (image in it) {
-                    if (image == cols[i].id) {
+                    if (image == cols[i]!!.id) {
                         list.add(image)
                         done = true
                         break
