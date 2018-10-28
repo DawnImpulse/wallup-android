@@ -40,7 +40,7 @@ data class ImagePojo(
         @SerializedName("downloads") val downloads: Int = 0,
         @SerializedName("exif") val exif: Exif? = null,
         @SerializedName("liked_by_user") var liked_by_user: Boolean = false,
-        @SerializedName("current_user_collections") val current_user_collections: MutableList<CollectionPojo>? = null
+        @SerializedName("current_user_collections") var current_user_collections: MutableList<CollectionPojo>? = null
 )
 
 data class Urls(

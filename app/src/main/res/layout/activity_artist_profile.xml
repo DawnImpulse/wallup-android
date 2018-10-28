@@ -8,6 +8,7 @@
     tools:context=".activities.ArtistProfileActivity">
 
     <ScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <!--Name & DP-->
                 <RelativeLayout
@@ -324,8 +325,8 @@
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="128dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
                 android:indeterminate="true" />
 
         </RelativeLayout>

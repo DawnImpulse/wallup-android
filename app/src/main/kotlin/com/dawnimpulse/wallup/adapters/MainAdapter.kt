@@ -17,10 +17,12 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +32,7 @@ import com.dawnimpulse.wallup.activities.ImageActivity
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.sheets.ModalSheetCollection
 import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
@@ -113,7 +116,6 @@ class MainAdapter(
 
     // binding view holder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         if (holder is MainViewHolder) {
             var image = images[position]!!
             var artistClick = View.OnClickListener {
@@ -137,6 +139,13 @@ class MainAdapter(
 
             // setting the like button
             F.like(context, holder.like, false, image.liked_by_user)
+
+            // setting col icon
+            if (image.current_user_collections != null)
+                if (image.current_user_collections!!.isNotEmpty())
+                    holder.col.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.vd_plus_circle_accent))
+                else
+                    holder.col.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.vd_plus_accent))
 
             // open image activity
             holder.image.setOnClickListener {
@@ -165,6 +174,24 @@ class MainAdapter(
                 else {
                     var sheet = ModalSheetUnsplash()
                     sheet.show((context as AppCompatActivity).supportFragmentManager, sheet.tag)
+                }
+            }
+
+            // open collection
+            holder.colL.setOnClickListener {
+                if (Config.USER_API_KEY.isNotEmpty()) {
+                    var colSheet = ModalSheetCollection()
+                    var bundle = Bundle()
+                    bundle.putString(C.IMAGE_POJO, Gson().toJson(image))
+                    image.current_user_collections?.let { cols ->
+                        if (cols.isNotEmpty())
+                            bundle.putString(C.COLLECTIONS, Gson().toJson(cols))
+                    }
+                    colSheet.arguments = bundle
+                    colSheet.show((context as AppCompatActivity).supportFragmentManager, colSheet.tag)
+                } else {
+                    var loginSheet = ModalSheetUnsplash()
+                    loginSheet.show((context as AppCompatActivity).supportFragmentManager, loginSheet.tag)
                 }
             }
 

@@ -44,6 +44,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="changes8_2"><b>New: </b>Redesigned layout for main screen.</string>
     <string name="changes8_3"><b>Bug Fixes: </b>Various crash handling throughout the app.</string>
 
+    <string name="changes9_1"><b>New: </b>Add image to your personal collection.</string>
+    <string name="changes9_2"><b>Improvement: </b>Performance &amp; other improvements.</string>
+    <string name="changes9_3"><b>Bug Fixes: </b>Various crash handling throughout the app.</string>
+
     <string name="aboutUsername">\@dawnimpulse</string>
     <string name="aboutUnsplash">This application features images from Unsplash via their APIs. All images are free to use and share although kindly read Unsplash guidelines / license for the same.</string>
     <string name="aboutTerms">To avoid any misuse of this app, kindly go through the Terms &amp; Conditions.</string>

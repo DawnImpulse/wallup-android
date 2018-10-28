@@ -56,6 +56,7 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
         model.userDetails(intent.extras.getString(C.USERNAME)) { error, details ->
             error?.let {
                 L.d(NAME, error.toString())
+                artistProgress.visibility = View.GONE
                 Toast.short(this, "Error Occurred")
             }
             details?.let {

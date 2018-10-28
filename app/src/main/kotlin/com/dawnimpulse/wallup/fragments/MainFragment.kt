@@ -26,10 +26,12 @@ import com.dawnimpulse.wallup.adapters.MainAdapter
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.models.DatabaseModel
 import com.dawnimpulse.wallup.models.UnsplashModel
+import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Event
 import com.dawnimpulse.wallup.utils.L
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -45,6 +47,7 @@ import org.greenrobot.eventbus.ThreadMode
  * @note Updates :
  *  Saksham - 2018 05 20 - recent - using model
  *  Saksham - 2018 05 25 - recent - dummy layout
+ *  Saksham - 2018 10 28 - master - event change collection
  */
 
 class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
@@ -155,6 +158,48 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                     }
                 }
             }
+            if (event.obj.getString(C.TYPE) == C.IMAGE_TO_COLLECTION) {
+                // if image is added to a collection
+                if (event.obj.getBoolean(C.IS_ADDED)) {
+                    var col = Gson().fromJson(event.obj.getString(C.COLLECTION), CollectionPojo::class.java)
+                    var list = images
+                            .asSequence()
+                            .withIndex()
+                            .filter { it.value!!.id == event.obj.getString(C.IMAGE) }
+                            .map { it.index }
+                            .toList()
+
+                    if (list.isNotEmpty()) {
+                        for (l in list) {
+                            if (images[l]!!.current_user_collections == null)
+                                images[l]!!.current_user_collections = arrayListOf()
+                            images[l]!!.current_user_collections!!.add(col)
+                            mainAdapter.notifyItemChanged(l)
+                        }
+                    }
+                } else {
+                    //if image is removed from collection
+                    var list = images
+                            .asSequence()
+                            .withIndex()
+                            .filter { it.value!!.id == event.obj.getString(C.IMAGE) }
+                            .map { it.index }
+                            .toList()
+
+                    if (list.isNotEmpty()) {
+                        for (l in list) {
+                            var cid = images[l]!!.current_user_collections!!
+                                    .asSequence()
+                                    .withIndex()
+                                    .filter { it.value.id == event.obj.getString(C.COLLECTION_ID) }
+                                    .map { it.index }
+                                    .toList()
+                            images[l]!!.current_user_collections!!.removeAt(cid[0])
+                            mainAdapter.notifyItemChanged(l)
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -170,7 +215,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 timestamp = images[images.size - 1]!!.timestamp
 
                 if (arguments?.containsKey(C.LIKE)!!)
-                    mainAdapter = MainAdapter(lifecycle, images, mainRecycler,false)
+                    mainAdapter = MainAdapter(lifecycle, images, mainRecycler, false)
                 else
                     mainAdapter = MainAdapter(lifecycle, images, mainRecycler)
 

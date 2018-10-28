@@ -45,8 +45,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     private lateinit var pagerAdapter: ViewPagerAdapter
     private lateinit var randomFragment:MainFragment
     private lateinit var latestFragment: MainFragment
-    private lateinit var trendingFragment: MainFragment
-    private lateinit var curatedFragment: MainFragment
     private lateinit var navSheet: ModalSheetNav
     private lateinit var navBundle: Bundle
     private var lastItemSelected = 0
@@ -67,7 +65,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         mainViewPager.addOnPageChangeListener(this)
         mainViewPager.offscreenPageLimit = 2
 
-        mainNavTrending.setOnClickListener(this)
         mainNavRandom.setOnClickListener(this)
         mainNavLatest.setOnClickListener(this)
         mainNavUp.setOnClickListener(this)
@@ -82,7 +79,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         when (v.id) {
             mainNavLatest.id -> currentNavItem(0)
             mainNavRandom.id -> currentNavItem(1)
-            mainNavTrending.id -> currentNavItem(2)
             mainNavUp.id -> {
                 navSheet.show(supportFragmentManager, C.BOTTOM_SHEET)
                 currentNavItem(lastItemSelected)
@@ -96,10 +92,6 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                     1 -> {
                         toast("Refreshing Random List")
                         randomFragment.onRefresh()
-                    }
-                    2 -> {
-                        toast("Refreshing Trending List")
-                        trendingFragment.onRefresh()
                     }
                 }
             }
@@ -134,21 +126,15 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         pagerAdapter = ViewPagerAdapter(supportFragmentManager)
         latestFragment = MainFragment()
         randomFragment = MainFragment()
-        trendingFragment = MainFragment()
 
         latestBundle.putString(C.TYPE, C.LATEST)
         randomBundle.putString(C.TYPE, C.RANDOM)
-        trendingBundle.putString(C.TYPE, C.TRENDING)
-
-        trendingBundle.putBoolean(C.LIKE,false)
 
         latestFragment.arguments = latestBundle
         randomFragment.arguments = randomBundle
-        trendingFragment.arguments = trendingBundle
 
         pagerAdapter.addFragment(latestFragment, C.LATEST)
         pagerAdapter.addFragment(randomFragment, C.RANDOM)
-        pagerAdapter.addFragment(trendingFragment, C.TRENDING)
         viewPager.adapter = pagerAdapter
     }
 
@@ -161,21 +147,12 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                 mainViewPager.currentItem = 0
                 mainNavLatestT.visibility = View.VISIBLE
                 mainNavRandomT.visibility = View.GONE
-                mainNavTrendingT.visibility = View.GONE
             }
             1 -> {
                 lastItemSelected = 1
                 mainViewPager.currentItem = 1
                 mainNavLatestT.visibility = View.GONE
                 mainNavRandomT.visibility = View.VISIBLE
-                mainNavTrendingT.visibility = View.GONE
-            }
-            2 -> {
-                lastItemSelected = 2
-                mainViewPager.currentItem = 2
-                mainNavLatestT.visibility = View.GONE
-                mainNavRandomT.visibility = View.GONE
-                mainNavTrendingT.visibility = View.VISIBLE
             }
         }
     }
@@ -187,17 +164,10 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
             0 -> {
                 mainNavLatestI.drawable.setColorFilter(colors.WHITE, PorterDuff.Mode.SRC_ATOP)
                 mainNavRandomI.drawable.setColorFilter(colors.GREY_500,PorterDuff.Mode.SRC_ATOP)
-                mainNavTrendingI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
             }
             1 -> {
                 mainNavLatestI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
                 mainNavRandomI.drawable.setColorFilter(colors.WHITE,PorterDuff.Mode.SRC_ATOP)
-                mainNavTrendingI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
-            }
-            2 -> {
-                mainNavLatestI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
-                mainNavRandomI.drawable.setColorFilter(colors.GREY_500,PorterDuff.Mode.SRC_ATOP)
-                mainNavTrendingI.drawable.setColorFilter(colors.WHITE, PorterDuff.Mode.SRC_ATOP)
             }
         }
     }

@@ -303,7 +303,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
         // change add icon if user has image in any collection
         details.current_user_collections?.let {
-            if (details.current_user_collections.isNotEmpty())
+            if (it.isNotEmpty())
                 imagePreviewCollectI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_plus_circle))
             else
                 imagePreviewCollectI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_plus))

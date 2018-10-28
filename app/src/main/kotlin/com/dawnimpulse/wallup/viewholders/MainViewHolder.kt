@@ -28,5 +28,7 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val name = itemView.mainName!!
     val like = itemView.mainLike!!
     val likeL = itemView.mainLikeL!!
+    val col = itemView.mainCol
+    val colL = itemView.mainColL
 
 }

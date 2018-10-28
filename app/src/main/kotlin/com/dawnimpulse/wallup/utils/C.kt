@@ -70,6 +70,7 @@ object C {
     const val IMAGE_TO_COLLECTION = "imageToCollection"
     const val IS_ADDED = "isAdded"
     const val VIEW = "view"
+    const val IMAGE = "image"
 
 
 

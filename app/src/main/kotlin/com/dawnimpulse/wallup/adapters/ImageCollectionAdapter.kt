@@ -167,6 +167,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
         json.put(C.COLLECTION_ID, col.id)
         json.put(C.POSITION, position)
         json.put(C.COLLECTION, Gson().toJson(col))
+        json.put(C.IMAGE,image)
         EventBus.getDefault().post(Event(json))
     }
 
