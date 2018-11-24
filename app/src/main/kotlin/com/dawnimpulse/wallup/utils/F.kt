@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
+import android.util.DisplayMetrics
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
@@ -183,6 +184,20 @@ object F {
         }
         return -1
     }
+
+    // convert dp - px
+    fun dpToPx(dp: Int, context: Context): Int {
+        val displayMetrics = context.resources.displayMetrics
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+    }
+
+    // convert px - dp
+    fun pxToDp(px: Int, context: Context): Int {
+        val displayMetrics = context.resources.displayMetrics
+        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+    }
+
+
 
     // sort labels
     /*fun sortLabels(labels: List<FirebaseVisionLabel>): List<FirebaseVisionLabel> {

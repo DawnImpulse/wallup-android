@@ -18,15 +18,20 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.toast
+import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.fragments.MainFragment
+import com.dawnimpulse.wallup.handlers.ImageHandler
+import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.sheets.ModalSheetNav
+import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Colors
 import com.dawnimpulse.wallup.utils.RemoteConfig
 import com.dawnimpulse.wallup.utils.ViewPagerAdapter
+import com.google.gson.Gson
+import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -40,12 +45,14 @@ import kotlinx.android.synthetic.main.activity_main.*
  *  Saksham - 2018 08 19 - master - using bottom modal sheet navigation
  *  Saksham - 2018 09 15 - master - remote config for update
  *  Saksham - 2018 10 10 - master - random fragment
+ *  Saksham - 2018 11 24 - master - user icon on toolbar
  */
 class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.OnClickListener {
     private lateinit var pagerAdapter: ViewPagerAdapter
-    private lateinit var randomFragment:MainFragment
+    private lateinit var randomFragment: MainFragment
     private lateinit var latestFragment: MainFragment
     private lateinit var navSheet: ModalSheetNav
+    private lateinit var userSheet: ModalSheetUnsplash
     private lateinit var navBundle: Bundle
     private var lastItemSelected = 0
 
@@ -56,6 +63,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         setSupportActionBar(mainToolbar)
 
         navSheet = ModalSheetNav()
+        userSheet = ModalSheetUnsplash()
         navBundle = Bundle()
         navBundle.putInt(C.BOTTOM_SHEET, R.layout.bottom_sheet_navigation)
         navSheet.arguments = navBundle
@@ -68,10 +76,22 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         mainNavRandom.setOnClickListener(this)
         mainNavLatest.setOnClickListener(this)
         mainNavUp.setOnClickListener(this)
-        mainRefresh.setOnClickListener(this)
+        mainUser.setOnClickListener(this)
         mainSearch.setOnClickListener(this)
 
         RemoteConfig.update()
+    }
+
+    // on resume
+    // - used for handling user icon
+    override fun onResume() {
+        super.onResume()
+        if (Prefs.contains(C.USER)) {
+            var user = Gson().fromJson(Prefs.getString(C.USER, ""), UserPojo::class.java)
+            ImageHandler.setImageInView(lifecycle, mainUserI, user.profile_image.large)
+        } else
+            mainUserI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_user_outline))
+
     }
 
     // on click
@@ -83,7 +103,13 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                 navSheet.show(supportFragmentManager, C.BOTTOM_SHEET)
                 currentNavItem(lastItemSelected)
             }
-            mainRefresh.id -> {
+            mainUser.id -> {
+                if (!Prefs.contains(C.USER_TOKEN))
+                    userSheet.show(supportFragmentManager, userSheet.tag)
+                else
+                    startActivity(Intent(this, UserActivity::class.java))
+            }
+            /*mainRefresh.id -> {
                 when (lastItemSelected) {
                     0 -> {
                         toast("Refreshing Latest List")
@@ -94,10 +120,10 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                         randomFragment.onRefresh()
                     }
                 }
-            }
-            mainSearch.id ->{
-                startActivity(Intent(this,SearchActivity::class.java))
-                overridePendingTransition(R.anim.enter_from_left,R.anim.fade_out)
+            }*/
+            mainSearch.id -> {
+                startActivity(Intent(this, SearchActivity::class.java))
+                overridePendingTransition(R.anim.enter_from_left, R.anim.fade_out)
             }
         }
     }
@@ -163,11 +189,11 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         when (pos) {
             0 -> {
                 mainNavLatestI.drawable.setColorFilter(colors.WHITE, PorterDuff.Mode.SRC_ATOP)
-                mainNavRandomI.drawable.setColorFilter(colors.GREY_500,PorterDuff.Mode.SRC_ATOP)
+                mainNavRandomI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
             }
             1 -> {
                 mainNavLatestI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
-                mainNavRandomI.drawable.setColorFilter(colors.WHITE,PorterDuff.Mode.SRC_ATOP)
+                mainNavRandomI.drawable.setColorFilter(colors.WHITE, PorterDuff.Mode.SRC_ATOP)
             }
         }
     }

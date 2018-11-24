@@ -60,9 +60,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_toLeftOf="@id/mainColL"
             android:layout_toRightOf="@id/mainCircleImage"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:gravity="center"
             android:text="Amy Blake"
-            android:textAlignment="center"
+            android:layout_marginLeft="8dp"
             android:textColor="@color/white" />
 
         <!--like-->

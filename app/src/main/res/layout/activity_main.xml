@@ -52,7 +52,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:visibility="visible"
-                        app:srcCompat="@drawable/vd_search" />
+                        app:srcCompat="@drawable/vd_search_outline" />
 
                 </FrameLayout>
 
@@ -61,21 +61,23 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_height="36dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/vd_wallup_logo_greyscale" />
+                    app:srcCompat="@drawable/ic_launcher_128" />
 
                 <FrameLayout
-                    android:id="@+id/mainRefresh"
+                    android:id="@+id/mainUser"
                     android:layout_width="?android:attr/actionBarSize"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                    <androidx.appcompat.widget.AppCompatImageView
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/mainUserI"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_refresh" />
+                        app:riv_oval="true"
+                        android:src="@drawable/vd_user_outline" />
                 </FrameLayout>
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -95,11 +97,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <!--Bottom nav-->
     <LinearLayout
-        android:elevation="8dp"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_gravity="bottom"
         android:background="@drawable/bg_round_nav"
+        android:elevation="8dp"
         android:orientation="horizontal"
         app:layout_behavior=".utils.BottomNavigationBehaviour">
 

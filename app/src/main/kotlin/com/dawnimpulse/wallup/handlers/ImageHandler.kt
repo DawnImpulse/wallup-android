@@ -66,6 +66,28 @@ object ImageHandler {
         })
     }
 
+    fun setBitmapInView(lifecycle: Lifecycle,context: Context,view: ImageView,url: String){
+        Glide.with(context)
+                .load(url)
+                .asBitmap()
+                .into(object : SimpleTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap?, glideAnimation: GlideAnimation<in Bitmap>?) {
+                        lifecycle.addObserver(object : LifecycleObserver {
+                            var yes = true
+                            @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+                            fun onResume() {
+                                if (yes) {
+                                    resource.let {
+                                        view.setImageBitmap(it)
+                                    }
+                                    yes = false
+                                }
+                            }
+                        })
+                    }
+                })
+    }
+
     /**
      * get image as bitmap from url
      * @param lifecycle
