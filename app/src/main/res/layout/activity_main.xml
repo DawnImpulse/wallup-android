@@ -76,8 +76,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        app:riv_oval="true"
-                        android:src="@drawable/vd_user_outline" />
+                        android:src="@drawable/vd_user_outline"
+                        app:riv_oval="true" />
                 </FrameLayout>
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
@@ -96,97 +96,121 @@ OR PERFORMANCE OF THIS SOFTWARE.
     </RelativeLayout>
 
     <!--Bottom nav-->
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/mainNav"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_gravity="bottom"
         android:background="@drawable/bg_round_nav"
-        android:elevation="8dp"
-        android:orientation="horizontal"
         app:layout_behavior=".utils.BottomNavigationBehaviour">
 
-        <!--latest-->
-        <RelativeLayout
-            android:id="@+id/mainNavLatest"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackgroundBorderless">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <!--latest-->
+            <RelativeLayout
+                android:id="@+id/mainNavLatest"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/mainNavLatestI"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_flash_circle" />
+
+                    <TextView
+                        android:id="@+id/mainNavLatestT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Latest"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!--random-->
+            <RelativeLayout
+                android:id="@+id/mainNavRandom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/mainNavRandomI"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_shuffle" />
+
+                    <TextView
+                        android:id="@+id/mainNavRandomT"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Random"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!--navigate-->
+            <RelativeLayout
+                android:id="@+id/mainNavUp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/mainNavLatestI"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/vd_flash_circle" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    app:srcCompat="@drawable/vd_chevron_up" />
+            </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/mainNavLatestT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Latest"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
-        <!--random-->
-        <RelativeLayout
-            android:id="@+id/mainNavRandom"
+    <!--Connection-->
+    <FrameLayout
+        android:id="@+id/mainConnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_gravity="bottom"
+        android:background="@color/like"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/mainConnText"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackgroundBorderless">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/mainNavRandomI"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/vd_shuffle" />
-
-                <TextView
-                    android:id="@+id/mainNavRandomT"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Random"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <!--navigate-->
-        <RelativeLayout
-            android:id="@+id/mainNavUp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:orientation="vertical">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                app:srcCompat="@drawable/vd_chevron_up" />
-        </RelativeLayout>
-
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Currently Offline"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

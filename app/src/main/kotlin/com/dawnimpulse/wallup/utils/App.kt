@@ -1,8 +1,14 @@
 package com.dawnimpulse.wallup.utils
 
 import android.app.Application
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
+import android.content.Context
 import android.content.ContextWrapper
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.crashlytics.android.Crashlytics
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
@@ -14,6 +20,8 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.pixplicity.easyprefs.library.Prefs
 import io.fabric.sdk.android.Fabric
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
+
+
 
 
 /*
@@ -42,9 +50,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 class App : Application() {
     private val NAME = "App"
 
-    /**
-     * On Create
-     */
+    // on create
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
@@ -53,11 +59,24 @@ class App : Application() {
         setFonts()
         setPrefs()
         analytics()
+        F.connectivityListener(this)
     }
 
-    /**
-     * Setup Firebase Remote Config
-     */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private fun scheduleJob() {
+        val myJob = JobInfo.Builder(0, ComponentName(this, NetworkSchedulerService::class.java!!))
+                .setRequiresCharging(true)
+                .setMinimumLatency(1000)
+                .setOverrideDeadline(2000)
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setPersisted(true)
+                .build()
+
+        val jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        jobScheduler.schedule(myJob)
+    }
+
+    // setup Firebase Remote Config
     private fun setUpRemoteConfig() {
         var cacheExpiration: Long = 3600 // 1 hour in seconds.
         val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
@@ -85,9 +104,7 @@ class App : Application() {
 
     }
 
-    /**
-     * Set fonts
-     */
+    // set fonts
     private fun setFonts() {
         CalligraphyConfig.initDefault(CalligraphyConfig.Builder()
                 .setDefaultFontPath("font/product_sans.xml")
@@ -95,9 +112,7 @@ class App : Application() {
                 .build())
     }
 
-    /**
-     * Set shared preferences
-     */
+    // set shared preferences
     private fun setPrefs() {
         Prefs.Builder()
                 .setContext(this)
@@ -112,9 +127,7 @@ class App : Application() {
         L.d(NAME,Config.USER_API_KEY)
     }
 
-    /**
-     * enabling crashlytics in release builds
-     */
+    // enabling crashlytics in release builds
     private fun analytics() {
         if (!BuildConfig.DEBUG) {
             Fabric.with(this, Crashlytics())

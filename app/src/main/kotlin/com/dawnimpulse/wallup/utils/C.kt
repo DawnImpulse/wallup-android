@@ -71,6 +71,7 @@ object C {
     const val IS_ADDED = "isAdded"
     const val VIEW = "view"
     const val IMAGE = "image"
+    const val NETWORK = "network"
 
 
 
@@ -91,5 +92,5 @@ object C {
     const val UNSPLASH_SOURCE = "https://source.unsplash.com"
 
     const val ERROR_CODE_1 = 601
-    const val ERROR_CODE_2 = 602
+    const val ERROR_CODE_2 = 60
 }

@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import android.graphics.PorterDuff
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.net.Uri
 import android.os.Build
 import android.text.Html
@@ -16,6 +18,10 @@ import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.UnsplashModel
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
+import org.greenrobot.eventbus.EventBus
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 
 
@@ -197,6 +203,22 @@ object F {
         return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
     }
 
+    //connection listener
+    fun connectivityListener(context: Context) {
+        launch {
+            while (true) {
+                delay(1500)
+                val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+                val isConnected: Boolean = activeNetwork?.isConnected == true
+
+                val obj = JSONObject()
+                obj.put(C.TYPE, C.NETWORK)
+                obj.put(C.NETWORK, isConnected)
+                EventBus.getDefault().post(Event(obj))
+            }
+        }
+    }
 
 
     // sort labels

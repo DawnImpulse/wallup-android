@@ -18,7 +18,9 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.updateMargins
 import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.fragments.MainFragment
@@ -26,13 +28,13 @@ import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.sheets.ModalSheetNav
 import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Colors
-import com.dawnimpulse.wallup.utils.RemoteConfig
-import com.dawnimpulse.wallup.utils.ViewPagerAdapter
+import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author Saksham
@@ -80,6 +82,20 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         mainSearch.setOnClickListener(this)
 
         RemoteConfig.update()
+    }
+
+    // on start
+    override fun onStart() {
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
+    // on destroy
+    override fun onDestroy() {
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 
     // on resume
@@ -141,6 +157,25 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     // viewpager dummy
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
         //
+    }
+
+    // on message event
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    fun onEvent(event: Event) {
+        if (event.obj.has(C.TYPE)) {
+            if (event.obj.getString(C.TYPE) == C.NETWORK) {
+                runOnUiThread {
+                    val params = mainNav.layoutParams as CoordinatorLayout.LayoutParams
+                    if (event.obj.getBoolean(C.NETWORK)) {
+                        params.updateMargins(bottom = 0)
+                        mainConnLayout.visibility = View.GONE
+                    } else {
+                        mainConnLayout.visibility = View.VISIBLE
+                        params.updateMargins(bottom = F.dpToPx(16,this))
+                    }
+                }
+            }
+        }
     }
 
     // Setup our viewpager
