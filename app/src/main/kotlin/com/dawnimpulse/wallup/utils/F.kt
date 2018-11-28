@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.UnsplashModel
+import com.google.gson.Gson
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 import org.greenrobot.eventbus.EventBus
@@ -211,6 +212,7 @@ object F {
                 val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
                 val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
                 val isConnected: Boolean = activeNetwork?.isConnected == true
+                Config.CONNECTED = isConnected
 
                 val obj = JSONObject()
                 obj.put(C.TYPE, C.NETWORK)
@@ -220,6 +222,15 @@ object F {
         }
     }
 
+    //convert to json
+    fun toJson(any: Any): String {
+        return Gson().toJson(any)
+    }
+
+    //convert json to gson
+    fun toGson(json: String, any: Any): Any {
+        return Gson().fromJson(json, any::class.java)
+    }
 
     // sort labels
     /*fun sortLabels(labels: List<FirebaseVisionLabel>): List<FirebaseVisionLabel> {

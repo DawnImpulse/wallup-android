@@ -35,6 +35,7 @@ object Config {
     var UNSPLASH_SECRET = ""
     var HEIGHT = "720"
     var IMAGE_HEIGHT = "&h=$HEIGHT"
+    var CONNECTED = true
 
     lateinit var imageBitmap: Bitmap
     lateinit var userPojo: UserPojo

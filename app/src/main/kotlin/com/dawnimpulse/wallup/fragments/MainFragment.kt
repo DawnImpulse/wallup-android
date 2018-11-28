@@ -30,8 +30,10 @@ import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Event
+import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.utils.L
 import com.google.gson.Gson
+import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -212,12 +214,18 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
             }
             response?.let {
                 images = (response as List<ImagePojo>).toMutableList()
-                timestamp = images[images.size - 1]!!.timestamp
+                if (images.isNotEmpty()) {
+                    when (type) {
+                        C.LATEST -> Prefs.putString(C.LATEST, F.toJson(images))
+                        C.RANDOM -> Prefs.putString(C.RANDOM, F.toJson(images))
+                    }
+                }
+                //timestamp = images[images.size - 1]!!.timestamp
 
-                if (arguments?.containsKey(C.LIKE)!!)
-                    mainAdapter = MainAdapter(lifecycle, images, mainRecycler, false)
+                mainAdapter = if (arguments?.containsKey(C.LIKE)!!)
+                    MainAdapter(lifecycle, images, mainRecycler, false)
                 else
-                    mainAdapter = MainAdapter(lifecycle, images, mainRecycler)
+                    MainAdapter(lifecycle, images, mainRecycler)
 
                 mainRecycler.layoutManager = LinearLayoutManager(context)
                 mainRecycler.adapter = mainAdapter
@@ -241,8 +249,12 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 images.removeAt(images.size - 1)
                 mainAdapter.notifyItemRemoved(images.size - 1)
                 var newImages = response as List<ImagePojo>
-                timestamp = newImages[newImages.size - 1]!!.timestamp
+                //timestamp = newImages[newImages.size - 1]!!.timestamp
                 images.addAll(newImages)
+                when (type) {
+                    C.LATEST -> Prefs.putString(C.LATEST, F.toJson(images))
+                    C.RANDOM -> Prefs.putString(C.RANDOM, F.toJson(images))
+                }
                 mainAdapter.notifyDataSetChanged()
                 mainAdapter.setLoaded()
             }
