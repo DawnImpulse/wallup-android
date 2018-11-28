@@ -37,6 +37,8 @@ import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
 import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -57,6 +59,7 @@ import org.json.JSONObject
  *  Saksham - 2018 09 15 - master - handling direct unsplash links
  *  Saksham - 2018 09 20 - master - ML for tags
  *  Saksham - 2018 10 20 - master - Add to collection
+ *  Saksham - 2018 11 28 - master - Connection handling
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "ImageActivity"
@@ -275,6 +278,24 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
                 if(color !=0)
                     imagePreviewCollectI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+            }
+            if (event.obj.getString(C.TYPE) == C.NETWORK) {
+                runOnUiThread {
+                    if (event.obj.getBoolean(C.NETWORK)) {
+                        imageConnLayout.setBackgroundColor(Colors(this).GREEN)
+                        imageConnText.text = "Back Online"
+                        launch {
+                            delay(1500)
+                            runOnUiThread {
+                                imageConnLayout.visibility = View.GONE
+                            }
+                        }
+                    } else {
+                        imageConnLayout.visibility = View.VISIBLE
+                        imageConnLayout.setBackgroundColor(Colors(this).LIKE)
+                        imageConnText.text = "No Internet"
+                    }
+                }
             }
         }
     }

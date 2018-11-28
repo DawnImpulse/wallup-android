@@ -26,11 +26,13 @@ import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.pojo.UserPojo
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.F
-import com.dawnimpulse.wallup.utils.L
-import com.dawnimpulse.wallup.utils.Toast
+import com.dawnimpulse.wallup.utils.*
 import kotlinx.android.synthetic.main.activity_artist_profile.*
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 /**
@@ -42,6 +44,7 @@ import kotlinx.android.synthetic.main.activity_artist_profile.*
  * @note Updates :
  *  Saksham - 2018 08 31 - master - click listener
  *  Saksham - 2018 09 14 - master - inflating collections
+ *  Saksham - 2018 11 28 - master - connection handling
  */
 class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var userPojo: UserPojo
@@ -107,6 +110,20 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
         artistBack.setOnClickListener(this)
     }
 
+    // on start
+    override fun onStart() {
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
+    // on destroy
+    override fun onDestroy() {
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
     // on click
     override fun onClick(v: View) {
         when (v.id) {
@@ -122,6 +139,31 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
                 F.startWeb(this, userPojo.portfolio_url!!)
             artistBack.id -> finish()
 
+        }
+    }
+
+    // on message event
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: Event) {
+        if (event.obj.has(C.TYPE)) {
+            if (event.obj.getString(C.TYPE) == C.NETWORK) {
+                runOnUiThread {
+                    if (event.obj.getBoolean(C.NETWORK)) {
+                        artistConnLayout.setBackgroundColor(Colors(this).GREEN)
+                        artistConnText.text = "Back Online"
+                        launch {
+                            delay(1500)
+                            runOnUiThread {
+                                artistConnLayout.visibility = View.GONE
+                            }
+                        }
+                    } else {
+                        artistConnLayout.visibility = View.VISIBLE
+                        artistConnLayout.setBackgroundColor(Colors(this).LIKE)
+                        artistConnText.text = "No Internet"
+                    }
+                }
+            }
         }
     }
 

@@ -101,6 +101,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_gravity="bottom"
+        android:animateLayoutChanges="true"
         android:background="@drawable/bg_round_nav"
         app:layout_behavior=".utils.BottomNavigationBehaviour">
 
@@ -200,6 +201,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_width="match_parent"
         android:layout_height="16dp"
         android:layout_gravity="bottom"
+        android:animateLayoutChanges="true"
         android:background="@color/like"
         android:visibility="gone">
 
@@ -208,7 +210,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Currently Offline"
             android:textColor="@color/white"
             android:textSize="10sp" />
     </FrameLayout>

@@ -107,4 +107,23 @@
 
     </LinearLayout>
 
+    <!--Connection-->
+    <FrameLayout
+        android:id="@+id/colLConnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_gravity="bottom"
+        android:animateLayoutChanges="true"
+        android:background="@color/like"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/colLConnText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </FrameLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

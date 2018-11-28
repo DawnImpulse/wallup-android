@@ -15,9 +15,12 @@ import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Colors
 import com.dawnimpulse.wallup.utils.Event
 import com.dawnimpulse.wallup.utils.L
 import kotlinx.android.synthetic.main.activity_general_images.*
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -31,6 +34,7 @@ import org.greenrobot.eventbus.ThreadMode
  * @note Updates :
  * Saksham - 2018 09 09 - master - collection images
  * Saksham - 2018 09 22 - master - random images tag
+ * Saksham - 2018 11 28 - master - connection handling
  */
 class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
@@ -160,6 +164,24 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                             randomAdapter.notifyItemChanged(pos)
                         else
                             mainAdapter.notifyItemChanged(pos)
+                    }
+                }
+            }
+            if (event.obj.getString(C.TYPE) == C.NETWORK) {
+                runOnUiThread {
+                    if (event.obj.getBoolean(C.NETWORK)) {
+                        generalConnLayout.setBackgroundColor(Colors(this).GREEN)
+                        generalConnText.text = "Back Online"
+                        launch {
+                            delay(1500)
+                            runOnUiThread {
+                                generalConnLayout.visibility = View.GONE
+                            }
+                        }
+                    } else {
+                        generalConnLayout.visibility = View.VISIBLE
+                        generalConnLayout.setBackgroundColor(Colors(this).LIKE)
+                        generalConnText.text = "No Internet"
                     }
                 }
             }

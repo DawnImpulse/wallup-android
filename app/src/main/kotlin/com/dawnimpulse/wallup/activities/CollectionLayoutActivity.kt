@@ -6,14 +6,19 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.os.bundleOf
+import androidx.core.view.updateMargins
 import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.fragments.CollectionFragment
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Colors
-import com.dawnimpulse.wallup.utils.ViewPagerAdapter
+import com.dawnimpulse.wallup.utils.*
 import kotlinx.android.synthetic.main.activity_collection_layout.*
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author Saksham
@@ -23,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_collection_layout.*
  *
  * @note Updates :
  * Saksham - 2018 09 15 - master - wallup collections
+ * Saksham - 2018 11 28 - master - connection handling
  */
 class CollectionLayoutActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "CollectionLayoutActivity"
@@ -60,6 +66,20 @@ class CollectionLayoutActivity : AppCompatActivity(), View.OnClickListener {
         currentNav(0)
     }
 
+    // on start
+    override fun onStart() {
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
+    // on destroy
+    override fun onDestroy() {
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
     // on click
     override fun onClick(v: View) {
         when (v.id) {
@@ -67,6 +87,34 @@ class CollectionLayoutActivity : AppCompatActivity(), View.OnClickListener {
             colNavGeneralL.id -> currentNav(1)
             colNavWallupL.id -> currentNav(2)
             colNavBack.id -> finish()
+        }
+    }
+
+    // on message event
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: Event) {
+        if (event.obj.has(C.TYPE)) {
+            if (event.obj.getString(C.TYPE) == C.NETWORK) {
+                runOnUiThread {
+                    val params = colLNav.layoutParams as CoordinatorLayout.LayoutParams
+                    if (event.obj.getBoolean(C.NETWORK)) {
+                        colLConnLayout.setBackgroundColor(Colors(this).GREEN)
+                        colLConnText.text = "Back Online"
+                        launch {
+                            delay(1500)
+                            runOnUiThread {
+                                colLConnLayout.visibility = View.GONE
+                                params.updateMargins(bottom = 0)
+                            }
+                        }
+                    } else {
+                        params.updateMargins(bottom = F.dpToPx(16, this))
+                        colLConnLayout.visibility = View.VISIBLE
+                        colLConnLayout.setBackgroundColor(Colors(this).LIKE)
+                        colLConnText.text = "No Internet"
+                    }
+                }
+            }
         }
     }
 

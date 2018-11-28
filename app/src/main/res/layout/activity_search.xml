@@ -129,4 +129,22 @@
             app:srcCompat="@drawable/vd_left_black" />
     </FrameLayout>
 
+    <!--Connection-->
+    <FrameLayout
+        android:id="@+id/searchConnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:layout_alignParentBottom="true"
+        android:animateLayoutChanges="true"
+        android:background="@color/like"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/searchConnText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </FrameLayout>
 </RelativeLayout>

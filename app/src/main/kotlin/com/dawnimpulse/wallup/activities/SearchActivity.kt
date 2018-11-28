@@ -14,8 +14,16 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.RandomAdapter
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.Colors
+import com.dawnimpulse.wallup.utils.Event
 import com.dawnimpulse.wallup.utils.L
 import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author Saksham
@@ -24,6 +32,7 @@ import kotlinx.android.synthetic.main.activity_search.*
  * @note Created on 2018-09-23 by Saksham
  *
  * @note Updates :
+ * Saksham - 2018 11 28 - master - Connection handling
  */
 @SuppressLint("RestrictedApi")
 class SearchActivity : AppCompatActivity(), View.OnClickListener {
@@ -78,6 +87,20 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
+    // on start
+    override fun onStart() {
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
+    // on destroy
+    override fun onDestroy() {
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
     // on click
     override fun onClick(v: View) {
         when (v.id) {
@@ -100,6 +123,31 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     override fun onBackPressed() {
         finish()
         overridePendingTransition(R.anim.enter_from_right, R.anim.fade_out)
+    }
+
+    // on message event
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: Event) {
+        if (event.obj.has(C.TYPE)) {
+            if (event.obj.getString(C.TYPE) == C.NETWORK) {
+                runOnUiThread {
+                    if (event.obj.getBoolean(C.NETWORK)) {
+                        searchConnLayout.setBackgroundColor(Colors(this).GREEN)
+                        searchConnText.text = "Back Online"
+                        launch {
+                            delay(1500)
+                            runOnUiThread {
+                                searchConnLayout.visibility = View.GONE
+                            }
+                        }
+                    } else {
+                        searchConnLayout.visibility = View.VISIBLE
+                        searchConnLayout.setBackgroundColor(Colors(this).LIKE)
+                        searchConnText.text = "No Internet"
+                    }
+                }
+            }
+        }
     }
 
     // initial checking before search

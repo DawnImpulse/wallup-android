@@ -20,6 +20,11 @@ import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_collection.*
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author Saksham
@@ -28,6 +33,7 @@ import kotlinx.android.synthetic.main.activity_collection.*
  * @note Created on 2018-09-08 by Saksham
  *
  * @note Updates :
+ * Saksham - 2018 11 28 - master - Connection handling
  */
 class CollectionActivity : AppCompatActivity(), View.OnClickListener {
     private var NAME = "CollectionActivity"
@@ -81,6 +87,20 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
         colBack.setOnClickListener(this)
     }
 
+    // on start
+    override fun onStart() {
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
+    // on destroy
+    override fun onDestroy() {
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
     // on click
     override fun onClick(v: View) {
         when (v.id) {
@@ -97,6 +117,31 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             colBack.id -> finish()
+        }
+    }
+
+    // on message event
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: Event) {
+        if (event.obj.has(C.TYPE)) {
+            if (event.obj.getString(C.TYPE) == C.NETWORK) {
+                runOnUiThread {
+                    if (event.obj.getBoolean(C.NETWORK)) {
+                        colConnLayout.setBackgroundColor(Colors(this).GREEN)
+                        colConnText.text = "Back Online"
+                        launch {
+                            delay(1500)
+                            runOnUiThread {
+                                colConnLayout.visibility = View.GONE
+                            }
+                        }
+                    } else {
+                        colConnLayout.visibility = View.VISIBLE
+                        colConnLayout.setBackgroundColor(Colors(this).LIKE)
+                        colConnText.text = "No Internet"
+                    }
+                }
+            }
         }
     }
 

@@ -32,6 +32,8 @@ import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -48,6 +50,7 @@ import org.greenrobot.eventbus.ThreadMode
  *  Saksham - 2018 09 15 - master - remote config for update
  *  Saksham - 2018 10 10 - master - random fragment
  *  Saksham - 2018 11 24 - master - user icon on toolbar
+ *  Saksham - 2018 11 28 - master - connection handling
  */
 class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.OnClickListener {
     private lateinit var pagerAdapter: ViewPagerAdapter
@@ -160,18 +163,27 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     }
 
     // on message event
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: Event) {
         if (event.obj.has(C.TYPE)) {
             if (event.obj.getString(C.TYPE) == C.NETWORK) {
                 runOnUiThread {
                     val params = mainNav.layoutParams as CoordinatorLayout.LayoutParams
                     if (event.obj.getBoolean(C.NETWORK)) {
-                        params.updateMargins(bottom = 0)
-                        mainConnLayout.visibility = View.GONE
+                        mainConnLayout.setBackgroundColor(Colors(this).GREEN)
+                        mainConnText.text = "Back Online"
+                        launch {
+                            delay(1500)
+                            runOnUiThread {
+                                mainConnLayout.visibility = View.GONE
+                                params.updateMargins(bottom = 0)
+                            }
+                        }
                     } else {
+                        params.updateMargins(bottom = F.dpToPx(16, this))
                         mainConnLayout.visibility = View.VISIBLE
-                        params.updateMargins(bottom = F.dpToPx(16,this))
+                        mainConnLayout.setBackgroundColor(Colors(this).LIKE)
+                        mainConnText.text = "No Internet"
                     }
                 }
             }
