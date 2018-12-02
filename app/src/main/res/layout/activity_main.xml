@@ -21,67 +21,66 @@ OR PERFORMANCE OF THIS SOFTWARE.
     tools:context=".activities.MainActivity">
 
     <!--app bar-->
-    <com.google.android.material.appbar.AppBarLayout
+    <!--<androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Light">
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_gravity="top"
+        android:background="@drawable/bg_round_toolbar"
+        android:visibility="visible"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:layout_scrollFlags="enterAlways|scroll">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/mainToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:background="?android:attr/colorPrimary"
-            android:visibility="visible"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp"
-            app:layout_scrollFlags="enterAlways|scroll"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    </androidx.appcompat.widget.Toolbar>-->
 
-                <FrameLayout
-                    android:id="@+id/mainSearch"
-                    android:layout_width="?android:attr/actionBarSize"
-                    android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackgroundBorderless">
+    <RelativeLayout
+        android:elevation="6dp"
+        android:layout_gravity="top"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        app:layout_behavior=".utils.ToolbarBehaviour"
+        android:background="@drawable/bg_round_toolbar">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:visibility="visible"
-                        app:srcCompat="@drawable/vd_search_outline" />
+        <FrameLayout
+            android:id="@+id/mainSearch"
+            android:layout_width="?android:attr/actionBarSize"
+            android:layout_height="match_parent">
 
-                </FrameLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:visibility="visible"
+                app:srcCompat="@drawable/vd_search_outline" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/ic_launcher_128" />
+        </FrameLayout>
 
-                <FrameLayout
-                    android:id="@+id/mainUser"
-                    android:layout_width="?android:attr/actionBarSize"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="?android:attr/selectableItemBackgroundBorderless">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_launcher_128" />
 
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/mainUserI"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/vd_user_outline"
-                        app:riv_oval="true" />
-                </FrameLayout>
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
+        <FrameLayout
+            android:id="@+id/mainUser"
+            android:layout_width="?android:attr/actionBarSize"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="?android:attr/selectableItemBackgroundBorderless">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/mainUserI"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/vd_user_outline"
+                app:riv_oval="true" />
+        </FrameLayout>
+    </RelativeLayout>
 
     <!--viewpager-->
     <RelativeLayout
@@ -93,6 +92,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:id="@+id/mainViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
     </RelativeLayout>
 
     <!--Bottom nav-->
@@ -130,7 +130,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_flash_circle" />
+                        app:srcCompat="@drawable/vd_latest" />
 
                     <TextView
                         android:id="@+id/mainNavLatestT"

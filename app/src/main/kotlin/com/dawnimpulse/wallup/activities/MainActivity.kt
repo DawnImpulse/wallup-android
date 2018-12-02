@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(mainToolbar)
+        //setSupportActionBar(mainToolbar)
 
         navSheet = ModalSheetNav()
         userSheet = ModalSheetUnsplash()
