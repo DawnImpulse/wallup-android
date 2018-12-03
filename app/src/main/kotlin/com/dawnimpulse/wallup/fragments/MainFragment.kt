@@ -17,6 +17,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -92,7 +93,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
 
         }
         mainRefresher.setOnRefreshListener(this)
-
+        dummy.animation = AnimationUtils.loadAnimation(context, R.anim.rotation_progress)
     }
 
     // on start
@@ -231,7 +232,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 mainRecycler.adapter = mainAdapter
                 (mainRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
                 mainRefresher.isRefreshing = false
-                mainDummyLoading.visibility = View.GONE
+                mainProgress.visibility = View.GONE
 
                 mainAdapter.setOnLoadMoreListener(this@MainFragment)
             }

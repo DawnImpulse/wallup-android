@@ -1,14 +1,8 @@
 package com.dawnimpulse.wallup.utils
 
 import android.app.Application
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
-import android.content.ComponentName
-import android.content.Context
 import android.content.ContextWrapper
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import com.crashlytics.android.Crashlytics
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
@@ -60,20 +54,6 @@ class App : Application() {
         setPrefs()
         analytics()
         F.connectivityListener(this)
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private fun scheduleJob() {
-        val myJob = JobInfo.Builder(0, ComponentName(this, NetworkSchedulerService::class.java!!))
-                .setRequiresCharging(true)
-                .setMinimumLatency(1000)
-                .setOverrideDeadline(2000)
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setPersisted(true)
-                .build()
-
-        val jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-        jobScheduler.schedule(myJob)
     }
 
     // setup Firebase Remote Config
