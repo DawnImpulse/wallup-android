@@ -112,9 +112,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                     searchText.setText("")
             }
             searchRightL.id -> searchInit(searchText.text.toString())
-            searchFab.id -> {
-                model.randomImagesTag(text!!, callback)
-            }
+            searchFab.id -> searching(text!!)
             searchBack.id -> finish()
         }
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,55 +11,25 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/searchAppBar"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize">
+        android:layout_height="48dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/searchToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp">
+            app:contentInsetStart="0dp"
+            app:layout_scrollFlags="snap|enterAlways">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <!--back or close-->
-                <FrameLayout
-                    android:id="@+id/searchLeftL"
-                    android:layout_width="?android:attr/actionBarSize"
-                    android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackgroundBorderless">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/searchLeft"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_left" />
-                </FrameLayout>
-
-                <!--search text-->
-                <EditText
-                    android:id="@+id/searchText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@id/searchRightL"
-                    android:layout_toRightOf="@id/searchLeftL"
-                    android:focusable="true"
-                    android:hint="Search"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:paddingLeft="16dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey400" />
 
                 <!--search button-->
                 <FrameLayout
                     android:id="@+id/searchRightL"
                     android:layout_width="?android:attr/actionBarSize"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
                     android:background="?android:attr/selectableItemBackgroundBorderless">
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -69,45 +39,108 @@
                         app:srcCompat="@drawable/vd_search_outline" />
                 </FrameLayout>
 
+                <!--search text-->
+                <EditText
+                    android:id="@+id/searchText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@id/searchLeftL"
+                    android:layout_toRightOf="@id/searchRightL"
+                    android:focusable="true"
+                    android:hint="Search"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:paddingLeft="8dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/grey400" />
+
+                <!--back or close-->
+                <FrameLayout
+                    android:id="@+id/searchLeftL"
+                    android:layout_width="?android:attr/actionBarSize"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/searchLeft"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_menu_right_outline" />
+                </FrameLayout>
+
             </RelativeLayout>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!--recycler-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/searchRecycler"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/searchAppBar"
-        android:visibility="gone" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <!--illustration-->
-    <androidx.appcompat.widget.AppCompatImageView
+        <!--recycler-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <!--progress-->
+        <ProgressBar
+            android:id="@+id/searchProgress"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:indeterminate="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <!--powered by-->
+    <RelativeLayout
         android:id="@+id/searchIl"
-        android:layout_width="256dp"
-        android:layout_height="256dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        app:srcCompat="@drawable/vd_search_i" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <!--progress-->
-    <ProgressBar
-        android:id="@+id/searchProgress"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="128dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:indeterminate="true"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/searchDummy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/search_text"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/searchDummy"
+            android:layout_toRightOf="@id/searchDummy"
+            android:background="@drawable/bg_api"
+            android:paddingLeft="4dp"
+            android:paddingTop="2dp"
+            android:paddingRight="4dp"
+            android:paddingBottom="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="API"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+        </FrameLayout>
+
+    </RelativeLayout>
 
     <!--fab-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/searchFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:visibility="gone"
         app:srcCompat="@drawable/vd_refresh_black" />
@@ -134,7 +167,7 @@
         android:id="@+id/searchConnLayout"
         android:layout_width="match_parent"
         android:layout_height="16dp"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:animateLayoutChanges="true"
         android:background="@color/like"
         android:visibility="gone">
@@ -147,4 +180,4 @@
             android:textColor="@color/white"
             android:textSize="10sp" />
     </FrameLayout>
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
