@@ -14,6 +14,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/grey400" />
+    <solid android:color="@color/grey500" />
     <corners android:radius="32dp" />
 </shape>

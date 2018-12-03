@@ -22,10 +22,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <View
-        android:layout_width="32dp"
-        android:layout_height="3dp"
+        android:layout_width="30dp"
+        android:layout_height="4dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="4dp"
         android:background="@drawable/bt_round_complete_corners_grey" />
 
     <FrameLayout

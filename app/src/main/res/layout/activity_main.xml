@@ -20,28 +20,26 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <!--app bar-->
-    <!--<androidx.appcompat.widget.Toolbar
-        android:id="@+id/mainToolbar"
+    <!--viewpager-->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/mainViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </RelativeLayout>
+
+    <!--Toolbar-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:layout_gravity="top"
         android:background="@drawable/bg_round_toolbar"
-        android:visibility="visible"
-        app:contentInsetLeft="0dp"
-        app:contentInsetStart="0dp"
-        app:layout_scrollFlags="enterAlways|scroll">
-
-
-    </androidx.appcompat.widget.Toolbar>-->
-
-    <RelativeLayout
-        android:elevation="6dp"
-        android:layout_gravity="top"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        app:layout_behavior=".utils.ToolbarBehaviour"
-        android:background="@drawable/bg_round_toolbar">
+        app:layout_behavior=".utils.ToolbarBehaviour">
 
         <FrameLayout
             android:id="@+id/mainSearch"
@@ -49,8 +47,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center"
                 android:visibility="visible"
                 app:srcCompat="@drawable/vd_search_outline" />
@@ -77,29 +75,18 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
+                app:riv_border_color="@color/white"
+                app:riv_border_width="1dp"
                 android:src="@drawable/vd_user_outline"
                 app:riv_oval="true" />
         </FrameLayout>
-    </RelativeLayout>
-
-    <!--viewpager-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/mainViewPager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
     </RelativeLayout>
 
     <!--Bottom nav-->
     <RelativeLayout
         android:id="@+id/mainNav"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
+        android:layout_height="48dp"
         android:layout_gravity="bottom"
         android:animateLayoutChanges="true"
         android:background="@drawable/bg_round_nav"
@@ -107,7 +94,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
             <!--latest-->
@@ -127,10 +114,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/mainNavLatestI"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_latest" />
+                        app:srcCompat="@drawable/vd_latest_outline" />
 
                     <TextView
                         android:id="@+id/mainNavLatestT"
@@ -138,7 +125,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Latest"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -159,8 +147,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/mainNavRandomI"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
                         app:srcCompat="@drawable/vd_shuffle" />
 
@@ -170,7 +158,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="Random"
-                        android:textColor="@color/white" />
+                        android:layout_marginTop="2dp"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
             </RelativeLayout>
@@ -184,12 +174,48 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:orientation="vertical">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/vd_chevron_up" />
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_menu_up_outline" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Menu"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>
+                <!--<LinearLayout
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_menu_up_outline" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Menu"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
+                </LinearLayout>-->
             </RelativeLayout>
 
         </LinearLayout>

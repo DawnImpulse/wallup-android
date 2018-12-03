@@ -63,10 +63,10 @@
                     android:background="?android:attr/selectableItemBackgroundBorderless">
 
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_search" />
+                        app:srcCompat="@drawable/vd_search_outline" />
                 </FrameLayout>
 
             </RelativeLayout>

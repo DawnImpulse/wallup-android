@@ -20,10 +20,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:orientation="vertical">
 
     <View
-        android:layout_width="32dp"
-        android:layout_height="3dp"
+        android:layout_width="30dp"
+        android:layout_height="4dp"
         android:layout_gravity="center"
-        android:layout_marginTop="4dp"
         android:background="@drawable/bt_round_complete_corners_grey" />
 
     <TextView

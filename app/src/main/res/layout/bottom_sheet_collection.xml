@@ -17,6 +17,11 @@
     android:background="@color/black"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="30dp"
+        android:layout_height="4dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bt_round_complete_corners_grey" />
 
     <ProgressBar
         android:id="@+id/sheetColProgress"
@@ -29,10 +34,10 @@
 
     <FrameLayout
         android:id="@+id/sheetColRefresh"
-        android:visibility="gone"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="36dp"
@@ -45,6 +50,7 @@
         android:id="@+id/sheetColRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
         android:clipToPadding="false" />
 
 </RelativeLayout>

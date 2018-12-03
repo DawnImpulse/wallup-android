@@ -14,7 +14,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
 import android.content.Intent
-import android.graphics.PorterDuff
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -51,6 +51,7 @@ import org.greenrobot.eventbus.ThreadMode
  *  Saksham - 2018 10 10 - master - random fragment
  *  Saksham - 2018 11 24 - master - user icon on toolbar
  *  Saksham - 2018 11 28 - master - connection handling
+ *  Saksham - 2018 12 03 - master - changes to toolbar & bottom navigation
  */
 class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.OnClickListener {
     private lateinit var pagerAdapter: ViewPagerAdapter
@@ -108,8 +109,12 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         if (Prefs.contains(C.USER)) {
             var user = Gson().fromJson(Prefs.getString(C.USER, ""), UserPojo::class.java)
             ImageHandler.setImageInView(lifecycle, mainUserI, user.profile_image.large)
-        } else
+            mainUserI.borderColor = Colors(this).WHITE
+            mainUserI.borderWidth = F.dpToPx(1, this).toFloat()
+        } else {
             mainUserI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_user_outline))
+            mainUserI.borderWidth = 0f
+        }
 
     }
 
@@ -213,34 +218,26 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
 
     // current nav item selected
     private fun currentNavItem(pos: Int) {
-        changeNavColor(pos)
         when (pos) {
             0 -> {
                 lastItemSelected = 0
                 mainViewPager.currentItem = 0
-                mainNavLatestT.visibility = View.VISIBLE
-                mainNavRandomT.visibility = View.GONE
+                mainNavLatestI.setImageDrawable(Drawables(this).latest)
+                mainNavRandomI.setImageDrawable(Drawables(this).shuffle1)
+                mainNavLatestT.typeface = Typeface.DEFAULT_BOLD
+                mainNavRandomT.typeface = Typeface.DEFAULT
+                mainNavLatestT.textSize = 14f
+                mainNavRandomT.textSize = 12f
             }
             1 -> {
                 lastItemSelected = 1
                 mainViewPager.currentItem = 1
-                mainNavLatestT.visibility = View.GONE
-                mainNavRandomT.visibility = View.VISIBLE
-            }
-        }
-    }
-
-    // change nav icon colors
-    private fun changeNavColor(pos: Int) {
-        val colors = Colors(this)
-        when (pos) {
-            0 -> {
-                mainNavLatestI.drawable.setColorFilter(colors.WHITE, PorterDuff.Mode.SRC_ATOP)
-                mainNavRandomI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
-            }
-            1 -> {
-                mainNavLatestI.drawable.setColorFilter(colors.GREY_500, PorterDuff.Mode.SRC_ATOP)
-                mainNavRandomI.drawable.setColorFilter(colors.WHITE, PorterDuff.Mode.SRC_ATOP)
+                mainNavLatestI.setImageDrawable(Drawables(this).latest_outline)
+                mainNavRandomI.setImageDrawable(Drawables(this).shuffle2)
+                mainNavLatestT.typeface = Typeface.DEFAULT
+                mainNavRandomT.typeface = Typeface.DEFAULT_BOLD
+                mainNavLatestT.textSize = 12f
+                mainNavRandomT.textSize = 14f
             }
         }
     }
