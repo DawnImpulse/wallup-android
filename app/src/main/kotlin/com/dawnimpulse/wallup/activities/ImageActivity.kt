@@ -20,6 +20,7 @@ import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -128,7 +129,11 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         imagePreviewStats.setOnLongClickListener(this)
 
         //Ripple.add(Colors(this).GREY_400, imagePreviewStats)
-
+        imageHover.animation = AnimationUtils.loadAnimation(this, R.anim.hover)
+        imageScroll.viewTreeObserver.addOnScrollChangedListener {
+            imageHover.clearAnimation()
+            imageHover.hidden()
+        }
     }
 
     // on start

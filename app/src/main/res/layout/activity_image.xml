@@ -25,6 +25,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@+id/imageScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -68,7 +69,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_marginLeft="8dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="16dp"
                         android:layout_marginRight="8dp"
                         android:background="@drawable/line_dashed_white"
                         android:layerType="software" />
@@ -188,6 +189,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginRight="8dp"
                         android:background="@drawable/line_dashed_white"
                         android:layerType="software" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageHover"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        app:srcCompat="@drawable/vd_chevron_down" />
 
                     <!--Author Layout-->
                     <RelativeLayout
