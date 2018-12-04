@@ -16,7 +16,9 @@ package com.dawnimpulse.wallup.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.ArtistPhotosAdapter
@@ -45,9 +47,11 @@ import org.greenrobot.eventbus.ThreadMode
  *  Saksham - 2018 08 31 - master - click listener
  *  Saksham - 2018 09 14 - master - inflating collections
  *  Saksham - 2018 11 28 - master - connection handling
+ *  Saksham - 2018 12 04 - master - new reload / progress
  */
 class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var userPojo: UserPojo
+    lateinit var model: UnsplashModel
     private val NAME = "ArtistProfileActivity"
 
     // on create
@@ -55,11 +59,12 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_artist_profile)
 
-        var model = UnsplashModel(lifecycle)
+        model = UnsplashModel(lifecycle)
         model.userDetails(intent.extras.getString(C.USERNAME)) { error, details ->
             error?.let {
                 L.d(NAME, error.toString())
                 artistProgress.visibility = View.GONE
+                artistReload.isVisible = true
                 Toast.short(this, "Error Occurred")
             }
             details?.let {
@@ -68,6 +73,7 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
                 artistLayout.visibility = View.VISIBLE
                 artistUnsplash.visibility = View.VISIBLE
                 artistProgress.visibility = View.GONE
+                artistReload.isVisible = false
             }
         }
         model.userPhotos(1, 8, intent.extras.getString(C.USERNAME)) { error, details ->
@@ -108,6 +114,9 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
         artistUnsplash.setOnClickListener(this)
         artistUrl.setOnClickListener(this)
         artistBack.setOnClickListener(this)
+        artistReload.setOnClickListener(this)
+
+        artistProgressI.animation = AnimationUtils.loadAnimation(this, R.anim.rotation_progress)
     }
 
     // on start
@@ -138,6 +147,59 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
             artistUrl.id ->
                 F.startWeb(this, userPojo.portfolio_url!!)
             artistBack.id -> finish()
+            artistReload.id -> {
+                artistReload.isVisible = false
+                artistProgress.isVisible = true
+                model.userDetails(intent.extras.getString(C.USERNAME)) { error, details ->
+                    error?.let {
+                        L.d(NAME, error.toString())
+                        artistProgress.visibility = View.GONE
+                        artistReload.isVisible = true
+                        Toast.short(this, "Error Occurred")
+                    }
+                    details?.let {
+                        userPojo = details as UserPojo
+                        details()
+                        artistLayout.visibility = View.VISIBLE
+                        artistUnsplash.visibility = View.VISIBLE
+                        artistProgress.visibility = View.GONE
+                        artistReload.isVisible = false
+                    }
+                }
+                model.userPhotos(1, 8, intent.extras.getString(C.USERNAME)) { error, details ->
+                    error?.let {
+                        L.d(NAME, error.toString())
+                        Toast.short(this, "Error Occurred In Photos")
+                        artistPhotosL.visibility = View.GONE
+                    }
+                    details?.let {
+                        if ((details as List<ImagePojo>).size != 0) {
+                            var adapter = ArtistPhotosAdapter(this@ArtistProfileActivity, lifecycle, details as List<ImagePojo?>)
+                            artistPhotos.layoutManager = LinearLayoutManager(this@ArtistProfileActivity, LinearLayoutManager.HORIZONTAL, false)
+                            artistPhotos.adapter = adapter
+                            artistPhotos.clipToPadding = false
+                        } else
+                            artistPhotosL.visibility = View.GONE
+                    }
+                }
+                model.userCollections(intent.getStringExtra(C.USERNAME), 1, 8) { e, r ->
+                    e?.let {
+                        L.d(NAME, e.toString())
+                        Toast.short(this, "Error Occurred In Collections")
+                        artistCollectionL.visibility = View.GONE
+                    }
+                    r?.let {
+                        if ((r as List<CollectionPojo>).size != 0) {
+                            var adapter = CollectionsHorizontalAdapter(lifecycle, r)
+                            artistCollectionRecycler.layoutManager = LinearLayoutManager(this@ArtistProfileActivity, LinearLayoutManager.HORIZONTAL, false)
+                            artistCollectionRecycler.adapter = adapter
+                            artistCollectionRecycler.clipToPadding = false
+                        } else
+                            artistCollectionL.visibility = View.GONE
+
+                    }
+                }
+            }
 
         }
     }

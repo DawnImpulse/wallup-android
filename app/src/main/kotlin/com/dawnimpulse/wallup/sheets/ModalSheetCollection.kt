@@ -17,6 +17,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.core.view.isVisible
 import androidx.core.widget.toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -44,8 +46,9 @@ import org.greenrobot.eventbus.ThreadMode
  * @note Created on 2018-10-20 by Saksham
  *
  * @note Updates :
+ * Saksham - 2018 12 04 - master - new reload / progress
  */
-class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListener {
+class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListener,View.OnClickListener {
     private var NAME = "ModalSheetCollection"
     private var toView: Boolean = false
     private var imageCols: MutableList<CollectionPojo>? = null
@@ -81,11 +84,9 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
         }
 
         getCollections()
-        sheetColRefresh.setOnClickListener {
-            sheetColRefresh.visibility = View.GONE
-            sheetColProgress.visibility = View.VISIBLE
-            getCollections()
-        }
+        sheetColReload.setOnClickListener(this)
+
+        sheetColProgressI.animation = AnimationUtils.loadAnimation(context, R.anim.rotation_progress)
     }
 
     // on start
@@ -102,6 +103,13 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
         super.onDestroy()
     }
 
+    // on click
+    override fun onClick(v: View) {
+        sheetColReload.isVisible = false
+        sheetColProgress.isVisible = true
+        getCollections()
+    }
+
     // on load more
     override fun onLoadMore() {
         cols.add(null)
@@ -116,7 +124,7 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
                 cols.removeAt(cols.size - 1)
                 adapter.notifyItemRemoved(cols.size - 1)
                 var list = (r as List<CollectionPojo?>).toMutableList()
-                var temp = imageCollections(originalImageColString,list)
+                var temp = imageCollections(originalImageColString, list)
                 cols.addAll(list)
                 imageColString!!.addAll(temp)
                 adapter.notifyDataSetChanged()
@@ -157,8 +165,8 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
             e?.let {
                 L.d(NAME, e)
                 context!!.toast("error fetching user collections")
-                sheetColRefresh.visibility = View.VISIBLE
-                sheetColProgress.visibility = View.GONE
+                sheetColProgress.isVisible = false
+                sheetColReload.isVisible = true
             }
             r?.let { r ->
                 var id: String? = null

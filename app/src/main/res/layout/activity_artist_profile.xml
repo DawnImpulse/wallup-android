@@ -320,14 +320,39 @@
 
             </LinearLayout>
 
-            <ProgressBar
+            <!--Progress-->
+            <FrameLayout
                 android:id="@+id/artistProgress"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="128dp"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_centerHorizontal="true"
-                android:indeterminate="true" />
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_circle_outline_accent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/artistProgressI"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vd_refresh_white" />
+            </FrameLayout>
+
+            <!--Reload-->
+            <FrameLayout
+                android:id="@+id/artistReload"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_circle_accent"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vd_refresh_black" />
+            </FrameLayout>
 
         </RelativeLayout>
     </ScrollView>

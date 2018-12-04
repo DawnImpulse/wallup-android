@@ -3,7 +3,9 @@ package com.dawnimpulse.wallup.activities
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.core.widget.toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -35,6 +37,7 @@ import org.greenrobot.eventbus.ThreadMode
  * Saksham - 2018 09 09 - master - collection images
  * Saksham - 2018 09 22 - master - random images tag
  * Saksham - 2018 11 28 - master - connection handling
+ * Saksham - 2018 12 04 - master - new reload / progress
  */
 class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
@@ -51,6 +54,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     private lateinit var colId: String
     private lateinit var colType: String
     private lateinit var tag: String
+    private lateinit var type: String
 
     // on create
     @SuppressLint("RestrictedApi")
@@ -59,7 +63,8 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         setContentView(R.layout.activity_general_images)
 
         model = UnsplashModel(lifecycle)
-        when (intent.extras.getString(C.TYPE)) {
+        type = intent.extras.getString(C.TYPE)
+        when (type) {
             C.RANDOM -> randomImages()
             C.ARTIST_IMAGES -> {
                 current = 1
@@ -80,7 +85,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
             C.LIKE -> {
                 current = 4
                 username = intent.extras.getString(C.USERNAME)
-                L.d(NAME,username)
+                L.d(NAME, username)
                 paginatedImages()
                 generalImagesFab.visibility = View.GONE
             }
@@ -89,6 +94,9 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         generalImagesFab.setOnClickListener(this)
         generalImagesSwipe.setOnRefreshListener(this)
         generalBack.setOnClickListener(this)
+        generalImagesReload.setOnClickListener(this)
+
+        generalImagesProgressI.animation = AnimationUtils.loadAnimation(this, R.anim.rotation_progress)
     }
 
     // on start
@@ -108,8 +116,19 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     // on click
     override fun onClick(v: View) {
         when (v.id) {
-            generalImagesFab.id -> randomImages()
+            generalImagesFab.id -> {
+                generalImagesFab.isVisible = false
+                randomImages()
+            }
             generalBack.id -> finish()
+            generalImagesReload.id -> {
+                generalImagesReload.visibility = View.GONE
+                generalImagesProgress.visibility = View.VISIBLE
+                when (type) {
+                    C.RANDOM, C.TAG -> randomImages()
+                    C.ARTIST_IMAGES, C.COLLECTION, C.LIKE -> paginatedImages()
+                }
+            }
         }
     }
 
@@ -136,7 +155,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                 else
                     model.curatedCollectionPhotos(colId, nextPage, 30, callbackPaginated)
             }
-            4 -> model.userLikedPhotos(username,nextPage, callbackPaginated)
+            4 -> model.userLikedPhotos(username, nextPage, callbackPaginated)
         }
     }
 
@@ -228,25 +247,30 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                     model.curatedCollectionPhotos(colId, 1, 30, callback)
             }
             4 -> {
-                model.userLikedPhotos(username, 1,callback)
+                model.userLikedPhotos(username, 1, callback)
             }
         }
     }
 
     // set random images in adapter
     private var callbackR = object : (Any?, Any?) -> Unit {
-        override fun invoke(error: Any?, r: Any?) {
+        override fun invoke(e: Any?, r: Any?) {
             L.d(NAME, "called")
-            error?.let {
-                L.d(NAME, error)
+            e?.let {
+                L.d(NAME, e)
                 generalImagesSwipe.isRefreshing = false
                 generalImagesProgress.visibility = View.GONE
+                generalImagesReload.visibility = View.VISIBLE
                 toast("Error while fetching random images")
             }
             r?.let {
+                when (type) {
+                    C.RANDOM, C.ARTIST_IMAGES, C.COLLECTION, C.TAG -> generalImagesFab.isVisible = true
+                }
                 images = (r as List<ImagePojo?>).toMutableList()
                 generalImagesProgress.visibility = View.GONE
                 generalImagesSwipe.visibility = View.VISIBLE
+                generalImagesReload.visibility = View.GONE
 
                 randomAdapter = RandomAdapter(lifecycle, images)
                 generalImagesSwipe.isRefreshing = false
@@ -261,14 +285,17 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     private var callback = object : (Any?, Any?) -> Unit {
         override fun invoke(error: Any?, response: Any?) {
             randomImages = false
-
             error?.let {
                 L.d(NAME, error)
                 generalImagesProgress.visibility = View.GONE
                 generalImagesSwipe.isRefreshing = false
+                generalImagesReload.visibility = View.VISIBLE
                 toast("error fetching images")
             }
             response?.let {
+                when (type) {
+                    C.RANDOM, C.ARTIST_IMAGES, C.COLLECTION, C.TAG -> generalImagesFab.isVisible = true
+                }
                 if ((response as List<ImagePojo>).size < 30) {
                     randomImages = true
                     callbackR(error, response)
@@ -281,6 +308,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                     generalImagesSwipe.isRefreshing = false
                     generalImagesSwipe.visibility = View.VISIBLE
                     generalImagesProgress.visibility = View.GONE
+                    generalImagesReload.visibility = View.GONE
                     (generalImagesRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
 
                     mainAdapter.setOnLoadMoreListener(this@GeneralImagesActivity)

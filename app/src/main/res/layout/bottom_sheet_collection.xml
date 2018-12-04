@@ -23,27 +23,38 @@
         android:layout_centerHorizontal="true"
         android:background="@drawable/bt_round_complete_corners_grey" />
 
-    <ProgressBar
-        android:id="@+id/sheetColProgress"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="128dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:indeterminate="true" />
-
+    <!--Progress-->
     <FrameLayout
-        android:id="@+id/sheetColRefresh"
+        android:id="@+id/sheetColProgress"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/bg_circle_outline_accent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/sheetColProgressI"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/vd_refresh_white" />
+    </FrameLayout>
+
+    <!--Reload-->
+    <FrameLayout
+        android:id="@+id/sheetColReload"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/bg_circle_accent"
         android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/vd_refresh" />
+            app:srcCompat="@drawable/vd_refresh_black" />
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView

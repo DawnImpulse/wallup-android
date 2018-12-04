@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.widget.toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -53,7 +54,7 @@ import org.greenrobot.eventbus.ThreadMode
  *  Saksham - 2018 10 28 - master - event change collection
  */
 
-class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
+class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, View.OnClickListener {
     private val NAME = "MainFragment"
     private lateinit var mainAdapter: MainAdapter
     private lateinit var images: MutableList<ImagePojo?>
@@ -90,10 +91,10 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 modelR.getTrendingImages(null, callback)
             C.RANDOM ->
                 model?.randomImages(callback)
-
         }
         mainRefresher.setOnRefreshListener(this)
-        dummy.animation = AnimationUtils.loadAnimation(context, R.anim.rotation_progress)
+        mainReload.setOnClickListener(this)
+        mainProgressI.animation = AnimationUtils.loadAnimation(context, R.anim.rotation_progress)
     }
 
     // on start
@@ -109,6 +110,23 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
             EventBus.getDefault().unregister(this)
         super.onDestroy()
     }
+
+    // on click of reload
+    override fun onClick(v: View) {
+        mainReload.visibility = View.GONE
+        mainProgress.visibility = View.VISIBLE
+        when (type) {
+            C.LATEST ->
+                model?.getLatestImages(1, callback)
+            C.CURATED ->
+                model?.getCuratedImages(1, callback)
+            C.TRENDING ->
+                modelR.getTrendingImages(null, callback)
+            C.RANDOM ->
+                model?.randomImages(callback)
+        }
+    }
+
 
     // On swipe refresh
     override fun onRefresh() {
@@ -211,7 +229,10 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
         override fun invoke(error: Any?, response: Any?) {
             error?.let {
                 L.d(NAME, error)
+                context!!.toast("error loading images")
                 mainRefresher.isRefreshing = false
+                mainProgress.visibility = View.GONE
+                mainReload.visibility = View.VISIBLE
             }
             response?.let {
                 images = (response as List<ImagePojo>).toMutableList()
@@ -233,6 +254,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 (mainRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
                 mainRefresher.isRefreshing = false
                 mainProgress.visibility = View.GONE
+                mainReload.visibility = View.GONE
 
                 mainAdapter.setOnLoadMoreListener(this@MainFragment)
             }

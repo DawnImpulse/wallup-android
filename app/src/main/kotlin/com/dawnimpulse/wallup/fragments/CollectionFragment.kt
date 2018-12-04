@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.core.view.isVisible
 import androidx.core.widget.toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,8 +28,9 @@ import kotlinx.android.synthetic.main.fragment_collection.*
  *
  * @note Updates :
  * Saksham - 2018 09 15 - master - adding wallup content
+ * Saksham - 2018 12 04 - master - new reload / progress
  */
-class CollectionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
+class CollectionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, View.OnClickListener {
     private val NAME = "CollectionFragment"
     private lateinit var model: UnsplashModel
     private lateinit var cols: MutableList<CollectionPojo?>
@@ -56,6 +59,19 @@ class CollectionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnL
         }
 
         colLSwipe.setOnRefreshListener(this)
+        colLReload.setOnClickListener(this)
+        colLProgressI.animation = AnimationUtils.loadAnimation(context, R.anim.rotation_progress)
+    }
+
+    // on click
+    override fun onClick(v: View) {
+        colLReload.isVisible = false
+        colLProgress.isVisible = true
+        when (type) {
+            C.FEATURED -> model.featuredCollections(1, callback)
+            C.CURATED -> model.curatedCollections(1, callback)
+            C.WALLUP -> model.userCollections(C.DAWN_IMPULSE, 1, 30, callback)
+        }
     }
 
     // on refresh
@@ -84,6 +100,8 @@ class CollectionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnL
             error?.let {
                 L.d(NAME, error)
                 colLSwipe.isRefreshing = false
+                colLProgress.isVisible = false
+                colLReload.isVisible = true
                 context!!.toast("error fetching $type collections")
             }
             response?.let {
@@ -91,9 +109,11 @@ class CollectionFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnL
                 adapter = CollectionsAdapter(lifecycle, cols, type, colLRecycler)
                 colLRecycler.layoutManager = LinearLayoutManager(context)
                 colLRecycler.adapter = adapter
+                colLSwipe.isVisible = true
+                colLRecycler.isVisible = true
                 colLSwipe.isRefreshing = false
-                colLProgress.visibility = View.GONE
-                colLRecycler.visibility = View.VISIBLE
+                colLProgress.isVisible = false
+                colLReload.isVisible = false
 
                 adapter.setOnLoadMoreListener(this@CollectionFragment)
             }

@@ -36,10 +36,27 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_height="48dp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
+                android:background="@drawable/bg_circle_outline_accent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/mainProgressI"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vd_refresh_white" />
+            </FrameLayout>
+
+            <!--Reload-->
+            <FrameLayout
+                android:visibility="gone"
+                android:id="@+id/mainReload"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
                 android:background="@drawable/bg_circle_accent">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/dummy"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_gravity="center"
