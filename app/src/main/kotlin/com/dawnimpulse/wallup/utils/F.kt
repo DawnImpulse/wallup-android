@@ -3,6 +3,7 @@ package com.dawnimpulse.wallup.utils
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
+import android.graphics.Point
 import android.graphics.PorterDuff
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
@@ -11,6 +12,7 @@ import android.os.Build
 import android.text.Html
 import android.text.Spanned
 import android.util.DisplayMetrics
+import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
@@ -230,6 +232,15 @@ object F {
     //convert json to gson
     fun toGson(json: String, any: Any): Any {
         return Gson().fromJson(json, any::class.java)
+    }
+
+    // get display height
+    fun displayDimensions(context: Context): Point {
+        val point = Point()
+        val mWindowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val display = mWindowManager.defaultDisplay
+        display.getSize(point) //The point now has display dimens
+        return point
     }
 
     // sort labels

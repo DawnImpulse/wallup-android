@@ -20,6 +20,8 @@ import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -62,7 +64,7 @@ import org.json.JSONObject
  *  Saksham - 2018 11 28 - master - Connection handling
  *  Saksham - 2018 12 04 - master - Long click icons
  */
-class ImageActivity : AppCompatActivity(), View.OnClickListener,View.OnLongClickListener {
+class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private val NAME = "ImageActivity"
     private var setBitmap = false
     private var bitmap: Bitmap? = null
@@ -81,6 +83,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener,View.OnLongClick
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
+
+        val point = F.displayDimensions(this)
+        imageL.layoutParams = RelativeLayout.LayoutParams(point.x, (point.y * 0.8).toInt())
 
         model = UnsplashModel(lifecycle)
         exifSheet = ModalSheetExif()
@@ -260,7 +265,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener,View.OnLongClick
 
     // on long click
     override fun onLongClick(v: View?): Boolean {
-        when(v!!.id){
+        when (v!!.id) {
             imagePreviewFab.id -> toast("like image")
             imagePreviewAuthorL.id -> toast("open photographer's profile")
             imagePreviewWallpaper.id -> toast("set image as wallpaper")
@@ -302,7 +307,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener,View.OnLongClick
                         imagePreviewCollectI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_plus))
                 }
 
-                if(color !=0)
+                if (color != 0)
                     imagePreviewCollectI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
             }
             if (event.obj.getString(C.TYPE) == C.NETWORK) {
@@ -360,7 +365,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener,View.OnLongClick
         ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full + Config.IMAGE_HEIGHT) {
             color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
             color()
-            movingImage.setImageBitmap(it)
+            imageMain.setImageBitmap(it)
+            imageMain.scaleType = ImageView.ScaleType.CENTER_CROP
             imagePreviewProgress.visibility = View.GONE
             /*ML.labels(it) {
                 setTags(it)

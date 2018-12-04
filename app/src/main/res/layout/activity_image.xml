@@ -40,8 +40,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_width="match_parent"
                     android:layout_height="420dp">
 
-                    <com.flaviofaria.kenburnsview.KenBurnsView
-                        android:id="@+id/movingImage"
+                    <com.github.chrisbanes.photoview.PhotoView
+                        android:id="@+id/imageMain"
+                        android:scaleType="centerCrop"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </RelativeLayout>

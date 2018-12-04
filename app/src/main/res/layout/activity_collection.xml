@@ -18,7 +18,7 @@
             android:layout_height="match_parent">
 
             <!--image-->
-            <com.flaviofaria.kenburnsview.KenBurnsView
+            <ImageView
                 android:id="@+id/colImage"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
