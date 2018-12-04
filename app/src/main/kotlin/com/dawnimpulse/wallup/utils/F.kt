@@ -167,6 +167,28 @@ object F {
         }
     }
 
+    // like image
+    // @param view - view to change
+    // @param id - photo id
+    // @param toLike - to like the image
+    // @param color - dynamic color
+    fun like(context: Context, view: AppCompatImageView, id: String, toLike: Boolean, color: Int) {
+        var model = UnsplashModel((context as AppCompatActivity).lifecycle)
+        var like = ContextCompat.getDrawable(context, R.drawable.vd_like)
+        var unlike = ContextCompat.getDrawable(context, R.drawable.vd_like_outline)
+
+        like!!.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        unlike!!.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+
+        if (toLike) {
+            view.setImageDrawable(like)
+            model.likePhoto(id)
+        } else {
+            view.setImageDrawable(unlike)
+            model.unlikePhoto(id)
+        }
+    }
+
     // @param liked - needed if we have to only state change
     fun like(context: Context, view: AppCompatImageView, color: Boolean = false, liked: Boolean) {
         var model = UnsplashModel((context as AppCompatActivity).lifecycle)

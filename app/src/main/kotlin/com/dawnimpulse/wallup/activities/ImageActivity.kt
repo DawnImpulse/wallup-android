@@ -84,6 +84,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
 
+        color = Colors(this).WHITE
         val point = F.displayDimensions(this)
         imageL.layoutParams = RelativeLayout.LayoutParams(point.x, (point.y * 0.8).toInt())
 
@@ -113,12 +114,11 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         imagePreviewShare.setOnClickListener(this)
         imagePreviewStats.setOnClickListener(this)
         imagePreviewUnsplash.setOnClickListener(this)
-        imagePreviewFab.setOnClickListener(this)
+        imagePreviewLikeL.setOnClickListener(this)
         imagePreviewCollect.setOnClickListener(this)
         imageBack.setOnClickListener(this)
 
         // long press
-        imagePreviewFab.setOnLongClickListener(this)
         imagePreviewAuthorL.setOnLongClickListener(this)
         imagePreviewWallpaper.setOnLongClickListener(this)
         imagePreviewShare.setOnLongClickListener(this)
@@ -222,19 +222,22 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
             }
             imagePreviewStats.id -> toast("Upcoming feature")
             imagePreviewUnsplash.id -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(F.unsplashImage(details!!.id))))
-            imagePreviewFab.id -> {
+            imagePreviewLikeL.id -> {
                 if (Config.USER_API_KEY.isNotEmpty()) {
                     details?.let {
-                        like = !like
-                        F.like(this, imagePreviewFabI, it.id, like, true)
+                        like = !like //changing like status
+                        F.like(this, imagePreviewLikeI, it.id, like, color) // change like status
+
+                        // set to details & view
                         if (like) {
-                            imagePreviewLikesCount.text = (it.likes + 1).toString()
+                            imagePreviewLikesCount.text = F.fromHtml("<b><font color=\"${color.toHexa()}\">${F.withSuffix(details!!.likes + 1)}+</font></b> Likes")
                             details!!.likes = details!!.likes + 1
                         } else {
-                            imagePreviewLikesCount.text = (it.likes - 1).toString()
+                            imagePreviewLikesCount.text = F.fromHtml("<b><font color=\"${color.toHexa()}\">${F.withSuffix(details!!.likes - 1)}+</font></b> Likes")
                             details!!.likes = details!!.likes - 1
                         }
 
+                        // send a event bus to notify all views
                         var obj = JSONObject()
                         obj.put(C.TYPE, C.LIKE)
                         obj.put(C.LIKE, like)
@@ -266,7 +269,6 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
     // on long click
     override fun onLongClick(v: View?): Boolean {
         when (v!!.id) {
-            imagePreviewFab.id -> toast("like image")
             imagePreviewAuthorL.id -> toast("open photographer's profile")
             imagePreviewWallpaper.id -> toast("set image as wallpaper")
             imagePreviewShare.id -> toast("share image")
@@ -345,13 +347,13 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
 
     // set image details on views
     private fun setImageDetails(details: ImagePojo) {
+        imagePreviewLikesCount.text = F.fromHtml("<b><font color=\"#FFFFFF\">${F.withSuffix(details.likes)}+</font></b> Likes")
         imagePreviewAuthorName.text = F.capWord(details.user!!.name)
-        imagePreviewLikesCount.text = F.withSuffix(details.likes)
         imagePreviewAuthorImages.text = F.withSuffix(details.user!!.total_photos)
         imagePreviewAuthorCollections.text = F.withSuffix(details.user!!.total_collections)
         imagePreviewViewsCount.text = F.withSuffix(details.views)
         imagePreviewDownloadCount.text = F.withSuffix(details.downloads)
-        imagePreviewPublishedOn.text = "Published on ${DateHandler.convertForImagePreview(details.created_at)}"
+        imagePreviewPublishedOn.text = DateHandler.convertForImagePreview(details.created_at)
 
         // change add icon if user has image in any collection
         details.current_user_collections?.let {
@@ -380,7 +382,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
             imagePreviewDownloadCount.visibility = View.VISIBLE
 
         //if (details.liked_by_user && !likeStateChange)
-        F.like(this, imagePreviewFabI, true, details.liked_by_user)
+        F.like(this, imagePreviewLikeI, true, details.liked_by_user)
 
         if (!likeStateChange)
             like = details.liked_by_user
@@ -391,21 +393,24 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
     private fun color() {
         var down = imagePreviewDownload.background.current as GradientDrawable
         var wall = imagePreviewWallpaper.background.current as GradientDrawable
-        var fab = imagePreviewFab.background.current as GradientDrawable
         var back = imageBack.background.current as GradientDrawable
 
         imagePreviewAuthorImagesL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewAuthorCollectionsL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewShareI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
-        imagePreviewViewsI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewExifI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewStatsI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewUnsplashI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewCollectI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        imagePreviewLikeI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+
+        imagePreviewViewsCount.setTextColor(color)
+        imagePreviewPublishedOn.setTextColor(color)
+        imagePreviewLikesCount.text = F.fromHtml("<b><font color=\"${color.toHexa()}\">${F.withSuffix(details!!.likes)}+</font></b> Likes")
+
         //imagePreviewLikeI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
 
         down.setColor(color)
-        fab.setColor(color)
         back.setColor(color)
         wall.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         //imagePreviewWallpaperT.setTextColor(color)

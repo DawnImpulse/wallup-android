@@ -42,47 +42,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                     <com.github.chrisbanes.photoview.PhotoView
                         android:id="@+id/imageMain"
-                        android:scaleType="centerCrop"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
                 </RelativeLayout>
-
-                <!--fab-->
-                <FrameLayout
-                    android:id="@+id/imagePreviewFab"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_alignBottom="@id/imageL"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="-28dp"
-                    android:background="@drawable/round_fab"
-                    android:elevation="6dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/imagePreviewFabI"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            app:srcCompat="@drawable/vd_heart_outline" />
-
-                        <TextView
-                            android:id="@+id/imagePreviewLikesCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:letterSpacing="0.3"
-                            android:text="250"
-                            android:textColor="@color/white"
-                            android:textSize="8sp" />
-                    </LinearLayout>
-                </FrameLayout>
 
                 <!--layout-->
                 <LinearLayout
@@ -91,6 +54,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_below="@id/imageL"
                     android:orientation="vertical">
 
+                    <!--Progress-->
                     <ProgressBar
                         android:id="@+id/imagePreviewProgress"
                         style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
@@ -100,73 +64,130 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:background="@android:color/transparent"
                         android:indeterminate="true" />
 
-                    <!--Views & Published-->
-                    <RelativeLayout
+                    <View
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="16dp">
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/line_dashed_white"
+                        android:layerType="software" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="20dp"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="20dp">
+                    <!--View Layout-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:orientation="horizontal">
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/imagePreviewViewsI"
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_gravity="center"
-                                app:srcCompat="@drawable/vd_eye_outline" />
+                        <!--Image Views-->
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
-                            <TextView
-                                android:id="@+id/imagePreviewViewsCount"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginLeft="8dp"
-                                android:text="10"
-                                android:textColor="@color/white" />
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/imagePreviewPublishedOn"
+                                <TextView
+                                    android:id="@+id/imagePreviewViewsCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="200k"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Views"
+                                    android:textColor="@color/grey500"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </FrameLayout>
+
+                        <!--Published On-->
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:layout_marginLeft="16dp"
-                                android:text="Published on 13 Jan '18"
-                                android:textColor="@color/grey400" />
-                        </LinearLayout>
+                                android:orientation="vertical">
 
-                        <!--<LinearLayout
+                                <TextView
+                                    android:id="@+id/imagePreviewPublishedOn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="05 Jan '18"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Published On"
+                                    android:textColor="@color/grey500"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </FrameLayout>
+
+                        <!--Like-->
+                        <FrameLayout
                             android:id="@+id/imagePreviewLikeL"
-                            android:background="?android:attr/selectableItemBackgroundBorderless"
-                            android:layout_alignParentRight="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="48dp"
-                            android:layout_gravity="center"
-                            android:gravity="center">
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
-                            <TextView
-                                android:id="@+id/imagePreviewLikesCount"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:letterSpacing="0.3"
-                                android:text="250"
-                                android:textSize="8sp" />
+                                android:orientation="vertical">
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_marginRight="8dp"
-                                android:id="@+id/imagePreviewLikeI"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_gravity="center"
-                                app:srcCompat="@drawable/vd_heart_outline" />
-                        </LinearLayout>-->
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imagePreviewLikeI"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_gravity="center"
+                                    app:srcCompat="@drawable/vd_heart_outline" />
 
-                    </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/imagePreviewLikesCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:text="2k+ Likes"
+                                    android:textColor="@color/grey400"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/line_dashed_white"
+                        android:layerType="software" />
 
                     <!--Author Layout-->
                     <RelativeLayout
