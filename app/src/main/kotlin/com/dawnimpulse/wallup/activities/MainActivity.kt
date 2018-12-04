@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.updateMargins
+import androidx.core.widget.toast
 import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.fragments.MainFragment
@@ -86,6 +87,11 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         mainSearch.setOnClickListener(this)
 
         RemoteConfig.update()
+
+        mainUser.setOnLongClickListener {
+            toast("user profile with Unsplash")
+            true
+        }
     }
 
     // on start

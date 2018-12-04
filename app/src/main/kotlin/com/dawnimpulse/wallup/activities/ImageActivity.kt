@@ -60,8 +60,9 @@ import org.json.JSONObject
  *  Saksham - 2018 09 20 - master - ML for tags
  *  Saksham - 2018 10 20 - master - Add to collection
  *  Saksham - 2018 11 28 - master - Connection handling
+ *  Saksham - 2018 12 04 - master - Long click icons
  */
-class ImageActivity : AppCompatActivity(), View.OnClickListener {
+class ImageActivity : AppCompatActivity(), View.OnClickListener,View.OnLongClickListener {
     private val NAME = "ImageActivity"
     private var setBitmap = false
     private var bitmap: Bitmap? = null
@@ -110,6 +111,16 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         imagePreviewFab.setOnClickListener(this)
         imagePreviewCollect.setOnClickListener(this)
         imageBack.setOnClickListener(this)
+
+        // long press
+        imagePreviewFab.setOnLongClickListener(this)
+        imagePreviewAuthorL.setOnLongClickListener(this)
+        imagePreviewWallpaper.setOnLongClickListener(this)
+        imagePreviewShare.setOnLongClickListener(this)
+        imagePreviewExif.setOnLongClickListener(this)
+        imagePreviewCollect.setOnLongClickListener(this)
+        imagePreviewUnsplash.setOnLongClickListener(this)
+        imagePreviewStats.setOnLongClickListener(this)
 
         //Ripple.add(Colors(this).GREY_400, imagePreviewStats)
 
@@ -245,6 +256,21 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
             }
             imageBack.id -> finish()
         }
+    }
+
+    // on long click
+    override fun onLongClick(v: View?): Boolean {
+        when(v!!.id){
+            imagePreviewFab.id -> toast("like image")
+            imagePreviewAuthorL.id -> toast("open photographer's profile")
+            imagePreviewWallpaper.id -> toast("set image as wallpaper")
+            imagePreviewShare.id -> toast("share image")
+            imagePreviewExif.id -> toast("image EXIF info")
+            imagePreviewCollect.id -> toast("add image to collection")
+            imagePreviewUnsplash.id -> toast("open image on Unsplash website")
+            imagePreviewStats.id -> toast("image statistics on unsplash")
+        }
+        return false
     }
 
     // On back pressed

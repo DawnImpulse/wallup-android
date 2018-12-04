@@ -23,6 +23,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.toast
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -52,6 +53,7 @@ import org.json.JSONObject
  *
  * @note Updates :
  *  Saksham - 2018 05 25 - recent - intent to Image Activity
+ *  Saksham - 2018 12 04 - master - long press toast
  */
 class MainAdapter(
         private val lifecycle: Lifecycle,
@@ -122,6 +124,13 @@ class MainAdapter(
                 var intent = Intent(context, ArtistProfileActivity::class.java)
                 intent.putExtra(C.USERNAME, images[position]!!.user!!.username)
                 context.startActivity(intent)
+            }
+            var longPress = View.OnLongClickListener { v ->
+                when (v.id) {
+                    holder.likeL.id -> context.toast("like an image")
+                    holder.colL.id -> context.toast("add image to collection")
+                }
+                false
             }
 
             // show/hide like button
@@ -198,6 +207,10 @@ class MainAdapter(
             // open artist page
             holder.name.setOnClickListener(artistClick)
             holder.circleImage.setOnClickListener(artistClick)
+
+            // long press listener
+            holder.likeL.setOnLongClickListener(longPress)
+            holder.colL.setOnLongClickListener(longPress)
 
         }
     }
