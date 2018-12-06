@@ -65,161 +65,37 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:background="@android:color/transparent"
                         android:indeterminate="true" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="8dp"
-                        android:background="@drawable/line_dashed_white"
-                        android:layerType="software" />
-
-                    <!--View Layout-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="64dp"
-                        android:orientation="horizontal">
-
-                        <!--Image Views-->
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/imagePreviewViewsCount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="200k"
-                                    android:textColor="@color/white"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginTop="4dp"
-                                    android:text="Views"
-                                    android:textColor="@color/grey500"
-                                    android:textSize="14sp" />
-
-                            </LinearLayout>
-                        </FrameLayout>
-
-                        <!--Published On-->
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/imagePreviewPublishedOn"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text="05 Jan '18"
-                                    android:textColor="@color/white"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginTop="4dp"
-                                    android:text="Published On"
-                                    android:textColor="@color/grey500"
-                                    android:textSize="14sp" />
-
-                            </LinearLayout>
-                        </FrameLayout>
-
-                        <!--Like-->
-                        <FrameLayout
-                            android:id="@+id/imagePreviewLikeL"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:orientation="vertical">
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/imagePreviewLikeI"
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_gravity="center"
-                                    app:srcCompat="@drawable/vd_heart_outline" />
-
-                                <TextView
-                                    android:id="@+id/imagePreviewLikesCount"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginTop="5dp"
-                                    android:text="2k+ Likes"
-                                    android:textColor="@color/grey400"
-                                    android:textSize="14sp" />
-                            </LinearLayout>
-                        </FrameLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:background="@drawable/line_dashed_white"
-                        android:layerType="software" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/imageHover"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="8dp"
-                        app:srcCompat="@drawable/vd_chevron_down" />
-
                     <!--Author Layout-->
                     <RelativeLayout
                         android:id="@+id/imagePreviewAuthorL"
                         android:layout_width="match_parent"
-                        android:layout_height="42dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="40dp"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="8dp"
                         android:background="?android:attr/selectableItemBackground">
 
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/imagePreviewAuthorImage"
                             android:layout_width="42dp"
                             android:layout_height="42dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="16dp"
+                            android:background="@color/white"
+                            app:riv_border_color="@color/white"
+                            app:riv_border_width="1dp"
+                            app:riv_mutate_background="true"
                             app:riv_oval="true" />
 
-                        <TextView
+                        <me.grantland.widget.AutofitTextView
+                            android:layout_toRightOf="@id/imagePreviewAuthorImage"
                             android:id="@+id/imagePreviewAuthorName"
-                            android:layout_width="wrap_content"
+                            android:gravity="right"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
-                            android:layout_marginLeft="24dp"
-                            android:layout_toRightOf="@id/imagePreviewAuthorImage"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="16dp"
                             android:text="August Jenkins"
                             android:textColor="@color/white"
                             android:textSize="18sp"
@@ -228,15 +104,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
                             android:layout_alignParentBottom="true"
-                            android:layout_marginLeft="24dp"
-                            android:layout_toRightOf="@id/imagePreviewAuthorImage">
+                            android:layout_marginRight="16dp">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewAuthorImagesL"
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                app:srcCompat="@drawable/vd_cards_outline" />
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                app:srcCompat="@drawable/vd_image_outline" />
 
                             <TextView
                                 android:id="@+id/imagePreviewAuthorImages"
@@ -250,10 +126,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/imagePreviewAuthorCollectionsL"
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
                                 android:layout_marginLeft="16dp"
-                                app:srcCompat="@drawable/vd_collage" />
+                                app:srcCompat="@drawable/vd_collections_outline" />
 
                             <TextView
                                 android:id="@+id/imagePreviewAuthorCollections"
@@ -268,20 +144,20 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                     </RelativeLayout>
 
-                    <!--Tags-->
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/imagePreviewTags"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
-                        android:paddingLeft="16dp"
-                        android:visibility="gone" />
+                    <!--Hover icon-->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageHover"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        app:srcCompat="@drawable/vd_chevron_down" />
 
                     <!--Interaction Buttons-->
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="42dp"
-                        android:layout_marginTop="36dp">
+                        android:layout_marginTop="40dp">
 
                         <!--<FrameLayout
                             android:id="@+id/imagePreviewShare"
@@ -370,107 +246,303 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         </LinearLayout>
                     </RelativeLayout>
 
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/line_dashed_white"
+                        android:layerType="software" />-->
+
+                    <!--Views Layout-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_marginTop="36dp"
+                        android:orientation="horizontal">
+
+                        <!--Image Views-->
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/imagePreviewViewsCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="200k"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Views"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </FrameLayout>
+
+                        <!--Published On-->
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/imagePreviewPublishedOn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="05 Jan '18"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Published On"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </FrameLayout>
+
+                        <!--Like-->
+                        <FrameLayout
+                            android:id="@+id/imagePreviewLikeL"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imagePreviewLikeI"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_gravity="center"
+                                    app:srcCompat="@drawable/vd_heart_outline" />
+
+                                <TextView
+                                    android:id="@+id/imagePreviewLikesCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="5dp"
+                                    android:text="0+ Likes"
+                                    android:textColor="@color/white"
+                                    android:textSize="14sp" />
+                            </LinearLayout>
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                    <!--<View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/line_dashed_white"
+                        android:layerType="software" />-->
+
+                    <!--Tags-->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/imagePreviewTags"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:paddingLeft="16dp"
+                        android:visibility="gone" />
+
                     <!--Additional Buttons-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
                         android:layout_marginTop="36dp"
-                        android:layout_marginRight="36dp"
                         android:layout_marginBottom="8dp">
 
                         <!--share-->
                         <FrameLayout
                             android:id="@+id/imagePreviewShare"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/imagePreviewShareI"
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
+                            <LinearLayout
                                 android:layout_gravity="center"
-                                app:srcCompat="@drawable/vd_share" />
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imagePreviewShareI"
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_gravity="center"
+                                    app:srcCompat="@drawable/vd_share" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Share"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/white" />
+                            </LinearLayout>
                         </FrameLayout>
 
                         <!--exif-->
                         <FrameLayout
                             android:id="@+id/imagePreviewExif"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_marginLeft="40dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/imagePreviewExifI"
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
+                            <LinearLayout
                                 android:layout_gravity="center"
-                                app:srcCompat="@drawable/vd_info" />
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imagePreviewExifI"
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_gravity="center"
+                                    app:srcCompat="@drawable/vd_info" />
+
+                                <TextView
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Exif"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/white" />
+                            </LinearLayout>
                         </FrameLayout>
 
                         <!--add-->
                         <FrameLayout
                             android:id="@+id/imagePreviewCollect"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_marginLeft="40dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/imagePreviewCollectI"
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
+                            <LinearLayout
                                 android:layout_gravity="center"
-                                app:srcCompat="@drawable/vd_plus" />
-                        </FrameLayout>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
 
-                        <!--unsplash-->
-                        <FrameLayout
-                            android:id="@+id/imagePreviewUnsplash"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_marginLeft="40dp"
-                            android:layout_weight="1"
-                            android:background="?android:attr/selectableItemBackgroundBorderless">
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imagePreviewCollectI"
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_gravity="center"
+                                    app:srcCompat="@drawable/vd_plus" />
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/imagePreviewUnsplashI"
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:layout_gravity="center"
-                                app:srcCompat="@drawable/vd_camera_white" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Collect"
+                                    android:layout_gravity="center"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/white" />
+                            </LinearLayout>
                         </FrameLayout>
 
                         <!--stats-->
                         <FrameLayout
                             android:id="@+id/imagePreviewStats"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_marginLeft="40dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:id="@+id/imagePreviewStatsI"
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
+                            <LinearLayout
                                 android:layout_gravity="center"
-                                app:srcCompat="@drawable/vd_trending_up" />
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imagePreviewStatsI"
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_gravity="center"
+                                    app:srcCompat="@drawable/vd_trending_up" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Statistics"
+                                    android:layout_gravity="center"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/white" />
+                            </LinearLayout>
                         </FrameLayout>
 
-                        <!--<TextView
-                            android:id="@+id/imagePreviewStatistics"
-                            android:layout_width="wrap_content"
+                        <!--unsplash-->
+                        <FrameLayout
+                            android:id="@+id/imagePreviewUnsplash"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="36dp"
-                            android:text="STATISTICS"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />-->
+                            android:layout_weight="1"
+                            android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                            <LinearLayout
+                                android:layout_gravity="center"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.AppCompatImageView
+                                    android:id="@+id/imagePreviewUnsplashI"
+                                    android:layout_width="28dp"
+                                    android:layout_height="28dp"
+                                    android:layout_gravity="center"
+                                    app:srcCompat="@drawable/vd_camera_white" />
+
+                                <TextView
+                                    android:layout_gravity="center"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Unsplash"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/white" />
+                            </LinearLayout>
+                        </FrameLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>

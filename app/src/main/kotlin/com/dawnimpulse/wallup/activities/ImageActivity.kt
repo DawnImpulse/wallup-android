@@ -132,7 +132,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         imageHover.animation = AnimationUtils.loadAnimation(this, R.anim.hover)
         imageScroll.viewTreeObserver.addOnScrollChangedListener {
             imageHover.clearAnimation()
-            imageHover.hidden()
+            imageHover.hide()
         }
     }
 
@@ -354,8 +354,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
     private fun setImageDetails(details: ImagePojo) {
         imagePreviewLikesCount.text = F.fromHtml("<b><font color=\"#FFFFFF\">${F.withSuffix(details.likes)}+</font></b> Likes")
         imagePreviewAuthorName.text = F.capWord(details.user!!.name)
-        imagePreviewAuthorImages.text = F.withSuffix(details.user!!.total_photos)
-        imagePreviewAuthorCollections.text = F.withSuffix(details.user!!.total_collections)
+        imagePreviewAuthorImages.text = F.fromHtml("<b><font color=${color.toHexa()}>${F.withSuffix(details.user!!.total_photos)}</font></b> Photos")
+        imagePreviewAuthorCollections.text = F.fromHtml("<b><font color=${color.toHexa()}>${F.withSuffix(details.user!!.total_collections)}</font></b> Collections")
         imagePreviewViewsCount.text = F.withSuffix(details.views)
         imagePreviewDownloadCount.text = F.withSuffix(details.downloads)
         imagePreviewPublishedOn.text = DateHandler.convertForImagePreview(details.created_at)
@@ -400,8 +400,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         var wall = imagePreviewWallpaper.background.current as GradientDrawable
         var back = imageBack.background.current as GradientDrawable
 
-        imagePreviewAuthorImagesL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
-        imagePreviewAuthorCollectionsL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        //imagePreviewAuthorImagesL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        //imagePreviewAuthorCollectionsL.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewShareI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewExifI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         imagePreviewStatsI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
