@@ -44,6 +44,7 @@ import retrofit2.Response
  *  2018 10 04 - master - Saksham - user profile
  *  2018 10 08 - master - Saksham - user likes
  *  2018 10 21 - master - Saksham - add image in user collection
+ *  2018 12 09 - master - Saksham - image statistics
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
@@ -572,6 +573,29 @@ object UnsplashRepository {
             }
 
             override fun onFailure(call: Call<ImagePojo>?, t: Throwable?) {
+                t?.toString()?.let { callback(t.toString(), null) }
+            }
+        })
+    }
+
+    // image stats
+    fun imageStats(id: String, callback: (Any?, Any?) -> Unit) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.imageStats(
+                Config.apiKey(),
+                id
+        )
+
+        call.enqueue(object : Callback<ImageStatsPojo> {
+
+            override fun onResponse(call: Call<ImageStatsPojo>?, response: Response<ImageStatsPojo>) {
+                if (response.isSuccessful)
+                    callback(null, response.body())
+                else
+                    callback(ErrorUtils.parseError(response), null)
+            }
+
+            override fun onFailure(call: Call<ImageStatsPojo>?, t: Throwable?) {
                 t?.toString()?.let { callback(t.toString(), null) }
             }
         })

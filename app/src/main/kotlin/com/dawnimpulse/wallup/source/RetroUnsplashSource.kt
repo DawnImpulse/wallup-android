@@ -125,6 +125,15 @@ interface RetroUnsplashSource {
             @Path(C.ID) id: String
     ): Call<ImagePojo>
 
+    // ------------------------------
+    //      Photo Stats
+    // ------------------------------
+    @GET("/photos/{id}/statistics")
+    fun imageStats(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.ID) id: String
+    ): Call<ImageStatsPojo>
+
     //________________________________
     //           USER
     //________________________________

@@ -36,6 +36,7 @@ import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.sheets.ModalSheetCollection
 import com.dawnimpulse.wallup.sheets.ModalSheetExif
+import com.dawnimpulse.wallup.sheets.ModalSheetStats
 import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
 import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
@@ -64,6 +65,7 @@ import org.json.JSONObject
  *  Saksham - 2018 10 20 - master - Add to collection
  *  Saksham - 2018 11 28 - master - Connection handling
  *  Saksham - 2018 12 04 - master - Long click icons
+ *  Saksham - 2018 12 09 - master - Image stats
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private val NAME = "ImageActivity"
@@ -79,6 +81,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
     private lateinit var exifSheet: ModalSheetExif
     private lateinit var loginSheet: ModalSheetUnsplash
     private lateinit var colSheet: ModalSheetCollection
+    private lateinit var statsSheet: ModalSheetStats
 
     // On create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,6 +96,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         exifSheet = ModalSheetExif()
         loginSheet = ModalSheetUnsplash()
         colSheet = ModalSheetCollection()
+        statsSheet = ModalSheetStats()
 
         // checking to handle the app links
         if (intent.hasExtra(C.IMAGE_POJO)) {
@@ -225,7 +229,11 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                     }
                 }
             }
-            imagePreviewStats.id -> toast("Upcoming feature")
+            imagePreviewStats.id -> {
+                var bundle = bundleOf(Pair(C.ID, details!!.id))
+                statsSheet.arguments = bundle
+                statsSheet.show(supportFragmentManager, statsSheet.tag)
+            }
             imagePreviewUnsplash.id -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(F.unsplashImage(details!!.id))))
             imagePreviewLikeL.id -> {
                 if (Config.USER_API_KEY.isNotEmpty()) {

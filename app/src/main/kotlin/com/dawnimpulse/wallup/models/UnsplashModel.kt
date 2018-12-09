@@ -435,4 +435,23 @@ class UnsplashModel() {
         else
             callback("internet not available !!", null)
     }
+
+    // image stats
+    fun imageStats(id: String, callback: (Any?, Any?) -> Unit) {
+        if (Config.CONNECTED)
+            UnsplashRepository.imageStats(id) { e, r ->
+                lifecycle.addObserver(object : LifecycleObserver {
+                    var once = true
+                    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                    fun onStart() {
+                        if (once) {
+                            callback(e, r)
+                            once = false
+                        }
+                    }
+                })
+            }
+        else
+            callback("internet not available !!", null)
+    }
 }
