@@ -11,6 +11,7 @@
   limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
@@ -27,59 +28,111 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/statsDate"
+        android:id="@+id/sheetStatsDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textSize="10sp"
         android:textColor="@color/white" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Views"
-        android:textColor="@color/white" />
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/statsViewsChart"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="4dp" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Downloads"
-        android:textColor="@color/white" />
+        <LinearLayout
+            android:id="@+id/sheetStatsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="invisible">
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/statsDownloadChart"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="4dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Views"
+                android:textStyle="bold"
+                android:textColor="@color/white" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Likes"
-        android:textColor="@color/white" />
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/statsViewsChart"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="4dp" />
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/statsLikeChart"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="16dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:text="Downloads"
+                android:textColor="@color/white" />
 
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/statsDownloadChart"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:text="Likes"
+                android:textColor="@color/white" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/statsLikeChart"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginBottom="16dp" />
+
+        </LinearLayout>
+
+        <!--Progress-->
+        <FrameLayout
+            android:id="@+id/sheetStatsProgress"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_circle_outline_accent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/sheetStatsProgressI"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_refresh_white" />
+        </FrameLayout>
+
+        <!--Reload-->
+        <FrameLayout
+            android:id="@+id/sheetStatsReload"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_circle_accent"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_refresh_black" />
+        </FrameLayout>
+
+    </RelativeLayout>
 </LinearLayout>

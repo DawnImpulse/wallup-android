@@ -22,8 +22,8 @@ fun View.hide(){
     visibility = View.GONE
 }
 
-// hide view
-fun View.hidden(){
+// invisible view
+fun View.invisible(){
     visibility = View.INVISIBLE
 }
 

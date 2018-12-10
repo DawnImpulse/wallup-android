@@ -26,6 +26,7 @@ import kotlinx.coroutines.experimental.launch
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 /*
@@ -263,6 +264,17 @@ object F {
         val display = mWindowManager.defaultDisplay
         display.getSize(point) //The point now has display dimens
         return point
+    }
+
+    //current month for stats
+    fun statsDate(): String {
+        val cal = Calendar.getInstance().time
+        val cal2 = Calendar.getInstance()
+        val sdf = SimpleDateFormat("dd MMM '`'yy")
+
+        cal2.add(Calendar.DAY_OF_MONTH, -30)
+
+        return "${sdf.format(cal2.time)}  -  ${sdf.format(cal)}"
     }
 
     // sort labels

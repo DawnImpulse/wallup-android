@@ -230,7 +230,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                 }
             }
             imagePreviewStats.id -> {
-                var bundle = bundleOf(Pair(C.ID, details!!.id))
+                var bundle = bundleOf(Pair(C.ID, details!!.id),Pair(C.COLOR,color))
                 statsSheet.arguments = bundle
                 statsSheet.show(supportFragmentManager, statsSheet.tag)
             }
