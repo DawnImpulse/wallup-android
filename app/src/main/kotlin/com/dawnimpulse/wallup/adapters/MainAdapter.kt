@@ -34,6 +34,7 @@ import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.sheets.ModalSheetCollection
+import com.dawnimpulse.wallup.sheets.ModalSheetImage
 import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
@@ -71,9 +72,11 @@ class MainAdapter(
     private var VIEW_TYPE_LOADING = 0
     private var VIEW_TYPE_ITEM = 1
     private lateinit var context: Context
+    private lateinit var imageSheet: ModalSheetImage
 
     // initialization for Load More Listener
     init {
+        imageSheet = ModalSheetImage()
         recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -190,7 +193,7 @@ class MainAdapter(
             holder.colL.setOnLongClickListener(longPress)
 
             // like handling
-            fun like(){
+            fun like() {
                 var state = !image.liked_by_user
                 // checking if user is logged
                 if (Config.USER_API_KEY.isNotEmpty()) {
@@ -239,7 +242,6 @@ class MainAdapter(
                     like()
                 }
             }*/
-
             holder.image.setOnClickListener {
                 //click++
                 var intent = Intent(context, ImageActivity::class.java)
@@ -249,20 +251,12 @@ class MainAdapter(
                 intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[position]))
                 (context as AppCompatActivity).startActivity(intent)
             }
-            /*holder.image.setOnTouchListener { _, event ->
-                gestureDetector.onTouchEvent(event)
-            }*/
 
-            // open image activity
-            /*holder.image.setOnClickListener {
-                *//*var intent = Intent(context, ImageActivity::class.java)
-                intent.putExtra(C.TYPE, "")
-                intent.putExtra(C.POSITION, position)
-                intent.putExtra(C.NAME, context.packageName)
-                intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[position]))
-                (context as AppCompatActivity).startActivity(intent)*//*
-                click = 1
-            }*/
+            // image long press
+            holder.image.setOnLongClickListener {
+                imageSheet.show((context as AppCompatActivity).supportFragmentManager, imageSheet.tag)
+                true
+            }
 
         }
     }
