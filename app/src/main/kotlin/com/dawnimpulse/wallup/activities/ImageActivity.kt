@@ -419,6 +419,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
 
         imagePreviewViewsCount.setTextColor(color)
         imagePreviewPublishedOn.setTextColor(color)
+        imagePreviewAuthorImages.text = F.fromHtml("<b><font color=${color.toHexa()}>${F.withSuffix(details!!.user!!.total_photos)}</font></b> Photos")
+        imagePreviewAuthorCollections.text = F.fromHtml("<b><font color=${color.toHexa()}>${F.withSuffix(details!!.user!!.total_collections)}</font></b> Collections")
         imagePreviewLikesCount.text = F.fromHtml("<b><font color=\"${color.toHexa()}\">${F.withSuffix(details!!.likes)}+</font></b> Likes")
 
         //imagePreviewLikeI.drawable.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)

@@ -69,7 +69,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingTop="48dp"
+                android:paddingTop="56dp"
                 android:visibility="visible" />
 
         </RelativeLayout>

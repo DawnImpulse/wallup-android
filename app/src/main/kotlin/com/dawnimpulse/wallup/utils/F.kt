@@ -11,7 +11,6 @@ import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
-import android.util.DisplayMetrics
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -219,14 +218,14 @@ object F {
 
     // convert dp - px
     fun dpToPx(dp: Int, context: Context): Int {
-        val displayMetrics = context.resources.displayMetrics
-        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+        val density = context.resources.displayMetrics.density
+        return (dp * density).toInt()
     }
 
     // convert px - dp
     fun pxToDp(px: Int, context: Context): Int {
-        val displayMetrics = context.resources.displayMetrics
-        return Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+        val density = context.resources.displayMetrics.density
+        return (px / density).toInt()
     }
 
     //connection listener

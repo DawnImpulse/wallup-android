@@ -119,7 +119,14 @@ class MainAdapter(
     // binding view holder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MainViewHolder) {
+            val point = F.displayDimensions(context)
             var image = images[position]!!
+
+            if (image.height > image.width)
+                holder.layout.layoutParams = ViewGroup.LayoutParams(point.x, (0.75 * point.y).toInt())
+            else
+                holder.layout.layoutParams = ViewGroup.LayoutParams(point.x, (0.475 * point.y).toInt())
+
             var artistClick = View.OnClickListener {
                 var intent = Intent(context, ArtistProfileActivity::class.java)
                 intent.putExtra(C.USERNAME, images[position]!!.user!!.username)
@@ -156,36 +163,6 @@ class MainAdapter(
                 else
                     holder.col.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.vd_plus_accent))
 
-            // open image activity
-            holder.image.setOnClickListener {
-                var intent = Intent(context, ImageActivity::class.java)
-                intent.putExtra(C.TYPE, "")
-                intent.putExtra(C.POSITION, position)
-                intent.putExtra(C.NAME, context.packageName)
-                intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[position]))
-                (context as AppCompatActivity).startActivity(intent)
-            }
-
-            // like an image
-            holder.likeL.setOnClickListener {
-                var state = !image.liked_by_user
-                // checking if user is logged
-                if (Config.USER_API_KEY.isNotEmpty()) {
-                    //firing image liked event
-                    var obj = JSONObject()
-                    obj.put(C.TYPE, C.LIKE)
-                    obj.put(C.LIKE, state)
-                    obj.put(C.ID, image.id)
-                    EventBus.getDefault().postSticky(Event(obj))
-                    F.like(context, holder.like, image.id, state)
-                }
-                // opening login sheet if user not logged in
-                else {
-                    var sheet = ModalSheetUnsplash()
-                    sheet.show((context as AppCompatActivity).supportFragmentManager, sheet.tag)
-                }
-            }
-
             // open collection
             holder.colL.setOnClickListener {
                 if (Config.USER_API_KEY.isNotEmpty()) {
@@ -211,6 +188,81 @@ class MainAdapter(
             // long press listener
             holder.likeL.setOnLongClickListener(longPress)
             holder.colL.setOnLongClickListener(longPress)
+
+            // like handling
+            fun like(){
+                var state = !image.liked_by_user
+                // checking if user is logged
+                if (Config.USER_API_KEY.isNotEmpty()) {
+                    //firing image liked event
+                    var obj = JSONObject()
+                    obj.put(C.TYPE, C.LIKE)
+                    obj.put(C.LIKE, state)
+                    obj.put(C.ID, image.id)
+                    EventBus.getDefault().postSticky(Event(obj))
+                    F.like(context, holder.like, image.id, state)
+                }
+                // opening login sheet if user not logged in
+                else {
+                    var sheet = ModalSheetUnsplash()
+                    sheet.show((context as AppCompatActivity).supportFragmentManager, sheet.tag)
+                }
+            }
+
+            // like an image
+            holder.likeL.setOnClickListener {
+                like()
+            }
+
+            // single & double click handling
+            /*var click = 0
+            fun clicksHandling() {
+                if (click == 1) {
+                    launch {
+                        delay(300)
+                        if (click == 1) {
+                            // single click handling
+                            (context as AppCompatActivity).runOnUiThread {
+                                var intent = Intent(context, ImageActivity::class.java)
+                                intent.putExtra(C.TYPE, "")
+                                intent.putExtra(C.POSITION, position)
+                                intent.putExtra(C.NAME, context.packageName)
+                                intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[position]))
+                                (context as AppCompatActivity).startActivity(intent)
+                            }
+                        }
+                        click = 0
+                    }
+                }
+                //double click handling
+                if (click == 2) {
+                    like()
+                }
+            }*/
+
+            holder.image.setOnClickListener {
+                //click++
+                var intent = Intent(context, ImageActivity::class.java)
+                intent.putExtra(C.TYPE, "")
+                intent.putExtra(C.POSITION, position)
+                intent.putExtra(C.NAME, context.packageName)
+                intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[position]))
+                (context as AppCompatActivity).startActivity(intent)
+            }
+            /*holder.image.setOnTouchListener { _, event ->
+                gestureDetector.onTouchEvent(event)
+            }*/
+
+            // open image activity
+            /*holder.image.setOnClickListener {
+                *//*var intent = Intent(context, ImageActivity::class.java)
+                intent.putExtra(C.TYPE, "")
+                intent.putExtra(C.POSITION, position)
+                intent.putExtra(C.NAME, context.packageName)
+                intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[position]))
+                (context as AppCompatActivity).startActivity(intent)*//*
+                click = 1
+            }*/
 
         }
     }
