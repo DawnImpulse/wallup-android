@@ -12,14 +12,14 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
     <gradient
-        android:startColor="@color/black"
+        android:angle="90"
         android:centerColor="@android:color/transparent"
         android:endColor="@android:color/transparent"
-        android:angle="90"/>
+        android:startColor="@color/black" />
 
-    <corners
-        android:radius="6dp"/>
+    <corners android:radius="6dp" />
 
 </shape>
