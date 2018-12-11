@@ -16,88 +16,95 @@ OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainImageLayout"
     android:layout_width="match_parent"
-    android:layout_height="320dp"
-    android:layout_margin="4dp"
-    android:background="@color/black">
+    android:layout_height="320dp">
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/mainImage"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mainImageCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:foreground="?android:attr/selectableItemBackgroundBorderless"
-        android:scaleType="centerCrop"
-        app:riv_border_color="@color/white"
-        app:riv_corner_radius="8dp"
-        app:riv_mutate_background="true" />
+        android:layout_margin="4dp"
+        app:cardCornerRadius="8dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient" />
-
-    <!--author layout-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp">
-
-        <!--image-->
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/mainCircleImage"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:foreground="?android:attr/selectableItemBackgroundBorderless"
-            app:riv_oval="true" />
-
-        <!--name-->
-        <me.grantland.widget.AutofitTextView
-            android:id="@+id/mainName"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dp"
-            android:layout_toLeftOf="@id/mainColL"
-            android:layout_toRightOf="@id/mainCircleImage"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:text="Amy Blake"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent">
 
-        <!--like-->
-        <FrameLayout
-            android:id="@+id/mainLikeL"
-            android:layout_width="48dp"
-            android:layout_height="36dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="?android:attr/selectableItemBackgroundBorderless">
+            <ImageView
+                android:id="@+id/mainImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/mainLike"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/vd_like_outline" />
-        </FrameLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_gradient" />
 
-        <!--collection-->
-        <FrameLayout
-            android:id="@+id/mainColL"
-            android:layout_width="48dp"
-            android:layout_height="36dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/mainLikeL"
-            android:background="?android:attr/selectableItemBackgroundBorderless">
+            <!--author layout-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="8dp">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/mainCol"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/vd_plus_accent" />
-        </FrameLayout>
-    </RelativeLayout>
+                <!--image-->
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/mainCircleImage"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    app:riv_oval="true" />
 
+                <!--name-->
+                <me.grantland.widget.AutofitTextView
+                    android:id="@+id/mainName"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toLeftOf="@id/mainColL"
+                    android:layout_toRightOf="@id/mainCircleImage"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:maxLines="1"
+                    android:text="Amy Blake"
+                    android:textColor="@color/white" />
+
+                <!--like-->
+                <FrameLayout
+                    android:id="@+id/mainLikeL"
+                    android:layout_width="48dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/mainLike"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_like_outline" />
+                </FrameLayout>
+
+                <!--collection-->
+                <FrameLayout
+                    android:id="@+id/mainColL"
+                    android:layout_width="48dp"
+                    android:layout_height="36dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/mainLikeL"
+                    android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/mainCol"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_plus_accent" />
+                </FrameLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 </RelativeLayout>

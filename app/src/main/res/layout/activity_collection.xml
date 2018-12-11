@@ -54,6 +54,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:gravity="right"
+                    android:maxLines="1"
                     android:textColor="@color/grey400"
                     android:textSize="20sp"
                     android:textStyle="bold" />

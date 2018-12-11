@@ -75,9 +75,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
+                android:src="@drawable/vd_user_outline"
                 app:riv_border_color="@color/white"
                 app:riv_border_width="1dp"
-                android:src="@drawable/vd_user_outline"
                 app:riv_oval="true" />
         </FrameLayout>
     </RelativeLayout>
@@ -126,7 +126,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_gravity="center"
                         android:text="Latest"
                         android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -157,10 +158,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Random"
                         android:layout_marginTop="2dp"
+                        android:text="Random"
                         android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
             </RelativeLayout>
@@ -193,7 +195,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_gravity="center"
                         android:text="Menu"
                         android:textColor="@color/white"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
                 <!--<LinearLayout
                     android:layout_centerVertical="true"

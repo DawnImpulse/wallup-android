@@ -21,8 +21,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.setMargins
 import androidx.core.widget.toast
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -130,6 +132,11 @@ class MainAdapter(
             else
                 holder.layout.layoutParams = ViewGroup.LayoutParams(point.x, (0.475 * point.y).toInt())
 
+            val cardLP = holder.card.layoutParams as RelativeLayout.LayoutParams
+            cardLP.setMargins(F.dpToPx(4, context))
+            /*val margins = holder.layout.layoutParams as ViewGroup.MarginLayoutParams
+            margins.setMargins(F.dpToPx(4, context))*/
+
             var artistClick = View.OnClickListener {
                 var intent = Intent(context, ArtistProfileActivity::class.java)
                 intent.putExtra(C.USERNAME, images[position]!!.user!!.username)
@@ -143,7 +150,7 @@ class MainAdapter(
                 false
             }
 
-            // show/hide like button
+            // show/gone like button
             if (!showLike)
                 holder.likeL.visibility = View.INVISIBLE
 

@@ -65,7 +65,7 @@ class ModalSheetStats : RoundedBottomSheetDialogFragment(), View.OnClickListener
 
     // on click
     override fun onClick(v: View) {
-        sheetStatsReload.hide()
+        sheetStatsReload.gone()
         sheetStatsProgress.show()
         imageStats()
     }
@@ -75,14 +75,14 @@ class ModalSheetStats : RoundedBottomSheetDialogFragment(), View.OnClickListener
         model.imageStats(arguments!!.getString(C.ID)) { e, r ->
             e?.let {
                 L.d(NAME, e)
-                sheetStatsProgress.hide()
+                sheetStatsProgress.gone()
                 sheetStatsReload.show()
                 context!!.toast("error fetching stats")
             }
             r?.let {
                 r as ImageStatsPojo
-                sheetStatsProgress.hide()
-                sheetStatsReload.hide()
+                sheetStatsProgress.gone()
+                sheetStatsReload.gone()
                 sheetStatsLayout.show()
                 sheetStatsDate.text = F.statsDate()
                 sheetStatsDate.setTextColor(color)

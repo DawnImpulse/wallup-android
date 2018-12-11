@@ -17,16 +17,16 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
+    android:layout_marginTop="16dp"
     android:layout_marginRight="8dp"
     android:layout_marginBottom="16dp"
-    android:layout_marginTop="16dp"
     android:orientation="vertical">
 
     <!--images-->
     <RelativeLayout
         android:id="@+id/colLMainL"
         android:layout_width="match_parent"
-        android:layout_height="240dp">
+        android:layout_height="320dp">
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/colLImage0"
@@ -37,8 +37,37 @@ OR PERFORMANCE OF THIS SOFTWARE.
             app:riv_corner_radius="8dp"
             app:riv_mutate_background="true" />
 
-        <LinearLayout
-            android:layout_width="96dp"
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/colLImage1"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="8dp"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="8dp" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/colLImage2"
+            android:visibility="gone"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_margin="8dp"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="8dp" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:visibility="gone"
+            android:id="@+id/colLImage3"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/colLImage2"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="8dp" />
+
+        <!--<LinearLayout
+            android:layout_width="108dp"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_margin="8dp"
@@ -51,8 +80,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/colLImage1"
-                    android:layout_width="96dp"
-                    android:layout_height="60dp"
+                    android:layout_width="108dp"
+                    android:layout_height="72dp"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
                     app:riv_corner_radius="8dp" />
@@ -65,8 +94,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/colLImage2"
-                    android:layout_width="96dp"
-                    android:layout_height="60dp"
+                    android:layout_width="108dp"
+                    android:layout_height="72dp"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
                     app:riv_corner_radius="8dp" />
@@ -79,14 +108,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/colLImage3"
-                    android:layout_width="96dp"
-                    android:layout_height="60dp"
+                    android:layout_width="108dp"
+                    android:layout_height="72dp"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
                     app:riv_corner_radius="8dp" />
             </FrameLayout>
 
-        </LinearLayout>
+        </LinearLayout>-->
 
     </RelativeLayout>
 
@@ -137,6 +166,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="8dp"
+                    android:maxLines="1"
                     android:layout_toLeftOf="@id/colLImageCL"
                     android:text="Curated by Dawn"
                     android:textColor="@color/white" />

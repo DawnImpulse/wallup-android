@@ -31,6 +31,7 @@ import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.F
+import com.dawnimpulse.wallup.utils.gone
 import com.dawnimpulse.wallup.viewholders.CollectionsViewHolder
 import com.dawnimpulse.wallup.viewholders.LoadingViewHolder
 import com.google.gson.Gson
@@ -120,10 +121,8 @@ class CollectionsAdapter(private val lifecycle: Lifecycle,
             it.preview_photos?.let {
                 if (it.size > 1)
                     ImageHandler.setImageInView(lifecycle, holder.image1, it[1].urls.full + Config.IMAGE_HEIGHT)
-                if (it.size > 2)
-                    ImageHandler.setImageInView(lifecycle, holder.image2, it[2].urls.full + Config.IMAGE_HEIGHT)
-                if (it.size > 3)
-                    ImageHandler.setImageInView(lifecycle, holder.image3, it[3].urls.full + Config.IMAGE_HEIGHT)
+                else
+                    holder.image1.gone()
             }
 
             holder.layout.setOnClickListener {

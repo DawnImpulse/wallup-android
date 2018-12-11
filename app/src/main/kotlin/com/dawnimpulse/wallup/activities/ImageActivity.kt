@@ -136,7 +136,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         imageHover.animation = AnimationUtils.loadAnimation(this, R.anim.hover)
         imageScroll.viewTreeObserver.addOnScrollChangedListener {
             imageHover.clearAnimation()
-            imageHover.hide()
+            imageHover.gone()
         }
     }
 

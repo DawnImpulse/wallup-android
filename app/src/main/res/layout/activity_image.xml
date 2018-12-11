@@ -88,14 +88,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             app:riv_oval="true" />
 
                         <me.grantland.widget.AutofitTextView
-                            android:layout_toRightOf="@id/imagePreviewAuthorImage"
                             android:id="@+id/imagePreviewAuthorName"
-                            android:gravity="right"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="16dp"
+                            android:layout_toRightOf="@id/imagePreviewAuthorImage"
+                            android:gravity="right"
+                            android:maxLines="1"
                             android:text="August Jenkins"
                             android:textColor="@color/white"
                             android:textSize="18sp"
@@ -397,9 +398,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
                             <LinearLayout
-                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:orientation="vertical">
 
                                 <androidx.appcompat.widget.AppCompatImageView
@@ -414,8 +415,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:text="Share"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/white" />
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
                             </LinearLayout>
                         </FrameLayout>
 
@@ -428,9 +429,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
                             <LinearLayout
-                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:orientation="vertical">
 
                                 <androidx.appcompat.widget.AppCompatImageView
@@ -441,12 +442,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                     app:srcCompat="@drawable/vd_info" />
 
                                 <TextView
-                                    android:layout_gravity="center"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
                                     android:text="Exif"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/white" />
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
                             </LinearLayout>
                         </FrameLayout>
 
@@ -459,9 +460,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
                             <LinearLayout
-                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:orientation="vertical">
 
                                 <androidx.appcompat.widget.AppCompatImageView
@@ -474,10 +475,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Collect"
                                     android:layout_gravity="center"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/white" />
+                                    android:text="Collect"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
                             </LinearLayout>
                         </FrameLayout>
 
@@ -490,9 +491,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
                             <LinearLayout
-                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:orientation="vertical">
 
                                 <androidx.appcompat.widget.AppCompatImageView
@@ -505,10 +506,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Statistics"
                                     android:layout_gravity="center"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/white" />
+                                    android:text="Statistics"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
                             </LinearLayout>
                         </FrameLayout>
 
@@ -521,9 +522,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                             android:background="?android:attr/selectableItemBackgroundBorderless">
 
                             <LinearLayout
-                                android:layout_gravity="center"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:orientation="vertical">
 
                                 <androidx.appcompat.widget.AppCompatImageView
@@ -534,12 +535,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
                                     app:srcCompat="@drawable/vd_camera_white" />
 
                                 <TextView
-                                    android:layout_gravity="center"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
                                     android:text="Unsplash"
-                                    android:textSize="12sp"
-                                    android:textColor="@color/white" />
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp" />
                             </LinearLayout>
                         </FrameLayout>
 

@@ -17,17 +17,17 @@ fun Int.toHexa(): String {
     return String.format("#%06X", 0xFFFFFF and this)
 }
 
-// hide view
-fun View.hide(){
+// gone view
+fun View.gone() {
     visibility = View.GONE
 }
 
-// invisible view
-fun View.invisible(){
+// hide view
+fun View.hide() {
     visibility = View.INVISIBLE
 }
 
-// hide view
-fun View.show(){
+// gone view
+fun View.show() {
     visibility = View.VISIBLE
 }

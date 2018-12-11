@@ -14,7 +14,6 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -230,20 +229,20 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                 mainViewPager.currentItem = 0
                 mainNavLatestI.setImageDrawable(Drawables(this).latest)
                 mainNavRandomI.setImageDrawable(Drawables(this).shuffle1)
-                mainNavLatestT.typeface = Typeface.DEFAULT_BOLD
+                /*mainNavLatestT.typeface = Typeface.DEFAULT_BOLD
                 mainNavRandomT.typeface = Typeface.DEFAULT
                 mainNavLatestT.textSize = 14f
-                mainNavRandomT.textSize = 12f
+                mainNavRandomT.textSize = 12f*/
             }
             1 -> {
                 lastItemSelected = 1
                 mainViewPager.currentItem = 1
                 mainNavLatestI.setImageDrawable(Drawables(this).latest_outline)
                 mainNavRandomI.setImageDrawable(Drawables(this).shuffle2)
-                mainNavLatestT.typeface = Typeface.DEFAULT
+                /*mainNavLatestT.typeface = Typeface.DEFAULT
                 mainNavRandomT.typeface = Typeface.DEFAULT_BOLD
                 mainNavLatestT.textSize = 12f
-                mainNavRandomT.textSize = 14f
+                mainNavRandomT.textSize = 14f*/
             }
         }
     }

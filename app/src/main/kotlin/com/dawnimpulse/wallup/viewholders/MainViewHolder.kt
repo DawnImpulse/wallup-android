@@ -31,5 +31,6 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val col = itemView.mainCol
     val colL = itemView.mainColL
     val layout = itemView.mainImageLayout
+    val card = itemView.mainImageCard
 
 }
