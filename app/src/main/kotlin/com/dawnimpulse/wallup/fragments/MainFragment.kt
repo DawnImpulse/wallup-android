@@ -26,7 +26,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.MainAdapter
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
-import com.dawnimpulse.wallup.models.DatabaseModel
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo

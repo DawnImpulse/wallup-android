@@ -17,6 +17,7 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.dawnimpulse.wallup.pojo.BearerBody
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.pojo.NewCollections
 import com.dawnimpulse.wallup.repositories.UnsplashRepository
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
@@ -40,6 +41,7 @@ import com.pixplicity.easyprefs.library.Prefs
  *  2018 10 04 - master - Saksham - self profile
  *  2018 10 08 - master - Saksham - user liked photos
  *  2018 10 21 - master - Saksham - add image in user's collection
+ *  2018 12 11 - master - Saksham - new collection
  */
 class UnsplashModel() {
     private lateinit var lifecycle: Lifecycle
@@ -440,6 +442,25 @@ class UnsplashModel() {
     fun imageStats(id: String, callback: (Any?, Any?) -> Unit) {
         if (Config.CONNECTED)
             UnsplashRepository.imageStats(id) { e, r ->
+                lifecycle.addObserver(object : LifecycleObserver {
+                    var once = true
+                    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                    fun onStart() {
+                        if (once) {
+                            callback(e, r)
+                            once = false
+                        }
+                    }
+                })
+            }
+        else
+            callback("internet not available !!", null)
+    }
+
+    // new collection
+    fun newCollection(body: NewCollections, callback: (Any?, Any?) -> Unit) {
+        if (Config.CONNECTED)
+            UnsplashRepository.newCollection(body) { e, r ->
                 lifecycle.addObserver(object : LifecycleObserver {
                     var once = true
                     @OnLifecycleEvent(Lifecycle.Event.ON_START)

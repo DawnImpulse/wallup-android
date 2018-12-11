@@ -275,6 +275,15 @@ interface RetroUnsplashSource {
             @Query(C.COLLECTIONS) id: String
     ): Call<List<ImagePojo>>
 
+    // ------------------------------
+    //        New Collection
+    // ------------------------------
+    @POST("/collections")
+    fun newCollection(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Body body: NewCollections
+    ): Call<CollectionPojo>
+
 
     //________________________________
     //           EXTRAS
