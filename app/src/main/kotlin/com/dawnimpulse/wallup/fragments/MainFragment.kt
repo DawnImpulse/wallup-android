@@ -57,7 +57,6 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
     private val NAME = "MainFragment"
     private lateinit var mainAdapter: MainAdapter
     private lateinit var images: MutableList<ImagePojo?>
-    private lateinit var modelR: DatabaseModel
     private var model: UnsplashModel? = null
     private val init: Boolean = true
     private var timestamp = 0
@@ -78,7 +77,6 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
         super.onViewCreated(view, savedInstanceState)
 
         model = UnsplashModel(lifecycle)
-        modelR = DatabaseModel(lifecycle)
 
         type = arguments!!.getString(C.TYPE)
         when (type) {
@@ -86,8 +84,6 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 model?.getLatestImages(1, callback)
             C.CURATED ->
                 model?.getCuratedImages(1, callback)
-            C.TRENDING ->
-                modelR.getTrendingImages(null, callback)
             C.RANDOM ->
                 model?.randomImages(callback)
         }
@@ -119,8 +115,6 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 model?.getLatestImages(1, callback)
             C.CURATED ->
                 model?.getCuratedImages(1, callback)
-            C.TRENDING ->
-                modelR.getTrendingImages(null, callback)
             C.RANDOM ->
                 model?.randomImages(callback)
         }
@@ -134,8 +128,6 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 model?.getLatestImages(1, callback)
             C.CURATED ->
                 model?.getCuratedImages(1, callback)
-            C.TRENDING ->
-                modelR.getTrendingImages(null, callback)
             C.RANDOM ->
                 model?.randomImages(callback)
 
@@ -151,8 +143,6 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
                 model?.getLatestImages(nextPage, callbackPaginated)
             C.CURATED ->
                 model?.getCuratedImages(nextPage, callbackPaginated)
-            C.TRENDING ->
-                modelR.getTrendingImages(timestamp, callbackPaginated)
             C.RANDOM ->
                 model?.randomImages(callbackPaginated)
 

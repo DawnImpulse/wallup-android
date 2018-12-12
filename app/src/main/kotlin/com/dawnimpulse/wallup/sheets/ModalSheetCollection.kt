@@ -48,7 +48,7 @@ import org.greenrobot.eventbus.ThreadMode
  * @note Updates :
  * Saksham - 2018 12 04 - master - new reload / progress
  */
-class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListener,View.OnClickListener {
+class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListener, View.OnClickListener {
     private var NAME = "ModalSheetCollection"
     private var toView: Boolean = false
     private var imageCols: MutableList<CollectionPojo>? = null
@@ -144,7 +144,7 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
                     val pos = event.obj.getInt(C.POSITION)
                     imageColString!!.add(pos, event.obj.getString(C.COLLECTION_ID))
                     cols[pos]!!.cover_photo = image
-                    adapter.notifyItemChanged(event.obj.getInt(C.POSITION))
+                    adapter.notifyItemChanged(event.obj.getInt(C.POSITION) + 1)
                 } else {
                     //if image is removed from collection
                     val pos = event.obj.getInt(C.POSITION)
@@ -153,7 +153,7 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
                         cols[pos]!!.cover_photo = ImagePojo(urls = cols[pos]!!.preview_photos!![0].urls)
                     else
                         cols[pos]!!.cover_photo = null
-                    adapter.notifyItemChanged(event.obj.getInt(C.POSITION))
+                    adapter.notifyItemChanged(event.obj.getInt(C.POSITION) + 1)
                 }
             }
         }

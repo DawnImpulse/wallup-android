@@ -1,6 +1,7 @@
 package com.dawnimpulse.wallup.utils
 
 import android.view.View
+import android.widget.RelativeLayout
 
 /**
  * @info - custom kotlin extension functions

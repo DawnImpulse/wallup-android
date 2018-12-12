@@ -28,12 +28,10 @@ import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.Event
-import com.dawnimpulse.wallup.utils.L
+import com.dawnimpulse.wallup.utils.*
 import com.dawnimpulse.wallup.viewholders.ImageColViewHolder
 import com.dawnimpulse.wallup.viewholders.LoadingViewHolder
+import com.dawnimpulse.wallup.viewholders.NewCollectionHolder
 import com.google.gson.Gson
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
@@ -63,6 +61,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
     private var loadMoreListener: OnLoadMoreListener? = null
     private var VIEW_TYPE_LOADING = 0
     private var VIEW_TYPE_ITEM = 1
+    private var VIEW_TYPE_NEW = 2
 
     private lateinit var context: Context
     private lateinit var model: UnsplashModel
@@ -90,34 +89,38 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
 
     // get total no of items for adapter
     override fun getItemCount(): Int {
-        return cols.size
+        return cols.size + 1
     }
 
     // get item view type
     override fun getItemViewType(position: Int): Int {
-        return if (cols.elementAtOrNull(position) == null) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
+        if (position == 0)
+            return VIEW_TYPE_NEW
+        return if (cols.elementAtOrNull(position - 1) == null) VIEW_TYPE_LOADING else VIEW_TYPE_ITEM
     }
 
     // create view holder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
         model = UnsplashModel(lifecycle)
-        return if (viewType == VIEW_TYPE_ITEM)
-            ImageColViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_image_collection, parent, false))
-        else
-            LoadingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading, parent, false))
+        return when (viewType) {
+            VIEW_TYPE_ITEM -> ImageColViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_image_collection, parent, false))
+            VIEW_TYPE_NEW -> NewCollectionHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_new_collection, parent, false))
+            else -> LoadingViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading, parent, false))
+        }
     }
 
     // binding view holder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ImageColViewHolder) {
             var available = false
-            holder.text.text = cols[position]!!.title
-            cols[position]!!.cover_photo?.let {
+            var pos = position - 1
+            holder.text.text = cols[pos]!!.title
+            cols[pos]!!.cover_photo?.let {
                 ImageHandler.setImageInView(lifecycle, holder.image, it.urls!!.full + Config.IMAGE_HEIGHT)
             }
 
-            if (imageCols!![position] != null) {
+            if (imageCols!![pos] != null) {
                 holder.bg.visibility = View.GONE
                 holder.bgS.visibility = View.VISIBLE
                 available = true
@@ -131,30 +134,38 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
                     // to only view collection
                     var intent = Intent(context, CollectionActivity::class.java)
                     intent.putExtra(C.TYPE, C.FEATURED)
-                    intent.putExtra(C.COLLECTION, Gson().toJson(cols[position]))
+                    intent.putExtra(C.COLLECTION, Gson().toJson(cols[pos]))
                     context.startActivity(intent)
                 } else {
                     if (available) {
-                        sendEvent(cols[position]!!, false, position)
-                        model.removeImageInCollection(image!!, cols[position]!!.id) { e, _ ->
+                        sendEvent(cols[pos]!!, false, pos)
+                        model.removeImageInCollection(image!!, cols[pos]!!.id) { e, _ ->
                             e?.let {
                                 L.d(NAME, e)
                                 context.toast("error removing from collection")
-                                sendEvent(cols[position]!!, true, position)
+                                sendEvent(cols[pos]!!, true, pos)
                             }
                         }
 
                     } else {
-                        sendEvent(cols[position]!!, true, position)
-                        model.addImageInCollection(image!!, cols[position]!!.id) { e, _ ->
+                        sendEvent(cols[pos]!!, true, pos)
+                        model.addImageInCollection(image!!, cols[pos]!!.id) { e, _ ->
                             e?.let {
                                 L.d(NAME, e)
                                 context.toast("error adding to collection")
-                                sendEvent(cols[position]!!, false, position)
+                                sendEvent(cols[pos]!!, false, pos)
                             }
                         }
                     }
                 }
+            }
+        }
+        if (holder is NewCollectionHolder) {
+            image?.let {
+                holder.text.text = "Add to New Collection"
+            }
+            holder.layout.setOnClickListener {
+                Dialog.newCollection(context,lifecycle,image)
             }
         }
     }
@@ -167,7 +178,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
         json.put(C.COLLECTION_ID, col.id)
         json.put(C.POSITION, position)
         json.put(C.COLLECTION, Gson().toJson(col))
-        json.put(C.IMAGE,image)
+        json.put(C.IMAGE, image)
         EventBus.getDefault().post(Event(json))
     }
 
