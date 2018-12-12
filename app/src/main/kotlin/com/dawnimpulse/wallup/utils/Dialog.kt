@@ -32,6 +32,8 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
+import org.greenrobot.eventbus.EventBus
+import org.json.JSONObject
 
 
 /**
@@ -110,6 +112,16 @@ object Dialog {
                     pat.text = "Image Added"
                     papl.gone()
                     pad.show()
+
+                    var json = JSONObject()
+                    json.put(C.TYPE, C.IMAGE_TO_COLLECTION)
+                    json.put(C.IS_ADDED, true)
+                    json.put(C.COLLECTION_ID, pojo.id)
+                    json.put(C.POSITION, 0)
+                    json.put(C.COLLECTION, F.toJson(pojo))
+                    json.put(C.IMAGE, image)
+                    EventBus.getDefault().post(Event(json))
+
                     launch {
                         delay(500)
                         dismiss()
@@ -134,9 +146,19 @@ object Dialog {
                     pcpl.gone()
                     pcd.show()
                     pct.text = "Collection Created"
-                    image?.let {
-                        addImage(r, it)
-                    }
+
+                    var obj = JSONObject()
+                    obj.put(C.TYPE, C.NEW_COLLECTION)
+                    obj.put(C.COLLECTION, F.toJson(r))
+                    EventBus.getDefault().post(Event(obj))
+
+                    if (image == null) {
+                        launch {
+                            delay(500)
+                            dismiss()
+                        }
+                    } else
+                        addImage(r, image)
                 }
             }
         }

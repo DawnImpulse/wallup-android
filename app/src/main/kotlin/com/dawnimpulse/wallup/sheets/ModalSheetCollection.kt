@@ -136,7 +136,6 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
     // on message event
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: Event) {
-        L.d(NAME, event.obj)
         if (event.obj.has(C.TYPE)) {
             if (event.obj.getString(C.TYPE) == C.IMAGE_TO_COLLECTION) {
                 // if image is added to a collection
@@ -155,6 +154,11 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
                         cols[pos]!!.cover_photo = null
                     adapter.notifyItemChanged(event.obj.getInt(C.POSITION) + 1)
                 }
+            }
+            if (event.obj.getString(C.TYPE) == C.NEW_COLLECTION) {
+                val col = Gson().fromJson(event.obj.getString(C.COLLECTION), CollectionPojo::class.java)
+                cols.add(0, col)
+                adapter.notifyDataSetChanged()
             }
         }
     }

@@ -68,6 +68,7 @@ object C {
     const val PHOTO_ID = "photo_id"
     const val COLLECTION_ID = "collection_id"
     const val IMAGE_TO_COLLECTION = "imageToCollection"
+    const val NEW_COLLECTION = "newCollection"
     const val IS_ADDED = "isAdded"
     const val VIEW = "view"
     const val IMAGE = "image"

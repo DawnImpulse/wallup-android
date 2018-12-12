@@ -116,9 +116,10 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
             var available = false
             var pos = position - 1
             holder.text.text = cols[pos]!!.title
-            cols[pos]!!.cover_photo?.let {
-                ImageHandler.setImageInView(lifecycle, holder.image, it.urls!!.full + Config.IMAGE_HEIGHT)
-            }
+            if (cols[pos]!!.cover_photo != null)
+                ImageHandler.setImageInView(lifecycle, holder.image, cols[pos]!!.cover_photo!!.urls!!.full + Config.IMAGE_HEIGHT)
+            else
+                holder.image.setImageBitmap(null)
 
             if (imageCols!![pos] != null) {
                 holder.bg.visibility = View.GONE
@@ -165,7 +166,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
                 holder.text.text = "Add to New Collection"
             }
             holder.layout.setOnClickListener {
-                Dialog.newCollection(context,lifecycle,image)
+                Dialog.newCollection(context, lifecycle, image)
             }
         }
     }
