@@ -18,20 +18,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.activities.AboutActivity
 import com.dawnimpulse.wallup.activities.CollectionLayoutActivity
-import com.dawnimpulse.wallup.activities.UserActivity
-import com.dawnimpulse.wallup.handlers.ImageHandler
-import com.dawnimpulse.wallup.pojo.UserPojo
+import com.dawnimpulse.wallup.activities.SettingsActivity
 import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Colors
 import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.utils.RemoteConfig
-import com.google.gson.Gson
-import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.bottom_sheet_navigation.*
 
 
@@ -62,7 +56,7 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
         sheetNavFeedback.setOnClickListener(this)
         sheetNavCollection.setOnClickListener(this)
         sheetNavAbout.setOnClickListener(this)
-        sheetNavUser.setOnClickListener(this)
+        sheetNavSettings.setOnClickListener(this)
 
         RemoteConfig.getProductionUpdateValues()?.let {
             if (it.next_version_code > BuildConfig.VERSION_CODE) {
@@ -72,13 +66,6 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
                 sheetNavNextUpdate.visibility = View.VISIBLE
                 sheetNavNextUpdate.text = it.text
             }
-        }
-
-        if (Prefs.contains(C.USER)) {
-            var user = Gson().fromJson(Prefs.getString(C.USER, ""), UserPojo::class.java)
-            ImageHandler.setImageInView(lifecycle, sheetNavUserI, user.profile_image.large)
-            sheetNavUserT.text = user.first_name
-            sheetNavUserT.setTextColor(Colors(context!!).WHITE)
         }
     }
 
@@ -95,14 +82,7 @@ class ModalSheetNav : RoundedBottomSheetDialogFragment(), View.OnClickListener {
             }
             sheetNavFeedback.id -> F.sendMail(activity!!)
             sheetNavUpdateL.id -> F.startWeb(context!!, C.WALLUP_PLAY)
-            sheetNavUser.id -> {
-                if (!Prefs.contains(C.USER_TOKEN))
-                    sheet.show((context as AppCompatActivity).supportFragmentManager, sheet.tag)
-                else
-                    startActivity(Intent(context, UserActivity::class.java))
-
-                dismiss()
-            }
+            sheetNavSettings.id -> startActivity(Intent(context, SettingsActivity::class.java))
         }
     }
 }

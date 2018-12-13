@@ -72,7 +72,7 @@ class RandomAdapter(private val lifecycle: Lifecycle, private val images: List<I
         }
 
         // setting image in view
-        ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full + Config.IMAGE_HEIGHT)
+        ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full + Config.IMAGE_HEIGHT_LIST)
         // setting artist image
         ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position]!!.user!!.profile_image!!.large)
 

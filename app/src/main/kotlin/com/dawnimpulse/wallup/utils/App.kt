@@ -104,6 +104,10 @@ class App : Application() {
         if (Prefs.contains(C.USER_TOKEN))
             Config.USER_API_KEY = Prefs.getString(C.USER_TOKEN, "")
 
+        Config.IMAGE_LIST_QUALITY = Prefs.getString(C.IMAGE_LIST_QUALITY,Config.IMAGE_LIST_QUALITY)
+        Config.IMAGE_PREVIEW_QUALITY = Prefs.getString(C.IMAGE_PREVIEW_QUALITY,Config.IMAGE_PREVIEW_QUALITY)
+        Config.IMAGE_DOWNLOAD_QUALITY = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY,Config.IMAGE_DOWNLOAD_QUALITY)
+
         L.d(NAME,Config.USER_API_KEY)
     }
 

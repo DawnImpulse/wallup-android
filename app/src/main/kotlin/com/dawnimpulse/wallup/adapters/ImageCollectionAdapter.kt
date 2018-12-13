@@ -117,7 +117,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
             var pos = position - 1
             holder.text.text = cols[pos]!!.title
             if (cols[pos]!!.cover_photo != null)
-                ImageHandler.setImageInView(lifecycle, holder.image, cols[pos]!!.cover_photo!!.urls!!.full + Config.IMAGE_HEIGHT)
+                ImageHandler.setImageInView(lifecycle, holder.image, cols[pos]!!.cover_photo!!.urls!!.full + Config.IMAGE_HEIGHT_LIST)
             else
                 holder.image.setImageBitmap(null)
 

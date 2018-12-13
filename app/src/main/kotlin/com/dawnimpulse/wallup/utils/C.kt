@@ -73,7 +73,9 @@ object C {
     const val VIEW = "view"
     const val IMAGE = "image"
     const val NETWORK = "network"
-
+    const val IMAGE_LIST_QUALITY = "imageListQuality"
+    const val IMAGE_PREVIEW_QUALITY = "imagePreviewQuality"
+    const val IMAGE_DOWNLOAD_QUALITY = "imageDownloadQuality"
 
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
@@ -91,6 +93,11 @@ object C {
     const val UNSPLASH_OAUTH = "https://unsplash.com/oauth/authorize"
     const val UNSPLASH_TOKEN = "https://unsplash.com/oauth/token"
     const val UNSPLASH_SOURCE = "https://source.unsplash.com"
+
+    const val HD = "720"
+    const val HQ = "480"
+    const val FHD = "1080"
+    const val UHD = "2160"
 
     const val ERROR_CODE_1 = 601
     const val ERROR_CODE_2 = 60

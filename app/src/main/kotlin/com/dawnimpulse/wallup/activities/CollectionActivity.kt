@@ -162,7 +162,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
         colPublished.setText(F.fromHtml("<font color=\"#ffffff\">published on</font> ${F.dateConvert(details.published_at)}"), TextView.BufferType.SPANNABLE)
 
         details.cover_photo?.let {
-            ImageHandler.getImageAsBitmap(lifecycle, this, details.cover_photo!!.urls?.full + Config.IMAGE_HEIGHT) {
+            ImageHandler.getImageAsBitmap(lifecycle, this, details.cover_photo!!.urls?.full + Config.IMAGE_HEIGHT_LIST) {
                 val color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
                 colImage.setImageBitmap(it)
                 setColor(color)

@@ -70,9 +70,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 </LinearLayout>
             </FrameLayout>
 
-            <!--user-->
+            <!--settings-->
             <FrameLayout
-                android:id="@+id/sheetNavUser"
+                android:id="@+id/sheetNavSettings"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -90,7 +90,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/vd_account_grey"
+                        android:src="@drawable/vd_settings_outline"
                         app:riv_oval="true" />
 
                     <TextView
@@ -100,7 +100,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_gravity="center"
                         android:layout_marginTop="4dp"
                         android:gravity="center"
-                        android:text="Login"
+                        android:text="Settings"
                         android:textColor="@color/grey500" />
 
                 </LinearLayout>

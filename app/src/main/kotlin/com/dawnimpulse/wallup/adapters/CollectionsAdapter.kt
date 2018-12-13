@@ -116,11 +116,11 @@ class CollectionsAdapter(private val lifecycle: Lifecycle,
 
             it.cover_photo?.let {
                 holder.image0.background = ColorDrawable(Color.parseColor(it.color!!))
-                ImageHandler.setImageInView(lifecycle, holder.image0, it.urls!!.full + Config.IMAGE_HEIGHT)
+                ImageHandler.setImageInView(lifecycle, holder.image0, it.urls!!.full + Config.IMAGE_HEIGHT_LIST)
             }
             it.preview_photos?.let {
                 if (it.size > 1)
-                    ImageHandler.setImageInView(lifecycle, holder.image1, it[1].urls.full + Config.IMAGE_HEIGHT)
+                    ImageHandler.setImageInView(lifecycle, holder.image1, it[1].urls.full + Config.IMAGE_HEIGHT_LIST)
                 else
                     holder.image1.gone()
             }
