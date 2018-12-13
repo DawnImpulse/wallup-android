@@ -124,6 +124,7 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
                 cols.removeAt(cols.size - 1)
                 adapter.notifyItemRemoved(cols.size - 1)
                 var list = (r as List<CollectionPojo?>).toMutableList()
+                list = removeCols(0, originalImageColString, list)
                 var temp = imageCollections(originalImageColString, list)
                 cols.addAll(list)
                 imageColString!!.addAll(temp)
@@ -178,8 +179,18 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
                 image?.let {
                     id = it.id
                 }
-                if (cols != null || cols!!.isNotEmpty())
-                    imageColString = imageCollections(imageColString, cols)
+                var skip = -1
+                if (cols != null || cols!!.isNotEmpty()) {
+                    imageCols?.let {
+                        imageCols = populateCoverPhoto(image!!, imageCols, cols)
+                        it.forEachIndexed { i, col ->
+                            cols.add(i, col)
+                        }
+                        skip = it.size - 1
+                    }
+                }
+                cols = removeCols(skip, originalImageColString, cols)
+                imageColString = imageCollections(imageColString, cols)
                 adapter = if (imageCols != null) {
                     ImageCollectionAdapter(lifecycle, cols, imageColString, id, sheetColRecycler)
                 } else
@@ -195,7 +206,7 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
         }
     }
 
-    //create image collection array
+    //create image collection <String> of id - array
     private fun imageCollections(imageCols: MutableList<String?>?,
                                  cols: MutableList<CollectionPojo?>): MutableList<String?> {
         var i = 0
@@ -216,6 +227,38 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
             i++
         }
         return list
+    }
+
+    //remove image cols from modified cols
+    // skip start from -1 , 0 means 1 item
+    private fun removeCols(skip: Int, imageCols: MutableList<String?>?, cols: MutableList<CollectionPojo?>): MutableList<CollectionPojo?> {
+        imageCols?.let {
+            val indexes = ArrayList<Int>()
+            cols.forEachIndexed { i, pojo ->
+                if (i > skip) {
+                    if (originalImageColString!!.contains(pojo!!.id))
+                        indexes.add(i)
+                }
+            }
+            indexes.forEach { i ->
+                cols.removeAt(i)
+            }
+            return cols
+        }
+        return cols
+    }
+
+    // populate image cols with cover photo
+    private fun populateCoverPhoto(image: ImagePojo, imageCols: MutableList<CollectionPojo>?, cols: MutableList<CollectionPojo?>): MutableList<CollectionPojo>? {
+        var newImageCols = imageCols
+        imageCols!!.forEachIndexed { i, col ->
+            val cols2 = cols.filter { it -> it!!.id == col.id }
+            if (cols2.isNotEmpty())
+                newImageCols!![i].cover_photo = cols2[0]!!.cover_photo
+            else
+                newImageCols!![i].cover_photo = image
+        }
+        return newImageCols
     }
 
 }
