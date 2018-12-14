@@ -65,28 +65,28 @@ class ArtistPhotosAdapter(private val context: Context, private val lifecycle: L
         when (position) {
             0 -> {
                 holder.layout0.visibility = View.VISIBLE
-                ImageHandler.setImageInView(lifecycle, holder.image1, images[0]!!.urls!!.full + Config.IMAGE_HEIGHT_LIST)
+                ImageHandler.setImageInView(lifecycle, holder.image1, images[0]!!.urls!!.full + Config.IMAGE_LIST_QUALITY)
             }
             1 -> {
                 holder.layout1.visibility = View.VISIBLE
-                if (images.size > 1) ImageHandler.setImageInView(lifecycle, holder.image2, images[1]!!.urls!!.full + Config.IMAGE_HEIGHT_LIST) else holder.image2L.visibility = View.GONE
-                if (images.size > 2) ImageHandler.setImageInView(lifecycle, holder.image3, images[2]!!.urls!!.full + Config.IMAGE_HEIGHT_LIST) else holder.image3L.visibility = View.GONE
-                if (images.size > 3) ImageHandler.setImageInView(lifecycle, holder.image4, images[3]!!.urls!!.full + Config.IMAGE_HEIGHT_LIST) else holder.image4L.visibility = View.GONE
+                if (images.size > 1) ImageHandler.setImageInView(lifecycle, holder.image2, images[1]!!.urls!!.full + Config.IMAGE_LIST_QUALITY) else holder.image2L.visibility = View.GONE
+                if (images.size > 2) ImageHandler.setImageInView(lifecycle, holder.image3, images[2]!!.urls!!.full + Config.IMAGE_LIST_QUALITY) else holder.image3L.visibility = View.GONE
+                if (images.size > 3) ImageHandler.setImageInView(lifecycle, holder.image4, images[3]!!.urls!!.full + Config.IMAGE_LIST_QUALITY) else holder.image4L.visibility = View.GONE
             }
             2 -> {
                 holder.layout2.visibility = View.VISIBLE
-                if (images.size > 4) ImageHandler.setImageInView(lifecycle, holder.image5, images[4]!!.urls!!.full + Config.IMAGE_HEIGHT_LIST) else holder.image5L.visibility = View.GONE
-                if (images.size > 5) ImageHandler.setImageInView(lifecycle, holder.image6, images[5]!!.urls!!.full + Config.IMAGE_HEIGHT_LIST) else holder.image6L.visibility = View.GONE
-                if (images.size > 6) ImageHandler.setImageInView(lifecycle, holder.image7, images[6]!!.urls!!.full + Config.IMAGE_HEIGHT_LIST) else holder.image7L.visibility = View.GONE
+                if (images.size > 4) ImageHandler.setImageInView(lifecycle, holder.image5, images[4]!!.urls!!.full + Config.IMAGE_LIST_QUALITY) else holder.image5L.visibility = View.GONE
+                if (images.size > 5) ImageHandler.setImageInView(lifecycle, holder.image6, images[5]!!.urls!!.full + Config.IMAGE_LIST_QUALITY) else holder.image6L.visibility = View.GONE
+                if (images.size > 6) ImageHandler.setImageInView(lifecycle, holder.image7, images[6]!!.urls!!.full + Config.IMAGE_LIST_QUALITY) else holder.image7L.visibility = View.GONE
             }
             3 -> {
                 holder.layout0.visibility = View.VISIBLE
-                ImageHandler.setImageInView(lifecycle, holder.image1, images[7]!!.urls!!.full + Config.IMAGE_HEIGHT_LIST)
+                ImageHandler.setImageInView(lifecycle, holder.image1, images[7]!!.urls!!.full + Config.IMAGE_LIST_QUALITY)
             }
         }
 
         holder.image1.setOnClickListener {
-            if (position === 0)
+            if (position == 0)
                 intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[0]))
             else
                 intent.putExtra(C.IMAGE_POJO, Gson().toJson(images[7]))

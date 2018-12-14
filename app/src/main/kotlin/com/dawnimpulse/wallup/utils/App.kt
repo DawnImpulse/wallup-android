@@ -8,14 +8,11 @@ import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.pixplicity.easyprefs.library.Prefs
 import io.fabric.sdk.android.Fabric
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig
-
-
 
 
 /*
@@ -48,7 +45,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
-        FirebaseDatabase.getInstance().setPersistenceEnabled(false);
         setUpRemoteConfig()
         setFonts()
         setPrefs()
@@ -104,18 +100,19 @@ class App : Application() {
         if (Prefs.contains(C.USER_TOKEN))
             Config.USER_API_KEY = Prefs.getString(C.USER_TOKEN, "")
 
-        Config.IMAGE_LIST_QUALITY = Prefs.getString(C.IMAGE_LIST_QUALITY,Config.IMAGE_LIST_QUALITY)
-        Config.IMAGE_PREVIEW_QUALITY = Prefs.getString(C.IMAGE_PREVIEW_QUALITY,Config.IMAGE_PREVIEW_QUALITY)
-        Config.IMAGE_DOWNLOAD_QUALITY = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY,Config.IMAGE_DOWNLOAD_QUALITY)
+        Config.IMAGE_LIST_QUALITY = Prefs.getString(C.IMAGE_LIST_QUALITY, Config.IMAGE_LIST_QUALITY)
+        Config.IMAGE_PREVIEW_QUALITY = Prefs.getString(C.IMAGE_PREVIEW_QUALITY, Config.IMAGE_PREVIEW_QUALITY)
+        Config.IMAGE_DOWNLOAD_QUALITY = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, Config.IMAGE_DOWNLOAD_QUALITY)
 
-        L.d(NAME,Config.USER_API_KEY)
+        L.d(NAME, Config.USER_API_KEY)
     }
 
     // enabling crashlytics in release builds
     private fun analytics() {
         if (!BuildConfig.DEBUG) {
-            Fabric.with(this, Crashlytics())
-            FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(true)
+            if (Prefs.getBoolean(C.CRASHLYTICS, true))
+                Fabric.with(this, Crashlytics())
+            FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(Prefs.getBoolean(C.ANALYTICS, true))
         }
     }
 }

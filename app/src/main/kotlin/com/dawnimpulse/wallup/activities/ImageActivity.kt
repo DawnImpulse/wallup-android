@@ -377,7 +377,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         }
 
         ImageHandler.setImageInView(lifecycle, imagePreviewAuthorImage, details.user!!.profile_image!!.large)
-        ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full + Config.IMAGE_HEIGHT_PREVIEW) {
+        ImageHandler.getImageAsBitmap(lifecycle, this, details.urls!!.full + Config.IMAGE_PREVIEW_QUALITY) {
             color = ColorHandler.getNonDarkColor(Palette.from(it).generate(), this)
             color()
             imageMain.setImageBitmap(it)

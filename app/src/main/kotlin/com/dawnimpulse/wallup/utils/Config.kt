@@ -33,11 +33,9 @@ object Config {
     var UNSPLASH_API_KEY = ""
     var USER_API_KEY = ""
     var UNSPLASH_SECRET = ""
-    var IMAGE_LIST_QUALITY = "720"
-    var IMAGE_PREVIEW_QUALITY = "720"
-    var IMAGE_DOWNLOAD_QUALITY = "" // empty for original
-    var IMAGE_HEIGHT_LIST = "&h=$IMAGE_LIST_QUALITY"
-    var IMAGE_HEIGHT_PREVIEW = "&h=$IMAGE_PREVIEW_QUALITY"
+    var IMAGE_LIST_QUALITY = C.HD
+    var IMAGE_PREVIEW_QUALITY = C.HD
+    var IMAGE_DOWNLOAD_QUALITY = C.O
     var CONNECTED = true
 
     lateinit var imageBitmap: Bitmap

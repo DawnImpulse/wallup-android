@@ -74,7 +74,7 @@ class MainAdapter(
     private var VIEW_TYPE_LOADING = 0
     private var VIEW_TYPE_ITEM = 1
     private lateinit var context: Context
-    private lateinit var imageSheet: ModalSheetImage
+    private var imageSheet: ModalSheetImage
 
     // initialization for Load More Listener
     init {
@@ -83,7 +83,7 @@ class MainAdapter(
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                val mLinearLayoutManager = recyclerView!!.layoutManager as LinearLayoutManager
+                val mLinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
 
                 totalItemCount = mLinearLayoutManager.itemCount
                 lastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition()
@@ -155,7 +155,7 @@ class MainAdapter(
                 holder.likeL.visibility = View.INVISIBLE
 
             // set image
-            ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full + Config.IMAGE_HEIGHT_LIST)
+            ImageHandler.setImageInView(lifecycle, holder.image, images[position]!!.urls!!.full + Config.IMAGE_LIST_QUALITY)
             // set artist image
             ImageHandler.setImageInView(lifecycle, holder.circleImage, images[position]!!.user!!.profile_image!!.large)
 

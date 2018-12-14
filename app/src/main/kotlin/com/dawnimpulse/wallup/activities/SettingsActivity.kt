@@ -13,7 +13,8 @@ import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
-
+    private val NAME = "SettingsActivity"
+    private var toast = false
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,14 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
         settingDownloadAsk.setOnCheckedChangeListener { _, isChecked ->
             Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, isChecked)
         }
+        settingCrashlytics.setOnCheckedChangeListener { _, isChecked ->
+            Prefs.putBoolean(C.CRASHLYTICS, isChecked)
+        }
+        settingAnalytics.setOnCheckedChangeListener { _, isChecked ->
+            Prefs.putBoolean(C.ANALYTICS, isChecked)
+        }
+
+        setDetails()
     }
 
     // on click
@@ -51,7 +60,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
         val black = Colors(this).BLACK
         when (v.id) {
             settingPreviewListHQ.id -> {
-                toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.")
+                if (toast)
+                    toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.")
                 Prefs.putString(C.IMAGE_LIST_QUALITY, C.HQ)
                 Config.IMAGE_LIST_QUALITY = C.HQ
 
@@ -91,7 +101,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
                 settingPreviewListFHDT.setTextColor(black)
             }
             settingPreviewImageHQ.id -> {
-                toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.")
+                if (toast)
+                    toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.")
                 Prefs.putString(C.IMAGE_PREVIEW_QUALITY, C.HQ)
                 Config.IMAGE_PREVIEW_QUALITY = C.HQ
 
@@ -157,8 +168,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
                 settingDownloadOriginalT.setTextColor(white)
             }
             settingDownloadOriginal.id -> {
-                Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, "")
-                Config.IMAGE_DOWNLOAD_QUALITY = ""
+                Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.O)
+                Config.IMAGE_DOWNLOAD_QUALITY = C.O
 
                 settingDownloadFHDT.background = null
                 settingDownloadFHDT.setTextColor(white)
@@ -170,6 +181,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
                 settingDownloadOriginalT.setTextColor(black)
             }
         }
+        toast = true
     }
 
     // on long click
@@ -186,5 +198,34 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
             settingDownloadOriginal.id -> toast("Original Image")
         }
         return true
+    }
+
+    // applying details from Prefs
+    private fun setDetails() {
+        val list = Prefs.getString(C.IMAGE_LIST_QUALITY, Config.IMAGE_LIST_QUALITY)
+        val preview = Prefs.getString(C.IMAGE_LIST_QUALITY, Config.IMAGE_PREVIEW_QUALITY)
+        val download = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, Config.IMAGE_DOWNLOAD_QUALITY)
+
+        when (list) {
+            C.HQ -> settingPreviewListHQ.performClick()
+            C.HD -> settingPreviewListHD.performClick()
+            C.FHD -> settingPreviewListFHD.performClick()
+        }
+
+        when (preview) {
+            C.HQ -> settingPreviewImageHQ.performClick()
+            C.HD -> settingPreviewImageHD.performClick()
+            C.FHD -> settingPreviewImageFHD.performClick()
+        }
+
+        when (download) {
+            C.FHD -> settingDownloadFHD.performClick()
+            C.UHD -> settingDownloadUHD.performClick()
+            C.O -> settingDownloadOriginal.performClick()
+        }
+
+        settingDownloadAsk.isChecked = Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true)
+        settingCrashlytics.isChecked = Prefs.getBoolean(C.CRASHLYTICS, true)
+        settingAnalytics.isChecked = Prefs.getBoolean(C.ANALYTICS, true)
     }
 }

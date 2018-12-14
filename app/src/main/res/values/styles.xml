@@ -66,6 +66,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="android:colorForeground">@color/grey400</item>
     </style>
 
+    <!--Switch theme-->
+    <style name="MySwitch" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <!-- inactive thumb color switch-->
+        <item name="colorSwitchThumbNormal">@color/white</item>
+        <!-- inactive track color switch-->
+        <item name="android:colorForeground">@color/grey400</item>
+    </style>
+
     <!--Checkbox theme-->
     <style name="MyCheckBox" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">@color/white</item>

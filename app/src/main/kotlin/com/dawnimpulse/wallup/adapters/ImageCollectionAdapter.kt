@@ -72,7 +72,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                val mLinearLayoutManager = recyclerView!!.layoutManager as LinearLayoutManager
+                val mLinearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
 
                 totalItemCount = mLinearLayoutManager.itemCount
                 lastVisibleItem = mLinearLayoutManager.findLastVisibleItemPosition()
@@ -117,7 +117,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
             var pos = position - 1
             holder.text.text = cols[pos]!!.title
             if (cols[pos]!!.cover_photo != null)
-                ImageHandler.setImageInView(lifecycle, holder.image, cols[pos]!!.cover_photo!!.urls!!.full + Config.IMAGE_HEIGHT_LIST)
+                ImageHandler.setImageInView(lifecycle, holder.image, cols[pos]!!.cover_photo!!.urls!!.full + Config.IMAGE_LIST_QUALITY)
             else
                 holder.image.setImageBitmap(null)
 
@@ -140,7 +140,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
                 } else {
                     if (available) {
                         sendEvent(cols[pos]!!, false, pos)
-                        model.removeImageInCollection(image!!, cols[pos]!!.id) { e, _ ->
+                        model.removeImageInCollection(image, cols[pos]!!.id) { e, _ ->
                             e?.let {
                                 L.d(NAME, e)
                                 context.toast("error removing from collection")
@@ -150,7 +150,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
 
                     } else {
                         sendEvent(cols[pos]!!, true, pos)
-                        model.addImageInCollection(image!!, cols[pos]!!.id) { e, _ ->
+                        model.addImageInCollection(image, cols[pos]!!.id) { e, _ ->
                             e?.let {
                                 L.d(NAME, e)
                                 context.toast("error adding to collection")
