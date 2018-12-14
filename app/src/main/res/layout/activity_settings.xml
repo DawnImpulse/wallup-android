@@ -12,23 +12,47 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!--Title-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                app:srcCompat="@drawable/vd_settings_outline" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:text="Settings"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/white" />
+
         <!--List Quality-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="32dp"
             android:text="Image Quality in List"
-            android:textColor="@color/white" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/line_dashed"
-            android:layerType="software" />
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,16 +81,6 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="(Not Recommended)"
-                    android:textColor="@color/grey400"
-                    android:textSize="8sp" />
             </LinearLayout>
 
             <!--HD-->
@@ -92,16 +106,6 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="(Recommended)"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
             </LinearLayout>
 
             <!--FHD-->
@@ -139,16 +143,8 @@
             android:layout_marginLeft="16dp"
             android:layout_marginTop="32dp"
             android:text="Image Quality in Preview Screen"
-            android:textColor="@color/white" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/line_dashed"
-            android:layerType="software" />
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -177,16 +173,6 @@
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="(Not Recommended)"
-                    android:textColor="@color/grey400"
-                    android:textSize="8sp" />
             </LinearLayout>
 
             <!--HD-->
@@ -212,16 +198,6 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="(Recommended)"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
             </LinearLayout>
 
             <!--FHD-->
@@ -261,6 +237,7 @@
             android:layout_marginRight="16dp">
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -284,19 +261,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:checked="true"
-                    android:theme="@style/MyDialogTheme" />
+                    android:checked="false"
+                    android:theme="@style/MyCheckBox" />
             </LinearLayout>
         </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/line_dashed"
-            android:layerType="software" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -374,16 +342,6 @@
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="4dp"
-                    android:gravity="center"
-                    android:text="(Recommended)"
-                    android:textColor="@color/white"
-                    android:textSize="8sp" />
             </LinearLayout>
 
         </LinearLayout>

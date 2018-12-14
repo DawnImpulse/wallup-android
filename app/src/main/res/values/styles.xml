@@ -66,6 +66,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="android:colorForeground">@color/grey400</item>
     </style>
 
+    <!--Checkbox theme-->
+    <style name="MyCheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+
 
     <!--Bottom Sheet-->
     <!-- set the rounded drawable as background to your bottom sheet -->

@@ -76,6 +76,7 @@ object C {
     const val IMAGE_LIST_QUALITY = "imageListQuality"
     const val IMAGE_PREVIEW_QUALITY = "imagePreviewQuality"
     const val IMAGE_DOWNLOAD_QUALITY = "imageDownloadQuality"
+    const val IMAGE_DOWNLOAD_ASK = "imageDownloadAsk"
 
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"

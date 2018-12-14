@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Colors
@@ -11,7 +12,7 @@ import com.dawnimpulse.wallup.utils.Config
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_settings.*
 
-class SettingsActivity : AppCompatActivity(), View.OnClickListener {
+class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +28,20 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
         settingDownloadFHD.setOnClickListener(this)
         settingDownloadUHD.setOnClickListener(this)
         settingDownloadOriginal.setOnClickListener(this)
+
+        settingPreviewListHQ.setOnLongClickListener(this)
+        settingPreviewListHD.setOnLongClickListener(this)
+        settingPreviewListFHD.setOnLongClickListener(this)
+        settingPreviewImageHQ.setOnLongClickListener(this)
+        settingPreviewImageHD.setOnLongClickListener(this)
+        settingPreviewImageFHD.setOnLongClickListener(this)
+        settingDownloadFHD.setOnLongClickListener(this)
+        settingDownloadUHD.setOnLongClickListener(this)
+        settingDownloadOriginal.setOnLongClickListener(this)
+
+        settingDownloadAsk.setOnCheckedChangeListener { _, isChecked ->
+            Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, isChecked)
+        }
     }
 
     // on click
@@ -36,6 +51,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
         val black = Colors(this).BLACK
         when (v.id) {
             settingPreviewListHQ.id -> {
+                toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.")
                 Prefs.putString(C.IMAGE_LIST_QUALITY, C.HQ)
                 Config.IMAGE_LIST_QUALITY = C.HQ
 
@@ -75,6 +91,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
                 settingPreviewListFHDT.setTextColor(black)
             }
             settingPreviewImageHQ.id -> {
+                toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.")
                 Prefs.putString(C.IMAGE_PREVIEW_QUALITY, C.HQ)
                 Config.IMAGE_PREVIEW_QUALITY = C.HQ
 
@@ -140,7 +157,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
                 settingDownloadOriginalT.setTextColor(white)
             }
             settingDownloadOriginal.id -> {
-                //
+                Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, "")
+                Config.IMAGE_DOWNLOAD_QUALITY = ""
 
                 settingDownloadFHDT.background = null
                 settingDownloadFHDT.setTextColor(white)
@@ -152,5 +170,21 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
                 settingDownloadOriginalT.setTextColor(black)
             }
         }
+    }
+
+    // on long click
+    override fun onLongClick(v: View): Boolean {
+        when (v.id) {
+            settingPreviewListHQ.id -> toast("High Quality (480p)")
+            settingPreviewListHD.id -> toast("High Definition (720p)")
+            settingPreviewListFHD.id -> toast("Full HD (1080p)")
+            settingPreviewImageHQ.id -> toast("High Quality (480p)")
+            settingPreviewImageHD.id -> toast("High Definition (720p)")
+            settingPreviewImageFHD.id -> toast("Full HD (1080p)")
+            settingDownloadFHD.id -> toast("Full HD (1080p)")
+            settingDownloadUHD.id -> toast("Ultra HD (2160p)")
+            settingDownloadOriginal.id -> toast("Original Image")
+        }
+        return true
     }
 }
