@@ -1,20 +1,20 @@
 package com.dawnimpulse.wallup.activities
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Colors
-import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.*
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private val NAME = "SettingsActivity"
-    private var toast = false
+    private var toast = true
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +29,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
         settingDownloadFHD.setOnClickListener(this)
         settingDownloadUHD.setOnClickListener(this)
         settingDownloadOriginal.setOnClickListener(this)
+        settingCacheL.setOnClickListener(this)
 
         settingPreviewListHQ.setOnLongClickListener(this)
         settingPreviewListHD.setOnLongClickListener(this)
@@ -51,6 +52,9 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
         }
 
         setDetails()
+        F.appCache(this) {
+            settingCache.text = "$it (tap to clean cache)"
+        }
     }
 
     // on click
@@ -61,7 +65,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
         when (v.id) {
             settingPreviewListHQ.id -> {
                 if (toast)
-                    toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.")
+                    toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.",Toast.LENGTH_LONG)
                 Prefs.putString(C.IMAGE_LIST_QUALITY, C.HQ)
                 Config.IMAGE_LIST_QUALITY = C.HQ
 
@@ -102,7 +106,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
             }
             settingPreviewImageHQ.id -> {
                 if (toast)
-                    toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.")
+                    toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.",Toast.LENGTH_LONG
+                    )
                 Prefs.putString(C.IMAGE_PREVIEW_QUALITY, C.HQ)
                 Config.IMAGE_PREVIEW_QUALITY = C.HQ
 
@@ -180,6 +185,13 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
                 settingDownloadOriginalT.background = drawable
                 settingDownloadOriginalT.setTextColor(black)
             }
+            settingCacheL.id -> {
+                Dialog.simpleOk(this, "Clear Application Cache", "", DialogInterface.OnClickListener { _, _ ->
+                    F.deleteCache(this)
+                    toast("Cache cleared")
+                    settingCache.text = "0MB"
+                })
+            }
         }
         toast = true
     }
@@ -203,17 +215,23 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
     // applying details from Prefs
     private fun setDetails() {
         val list = Prefs.getString(C.IMAGE_LIST_QUALITY, Config.IMAGE_LIST_QUALITY)
-        val preview = Prefs.getString(C.IMAGE_LIST_QUALITY, Config.IMAGE_PREVIEW_QUALITY)
+        val preview = Prefs.getString(C.IMAGE_PREVIEW_QUALITY, Config.IMAGE_PREVIEW_QUALITY)
         val download = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, Config.IMAGE_DOWNLOAD_QUALITY)
 
         when (list) {
-            C.HQ -> settingPreviewListHQ.performClick()
+            C.HQ -> {
+                toast = false
+                settingPreviewListHQ.performClick()
+            }
             C.HD -> settingPreviewListHD.performClick()
             C.FHD -> settingPreviewListFHD.performClick()
         }
 
         when (preview) {
-            C.HQ -> settingPreviewImageHQ.performClick()
+            C.HQ -> {
+                toast = false
+                settingPreviewImageHQ.performClick()
+            }
             C.HD -> settingPreviewImageHD.performClick()
             C.FHD -> settingPreviewImageFHD.performClick()
         }

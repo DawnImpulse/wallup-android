@@ -22,6 +22,7 @@ import com.dawnimpulse.wallup.models.UnsplashModel
 import com.google.gson.Gson
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
+import org.apache.commons.io.FileUtils
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 import java.text.SimpleDateFormat
@@ -274,6 +275,23 @@ object F {
         cal2.add(Calendar.DAY_OF_MONTH, -30)
 
         return "${sdf.format(cal2.time)}  -  ${sdf.format(cal)}"
+    }
+
+    //calculate app cache
+    fun appCache(context: Context, callback: (String) -> Unit) {
+        launch {
+            val size = FileUtils.sizeOfDirectory(context.cacheDir)
+            (context as AppCompatActivity).runOnUiThread {
+                callback(FileUtils.byteCountToDisplaySize(size))
+            }
+        }
+    }
+
+    //delete app cache
+    fun deleteCache(context: Context) {
+        launch {
+            FileUtils.deleteQuietly(context.cacheDir)
+        }
     }
 
     // sort labels

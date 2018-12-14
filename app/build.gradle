@@ -65,6 +65,7 @@ dependencies {
     implementation 'me.grantland:autofittextview:0.2.1' //text auto-fit
     implementation 'org.greenrobot:eventbus:3.1.1' //event bus
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha' //chart library
+    implementation 'commons-io:commons-io:2.4'
 
     //------------------ Additional -------------------------
     implementation 'androidx.core:core-ktx:1.0.0-alpha1'
