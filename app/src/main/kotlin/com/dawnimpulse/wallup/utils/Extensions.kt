@@ -1,7 +1,8 @@
 package com.dawnimpulse.wallup.utils
 
+import android.content.Context
+import android.content.Intent
 import android.view.View
-import android.widget.RelativeLayout
 
 /**
  * @info - custom kotlin extension functions
@@ -31,4 +32,9 @@ fun View.hide() {
 // gone view
 fun View.show() {
     visibility = View.VISIBLE
+}
+
+// open activity
+fun <T> Context.openActivity(it: Class<T>) {
+    startActivity(Intent(this, it))
 }

@@ -161,10 +161,14 @@
             android:name=".activities.SettingsActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Intro Screen-->
+        <!-- Intro Screen -->
         <activity
             android:name=".activities.IntroActivity"
             android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--Library License-->
+        <activity android:name=".activities.LibraryLicenseActivity"
+            android:theme="@style/AppTheme.Fullscreen"></activity>
     </application>
 
 </manifest>

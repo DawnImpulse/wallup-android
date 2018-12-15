@@ -1,5 +1,7 @@
 package com.dawnimpulse.wallup.utils
 
+import com.dawnimpulse.wallup.pojo.LibraryPojo
+
 /*
 ISC License
 

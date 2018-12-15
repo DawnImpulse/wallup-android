@@ -25,8 +25,8 @@ import com.dawnimpulse.wallup.pojo.UpdatePojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.F
 import com.dawnimpulse.wallup.utils.RemoteConfig
+import com.dawnimpulse.wallup.utils.openActivity
 import kotlinx.android.synthetic.main.activity_about.*
-import kotlinx.android.synthetic.main.activity_image.*
 
 /**
  * @author Saksham
@@ -93,7 +93,7 @@ class AboutActivity : AppCompatActivity(), View.OnClickListener {
                 aboutLinkedin.id -> F.startWeb(this, C.DI_LINKEDIN)
                 aboutUnsplash.id -> F.startWeb(this, C.UNSPLASH)
                 donate.id -> F.startWeb(this, C.DI_PAYPAL)
-                licenseLibs.id -> toast("upcoming")
+                licenseLibs.id -> openActivity(LibraryLicenseActivity::class.java)
                 licenseIcons.id -> toast("upcoming")
                 privacy.id -> F.startWeb(this, RemoteConfig.getPrivacyLink())
                 terms.id -> F.startWeb(this, RemoteConfig.getTnC())
