@@ -58,11 +58,7 @@
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Fullscreen.Preview">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            //
         </activity>
 
         <!-- Main Activity -->
@@ -156,10 +152,20 @@
             android:name=".activities.UserActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Settings-->
+        <!-- Settings -->
         <activity
             android:name=".activities.SettingsActivity"
-            android:theme="@style/AppTheme.Fullscreen"></activity>
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--Intro Screen-->
+        <activity android:name=".activities.IntroActivity"
+            android:theme="@style/AppTheme.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
