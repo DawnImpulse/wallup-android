@@ -16,8 +16,10 @@ package com.dawnimpulse.wallup.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.C
+import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 
@@ -41,9 +43,18 @@ class SplashActivity : AppCompatActivity() {
 
         launch {
             delay(2000)
-            val intent = Intent(this@SplashActivity, ChangesActivity::class.java)
-            intent.putExtra(C.NEXT,true)
-            startActivity(intent)
+
+            if (Prefs.contains(C.VERSION_CODE)) {
+                when {
+                    Prefs.getInt(C.VERSION_CODE, 10) == BuildConfig.VERSION_CODE -> {
+                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                    }
+                    else -> startActivity(Intent(this@SplashActivity, ChangesActivity::class.java))
+                }
+            } else
+                startActivity(Intent(this@SplashActivity, IntroActivity::class.java))
+
+            Prefs.putInt(C.VERSION_CODE, BuildConfig.VERSION_CODE)
             finish()
         }
     }

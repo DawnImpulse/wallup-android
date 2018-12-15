@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IntroUnsplashFragment">
+    tools:context=".fragments.IntroUnsplashFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,11 +12,11 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="128dp"
-            android:layout_height="128dp"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
             android:layout_gravity="center"
             android:layout_marginTop="48dp"
-            app:srcCompat="@drawable/vd_unsplash" />
+            app:srcCompat="@drawable/vd_unsplash_white" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -54,5 +54,36 @@
             android:text="@string/intro_wallup_1"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
+        <RelativeLayout
+            android:id="@+id/introUnsplash"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bt_round_complete_corners_white"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:letterSpacing="0.2"
+                android:text="VISIT UNSPLASH"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="16dp"
+                app:srcCompat="@drawable/vd_open_black" />
+
+        </RelativeLayout>
     </LinearLayout>
 </ScrollView>

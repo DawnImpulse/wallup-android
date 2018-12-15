@@ -60,11 +60,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="loginText4">Manage \nProfile</string>
     <string name="loginText5"><b>Wallup</b> need access to your <b>Unsplash profile</b> with various <b>permissions</b> to help manage your profile  (some permissions provided now will be required in future updates). Be assured that we will <b>never</b> collect/store your profile, images or any other info at all.</string>
 
-    <string name="intro_welcome_1">Wallup provides you with Thousands of Images from the wonderful Unsplash Community right at your fingertips.\n\n\nAnd yes, Wallup is also an unofficial client for Unsplash giving you freedom to manage your complete Unsplash profile right on your Android device.</string>
+    <string name="intro_welcome_1"><b>Wallup</b> provides you with Thousands of Images from the wonderful <b>Unsplash</b> Community right at your fingertips.\n\n\nAnd yes, <b>Wallup</b> is also an unofficial client for <b>Unsplash</b> giving you freedom to manage your complete <b>Unsplash</b> profile right on your Android device.</string>
 
-    <string name="intro_wallup_1">Wallup is powered by UNSPLASH API i.e. everything in this application is possible because of wonderful people at Unsplash. Cheers to them.\n\nLookout for Unsplash logo in this application which will redirect you to their website either from an image or photographer\'s profile.\n\nUrge you to go through Unsplash guidelines on using images.</string>
+    <string name="intro_wallup_1"><b>Wallup</b> is powered by <b>UNSPLASH API</b> i.e. everything in this application is possible because of wonderful people at <b>Unsplash</b>. Cheers to them.\n\nLookout for <b>Unsplash</b> logo in this application which will redirect you to their website either from an image or photographer\'s profile.\n\nUrge you to go through <b>Unsplash</b> guidelines on using images.</string>
 
-    <string name="intro_setting_1">This project is Open Source &amp; complete free to use. We only collect crash data &amp; some analytics. There will be no personal data collected at all. </string>
-    <string name="intro_setting_2">Don\'t want to share crash data or analytics ?\nChange image quality ?\n\nVisit Settings Page to change settings as you like.</string>
+    <string name="intro_setting_1">This project is Open Source &amp; completely free to use. We only collect crash data &amp; some analytics. There will be no personal data collected at all. </string>
+    <string name="intro_setting_2">Don\'t want to share crash data or analytics ?\nChange image quality ?\n\nVisit Settings Page to make changes as you like.</string>
 
 </resources>

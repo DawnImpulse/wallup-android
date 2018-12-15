@@ -17,10 +17,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.utils.C
-import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_changes.*
 
 
@@ -38,12 +35,7 @@ class ChangesActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_changes)
-
-        intent.extras?.let{
-            next()
-        }
         changesFab.setOnClickListener(this)
-        //changesPrivacy.setOnClickListener(this)
     }
 
     // on click
@@ -55,22 +47,6 @@ class ChangesActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 finish()
             }
-            /*changesPrivacy.id -> {
-                toast("opening in browser")
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(RemoteConfig.getPrivacyLink())))
-            }*/
         }
-    }
-
-    private fun next() {
-        if (Prefs.contains(C.VERSION_CODE)) {
-            if (Prefs.getInt(C.VERSION_CODE, 0) == BuildConfig.VERSION_CODE) {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            } else {
-                Prefs.putInt(C.VERSION_CODE, BuildConfig.VERSION_CODE)
-            }
-        } else
-            Prefs.putInt(C.VERSION_CODE, BuildConfig.VERSION_CODE)
     }
 }

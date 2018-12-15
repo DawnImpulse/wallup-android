@@ -11,13 +11,17 @@ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR 
 INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.*/
-package com.dawnimpulse.wallup
+package com.dawnimpulse.wallup.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.utils.F
+import com.dawnimpulse.wallup.utils.RemoteConfig
+import kotlinx.android.synthetic.main.fragment_intro_info.*
 
 /**
  * @author Saksham
@@ -27,13 +31,25 @@ import androidx.fragment.app.Fragment
  *
  * @note Updates :
  */
-class IntroWelcome : Fragment() {
+class IntroInfoFragment : Fragment(), View.OnClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_intro_welcome, container, false)
+        return inflater.inflate(R.layout.fragment_intro_info, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        introPolicy.setOnClickListener(this)
+        introTC.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            introPolicy.id -> F.startWeb(context!!, RemoteConfig.getPrivacyLink())
+            introTC.id -> F.startWeb(context!!, RemoteConfig.getTnC())
+        }
+    }
 }
