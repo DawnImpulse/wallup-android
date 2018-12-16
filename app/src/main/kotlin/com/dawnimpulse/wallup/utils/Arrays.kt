@@ -33,9 +33,25 @@ object Arrays{
 
     fun icons(context: Context) : List<IconsPojo>{
         val library = ContextCompat.getDrawable(context, R.drawable.vd_update)
+        val changelog = ContextCompat.getDrawable(context, R.drawable.vd_changelog)
+        val license = ContextCompat.getDrawable(context, R.drawable.vd_license)
+        val privacy = ContextCompat.getDrawable(context, R.drawable.vd_privacy)
+        val terms = ContextCompat.getDrawable(context, R.drawable.vd_terms)
+        val icons = ContextCompat.getDrawable(context, R.drawable.vd_vector)
+        val search = ContextCompat.getDrawable(context, R.drawable.vd_search_outline)
+        val random = ContextCompat.getDrawable(context, R.drawable.vd_shuffle)
+        val paypal = ContextCompat.getDrawable(context, R.drawable.vd_paypal_2)
 
         return listOf(
-                IconsPojo(library!!,"dmitri13","flaticon.com","https://www.flaticon.com/free-icon/reload_813310")
+                IconsPojo(library!!,"Dmitri13","flaticon.com","https://www.flaticon.com/free-icon/reload_813310"),
+                IconsPojo(changelog!!,"Roundicons","flaticon.com","https://www.flaticon.com/free-icon/rotate_190262"),
+                IconsPojo(license!!,"Freepik","flaticon.com","https://www.flaticon.com/free-icon/license_326613"),
+                IconsPojo(privacy!!,"Freepik","flaticon.com","https://www.flaticon.com/free-icon/person_1047682"),
+                IconsPojo(terms!!,"Freepik","flaticon.com","https://www.flaticon.com/free-icon/law-book_927283"),
+                IconsPojo(icons!!,"Icons8","icons8.com","https://icons8.com"),
+                IconsPojo(search!!,"Katarina Stefanikova","flaticon.com","https://www.flaticon.com/free-icon/search-magnifier-outline_59200"),
+                IconsPojo(random!!,"Freepik","flaticon.com","https://www.flaticon.com/free-icon/shuffle_456232"),
+                IconsPojo(paypal!!,"Pixel Perfect","flaticon.com","https://www.flaticon.com/free-icon/paypal_888920")
         )
     }
 }
