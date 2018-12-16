@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.pojo.LibraryPojo
 import com.dawnimpulse.wallup.utils.F
+import com.dawnimpulse.wallup.utils.gone
+import com.dawnimpulse.wallup.utils.show
 import kotlinx.android.synthetic.main.inflator_library.view.*
 
 /**
@@ -19,9 +21,7 @@ import kotlinx.android.synthetic.main.inflator_library.view.*
  * @note Created on 2018-12-15 by Saksham
  * @note Updates :
  */
-class LibraryAdapter(
-        val list: List<LibraryPojo>
-) : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() {
+class LibraryAdapter(val list: List<LibraryPojo>) : RecyclerView.Adapter<LibraryAdapter.LibraryViewHolder>() {
     private val NAME = "LibraryAdapter"
     private lateinit var context: Context
 
@@ -44,6 +44,10 @@ class LibraryAdapter(
         holder.layout.setOnClickListener {
             F.startWeb(context, library.link)
         }
+        if(position == 0)
+            holder.heading.show()
+        else
+            holder.heading.gone()
     }
 
     // library view holder
@@ -51,6 +55,7 @@ class LibraryAdapter(
         val name = view.libraryName
         val info = view.libraryInfo
         val layout = view.library
+        val heading = view.libraryHeading
     }
 
 }

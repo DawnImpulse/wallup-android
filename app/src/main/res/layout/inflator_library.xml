@@ -19,22 +19,51 @@
     android:background="@color/black"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/libraryHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Libraries"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <View
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="16dp" />
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/library"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:foreground="?selectableItemBackgroundBorderless">
 
         <LinearLayout
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
+            android:layout_marginRight="48dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/libraryName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/white"
@@ -43,9 +72,9 @@
 
             <TextView
                 android:id="@+id/libraryInfo"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey400" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
