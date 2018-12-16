@@ -1,5 +1,9 @@
 package com.dawnimpulse.wallup.utils
 
+import android.content.Context
+import androidx.core.content.ContextCompat
+import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.pojo.IconsPojo
 import com.dawnimpulse.wallup.pojo.LibraryPojo
 
 /**
@@ -26,4 +30,12 @@ object Arrays{
             LibraryPojo("MPAndroidChart", "A powerful \uD83D\uDE80 Android chart view / graph view library, supporting line- bar- pie- radar- bubble- and candlestick charts as well as scaling, dragging and animations.", "https://github.com/PhilJay/MPAndroidChart"),
             LibraryPojo("Apache CommonsIO", "Commons IO is a library of utilities to assist with developing IO functionality.", "https://commons.apache.org/proper/commons-io/")
     )
+
+    fun icons(context: Context) : List<IconsPojo>{
+        val library = ContextCompat.getDrawable(context, R.drawable.vd_update)
+
+        return listOf(
+                IconsPojo(library!!,"dmitri13","flaticon.com","https://www.flaticon.com/free-icon/reload_813310")
+        )
+    }
 }

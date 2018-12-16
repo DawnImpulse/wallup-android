@@ -527,6 +527,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_weight="1"
+                        android:foreground="?selectableItemBackgroundBorderless"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatImageView
@@ -553,6 +554,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:layout_weight="1"
+                        android:foreground="?selectableItemBackgroundBorderless"
                         android:orientation="vertical">
 
                         <androidx.appcompat.widget.AppCompatImageView

@@ -17,7 +17,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.toast
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.ImageHandler
@@ -94,7 +93,7 @@ class AboutActivity : AppCompatActivity(), View.OnClickListener {
                 aboutUnsplash.id -> F.startWeb(this, C.UNSPLASH)
                 donate.id -> F.startWeb(this, C.DI_PAYPAL)
                 licenseLibs.id -> openActivity(LibraryLicenseActivity::class.java)
-                licenseIcons.id -> toast("upcoming")
+                licenseIcons.id -> openActivity(IconsActivity::class.java)
                 privacy.id -> F.startWeb(this, RemoteConfig.getPrivacyLink())
                 terms.id -> F.startWeb(this, RemoteConfig.getTnC())
                 contact.id -> F.sendMail(this)

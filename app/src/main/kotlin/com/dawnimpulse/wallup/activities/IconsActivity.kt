@@ -17,25 +17,26 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.adapters.LibraryAdapter
+import com.dawnimpulse.wallup.adapters.IconsAdapter
 import com.dawnimpulse.wallup.utils.Arrays
-import kotlinx.android.synthetic.main.activity_library_license.*
+import kotlinx.android.synthetic.main.activity_icons.*
 
 /**
  * @author Saksham
  *
  * @note Last Branch Update - recent
- * @note Created on 2018-12-15 by Saksham
+ * @note Created on 2018-12-16 by Saksham
  *
  * @note Updates :
  */
-class LibraryLicenseActivity : AppCompatActivity() {
+class IconsActivity : AppCompatActivity() {
 
+    // on create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_library_license)
+        setContentView(R.layout.activity_icons)
 
-        libraryRecycler.layoutManager = LinearLayoutManager(this)
-        libraryRecycler.adapter = LibraryAdapter(Arrays.LIBRARIES)
+        iconsRecycler.layoutManager = LinearLayoutManager(this)
+        iconsRecycler.adapter = IconsAdapter(Arrays.icons(this))
     }
 }

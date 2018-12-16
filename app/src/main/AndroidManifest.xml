@@ -166,8 +166,13 @@
             android:name=".activities.IntroActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Library License-->
-        <activity android:name=".activities.LibraryLicenseActivity"
+        <!-- Library License -->
+        <activity
+            android:name=".activities.LibraryLicenseActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--Icons License-->
+        <activity android:name=".activities.IconsActivity"
             android:theme="@style/AppTheme.Fullscreen"></activity>
     </application>
 
