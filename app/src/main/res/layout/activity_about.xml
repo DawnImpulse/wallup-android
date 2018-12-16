@@ -459,12 +459,12 @@
             </LinearLayout>
 
             <!--donate-->
-            <RelativeLayout
-                android:id="@+id/donate"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="?android:attr/selectableItemBackground">
+                android:background="?android:attr/selectableItemBackground"
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/paypal"
@@ -480,13 +480,44 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginTop="64dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginRight="16dp"
-                    android:text="Kindly Donate if you can. Your support will help me building more good products."
+                    android:gravity="center"
+                    android:text="Kindly Donate if you can. Your support will help me building more products."
                     android:textAlignment="center"
                     android:textColor="@color/grey400" />
 
-            </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/donate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bt_round_complete_corners_white"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:letterSpacing="0.1"
+                        android:text="DONATE"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="16dp"
+                        app:srcCompat="@drawable/vd_open_black" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
