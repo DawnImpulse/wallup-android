@@ -17,8 +17,8 @@ import android.app.DownloadManager
 import android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
 import android.content.Context
 import android.content.Context.DOWNLOAD_SERVICE
-import android.net.Uri
 import android.os.Environment
+import androidx.core.net.toUri
 import com.dawnimpulse.wallup.utils.toFileUri
 
 
@@ -37,7 +37,7 @@ object DownloadHandler {
     fun downloadData(context: Context, url: String, id: String, path: String? = null): Long {
         var directory = Environment.getExternalStorageDirectory().path + "/WallUp"
         val downloadManager = context.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-        val request = DownloadManager.Request(Uri.parse(url))
+        val request = DownloadManager.Request(url.toUri())
 
         path?.let {
             directory = path

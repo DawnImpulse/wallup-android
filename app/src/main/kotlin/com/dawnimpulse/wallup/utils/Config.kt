@@ -1,6 +1,7 @@
 package com.dawnimpulse.wallup.utils
 
 import android.graphics.Bitmap
+import android.net.Uri
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 
@@ -38,9 +39,11 @@ object Config {
     var IMAGE_DOWNLOAD_QUALITY = C.O
     var CONNECTED = true
 
+    var imagePojo: ImagePojo? = null
+
     lateinit var imageBitmap: Bitmap
     lateinit var userPojo: UserPojo
-    var imagePojo: ImagePojo? = null
+    lateinit var CALLBACK: (Uri) -> Unit
 
     // return api key
     fun apiKey(): String {

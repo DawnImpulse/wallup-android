@@ -25,17 +25,21 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 import androidx.core.widget.toast
 import androidx.lifecycle.Lifecycle
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.handlers.DownloadHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.NewCollections
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.dialog_download.view.*
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
+import me.grantland.widget.AutofitTextView
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 
@@ -211,22 +215,89 @@ object Dialog {
     }
 
     //download dialog
-    fun download(context: Context) {
+    fun download(context: Context, id: String, url: String) {
         val factory = LayoutInflater.from(context)
         val view = factory.inflate(R.layout.dialog_download, null)
         alertDialog = AlertDialog.Builder(context, R.style.MyDialogTheme).create()
         alertDialog.setView(view)
 
-        view.click.setOnClickListener {
-            context.openActivity(FolderPicker::class.java)
+        val path = view.downloadPath as AutofitTextView
+        val or = view.downloadOT as TextView
+        val orL = view.downloadO as LinearLayout
+        val uhd = view.downloadUHDT as TextView
+        val uhdL = view.downloadUHD as LinearLayout
+        val fhd = view.downloadFHDT as TextView
+        val fhdL = view.downloadFHD as LinearLayout
+
+        val drawable = ContextCompat.getDrawable(context, R.drawable.bt_round_complete_corners)
+        val white = Colors(context).WHITE
+        val black = Colors(context).BLACK
+
+        val clickListener = View.OnClickListener {
+            when (it.id) {
+                view.downloadChoose.id -> context.openActivity(FolderPicker::class.java)
+                orL.id -> {
+                    Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.O)
+                    Config.IMAGE_DOWNLOAD_QUALITY = C.O
+
+                    or.background = drawable
+                    or.setTextColor(black)
+
+                    uhd.background = null
+                    uhd.setTextColor(white)
+
+                    fhd.background = null
+                    fhd.setTextColor(white)
+                }
+                uhdL.id -> {
+                    Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.UHD)
+                    Config.IMAGE_DOWNLOAD_QUALITY = C.UHD
+
+                    or.background = null
+                    or.setTextColor(white)
+
+                    uhd.background = drawable
+                    uhd.setTextColor(black)
+
+                    fhd.background = null
+                    fhd.setTextColor(white)
+                }
+                fhdL.id -> {
+                    Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.FHD)
+                    Config.IMAGE_DOWNLOAD_QUALITY = C.FHD
+
+                    or.background = null
+                    or.setTextColor(white)
+
+                    uhd.background = null
+                    uhd.setTextColor(white)
+
+                    fhd.background = drawable
+                    fhd.setTextColor(black)
+                }
+            }
         }
 
+        path.text = Prefs.getString(C.DOWNLOAD_PATH, C.DEFAULT_DOWNLOAD_PATH)
+
+        orL.setOnClickListener(clickListener)
+        uhdL.setOnClickListener(clickListener)
+        fhdL.setOnClickListener(clickListener)
+        view.downloadChoose.setOnClickListener(clickListener)
+
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK") { _, _ ->
+            context.toast("Download starting!! Check notification for progress.")
+            DownloadHandler.downloadData(context, url, id, Prefs.getString(C.DOWNLOAD_PATH, C.DEFAULT_DOWNLOAD_PATH))
+        }
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"CANCEL"){_,_ ->
+            dismiss()
+        }
         alertDialog.show()
 
     }
 
     // dismiss
-    fun dismiss() {
+    private fun dismiss() {
         alertDialog.dismiss()
     }
 

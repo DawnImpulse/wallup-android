@@ -3,6 +3,7 @@ package com.dawnimpulse.wallup.utils
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.view.View
 import java.io.File
 
@@ -39,6 +40,13 @@ fun View.show() {
 // open activity
 fun <T> Context.openActivity(it: Class<T>) {
     startActivity(Intent(this, it))
+}
+
+// open activity
+fun <T> Context.openActivity(it: Class<T>, bundle: Bundle.() -> Unit = {}) {
+    var intent = Intent(this,it)
+    intent.putExtras(Bundle().apply(bundle))
+    startActivity(intent)
 }
 
 // file path string to uri
