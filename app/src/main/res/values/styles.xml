@@ -34,6 +34,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">#40000000</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <!--Fullscreen-->

@@ -165,15 +165,12 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                         imagePreviewProgress.visibility = View.GONE
                     } else {
                         if (bitmap != null) {
-                            Config.imageBitmap = bitmap!!
-                            WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
+                            WallpaperHandler.setHomescreenWallpaper(this@ImageActivity, bitmap!!)
                             imagePreviewProgress.visibility = View.GONE
                         } else {
                             toast("Waiting for High Quality Image ...")
                             ImageHandler.getImageAsBitmap(lifecycle, this, details!!.urls!!.full) {
-                                bitmap = it
-                                Config.imageBitmap = bitmap!!
-                                WallpaperHandler.setHomescreenWallpaper(this@ImageActivity)
+                                WallpaperHandler.setHomescreenWallpaper(this@ImageActivity, it)
                                 imagePreviewProgress.visibility = View.GONE
                             }
                         }
@@ -182,6 +179,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                 }
             }
             imagePreviewDownload.id -> {
+                /*Dialog.download(this)*/
+
                 Permissions.askWriteExternalStoragePermission(this) { no, _ ->
                     if (no != null)
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
@@ -230,7 +229,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                 }
             }
             imagePreviewStats.id -> {
-                var bundle = bundleOf(Pair(C.ID, details!!.id),Pair(C.COLOR,color))
+                var bundle = bundleOf(Pair(C.ID, details!!.id), Pair(C.COLOR, color))
                 statsSheet.arguments = bundle
                 statsSheet.show(supportFragmentManager, statsSheet.tag)
             }

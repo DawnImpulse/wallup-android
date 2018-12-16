@@ -14,6 +14,8 @@ OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.utils
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -21,6 +23,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.widget.toast
 import androidx.lifecycle.Lifecycle
@@ -30,6 +33,7 @@ import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.NewCollections
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.dialog_download.view.*
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 import org.greenrobot.eventbus.EventBus
@@ -43,6 +47,7 @@ import org.json.JSONObject
  * @note Created on 2018-10-04 by Saksham
  *
  * @note Updates :
+ *  Saksham - 2018 12 16 - master - download dialog
  */
 object Dialog {
     private val NAME = "Dialog"
@@ -205,8 +210,45 @@ object Dialog {
         alertDialog.show()
     }
 
+    //download dialog
+    fun download(context: Context) {
+        val factory = LayoutInflater.from(context)
+        val view = factory.inflate(R.layout.dialog_download, null)
+        alertDialog = AlertDialog.Builder(context, R.style.MyDialogTheme).create()
+        alertDialog.setView(view)
+
+        view.click.setOnClickListener {
+            context.openActivity(FolderPicker::class.java)
+        }
+
+        alertDialog.show()
+
+    }
+
     // dismiss
     fun dismiss() {
         alertDialog.dismiss()
     }
+
+    // folder picker
+    class FolderPicker : AppCompatActivity() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+
+            val i = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+            i.addCategory(Intent.CATEGORY_DEFAULT)
+            startActivityForResult(Intent.createChooser(i, "Choose directory"), 1)
+        }
+
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+
+            data?.let {
+                L.d(NAME, data!!.data)
+            }
+            L.d(NAME, "here")
+            finish()
+        }
+    }
+
 }

@@ -19,28 +19,34 @@ import android.content.Context
 import android.content.Context.DOWNLOAD_SERVICE
 import android.net.Uri
 import android.os.Environment
+import com.dawnimpulse.wallup.utils.toFileUri
 
 
 /**
  * @author Saksham
  *
- * @note Last Branch Update -
+ * @note Last Branch Update - master
  * @note Created on 2018-07-22 by Saksham
  *
  * @note Updates :
  *  2018 08 03 - recent - Saksham - using android default download manager
+ *  2018 12 16 - master - Saksham - using dynamic path
  */
 object DownloadHandler {
 
-    fun downloadData(context: Context, url: String, id: String): Long {
-
+    fun downloadData(context: Context, url: String, id: String, path: String? = null): Long {
+        var directory = Environment.getExternalStorageDirectory().path + "/WallUp"
         val downloadManager = context.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         val request = DownloadManager.Request(Uri.parse(url))
 
+        path?.let {
+            directory = path
+        }
+
         request
                 .setTitle("$id.jpg")
-                .setDescription("Downloading image from wallup.")
-                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "/wallup/$id.jpg")
+                .setDescription("Downloading image from WallUp.")
+                .setDestinationUri(("$directory/$id.jpg").toFileUri())
                 .setVisibleInDownloadsUi(true)
                 .setNotificationVisibility(VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
                 .allowScanningByMediaScanner()

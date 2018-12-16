@@ -19,7 +19,6 @@ import android.graphics.Point
 import android.view.Display
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.Toast
 
 /**
@@ -30,20 +29,20 @@ import com.dawnimpulse.wallup.utils.Toast
  *
  * @note Updates :
  */
-object WallpaperHandler{
+object WallpaperHandler {
 
-    fun setHomescreenWallpaper(context: Context) {
-        Toast.short(context,"Applying Wallpaper")
-        Config.imageBitmap = bitmapCropper(Config.imageBitmap,context)!!
+    fun setHomescreenWallpaper(context: Context, bitmap: Bitmap) {
+        Toast.short(context, "Applying Wallpaper")
+        val bitmap2 = bitmapCropper(bitmap, context)!!
         //LongOperation().execute()
         Thread(Runnable {
             val wallpaperManager = WallpaperManager.getInstance(context)
-            wallpaperManager.setBitmap(Config.imageBitmap)
+            wallpaperManager.setBitmap(bitmap2)
 
             val appContext = context as AppCompatActivity
-            appContext.runOnUiThread(Runnable {
-                Toast.short(context,"Wallpaper Applied")
-            })
+            appContext.runOnUiThread {
+                Toast.short(context, "Wallpaper Applied")
+            }
         }).start()
     }
 
@@ -54,7 +53,7 @@ object WallpaperHandler{
      * @param originalBitmap
      * @return
      */
-    private fun bitmapCropper(originalBitmap: Bitmap,context: Context): Bitmap? {
+    private fun bitmapCropper(originalBitmap: Bitmap, context: Context): Bitmap? {
 
         val scaleHcf: Int
         val scaleX: Int

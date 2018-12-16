@@ -2,7 +2,9 @@ package com.dawnimpulse.wallup.utils
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.View
+import java.io.File
 
 /**
  * @info - custom kotlin extension functions
@@ -37,4 +39,9 @@ fun View.show() {
 // open activity
 fun <T> Context.openActivity(it: Class<T>) {
     startActivity(Intent(this, it))
+}
+
+// file path string to uri
+fun String.toFileUri(): Uri {
+    return Uri.fromFile(File(this))
 }
