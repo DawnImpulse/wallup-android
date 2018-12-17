@@ -11,7 +11,6 @@ import org.json.JSONObject
 import java.io.File
 
 
-
 /**
  * @info - custom kotlin extension functions
  *
@@ -78,12 +77,33 @@ fun String.toFileString(): String {
 }
 
 //convert to content uri
-fun Uri.toContentUri(context: Context) : Uri{
+fun Uri.toContentUri(context: Context): Uri {
     val cr = context.contentResolver
-    val file =  File(this.path)
+    val file = File(this.path)
     val imagePath = file.absolutePath
     val imageName: String? = null
     val imageDescription: String? = null
     val uriString = MediaStore.Images.Media.insertImage(cr, imagePath, imageName, imageDescription)
     return Uri.parse(uriString)
+}
+
+//get display ratio a/b
+fun Context.displayRatio(): Pair<Int, Int> {
+    fun gcd(p: Int, q: Int): Int {
+        return if (q == 0) p;
+        else gcd(q, p % q);
+    }
+
+    val point = F.displayDimensions(this)
+    val x = point.x
+    val y = point.y
+    val gcd = gcd(x, y)
+
+    val a = x / gcd
+    val b = y / gcd
+
+    return if (x > y)
+        Pair(a, b)
+    else
+        Pair(b, a)
 }

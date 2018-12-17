@@ -20,6 +20,10 @@ import android.content.Context.DOWNLOAD_SERVICE
 import androidx.core.net.toUri
 import com.dawnimpulse.wallup.utils.Arrays
 import com.dawnimpulse.wallup.utils.toFileUri
+import com.downloader.Error
+import com.downloader.OnDownloadListener
+import com.downloader.PRDownloader
+import com.downloader.Progress
 import kotlinx.coroutines.experimental.launch
 
 
@@ -55,5 +59,24 @@ object DownloadHandler {
             Arrays.downloadWalls.add(isWallpaper)
             Arrays.downloadUris.add(uri)
         }
+    }
+
+    //external download
+    fun externalDownload(url: String, path: String, name: String, progress: (Progress) -> Unit, callback: (Boolean) -> Unit) {
+        PRDownloader.download(url, path, name)
+                .build()
+                .setOnProgressListener {
+                    progress(it)
+                }
+                .start(object : OnDownloadListener {
+                    override fun onDownloadComplete() {
+                        callback(true)
+                    }
+
+                    override fun onError(error: Error?) {
+                        callback(false)
+                    }
+
+                })
     }
 }

@@ -16,12 +16,10 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Point
-import android.net.Uri
 import android.view.Display
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.toast
-import com.dawnimpulse.wallup.utils.toContentUri
 import kotlinx.coroutines.experimental.launch
 
 /**
@@ -47,19 +45,6 @@ object WallpaperHandler {
             }
         }
     }
-
-    // set wallpaper with uri
-    fun setHomescreenWallpaper(context: Context, uri: Uri) {
-        launch {
-            val wallpaperManager = WallpaperManager.getInstance(context)
-            context.startActivity(wallpaperManager.getCropAndSetWallpaperIntent(uri.toContentUri(context)))
-
-            (context as AppCompatActivity).runOnUiThread {
-                context.toast("Wallpaper Applied")
-            }
-        }
-    }
-
 
     /**
      * Handling of bitmap cropping based on device screen

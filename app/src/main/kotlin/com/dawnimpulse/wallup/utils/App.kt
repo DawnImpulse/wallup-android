@@ -6,6 +6,7 @@ import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
+import com.downloader.PRDownloader
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -45,6 +46,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this)
+        PRDownloader.initialize(this);
         setUpRemoteConfig()
         setFonts()
         setPrefs()

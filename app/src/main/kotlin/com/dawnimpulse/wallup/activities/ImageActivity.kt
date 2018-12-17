@@ -187,7 +187,10 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                                 imagePreviewProgress.visibility = View.GONE
                             }
                         }*/
-                        Dialog.download(this, details!!.id, details!!.urls!!.raw, true)
+                        openActivity(CropActivity::class.java) {
+                            putString(C.IMAGE, details!!.urls!!.raw)
+                            putString(C.ID, details!!.id)
+                        }
                         model.downloadedPhoto(details!!.links!!.download_location)
                     }
                 }
