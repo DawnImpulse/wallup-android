@@ -2,6 +2,7 @@ package com.dawnimpulse.wallup.utils
 
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Environment
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 
@@ -38,6 +39,8 @@ object Config {
     var IMAGE_PREVIEW_QUALITY = C.HD
     var IMAGE_DOWNLOAD_QUALITY = C.O
     var CONNECTED = true
+
+    val DEFAULT_DOWNLOAD_PATH = "${Environment.getExternalStorageDirectory().path}/WallUp"
 
     var imagePojo: ImagePojo? = null
 

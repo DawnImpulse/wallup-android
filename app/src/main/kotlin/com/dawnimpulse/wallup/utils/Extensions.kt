@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
+import org.json.JSONObject
 import java.io.File
 
 /**
@@ -44,12 +46,30 @@ fun <T> Context.openActivity(it: Class<T>) {
 
 // open activity
 fun <T> Context.openActivity(it: Class<T>, bundle: Bundle.() -> Unit = {}) {
-    var intent = Intent(this,it)
+    var intent = Intent(this, it)
     intent.putExtras(Bundle().apply(bundle))
     startActivity(intent)
+}
+
+// json put params
+fun jsonOf(vararg pairs: Pair<String, Any>) = JSONObject().apply {
+    pairs.forEach {
+        put(it.first, it.second)
+    }
 }
 
 // file path string to uri
 fun String.toFileUri(): Uri {
     return Uri.fromFile(File(this))
+}
+
+// tree uri path to file uri path
+fun String.toFileString(): String {
+    var substring = split(":")
+    var tree = substring[0]
+
+    return if (tree.contains("primary"))
+        Environment.getExternalStorageDirectory().path + "/${substring[1]}"
+    else
+        "/storage/${tree.replace("/tree/", "")}/${substring[1]}"
 }

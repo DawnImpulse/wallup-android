@@ -13,7 +13,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/black"
     android:orientation="vertical"
     android:paddingBottom="32dp">
 
@@ -118,6 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:textColor="@color/white"
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@id/downloadChoose" />
 

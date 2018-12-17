@@ -235,7 +235,10 @@ object Dialog {
 
         val clickListener = View.OnClickListener {
             when (it.id) {
-                view.downloadChoose.id -> context.openActivity(FolderPicker::class.java)
+                view.downloadChoose.id -> {
+                    context.openActivity(FolderPicker::class.java)
+                    dismiss()
+                }
                 orL.id -> {
                     Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.O)
                     Config.IMAGE_DOWNLOAD_QUALITY = C.O
@@ -278,20 +281,33 @@ object Dialog {
             }
         }
 
-        path.text = Prefs.getString(C.DOWNLOAD_PATH, C.DEFAULT_DOWNLOAD_PATH)
+        path.text = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
 
         orL.setOnClickListener(clickListener)
         uhdL.setOnClickListener(clickListener)
         fhdL.setOnClickListener(clickListener)
         view.downloadChoose.setOnClickListener(clickListener)
 
+        when (Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, C.O)) {
+            C.FHD -> fhdL.performClick()
+            C.UHD -> uhdL.performClick()
+            C.O -> orL.performClick()
+        }
+
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK") { _, _ ->
             context.toast("Download starting!! Check notification for progress.")
-            DownloadHandler.downloadData(context, url, id, Prefs.getString(C.DOWNLOAD_PATH, C.DEFAULT_DOWNLOAD_PATH))
+            val quality = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, Config.IMAGE_DOWNLOAD_QUALITY)
+            var newUrl = url
+            if (quality != C.O)
+                newUrl = "$newUrl&q=$quality"
+
+            DownloadHandler.downloadData(context, newUrl, id,
+                    Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString())
         }
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"CANCEL"){_,_ ->
-            dismiss()
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL") { _, _ ->
         }
+
+        alertDialog.setCancelable(false)
         alertDialog.show()
 
     }
@@ -308,6 +324,8 @@ object Dialog {
 
             val i = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
             i.addCategory(Intent.CATEGORY_DEFAULT)
+            i.putExtra("android.content.extra.SHOW_ADVANCED", false);
+            i.putExtra("android.content.extra.FANCY", false);
             startActivityForResult(Intent.createChooser(i, "Choose directory"), 1)
         }
 
@@ -315,9 +333,17 @@ object Dialog {
             super.onActivityResult(requestCode, resultCode, data)
 
             data?.let {
-                L.d(NAME, data!!.data)
+                L.d(NAME, it.data.path)
+                L.d(NAME, it.data.toString())
+                Prefs.putString(C.DOWNLOAD_PATH, it.data.path)
             }
-            L.d(NAME, "here")
+
+            onBackPressed()
+        }
+
+        override fun onBackPressed() {
+            var obj = jsonOf(Pair(C.TYPE, C.DOWNLOAD_PATH))
+            EventBus.getDefault().post(Event(obj))
             finish()
         }
     }

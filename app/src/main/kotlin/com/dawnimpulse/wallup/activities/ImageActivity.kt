@@ -30,7 +30,10 @@ import androidx.core.widget.toast
 import androidx.palette.graphics.Palette
 import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.handlers.*
+import com.dawnimpulse.wallup.handlers.ColorHandler
+import com.dawnimpulse.wallup.handlers.DateHandler
+import com.dawnimpulse.wallup.handlers.ImageHandler
+import com.dawnimpulse.wallup.handlers.WallpaperHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
@@ -77,6 +80,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
     private var like = false //state of like button
     private var likeStateChange = false //since we make multiple calls we set like once
     private var details: ImagePojo? = null
+    private var dialogOpen = false
     private lateinit var model: UnsplashModel
     private lateinit var exifSheet: ModalSheetExif
     private lateinit var loginSheet: ModalSheetUnsplash
@@ -147,6 +151,15 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         super.onStart()
     }
 
+    // on resume for dialog only
+    override fun onResume() {
+        super.onResume()
+
+        if (dialogOpen) {
+            Dialog.download(this, details!!.id, details!!.urls!!.full)
+        }
+    }
+
     // on destroy
     override fun onDestroy() {
         if (EventBus.getDefault().isRegistered(this))
@@ -185,8 +198,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                     if (no != null)
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
                     else {
-                        DownloadHandler.downloadData(this, details!!.links!!.download, details!!.id)
-                        Toast.short(this, "Downloading Image in /Downloads/Wallup/${details!!.id}.jpg .Check notification for progress.")
+                        Dialog.download(this, details!!.id, details!!.urls!!.raw)
+                        //DownloadHandler.downloadData(this, details!!.links!!.download, details!!.id)
+                        //Toast.short(this, "Downloading Image in /Downloads/Wallup/${details!!.id}.jpg .Check notification for progress.")
                         model.downloadedPhoto(details!!.links!!.download_location)
                     }
                 }
@@ -341,6 +355,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                         imageConnText.text = "No Internet"
                     }
                 }
+            }
+            if (event.obj.getString(C.TYPE) == C.DOWNLOAD_PATH) {
+                dialogOpen = true
             }
         }
     }

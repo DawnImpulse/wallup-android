@@ -81,7 +81,6 @@ object C {
     const val ANALYTICS = "analytics"
     const val DOWNLOAD_PATH = "downloadPath"
 
-
     const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val UNSPLASH = "https://unsplash.com$UTM"
     const val WALLUP_PLAY = "https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup"
@@ -97,8 +96,6 @@ object C {
     const val UNSPLASH_OAUTH = "https://unsplash.com/oauth/authorize"
     const val UNSPLASH_TOKEN = "https://unsplash.com/oauth/token"
     const val UNSPLASH_SOURCE = "https://source.unsplash.com"
-
-    const val DEFAULT_DOWNLOAD_PATH = "/storage/WallUp"
 
     const val HD = "&h=720"
     const val HQ = "&h=480"
