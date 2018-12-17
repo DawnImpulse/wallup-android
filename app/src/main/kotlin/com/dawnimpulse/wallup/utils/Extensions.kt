@@ -5,9 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.view.View
 import org.json.JSONObject
 import java.io.File
+
+
 
 /**
  * @info - custom kotlin extension functions
@@ -72,4 +75,15 @@ fun String.toFileString(): String {
         Environment.getExternalStorageDirectory().path + "/${substring[1]}"
     else
         "/storage/${tree.replace("/tree/", "")}/${substring[1]}"
+}
+
+//convert to content uri
+fun Uri.toContentUri(context: Context) : Uri{
+    val cr = context.contentResolver
+    val file =  File(this.path)
+    val imagePath = file.absolutePath
+    val imageName: String? = null
+    val imageDescription: String? = null
+    val uriString = MediaStore.Images.Media.insertImage(cr, imagePath, imageName, imageDescription)
+    return Uri.parse(uriString)
 }

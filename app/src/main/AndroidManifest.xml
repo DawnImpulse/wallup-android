@@ -178,6 +178,15 @@
         <!--Folder pick-->
         <activity android:name=".utils.Dialog$FolderPicker"
             android:theme="@style/AppTheme.NoActionBar.Trans"/>
+
+        <!--Download Receiver-->
+        <receiver
+            android:name=".receivers.DownloadReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:enabled="true" android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -33,7 +33,6 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.ColorHandler
 import com.dawnimpulse.wallup.handlers.DateHandler
 import com.dawnimpulse.wallup.handlers.ImageHandler
-import com.dawnimpulse.wallup.handlers.WallpaperHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
@@ -69,6 +68,7 @@ import org.json.JSONObject
  *  Saksham - 2018 11 28 - master - Connection handling
  *  Saksham - 2018 12 04 - master - Long click icons
  *  Saksham - 2018 12 09 - master - Image stats
+ *  Saksham - 2018 12 17 - master - Donwload wallpaper handling
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private val NAME = "ImageActivity"
@@ -177,7 +177,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
                         imagePreviewProgress.visibility = View.GONE
                     } else {
-                        if (bitmap != null) {
+                        /*if (bitmap != null) {
                             WallpaperHandler.setHomescreenWallpaper(this@ImageActivity, bitmap!!)
                             imagePreviewProgress.visibility = View.GONE
                         } else {
@@ -186,7 +186,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                                 WallpaperHandler.setHomescreenWallpaper(this@ImageActivity, it)
                                 imagePreviewProgress.visibility = View.GONE
                             }
-                        }
+                        }*/
+                        Dialog.download(this, details!!.id, details!!.urls!!.raw, true)
                         model.downloadedPhoto(details!!.links!!.download_location)
                     }
                 }

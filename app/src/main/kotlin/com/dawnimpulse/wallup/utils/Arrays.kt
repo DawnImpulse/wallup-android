@@ -1,6 +1,7 @@
 package com.dawnimpulse.wallup.utils
 
 import android.content.Context
+import android.net.Uri
 import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.pojo.IconsPojo
@@ -15,7 +16,7 @@ import com.dawnimpulse.wallup.pojo.LibraryPojo
  * @note Created on 2018-12-15 by Saksham
  * @note Updates :
  */
-object Arrays{
+object Arrays {
     val LIBRARIES = listOf(
             LibraryPojo("Glide", "An image loading and caching library for Android focused on smooth scrolling.", "https://github.com/bumptech/glide"),
             LibraryPojo("Retrofit", "Type-safe HTTP client for Android and Java by Square, Inc.", "https://github.com/square/retrofit"),
@@ -30,8 +31,12 @@ object Arrays{
             LibraryPojo("MPAndroidChart", "A powerful \uD83D\uDE80 Android chart view / graph view library, supporting line- bar- pie- radar- bubble- and candlestick charts as well as scaling, dragging and animations.", "https://github.com/PhilJay/MPAndroidChart"),
             LibraryPojo("Apache CommonsIO", "Commons IO is a library of utilities to assist with developing IO functionality.", "https://commons.apache.org/proper/commons-io/")
     )
+    val downloadIds = ArrayList<Long>() // long for ref id
+    val downloadWalls = ArrayList<Boolean>() // boolean for if set wallpaper
+    val downloadUris = ArrayList<Uri>()
 
-    fun icons(context: Context) : List<IconsPojo>{
+    // list of icon license
+    fun icons(context: Context): List<IconsPojo> {
         val library = ContextCompat.getDrawable(context, R.drawable.vd_update)
         val changelog = ContextCompat.getDrawable(context, R.drawable.vd_changelog)
         val license = ContextCompat.getDrawable(context, R.drawable.vd_license)
@@ -43,15 +48,17 @@ object Arrays{
         val paypal = ContextCompat.getDrawable(context, R.drawable.vd_paypal_2)
 
         return listOf(
-                IconsPojo(library!!,"Dmitri13","flaticon.com","https://www.flaticon.com/free-icon/reload_813310"),
-                IconsPojo(changelog!!,"Roundicons","flaticon.com","https://www.flaticon.com/free-icon/rotate_190262"),
-                IconsPojo(license!!,"Freepik","flaticon.com","https://www.flaticon.com/free-icon/license_326613"),
-                IconsPojo(privacy!!,"Freepik","flaticon.com","https://www.flaticon.com/free-icon/person_1047682"),
-                IconsPojo(terms!!,"Freepik","flaticon.com","https://www.flaticon.com/free-icon/law-book_927283"),
-                IconsPojo(icons!!,"Icons8","icons8.com","https://icons8.com"),
-                IconsPojo(search!!,"Katarina Stefanikova","flaticon.com","https://www.flaticon.com/free-icon/search-magnifier-outline_59200"),
-                IconsPojo(random!!,"Freepik","flaticon.com","https://www.flaticon.com/free-icon/shuffle_456232"),
-                IconsPojo(paypal!!,"Pixel Perfect","flaticon.com","https://www.flaticon.com/free-icon/paypal_888920")
+                IconsPojo(library!!, "Dmitri13", "flaticon.com", "https://www.flaticon.com/free-icon/reload_813310"),
+                IconsPojo(changelog!!, "Roundicons", "flaticon.com", "https://www.flaticon.com/free-icon/rotate_190262"),
+                IconsPojo(license!!, "Freepik", "flaticon.com", "https://www.flaticon.com/free-icon/license_326613"),
+                IconsPojo(privacy!!, "Freepik", "flaticon.com", "https://www.flaticon.com/free-icon/person_1047682"),
+                IconsPojo(terms!!, "Freepik", "flaticon.com", "https://www.flaticon.com/free-icon/law-book_927283"),
+                IconsPojo(icons!!, "Icons8", "icons8.com", "https://icons8.com"),
+                IconsPojo(search!!, "Katarina Stefanikova", "flaticon.com", "https://www.flaticon.com/free-icon/search-magnifier-outline_59200"),
+                IconsPojo(random!!, "Freepik", "flaticon.com", "https://www.flaticon.com/free-icon/shuffle_456232"),
+                IconsPojo(paypal!!, "Pixel Perfect", "flaticon.com", "https://www.flaticon.com/free-icon/paypal_888920")
         )
     }
+
+
 }

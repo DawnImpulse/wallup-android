@@ -16,10 +16,13 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Point
+import android.net.Uri
 import android.view.Display
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.dawnimpulse.wallup.utils.Toast
+import androidx.core.widget.toast
+import com.dawnimpulse.wallup.utils.toContentUri
+import kotlinx.coroutines.experimental.launch
 
 /**
  * @author Saksham
@@ -31,20 +34,32 @@ import com.dawnimpulse.wallup.utils.Toast
  */
 object WallpaperHandler {
 
+    // set wallpaper with bitmap
     fun setHomescreenWallpaper(context: Context, bitmap: Bitmap) {
-        Toast.short(context, "Applying Wallpaper")
         val bitmap2 = bitmapCropper(bitmap, context)!!
-        //LongOperation().execute()
-        Thread(Runnable {
+
+        launch {
             val wallpaperManager = WallpaperManager.getInstance(context)
             wallpaperManager.setBitmap(bitmap2)
 
-            val appContext = context as AppCompatActivity
-            appContext.runOnUiThread {
-                Toast.short(context, "Wallpaper Applied")
+            (context as AppCompatActivity).runOnUiThread {
+                context.toast("Wallpaper Applied")
             }
-        }).start()
+        }
     }
+
+    // set wallpaper with uri
+    fun setHomescreenWallpaper(context: Context, uri: Uri) {
+        launch {
+            val wallpaperManager = WallpaperManager.getInstance(context)
+            context.startActivity(wallpaperManager.getCropAndSetWallpaperIntent(uri.toContentUri(context)))
+
+            (context as AppCompatActivity).runOnUiThread {
+                context.toast("Wallpaper Applied")
+            }
+        }
+    }
+
 
     /**
      * Handling of bitmap cropping based on device screen

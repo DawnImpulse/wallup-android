@@ -215,7 +215,7 @@ object Dialog {
     }
 
     //download dialog
-    fun download(context: Context, id: String, url: String) {
+    fun download(context: Context, id: String, url: String, isWallpaper: Boolean = false) {
         val factory = LayoutInflater.from(context)
         val view = factory.inflate(R.layout.dialog_download, null)
         alertDialog = AlertDialog.Builder(context, R.style.MyDialogTheme).create()
@@ -302,7 +302,7 @@ object Dialog {
                 newUrl = "$newUrl&q=$quality"
 
             DownloadHandler.downloadData(context, newUrl, id,
-                    Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString())
+                    Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString(), isWallpaper)
         }
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL") { _, _ ->
         }

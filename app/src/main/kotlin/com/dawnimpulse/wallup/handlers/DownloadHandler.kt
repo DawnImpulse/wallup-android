@@ -18,7 +18,9 @@ import android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
 import android.content.Context
 import android.content.Context.DOWNLOAD_SERVICE
 import androidx.core.net.toUri
+import com.dawnimpulse.wallup.utils.Arrays
 import com.dawnimpulse.wallup.utils.toFileUri
+import kotlinx.coroutines.experimental.launch
 
 
 /**
@@ -33,18 +35,25 @@ import com.dawnimpulse.wallup.utils.toFileUri
  */
 object DownloadHandler {
 
-    fun downloadData(context: Context, url: String, id: String, path: String): Long {
+    // download image using system download manager
+    fun downloadData(context: Context, url: String, id: String, path: String, isWallpaper: Boolean = false) {
         val downloadManager = context.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         val request = DownloadManager.Request(url.toUri())
+        val uri = ("$path/$id.jpg").toFileUri()
 
-        request
-                .setTitle("$id.jpg")
-                .setDescription("Downloading image from WallUp.")
-                .setDestinationUri(("$path/$id.jpg").toFileUri())
-                .setVisibleInDownloadsUi(true)
-                .setNotificationVisibility(VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                .allowScanningByMediaScanner()
+        launch {
+            request
+                    .setTitle("$id.jpg")
+                    .setDescription("Downloading image from WallUp.")
+                    .setDestinationUri(uri)
+                    .setVisibleInDownloadsUi(true)
+                    .setNotificationVisibility(VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                    .allowScanningByMediaScanner()
 
-        return downloadManager.enqueue(request)
+            val did = downloadManager.enqueue(request)
+            Arrays.downloadIds.add(did)
+            Arrays.downloadWalls.add(isWallpaper)
+            Arrays.downloadUris.add(uri)
+        }
     }
 }
