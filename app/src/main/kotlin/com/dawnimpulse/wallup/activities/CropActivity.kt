@@ -23,7 +23,6 @@ import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.WallpaperHandler
 import com.dawnimpulse.wallup.utils.*
-import com.pixplicity.easyprefs.library.Prefs
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_crop.*
 import kotlinx.coroutines.experimental.launch
@@ -65,7 +64,7 @@ class CropActivity : AppCompatActivity(), View.OnClickListener {
 
         url = intent.getStringExtra(C.IMAGE)
         id = intent.getStringExtra(C.ID)
-        path = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
+        path = Config.DEFAULT_DOWNLOAD_PATH
         if (!FileUtils.directoryContains(path.toFile(), "$path/$id.jpg".toFile())) {
             Dialog.downloadProgress(this, path, url, id) {
                 if (it) {

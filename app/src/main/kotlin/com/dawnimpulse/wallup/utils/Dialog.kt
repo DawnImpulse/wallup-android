@@ -20,6 +20,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -295,7 +296,12 @@ object Dialog {
             }
         }
 
-        path.text = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
+        if (!isWallpaper)
+            path.text = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
+        else {
+            path.text = Config.DEFAULT_DOWNLOAD_PATH
+            view.downloadChoose.gone()
+        }
 
         orL.setOnClickListener(clickListener)
         uhdL.setOnClickListener(clickListener)
@@ -311,17 +317,27 @@ object Dialog {
 
         fun startDownloadOrWallpaper() {
             if (isWallpaper) {
-                EventBus.getDefault().post(Event(jsonOf(Pair(C.TYPE, C.WALLPAPER))))
-                dismiss()
+                if (path.text.toString().toFile().exists()) {
+                    dismiss()
+                    EventBus.getDefault().post(Event(jsonOf(Pair(C.TYPE, C.WALLPAPER))))
+                } else {
+                    context.toast("File path doesn't exists , please select a new one.", Toast.LENGTH_LONG)
+                    Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, true)
+                }
             } else {
-                context.toast("Download starting!! Check notification for progress.")
-                val quality = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, Config.IMAGE_DOWNLOAD_QUALITY)
-                var newUrl = url
-                if (quality != C.O)
-                    newUrl = "$newUrl&q=$quality"
+                if (path.text.toString().toFile().exists()) {
+                    context.toast("Download starting!! Check notification for progress.")
+                    val quality = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, Config.IMAGE_DOWNLOAD_QUALITY)
+                    var newUrl = url
+                    if (quality != C.O)
+                        newUrl = "$newUrl&q=$quality"
 
-                DownloadHandler.downloadData(context, newUrl, "${id}_${quality.replace("&h=", "")}",
-                        Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString(), isWallpaper)
+                    DownloadHandler.downloadData(context, newUrl, "${id}_${quality.replace("&h=", "")}",
+                            Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString(), isWallpaper)
+                } else {
+                    context.toast("File path doesn't exists , please select a new one.", Toast.LENGTH_LONG)
+                    Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, true)
+                }
             }
         }
 
@@ -332,10 +348,17 @@ object Dialog {
         }
 
         alertDialog.setCancelable(false)
-        if (shouldShow)
+        if (shouldShow) {
             alertDialog.show()
-        else
-            startDownloadOrWallpaper()
+        } else {
+            if (path.text.toString().toFile().exists())
+                startDownloadOrWallpaper()
+            else {
+                context.toast("File path doesn't exists , please select a new one.", Toast.LENGTH_LONG)
+                Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, true)
+                alertDialog.show()
+            }
+        }
 
     }
 

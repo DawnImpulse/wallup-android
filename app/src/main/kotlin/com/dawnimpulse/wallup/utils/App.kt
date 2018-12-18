@@ -2,6 +2,7 @@ package com.dawnimpulse.wallup.utils
 
 import android.app.Application
 import android.content.ContextWrapper
+import android.os.Environment
 import android.util.Log
 import com.crashlytics.android.Crashlytics
 import com.dawnimpulse.wallup.BuildConfig
@@ -52,6 +53,7 @@ class App : Application() {
         setPrefs()
         analytics()
         F.connectivityListener(this)
+        mkdir()
     }
 
     // setup Firebase Remote Config
@@ -115,6 +117,14 @@ class App : Application() {
             if (Prefs.getBoolean(C.CRASHLYTICS, true))
                 Fabric.with(this, Crashlytics())
             FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(Prefs.getBoolean(C.ANALYTICS, true))
+        }
+    }
+
+    //make dir
+    private fun mkdir() {
+        if (Environment.getExternalStorageDirectory().exists()) {
+            if (!Config.DEFAULT_DOWNLOAD_PATH.toFile().exists())
+                Config.DEFAULT_DOWNLOAD_PATH.toFile().mkdir()
         }
     }
 }
