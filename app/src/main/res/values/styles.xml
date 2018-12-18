@@ -67,6 +67,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="android:colorForeground">@color/grey400</item>
     </style>
 
+    <style name="MyProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:progressBackgroundTint">@color/grey400</item>
+    </style>
+
     <!--Switch theme-->
     <style name="MySwitch" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/colorAccent</item>

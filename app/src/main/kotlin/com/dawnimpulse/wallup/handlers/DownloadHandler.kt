@@ -62,8 +62,8 @@ object DownloadHandler {
     }
 
     //external download
-    fun externalDownload(url: String, path: String, name: String, progress: (Progress) -> Unit, callback: (Boolean) -> Unit) {
-        PRDownloader.download(url, path, name)
+    fun externalDownload(url: String, path: String, name: String, progress: (Progress) -> Unit, callback: (Boolean) -> Unit) : Int{
+        return PRDownloader.download(url, path, name)
                 .build()
                 .setOnProgressListener {
                     progress(it)

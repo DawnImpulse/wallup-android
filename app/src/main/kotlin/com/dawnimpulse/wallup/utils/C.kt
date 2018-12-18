@@ -80,6 +80,8 @@ object C {
     const val CRASHLYTICS = "crashlytics"
     const val ANALYTICS = "analytics"
     const val DOWNLOAD_PATH = "downloadPath"
+    const val CANCEL = "cancel"
+    const val WALLPAPER_PATH = "wallpaperPath"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val UNSPLASH = "https://unsplash.com$UTM"

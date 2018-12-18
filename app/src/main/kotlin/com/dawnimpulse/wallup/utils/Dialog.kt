@@ -21,6 +21,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -33,10 +34,12 @@ import com.dawnimpulse.wallup.handlers.DownloadHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.NewCollections
+import com.downloader.PRDownloader
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.dialog_download.view.*
+import kotlinx.android.synthetic.main.dialog_progress.view.*
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
 import me.grantland.widget.AutofitTextView
@@ -52,6 +55,7 @@ import org.json.JSONObject
  *
  * @note Updates :
  *  Saksham - 2018 12 16 - master - download dialog
+ *  Saksham - 2018 12 16 - master - progress dialog
  */
 object Dialog {
     private val NAME = "Dialog"
@@ -310,6 +314,48 @@ object Dialog {
         alertDialog.setCancelable(false)
         alertDialog.show()
 
+    }
+
+    //progress dialog
+    fun downloadProgress(context: Context, path: String, url: String, id: String, callback: (Boolean) -> Unit) {
+        var did:Int? = null
+        val factory = LayoutInflater.from(context)
+        val view = factory.inflate(R.layout.dialog_progress, null)
+        alertDialog = AlertDialog.Builder(context, R.style.MyDialogTheme).create()
+        alertDialog.setView(view)
+
+        val progress = view.progressSize
+        val percentage = view.progressPercentage
+        val bar = view.progressBar as ProgressBar
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "CANCEL") { _, _ ->
+            did?.let {
+                PRDownloader.cancel(it)
+            }
+            EventBus.getDefault().post(Event(jsonOf(Pair(C.TYPE, C.CANCEL))))
+            dismiss()
+        }
+
+        did = DownloadHandler.externalDownload(url,
+                path,
+                "$id.jpg",
+                {
+                    bar.isIndeterminate = false
+                    val per = (it.currentBytes.toDouble().div(it.totalBytes) * 100).toInt()
+                    val done = "${it.currentBytes.toBigDecimal().div(1024.toBigDecimal()).toInt()} KB"
+                    val total = "${it.totalBytes.toBigDecimal().div(1024.toBigDecimal()).toInt()} KB"
+                    L.d(NAME, "${it.currentBytes} : ${it.totalBytes} : $per")
+                    bar.progress = per
+                    percentage.text = "$per %"
+                    progress.text = "$done/$total"
+                }
+        ) {
+            callback(it)
+            dismiss()
+        }
+
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     // dismiss

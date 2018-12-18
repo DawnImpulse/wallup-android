@@ -13,17 +13,24 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.activities
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Environment
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.handlers.DownloadHandler
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.L
-import com.dawnimpulse.wallup.utils.displayRatio
+import com.dawnimpulse.wallup.handlers.WallpaperHandler
+import com.dawnimpulse.wallup.utils.*
+import com.pixplicity.easyprefs.library.Prefs
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_crop.*
+import kotlinx.coroutines.experimental.launch
+import org.apache.commons.io.FileUtils
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 /**
@@ -34,9 +41,13 @@ import kotlinx.android.synthetic.main.activity_crop.*
  *
  * @note Updates :
  */
-class CropActivity : AppCompatActivity() {
+class CropActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "CropActivity"
     private lateinit var displayDimen: Pair<Int, Int>
+    private lateinit var image: Bitmap
+    private lateinit var path: String
+    private lateinit var id: String
+    private lateinit var url: String
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,29 +55,80 @@ class CropActivity : AppCompatActivity() {
         setContentView(R.layout.activity_crop)
 
         displayDimen = displayRatio()
-
-        /*cropImageView.setImageBitmap(Config.imageBitmap)
-        cropImageView.setAspectRatio(9, 16)
+        cropImageView.setAspectRatio(displayDimen.second, displayDimen.first)
         cropImageView.setFixedAspectRatio(true)
         cropImageView.scaleType = CropImageView.ScaleType.CENTER_INSIDE
-        cropImageView.isAutoZoomEnabled = false*/
+        cropImageView.isAutoZoomEnabled = false
 
-        DownloadHandler.externalDownload(intent.getStringExtra(C.IMAGE),
-                Environment.getExternalStorageDirectory().path + "/Wallup",
-                intent.getStringExtra(C.ID) + ".jpg",
-                {
-                    L.d(NAME, "Progress : ${it.currentBytes} ${it.totalBytes}")
+        cropDefault.setOnClickListener(this)
+        cropSelected.setOnClickListener(this)
+
+        url = intent.getStringExtra(C.IMAGE)
+        id = intent.getStringExtra(C.ID)
+        path = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
+        if (!FileUtils.directoryContains(path.toFile(), "$path/$id.jpg".toFile())) {
+            Dialog.downloadProgress(this, path, url, id) {
+                if (it) {
+                    getImage()
+                } else {
+                    toast("Unable to complete download , please try again!!")
+                    finish()
                 }
-        ) {
-            L.d(NAME, it)
-            val bmOptions = BitmapFactory.Options()
-            val bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory().path + "/Wallup/${intent.getStringExtra(C.ID)}.jpg", bmOptions)
-            cropImageView.setImageBitmap(bitmap)
-            cropImageView.setAspectRatio(9, 16)
-            cropImageView.setFixedAspectRatio(true)
-            cropImageView.scaleType = CropImageView.ScaleType.CENTER_INSIDE
-            cropImageView.isAutoZoomEnabled = false
-        }
+            }
+        } else
+            getImage()
+    }
 
+    // on start
+    override fun onStart() {
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+        super.onStart()
+    }
+
+    // on destroy
+    override fun onDestroy() {
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
+
+    // on click
+    override fun onClick(v: View) {
+        toast("Applying Wallpaper")
+        when (v.id) {
+            cropDefault.id -> WallpaperHandler.setHomescreenWallpaper(this, image)
+            cropSelected.id -> WallpaperHandler.setHomescreenWallpaper(this, cropImageView.croppedImage)
+        }
+        finish()
+    }
+
+    // on message event
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: Event) {
+        if (event.obj.has(C.TYPE)) {
+            if (event.obj.getString(C.TYPE) == C.CANCEL) {
+                toast("Unable to complete download , please try again!!")
+                finish()
+            }
+        }
+    }
+
+    //get image from storage
+    private fun getImage() {
+        launch {
+            val bmOptions = BitmapFactory.Options()
+            val bitmap = BitmapFactory.decodeFile("$path/$id.jpg", bmOptions)
+            runOnUiThread {
+                cropLayout.show()
+                cropProgress.gone()
+                cropImageView.setImageBitmap(bitmap)
+                image = bitmap
+            }
+
+            val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+            intent.data = "$path/$id.jpg".toFileUri()
+            sendBroadcast(intent)
+        }
     }
 }

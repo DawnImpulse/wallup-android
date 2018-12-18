@@ -41,6 +41,7 @@ object Config {
     var CONNECTED = true
 
     val DEFAULT_DOWNLOAD_PATH = "${Environment.getExternalStorageDirectory().path}/WallUp"
+    val DEFAULT_WALLPAPER_PATH = "${Environment.getExternalStorageDirectory().path}/WallUp"
 
     var imagePojo: ImagePojo? = null
 

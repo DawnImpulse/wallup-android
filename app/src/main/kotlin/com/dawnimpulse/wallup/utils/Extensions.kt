@@ -107,3 +107,8 @@ fun Context.displayRatio(): Pair<Int, Int> {
     else
         Pair(b, a)
 }
+
+//covert to file type
+fun String.toFile():File{
+    return File(this)
+}

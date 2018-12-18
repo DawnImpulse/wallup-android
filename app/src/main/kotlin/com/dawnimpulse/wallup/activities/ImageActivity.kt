@@ -171,7 +171,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
     override fun onClick(v: View) {
         when (v.id) {
             imagePreviewWallpaper.id -> {
-                imagePreviewProgress.visibility = View.VISIBLE
+                //imagePreviewProgress.visibility = View.VISIBLE
                 Permissions.askWriteExternalStoragePermission(this) { no, _ ->
                     if (no != null) {
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")

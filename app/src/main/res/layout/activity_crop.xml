@@ -6,17 +6,74 @@
     android:background="@color/black"
     tools:context=".activities.CropActivity">
 
-    <Button
-        android:id="@+id/cropButton"
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/cropLayout"
         android:layout_width="match_parent"
-        android:text="SET WALLPAPER"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_height="match_parent">
 
-    <com.theartofdev.edmodo.cropper.CropImageView
-        android:id="@+id/cropImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/cropButton" />
+        <LinearLayout
+            android:id="@+id/cropButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="4dp">
+
+            <!--Default-->
+            <FrameLayout
+                android:id="@+id/cropDefault"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bt_round_complete_corners_white"
+                android:foreground="?selectableItemBackgroundBorderless">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:letterSpacing="0.1"
+                    android:text="AUTO APPLY"
+                    android:textColor="@color/black" />
+            </FrameLayout>
+
+            <!--Crop-->
+            <FrameLayout
+                android:id="@+id/cropSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bt_round_complete_corners_white"
+                android:foreground="?selectableItemBackgroundBorderless">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:letterSpacing="0.1"
+                    android:text="CROP &amp; APPLY"
+                    android:textColor="@color/black" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <com.theartofdev.edmodo.cropper.CropImageView
+            android:id="@+id/cropImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/cropButtons" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/cropProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminate="true" />
 
 </RelativeLayout>
