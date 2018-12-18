@@ -368,7 +368,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
 
                 openActivity(CropActivity::class.java) {
                     putString(C.IMAGE, newUrl)
-                    putString(C.ID, "${details!!.id}_$quality")
+                    putString(C.ID, "${details!!.id}_${quality.replace("&h=", "")}")
                 }
                 model.downloadedPhoto(details!!.links!!.download_location)
             }

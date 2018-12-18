@@ -320,7 +320,7 @@ object Dialog {
                 if (quality != C.O)
                     newUrl = "$newUrl&q=$quality"
 
-                DownloadHandler.downloadData(context, newUrl, "${id}_$quality",
+                DownloadHandler.downloadData(context, newUrl, "${id}_${quality.replace("&h=", "")}",
                         Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString(), isWallpaper)
             }
         }

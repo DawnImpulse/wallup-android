@@ -14,8 +14,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="240dp"
-    android:layout_height="160dp">
+    android:layout_width="200dp"
+    android:layout_height="120dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -55,7 +55,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:maxLines="1"
                 android:text="hello"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

@@ -78,7 +78,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                         searchLeft.setImageDrawable(ContextCompat.getDrawable(this@SearchActivity, R.drawable.vd_close))
                     } else {
                         close = true
-                        searchLeft.setImageDrawable(ContextCompat.getDrawable(this@SearchActivity, R.drawable.vd_left))
+                        searchLeft.setImageDrawable(ContextCompat.getDrawable(this@SearchActivity, R.drawable.vd_menu_right_outline))
                     }
 
                 }

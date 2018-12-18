@@ -104,7 +104,7 @@ object C {
     const val HQ = "&h=480"
     const val FHD = "&h=1080"
     const val UHD = "&h=2160"
-    const val O = "O" //big o, not 0
+    const val O = "&h=O" //big o, not 0
 
     const val ERROR_CODE_1 = 601
     const val ERROR_CODE_2 = 60

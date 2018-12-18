@@ -142,6 +142,9 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
                 intent.putExtra(C.USERNAME, userPojo.username)
                 startActivity(intent)
             }
+            artistCollectionMore.id -> {
+
+            }
             artistUnsplash.id ->
                 F.startWeb(this, F.unsplashUser(userPojo.username))
             artistUrl.id ->
@@ -231,12 +234,13 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
 
     // setting details
     private fun details() {
-        artistUsername.text = "@ ${userPojo.username}"
-        artistFirstName.text = userPojo.first_name
-        artistLastName.text = userPojo.last_name
+        artistUsername.text = "@${userPojo.username}"
+        artistFirstName.text = F.capWord(userPojo.first_name)
+        artistLastName.text = F.capWord(userPojo.last_name)
         artistPhotoNo.text = userPojo.total_photos.toString()
         artistCollectionNo.text = userPojo.total_collections.toString()
         artistLikesNo.text = userPojo.total_likes.toString()
+        F.underline(artistUsername)
 
         if (userPojo.bio != null)
             artistInfo.text = userPojo.bio
