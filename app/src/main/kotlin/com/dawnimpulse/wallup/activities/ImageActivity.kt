@@ -42,6 +42,7 @@ import com.dawnimpulse.wallup.sheets.ModalSheetStats
 import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
 import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
+import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
@@ -187,11 +188,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                                 imagePreviewProgress.visibility = View.GONE
                             }
                         }*/
-                        openActivity(CropActivity::class.java) {
-                            putString(C.IMAGE, details!!.urls!!.raw)
-                            putString(C.ID, details!!.id)
-                        }
-                        model.downloadedPhoto(details!!.links!!.download_location)
+                        Dialog.download(this, details!!.id, details!!.urls!!.raw, true)
                     }
                 }
             }
@@ -362,6 +359,18 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
             }
             if (event.obj.getString(C.TYPE) == C.DOWNLOAD_PATH) {
                 dialogOpen = true
+            }
+            if (event.obj.getString(C.TYPE) == C.WALLPAPER) {
+                val quality = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, Config.IMAGE_DOWNLOAD_QUALITY)
+                var newUrl = details!!.urls!!.raw
+                if (quality != C.O)
+                    newUrl = "$newUrl&q=$quality"
+
+                openActivity(CropActivity::class.java) {
+                    putString(C.IMAGE, newUrl)
+                    putString(C.ID, "${details!!.id}_$quality")
+                }
+                model.downloadedPhoto(details!!.links!!.download_location)
             }
         }
     }

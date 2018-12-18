@@ -151,4 +151,26 @@
         </FrameLayout>
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/dialogAskL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="right">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Always Ask"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/dialogAsk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:checked="true"
+            android:theme="@style/MyCheckBox" />
+    </LinearLayout>
 </LinearLayout>

@@ -19,10 +19,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
@@ -222,6 +219,7 @@ object Dialog {
     fun download(context: Context, id: String, url: String, isWallpaper: Boolean = false) {
         val factory = LayoutInflater.from(context)
         val view = factory.inflate(R.layout.dialog_download, null)
+        val shouldShow = Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true)
         alertDialog = AlertDialog.Builder(context, R.style.MyDialogTheme).create()
         alertDialog.setView(view)
 
@@ -232,6 +230,12 @@ object Dialog {
         val uhdL = view.downloadUHD as LinearLayout
         val fhd = view.downloadFHDT as TextView
         val fhdL = view.downloadFHD as LinearLayout
+        val ask = view.dialogAsk as CheckBox
+        val askL = view.dialogAskL as LinearLayout
+
+        ask.setOnCheckedChangeListener { _, isChecked ->
+            Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, isChecked)
+        }
 
         val drawable = ContextCompat.getDrawable(context, R.drawable.bt_round_complete_corners)
         val white = Colors(context).WHITE
@@ -282,6 +286,12 @@ object Dialog {
                     fhd.background = drawable
                     fhd.setTextColor(black)
                 }
+                askL.id -> {
+                    val value = !ask.isChecked
+                    Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, value)
+                    ask.isChecked = value
+                    context.toast(Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true).toString())
+                }
             }
         }
 
@@ -290,6 +300,7 @@ object Dialog {
         orL.setOnClickListener(clickListener)
         uhdL.setOnClickListener(clickListener)
         fhdL.setOnClickListener(clickListener)
+        askL.setOnClickListener(clickListener)
         view.downloadChoose.setOnClickListener(clickListener)
 
         when (Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, C.O)) {
@@ -298,27 +309,39 @@ object Dialog {
             C.O -> orL.performClick()
         }
 
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK") { _, _ ->
-            context.toast("Download starting!! Check notification for progress.")
-            val quality = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, Config.IMAGE_DOWNLOAD_QUALITY)
-            var newUrl = url
-            if (quality != C.O)
-                newUrl = "$newUrl&q=$quality"
+        fun startDownloadOrWallpaper() {
+            if (isWallpaper) {
+                EventBus.getDefault().post(Event(jsonOf(Pair(C.TYPE, C.WALLPAPER))))
+                dismiss()
+            } else {
+                context.toast("Download starting!! Check notification for progress.")
+                val quality = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, Config.IMAGE_DOWNLOAD_QUALITY)
+                var newUrl = url
+                if (quality != C.O)
+                    newUrl = "$newUrl&q=$quality"
 
-            DownloadHandler.downloadData(context, newUrl, id,
-                    Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString(), isWallpaper)
+                DownloadHandler.downloadData(context, newUrl, "${id}_$quality",
+                        Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString(), isWallpaper)
+            }
+        }
+
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK") { _, _ ->
+            startDownloadOrWallpaper()
         }
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "CANCEL") { _, _ ->
         }
 
         alertDialog.setCancelable(false)
-        alertDialog.show()
+        if (shouldShow)
+            alertDialog.show()
+        else
+            startDownloadOrWallpaper()
 
     }
 
     //progress dialog
     fun downloadProgress(context: Context, path: String, url: String, id: String, callback: (Boolean) -> Unit) {
-        var did:Int? = null
+        var did: Int? = null
         val factory = LayoutInflater.from(context)
         val view = factory.inflate(R.layout.dialog_progress, null)
         alertDialog = AlertDialog.Builder(context, R.style.MyDialogTheme).create()

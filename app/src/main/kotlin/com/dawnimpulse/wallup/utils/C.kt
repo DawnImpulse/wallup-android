@@ -82,6 +82,7 @@ object C {
     const val DOWNLOAD_PATH = "downloadPath"
     const val CANCEL = "cancel"
     const val WALLPAPER_PATH = "wallpaperPath"
+    const val WALLPAPER = "wallpaper"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val UNSPLASH = "https://unsplash.com$UTM"
@@ -103,7 +104,7 @@ object C {
     const val HQ = "&h=480"
     const val FHD = "&h=1080"
     const val UHD = "&h=2160"
-    const val O = "0000"
+    const val O = "O" //big o, not 0
 
     const val ERROR_CODE_1 = 601
     const val ERROR_CODE_2 = 60
