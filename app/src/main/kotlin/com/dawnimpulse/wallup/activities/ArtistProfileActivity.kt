@@ -111,6 +111,7 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         artistPhotosMore.setOnClickListener(this)
+        artistCollectionMore.setOnClickListener(this)
         artistUnsplash.setOnClickListener(this)
         artistUrl.setOnClickListener(this)
         artistBack.setOnClickListener(this)
@@ -143,7 +144,9 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             artistCollectionMore.id -> {
-
+                openActivity(GeneralCollectionsActivity::class.java) {
+                    putString(C.USERNAME, userPojo.username)
+                }
             }
             artistUnsplash.id ->
                 F.startWeb(this, F.unsplashUser(userPojo.username))

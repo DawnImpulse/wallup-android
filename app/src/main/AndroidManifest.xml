@@ -171,22 +171,31 @@
             android:name=".activities.LibraryLicenseActivity"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Icons License-->
-        <activity android:name=".activities.IconsActivity"
-            android:theme="@style/AppTheme.Fullscreen"></activity>
+        <!-- Icons License -->
+        <activity
+            android:name=".activities.IconsActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Folder pick-->
-        <activity android:name=".utils.Dialog$FolderPicker"
-            android:theme="@style/AppTheme.NoActionBar.Trans"/>
+        <!-- Folder pick -->
+        <activity
+            android:name=".utils.Dialog$FolderPicker"
+            android:theme="@style/AppTheme.NoActionBar.Trans" />
 
-        <!--Download Receiver-->
+        <!-- Download Receiver -->
         <receiver
             android:name=".receivers.DownloadReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:enabled="true" android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action
+                    android:name="android.intent.action.DOWNLOAD_COMPLETE"
+                    android:enabled="true" />
             </intent-filter>
         </receiver>
+
+        <!--General Collection Activity-->
+        <activity
+            android:name=".activities.GeneralCollectionsActivity"
+            android:theme="@style/AppTheme.Fullscreen"></activity>
     </application>
 
 </manifest>
