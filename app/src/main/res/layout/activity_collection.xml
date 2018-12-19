@@ -18,18 +18,45 @@
             android:layout_height="match_parent">
 
             <!--image-->
-            <ImageView
-                android:id="@+id/colImage"
+            <RelativeLayout
+                android:id="@+id/colImageL"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:scaleType="centerCrop" />
+                android:layout_height="300dp">
+
+                <ImageView
+                    android:id="@+id/colImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.7"
+                    android:background="@color/black" />
+
+                <FrameLayout
+                    android:id="@+id/colUnsplash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:foreground="?selectableItemBackground">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_margin="16dp"
+                        app:srcCompat="@drawable/vd_unsplash_white" />
+                </FrameLayout>
+            </RelativeLayout>
 
             <!--user image-->
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/colUserImage"
                 android:layout_width="88dp"
                 android:layout_height="88dp"
-                android:layout_alignBottom="@id/colImage"
+                android:layout_alignBottom="@id/colImageL"
                 android:layout_marginLeft="16dp"
                 android:layout_marginBottom="-44dp"
                 android:background="@color/grey400"
@@ -42,7 +69,7 @@
                 android:id="@+id/colUserImageL"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:layout_below="@id/colImage"
+                android:layout_below="@id/colImageL"
                 android:layout_toRightOf="@id/colUserImage"
                 android:background="?android:attr/selectableItemBackgroundBorderless">
 
@@ -104,7 +131,7 @@
                     android:id="@+id/colTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="36dp"
                     android:gravity="center"
                     android:textColor="@color/grey400"
                     android:textSize="24sp"
@@ -114,7 +141,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp">
+                    android:layout_marginTop="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -127,20 +154,19 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <FrameLayout
                         android:id="@+id/colMore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        android:paddingLeft="16dp"
-                        android:paddingTop="8dp"
-                        android:paddingRight="8dp"
-                        android:paddingBottom="8dp"
-                        android:text="More >"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_margin="8dp"
+                            app:srcCompat="@drawable/vd_menu_right_outline" />
+                    </FrameLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/colRecycler"
@@ -156,7 +182,6 @@
                 </RelativeLayout>
 
                 <!--description-->
-
                 <TextView
                     android:id="@+id/colDescription"
                     android:layout_width="wrap_content"

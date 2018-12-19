@@ -413,7 +413,7 @@
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/vd_camera_black" />
+                    app:srcCompat="@drawable/vd_unsplash" />
 
                 <TextView
                     android:layout_width="wrap_content"

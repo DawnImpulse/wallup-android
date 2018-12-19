@@ -34,6 +34,7 @@ import org.greenrobot.eventbus.ThreadMode
  *
  * @note Updates :
  * Saksham - 2018 11 28 - master - Connection handling
+ * Saksham - 2018 12 19 - master - unsplash handling
  */
 class CollectionActivity : AppCompatActivity(), View.OnClickListener {
     private var NAME = "CollectionActivity"
@@ -85,6 +86,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
         colUserImage.setOnClickListener(this)
         colUserImageL.setOnClickListener(this)
         colBack.setOnClickListener(this)
+        colUnsplash.setOnClickListener(this)
     }
 
     // on start
@@ -117,6 +119,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
             colBack.id -> finish()
+            colUnsplash.id -> F.startWeb(this,details!!.links!!.html + C.UTM)
         }
     }
 

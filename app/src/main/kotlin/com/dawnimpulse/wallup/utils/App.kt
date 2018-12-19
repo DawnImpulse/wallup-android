@@ -121,6 +121,7 @@ class App : Application() {
     //make dir
     private fun mkdir() {
         if (Environment.getExternalStorageDirectory().exists()) {
+            L.d(NAME,Environment.getExternalStorageDirectory())
             if (!Config.DEFAULT_DOWNLOAD_PATH.toFile().exists())
                 Config.DEFAULT_DOWNLOAD_PATH.toFile().mkdir()
         }

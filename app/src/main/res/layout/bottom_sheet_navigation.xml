@@ -57,7 +57,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_layout" />
+                        app:srcCompat="@drawable/vd_collections_outline_white" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -101,51 +101,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="Settings"
-                        android:textColor="@color/grey500" />
-
-                </LinearLayout>
-            </FrameLayout>
-
-            <!--feedback-->
-            <FrameLayout
-                android:id="@+id/sheetNavFeedback"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:background="?android:attr/selectableItemBackgroundBorderless">
-
-                <LinearLayout
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:layout_gravity="center"
-                    android:orientation="vertical">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/ic_love" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center"
-                        android:text="Feedback"
                         android:textColor="@color/white" />
+
                 </LinearLayout>
             </FrameLayout>
-
-        </LinearLayout>
-
-        <!--row 2-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="96dp"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
 
             <!--about-->
             <FrameLayout
@@ -166,7 +125,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_about" />
+                        app:srcCompat="@drawable/vd_info_outline" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -177,6 +136,47 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:text="About"
                         android:textColor="@color/white" />
 
+                </LinearLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <!--row 2-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <!--feedback-->
+            <FrameLayout
+                android:id="@+id/sheetNavFeedback"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackgroundBorderless">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="64dp"
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_feedback_outline" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="Feedback"
+                        android:textColor="@color/white" />
                 </LinearLayout>
             </FrameLayout>
 
@@ -220,8 +220,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:visibility="invisible"
-                android:background="?android:attr/selectableItemBackgroundBorderless">
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:visibility="invisible">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -257,8 +257,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="8dp"
-            android:maxLines="1"
             android:gravity="center"
+            android:maxLines="1"
             android:text="* next update in 4 days"
             android:textColor="@color/latestDark"
             android:visibility="gone" />

@@ -67,13 +67,16 @@ fun String.toFileUri(): Uri {
 
 // tree uri path to file uri path
 fun String.toFileString(): String {
-    var substring = split(":")
-    var tree = substring[0]
+    if (this.contains(":")){
+        var substring = split(":")
+        var tree = substring[0]
 
-    return if (tree.contains("primary"))
-        Environment.getExternalStorageDirectory().path + "/${substring[1]}"
-    else
-        "/storage/${tree.replace("/tree/", "")}/${substring[1]}"
+        return if (tree.contains("primary"))
+            Environment.getExternalStorageDirectory().path + "/${substring[1]}"
+        else
+            "/storage/${tree.replace("/tree/", "")}/${substring[1]}"
+    }else
+        return this
 }
 
 //convert to content uri

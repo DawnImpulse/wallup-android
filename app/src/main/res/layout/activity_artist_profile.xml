@@ -326,7 +326,6 @@
                             app:srcCompat="@drawable/vd_menu_right_outline" />
                     </FrameLayout>
 
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/artistPhotos"
                         android:layout_width="match_parent"

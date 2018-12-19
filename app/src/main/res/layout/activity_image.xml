@@ -532,12 +532,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                                 <androidx.appcompat.widget.AppCompatImageView
                                     android:id="@+id/imagePreviewUnsplashI"
-                                    android:layout_width="28dp"
-                                    android:layout_height="28dp"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
                                     android:layout_gravity="center"
-                                    app:srcCompat="@drawable/vd_camera_white" />
+                                    app:srcCompat="@drawable/vd_unsplash_white" />
 
                                 <TextView
+                                    android:layout_marginTop="6dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
