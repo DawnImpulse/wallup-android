@@ -15,6 +15,7 @@ package com.dawnimpulse.wallup.activities
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -62,6 +63,8 @@ class GeneralCollectionsActivity : AppCompatActivity(), SwipeRefreshLayout.OnRef
             generalCatProgress.show()
             model.userCollections(username, 1, 30, callback)
         }
+
+        generalCatProgressI.animation = AnimationUtils.loadAnimation(this, R.anim.rotation_progress)
     }
 
     // on start

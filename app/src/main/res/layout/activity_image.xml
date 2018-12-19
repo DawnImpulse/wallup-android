@@ -48,22 +48,25 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:scaleType="centerCrop" />
                 </RelativeLayout>
 
+                <!--Progress Bar-->
+                <ProgressBar
+                    android:id="@+id/imagePreviewProgress"
+                    style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_below="@id/imageL"
+                    android:layout_centerHorizontal="true"
+                    android:background="@android:color/transparent"
+                    android:indeterminate="true" />
+
                 <!--layout-->
                 <LinearLayout
+                    android:id="@+id/imageDetailsLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/imageL"
-                    android:orientation="vertical">
-
-                    <!--Progress-->
-                    <ProgressBar
-                        android:id="@+id/imagePreviewProgress"
-                        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="8dp"
-                        android:layout_centerHorizontal="true"
-                        android:background="@android:color/transparent"
-                        android:indeterminate="true" />
+                    android:layout_below="@id/imagePreviewProgress"
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <!--Author Layout-->
                     <RelativeLayout
@@ -547,6 +550,41 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <!--Progress-->
+                <FrameLayout
+                    android:id="@+id/imageDetailsProgress"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:visibility="visible"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_circle_outline_accent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageDetailsProgressI"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_refresh_white" />
+                </FrameLayout>
+
+                <!--Reload-->
+                <FrameLayout
+                    android:id="@+id/imageDetailsReload"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_circle_accent"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center"
+                        app:srcCompat="@drawable/vd_refresh_black" />
+                </FrameLayout>
 
             </RelativeLayout>
 

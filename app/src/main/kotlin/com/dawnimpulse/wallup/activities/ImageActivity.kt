@@ -106,12 +106,16 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
 
         // checking to handle the app links
         if (intent.hasExtra(C.IMAGE_POJO)) {
+            imageDetailsLayout.show()
+            imagePreviewProgress.show()
+            imageDetailsProgress.gone()
             var params = intent.extras
             details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
 
             getImageDetails(details!!.id)
             setImageDetails(details!!)
         } else {
+            imagePreviewProgress.gone()
             val appLinkData = intent.data
             getImageDetails(appLinkData.lastPathSegment)
         }
@@ -128,6 +132,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         imagePreviewLikeL.setOnClickListener(this)
         imagePreviewCollect.setOnClickListener(this)
         imageBack.setOnClickListener(this)
+        imageDetailsReload.setOnClickListener(this)
 
         // long press
         imagePreviewAuthorL.setOnLongClickListener(this)
@@ -140,6 +145,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
 
         //Ripple.add(Colors(this).GREY_400, imagePreviewStats)
         imageHover.animation = AnimationUtils.loadAnimation(this, R.anim.hover)
+        imageDetailsProgressI.animation = AnimationUtils.loadAnimation(this, R.anim.rotation_progress)
         imageScroll.viewTreeObserver.addOnScrollChangedListener {
             imageHover.clearAnimation()
             imageHover.gone()
@@ -293,6 +299,12 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                     loginSheet.show(supportFragmentManager, loginSheet.tag)
             }
             imageBack.id -> finish()
+            imageDetailsReload.id -> {
+                imageDetailsReload.gone()
+                imageDetailsProgress.show()
+                val appLinkData = intent.data
+                getImageDetails(appLinkData.lastPathSegment)
+            }
         }
     }
 
@@ -380,8 +392,22 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
 
     // get image details
     private fun getImageDetails(id: String) {
-        model.getImage(id) { _, details ->
+        model.getImage(id) { error, details ->
+            error?.let {
+                L.d(NAME, error)
+                if (!intent.hasExtra(C.IMAGE_POJO)) {
+                    toast("error fetching details")
+                    imageDetailsReload.show()
+                    imageDetailsProgress.gone()
+                }
+
+            }
+
             details?.let {
+                imageDetailsReload.gone()
+                imageDetailsProgress.gone()
+                imageDetailsLayout.show()
+                imagePreviewProgress.show()
                 this.details = it as ImagePojo
                 //fullDetails = it
                 setImageDetails(this.details!!)
