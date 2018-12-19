@@ -17,13 +17,10 @@ import android.app.DownloadManager
 import android.app.DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
 import android.content.Context
 import android.content.Context.DOWNLOAD_SERVICE
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.dawnimpulse.wallup.utils.Arrays
 import com.dawnimpulse.wallup.utils.toFileUri
-import com.downloader.Error
-import com.downloader.OnDownloadListener
-import com.downloader.PRDownloader
-import com.downloader.Progress
 import kotlinx.coroutines.experimental.launch
 
 
@@ -61,8 +58,8 @@ object DownloadHandler {
         }
     }
 
-    //external download
-    fun externalDownload(url: String, path: String, name: String, progress: (Progress) -> Unit, callback: (Boolean) -> Unit) : Int{
+    /*//external download
+    fun externalDownload(url: String, path: String, name: String, progress: (Progress) -> Unit, callback: (Boolean) -> Unit): Int {
         return PRDownloader.download(url, path, name)
                 .build()
                 .setOnProgressListener {
@@ -78,5 +75,67 @@ object DownloadHandler {
                     }
 
                 })
+    }*/
+
+    //download manager progress
+    fun downloadManager(context: Context, url: String, path: String, id: String,
+                        progress: (Pair<Int, Int>) -> Unit, downloadId: (Long) -> Unit, callback: (Boolean) -> Unit) {
+        val downloadManager = context.getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+        val request = DownloadManager.Request(url.toUri())
+        val uri = ("$path/$id").toFileUri()
+        var did: Long = 0
+
+        launch {
+
+            request
+                    .setTitle("$id.jpg")
+                    .setDescription("Downloading image from WallUp.")
+                    .setDestinationUri(uri)
+                    .allowScanningByMediaScanner()
+
+            did = downloadManager.enqueue(request)
+            downloadId(did)
+
+            var downloading = true
+
+            while (downloading) {
+
+                val q = DownloadManager.Query()
+                q.setFilterById(did)
+
+                if (downloadManager.query(q) != null) {
+                    val cursor = downloadManager.query(q)
+                    cursor.moveToFirst()
+
+                    if (cursor.count > 0) {
+                        val bytes_downloaded = cursor.getInt(cursor
+                                .getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+                        val bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+
+                        if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) === DownloadManager.STATUS_SUCCESSFUL) {
+                            downloading = false
+                            callback(true)
+                        }
+                        if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) === DownloadManager.STATUS_FAILED) {
+                            downloading = false
+                            callback(false)
+                        }
+
+                        context as AppCompatActivity
+                        context.runOnUiThread {
+                            if (bytes_total > 0)
+                                progress(Pair(bytes_downloaded, bytes_total))
+                        }
+
+                        cursor.close()
+                    } else {
+                        cursor.close()
+                        downloading = false
+                    }
+                } else {
+                    downloading = false
+                }
+            }
+        }
     }
 }

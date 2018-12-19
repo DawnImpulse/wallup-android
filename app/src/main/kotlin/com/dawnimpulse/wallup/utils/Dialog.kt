@@ -12,6 +12,7 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.utils
 
+import android.app.DownloadManager
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -32,7 +33,6 @@ import com.dawnimpulse.wallup.handlers.DownloadHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.NewCollections
-import com.downloader.PRDownloader
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.pixplicity.easyprefs.library.Prefs
@@ -296,12 +296,13 @@ object Dialog {
             }
         }
 
-        if (!isWallpaper)
+        /*if (!isWallpaper)
             path.text = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
         else {
             path.text = Config.DEFAULT_DOWNLOAD_PATH
             view.downloadChoose.gone()
-        }
+        }*/
+        path.text = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
 
         orL.setOnClickListener(clickListener)
         uhdL.setOnClickListener(clickListener)
@@ -364,7 +365,7 @@ object Dialog {
 
     //progress dialog
     fun downloadProgress(context: Context, path: String, url: String, id: String, callback: (Boolean) -> Unit) {
-        var did: Int? = null
+        var did: Long? = null
         val factory = LayoutInflater.from(context)
         val view = factory.inflate(R.layout.dialog_progress, null)
         alertDialog = AlertDialog.Builder(context, R.style.MyDialogTheme).create()
@@ -376,13 +377,32 @@ object Dialog {
 
         alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "CANCEL") { _, _ ->
             did?.let {
-                PRDownloader.cancel(it)
+                val manager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+                manager.remove(it)
             }
             EventBus.getDefault().post(Event(jsonOf(Pair(C.TYPE, C.CANCEL))))
             dismiss()
         }
 
-        did = DownloadHandler.externalDownload(url,
+        bar.isIndeterminate = true
+        DownloadHandler.downloadManager(context, url, path, "$id.jpg", {
+            bar.isIndeterminate = false
+            L.d(NAME, "${it.first} :: ${it.second}")
+            val per = (it.first.toDouble().div(it.second) * 100).toInt()
+            val done = "${it.first.toDouble().div(1024).toInt()} KB"
+            val total = "${it.second.toDouble().div(1024).toInt()} KB"
+            L.d(NAME, "${it.first} : ${it.second} : $per")
+            bar.progress = per
+            percentage.text = "$per %"
+            progress.text = "$done/$total"
+        }, {
+            did = it
+        }) {
+            callback(it)
+            dismiss()
+        }
+
+        /*did = DownloadHandler.externalDownload(url,
                 path,
                 "$id.jpg",
                 {
@@ -398,7 +418,7 @@ object Dialog {
         ) {
             callback(it)
             dismiss()
-        }
+        }*/
 
         alertDialog.setCancelable(false)
         alertDialog.show()

@@ -74,6 +74,7 @@ import org.json.JSONObject
 class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private val NAME = "ImageActivity"
     private var setBitmap = false
+    private var isWallpaper = false
     private var bitmap: Bitmap? = null
     //private var fullDetails: ImagePojo? = null
     private var color: Int = 0
@@ -157,7 +158,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         super.onResume()
 
         if (dialogOpen) {
-            Dialog.download(this, details!!.id, details!!.urls!!.full)
+            Dialog.download(this, details!!.id, details!!.urls!!.full, isWallpaper)
         }
     }
 
@@ -172,6 +173,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
     override fun onClick(v: View) {
         when (v.id) {
             imagePreviewWallpaper.id -> {
+                isWallpaper = true
                 //imagePreviewProgress.visibility = View.VISIBLE
                 Permissions.askWriteExternalStoragePermission(this) { no, _ ->
                     if (no != null) {
@@ -193,6 +195,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                 }
             }
             imagePreviewDownload.id -> {
+                isWallpaper = false
                 /*Dialog.download(this)*/
 
                 Permissions.askWriteExternalStoragePermission(this) { no, _ ->

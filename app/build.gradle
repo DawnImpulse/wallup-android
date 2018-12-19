@@ -66,7 +66,6 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1' //event bus
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha' //chart library
     implementation 'commons-io:commons-io:2.4' // apache commons io
-    implementation 'com.mindorks.android:prdownloader:0.5.0' // download library
 
     //------------------ Additional -------------------------
     implementation 'androidx.core:core-ktx:1.0.0-alpha1'
