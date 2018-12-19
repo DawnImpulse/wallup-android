@@ -31,22 +31,28 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="32dp">
 
-                    <TextView
+                    <me.grantland.widget.AutofitTextView
                         android:id="@+id/artistFirstName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_toLeftOf="@id/artistImage"
+                        android:maxLines="1"
                         android:text="August"
                         android:textColor="@color/white"
                         android:textSize="32sp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <me.grantland.widget.AutofitTextView
                         android:id="@+id/artistLastName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/artistFirstName"
                         android:layout_marginTop="2dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_toLeftOf="@id/artistImage"
+                        android:maxLines="1"
                         android:text="Jenkins"
                         android:textColor="@color/white"
                         android:textSize="32sp"
@@ -263,12 +269,12 @@
 
                 <!--Unsplash-->
                 <LinearLayout
-                    android:background="?selectableItemBackground"
                     android:id="@+id/artistUnsplash"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="20dp"
+                    android:background="?selectableItemBackground"
                     android:orientation="horizontal"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp">
@@ -304,9 +310,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
+                        android:letterSpacing="0.1"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
-                        android:letterSpacing="0.1"
                         android:text="PHOTOS"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -314,10 +320,10 @@
 
                     <FrameLayout
                         android:id="@+id/artistPhotosMore"
-                        android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="?android:attr/selectableItemBackgroundBorderless">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="24dp"
@@ -347,10 +353,10 @@
                     android:layout_marginTop="36dp">
 
                     <TextView
-                        android:letterSpacing="0.1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
+                        android:letterSpacing="0.1"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
                         android:text="COLLECTIONS"
@@ -360,10 +366,10 @@
 
                     <FrameLayout
                         android:id="@+id/artistCollectionMore"
-                        android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="?android:attr/selectableItemBackgroundBorderless">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="24dp"

@@ -9,6 +9,8 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.toast
+import androidx.fragment.app.FragmentManager
+import com.dawnimpulse.wallup.sheets.ModalSheetUser
 import org.json.JSONObject
 import java.io.File
 
@@ -69,7 +71,7 @@ fun String.toFileUri(): Uri {
 
 // tree uri path to file uri path
 fun String.toFileString(): String {
-    if (this.contains(":")){
+    if (this.contains(":")) {
         var substring = split(":")
         var tree = substring[0]
 
@@ -77,7 +79,7 @@ fun String.toFileString(): String {
             Environment.getExternalStorageDirectory().path + "/${substring[1]}"
         else
             "/storage/${tree.replace("/tree/", "")}/${substring[1]}"
-    }else
+    } else
         return this
 }
 
@@ -114,11 +116,16 @@ fun Context.displayRatio(): Pair<Int, Int> {
 }
 
 //covert to file type
-fun String.toFile():File{
+fun String.toFile(): File {
     return File(this)
 }
 
 //toast
-fun toast(context: Context,message: String,length:Int = Toast.LENGTH_SHORT){
-    context.toast(message,length)
+fun toast(context: Context, message: String, length: Int = Toast.LENGTH_SHORT) {
+    context.toast(message, length)
+}
+
+//modal sheet show
+fun ModalSheetUser.show(supportFragmentManager: FragmentManager) {
+    this.show(supportFragmentManager, this.tag)
 }

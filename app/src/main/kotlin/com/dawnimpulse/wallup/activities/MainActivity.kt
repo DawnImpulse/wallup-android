@@ -28,6 +28,7 @@ import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.sheets.ModalSheetNav
 import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
+import com.dawnimpulse.wallup.sheets.ModalSheetUser
 import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
@@ -52,13 +53,15 @@ import org.greenrobot.eventbus.ThreadMode
  *  Saksham - 2018 11 24 - master - user icon on toolbar
  *  Saksham - 2018 11 28 - master - connection handling
  *  Saksham - 2018 12 03 - master - changes to toolbar & bottom navigation
+ *  Saksham - 2018 12 19 - master - user sheet
  */
 class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.OnClickListener {
     private lateinit var pagerAdapter: ViewPagerAdapter
     private lateinit var randomFragment: MainFragment
     private lateinit var latestFragment: MainFragment
     private lateinit var navSheet: ModalSheetNav
-    private lateinit var userSheet: ModalSheetUnsplash
+    private lateinit var unsplashSheet: ModalSheetUnsplash
+    private lateinit var userSheet: ModalSheetUser
     private lateinit var navBundle: Bundle
     private var lastItemSelected = 0
 
@@ -69,7 +72,8 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         //setSupportActionBar(mainToolbar)
 
         navSheet = ModalSheetNav()
-        userSheet = ModalSheetUnsplash()
+        unsplashSheet = ModalSheetUnsplash()
+        userSheet = ModalSheetUser()
         navBundle = Bundle()
         navBundle.putInt(C.BOTTOM_SHEET, R.layout.bottom_sheet_navigation)
         navSheet.arguments = navBundle
@@ -134,9 +138,9 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
             }
             mainUser.id -> {
                 if (!Prefs.contains(C.USER_TOKEN))
-                    userSheet.show(supportFragmentManager, userSheet.tag)
+                    unsplashSheet.show(supportFragmentManager, unsplashSheet.tag)
                 else
-                    startActivity(Intent(this, UserActivity::class.java))
+                    userSheet.show(supportFragmentManager)
             }
             /*mainRefresh.id -> {
                 when (lastItemSelected) {
