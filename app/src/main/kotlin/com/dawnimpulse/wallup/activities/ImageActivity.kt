@@ -486,6 +486,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         down.setColor(color)
         back.setColor(color)
         wall.setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        imagePreviewDownloadT.setTextColor(ColorHandler.getContrastColor(color))
+        imagePreviewDownloadCount.setTextColor(ColorHandler.getContrastColor(color))
         //imagePreviewWallpaperT.setTextColor(color)
     }
 

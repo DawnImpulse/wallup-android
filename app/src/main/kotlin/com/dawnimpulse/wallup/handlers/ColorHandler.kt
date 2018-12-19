@@ -13,11 +13,13 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.handlers
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.palette.graphics.Palette
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.utils.Colors
 
 
 /**
@@ -28,7 +30,9 @@ import com.dawnimpulse.wallup.R
  *
  * @note Updates :
  */
+@SuppressLint("StaticFieldLeak")
 object ColorHandler{
+    lateinit var context:Context
 
     /**
      * Get a non Dark from the palette
@@ -38,6 +42,7 @@ object ColorHandler{
      * @return - The required non Dark color
      */
     fun getNonDarkColor(mPalette: Palette, mContext: Context): Int {
+        context = mContext
         //the color variable we need to return
         var color: Int = mPalette.getVibrantColor(ContextCompat.getColor(mContext, R.color.black))
         //variable to store whether color is darker or not
@@ -84,8 +89,8 @@ object ColorHandler{
      * @param color - Input Color
      * @return - true / false
      */
-    private fun isColorNonDark(color: Int): Boolean {
-        //getting red color intensity
+    fun isColorNonDark(color: Int): Boolean {
+        /*//getting red color intensity
         val red = Color.red(color)
         //getting blue color intensity
         val blue = Color.blue(color)
@@ -93,6 +98,15 @@ object ColorHandler{
         val green = Color.green(color)
 
         // Check whether the color lies in scale favour to contrast WHITE or BLACK
-        return red * 0.299 + green * 0.587 + blue * 0.114 > 80 && red * 0.299 + green * 0.587 + blue * 0.114 < 220
+        return red * 0.299 + green * 0.587 + blue * 0.114 > 80 && red * 0.299 + green * 0.587 + blue * 0.114 < 220*/
+
+
+        return getContrastColor(color) == Colors(context).BLACK
+    }
+
+    // ge contrasting white or black for a given color
+    fun getContrastColor(color: Int): Int {
+        val y = ((299 * Color.red(color) + 587 * Color.green(color) + 114 * Color.blue(color)) / 1000).toDouble()
+        return if (y >= 128) Color.BLACK else Color.WHITE
     }
 }

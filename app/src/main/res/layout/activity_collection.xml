@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true"
-                    android:foreground="?selectableItemBackground">
+                    android:foreground="?selectableItemBackgroundBorderless">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:layout_width="24dp"
@@ -151,7 +151,8 @@
                         android:paddingBottom="8dp"
                         android:text="PHOTOS"
                         android:textColor="@color/white"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.1"
                         android:textStyle="bold" />
 
                     <FrameLayout

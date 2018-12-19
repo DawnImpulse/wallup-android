@@ -83,6 +83,7 @@ object C {
     const val CANCEL = "cancel"
     const val WALLPAPER_PATH = "wallpaperPath"
     const val WALLPAPER = "wallpaper"
+    const val DELETE_COLLECTION = "deleteCollection"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val UNSPLASH = "https://unsplash.com$UTM"

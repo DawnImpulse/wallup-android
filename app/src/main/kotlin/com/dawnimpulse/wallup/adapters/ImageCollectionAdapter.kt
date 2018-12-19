@@ -14,6 +14,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.adapters
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -45,6 +46,7 @@ import org.json.JSONObject
  * @note Created on 2018-10-21 by Saksham
  *
  * @note Updates :
+ *  Saksham - 2018 12 19 - master - remove collection
  */
 class ImageCollectionAdapter(private val lifecycle: Lifecycle,
                              private val cols: List<CollectionPojo?>,
@@ -89,6 +91,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
 
     // get total no of items for adapter
     override fun getItemCount(): Int {
+        L.d(NAME, cols.size)
         return cols.size + 1
     }
 
@@ -132,33 +135,48 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
 
             holder.image.setOnClickListener {
                 if (image == null) {
-                    // to only view collection
-                    var intent = Intent(context, CollectionActivity::class.java)
-                    intent.putExtra(C.TYPE, C.FEATURED)
-                    intent.putExtra(C.COLLECTION, Gson().toJson(cols[pos]))
-                    context.startActivity(intent)
+                    if (pos < cols.size) {
+                        // to only view collection
+                        var intent = Intent(context, CollectionActivity::class.java)
+                        intent.putExtra(C.TYPE, C.FEATURED)
+                        intent.putExtra(C.COLLECTION, Gson().toJson(cols[pos]))
+                        context.startActivity(intent)
+                    }
                 } else {
-                    if (available) {
-                        sendEvent(cols[pos]!!, false, pos)
-                        model.removeImageInCollection(image, cols[pos]!!.id) { e, _ ->
-                            e?.let {
-                                L.d(NAME, e)
-                                context.toast("error removing from collection")
-                                sendEvent(cols[pos]!!, true, pos)
+                    if (pos < cols.size) {
+                        if (available) {
+                            sendEvent(cols[pos]!!, false, pos)
+                            model.removeImageInCollection(image, cols[pos]!!.id) { e, _ ->
+                                e?.let {
+                                    L.d(NAME, e)
+                                    context.toast("error removing from collection")
+                                    sendEvent(cols[pos]!!, true, pos)
+                                }
                             }
-                        }
 
-                    } else {
-                        sendEvent(cols[pos]!!, true, pos)
-                        model.addImageInCollection(image, cols[pos]!!.id) { e, _ ->
-                            e?.let {
-                                L.d(NAME, e)
-                                context.toast("error adding to collection")
-                                sendEvent(cols[pos]!!, false, pos)
+                        } else {
+                            sendEvent(cols[pos]!!, true, pos)
+                            model.addImageInCollection(image, cols[pos]!!.id) { e, _ ->
+                                e?.let {
+                                    L.d(NAME, e)
+                                    context.toast("error adding to collection")
+                                    sendEvent(cols[pos]!!, false, pos)
+                                }
                             }
                         }
                     }
                 }
+            }
+            holder.image.setOnLongClickListener {
+                Dialog.simpleOk(context, "Delete", "Wish to delete following collection ?", DialogInterface.OnClickListener { dialog, _ ->
+                    EventBus.getDefault().post(Event(jsonOf(
+                            Pair(C.TYPE, C.DELETE_COLLECTION),
+                            Pair(C.POSITION, pos),
+                            Pair(C.DELETE_COLLECTION, cols[pos]!!.id)
+                    )))
+                    dialog.dismiss()
+                })
+                false
             }
         }
         if (holder is NewCollectionHolder) {

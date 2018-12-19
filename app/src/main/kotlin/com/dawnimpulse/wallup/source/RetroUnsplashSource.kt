@@ -34,6 +34,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
  *  Saksham - 2018 09 14 - recent - users's collections
  *  Saksham - 2018 09 22 - recent - random photos with a tag
  *  Saksham - 2018 10 21 - recent - add image in collection
+ *  Saksham - 2018 12 19 - master - delete collection
  */
 interface RetroUnsplashSource {
 
@@ -284,6 +285,14 @@ interface RetroUnsplashSource {
             @Body body: NewCollections
     ): Call<CollectionPojo>
 
+    // ------------------------------
+    //       Delete Collection
+    // ------------------------------
+    @DELETE("/collections/{id}")
+    fun deleteCollection(
+            @Header(C.AUTHORIZATION) authorization: String,
+            @Path(C.ID) id: String
+    ): Call<CollectionPojo>
 
     //________________________________
     //           EXTRAS

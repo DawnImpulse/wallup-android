@@ -46,6 +46,7 @@ import retrofit2.Response
  *  2018 10 21 - master - Saksham - add image in user collection
  *  2018 12 09 - master - Saksham - image statistics
  *  2018 12 11 - master - Saksham - new collection
+ *  2018 12 19 - master - Saksham - delete collection
  */
 object UnsplashRepository {
     private val NAME = "UnsplashRepository"
@@ -621,6 +622,25 @@ object UnsplashRepository {
 
             override fun onFailure(call: Call<CollectionPojo>?, t: Throwable?) {
                 t?.toString()?.let { callback(t.toString(), null) }
+            }
+        })
+    }
+
+    // delete collection
+    fun deleteCollection(id: String) {
+        val apiClient = RetroApiClient.getClient()!!.create(RetroUnsplashSource::class.java)
+        val call = apiClient.deleteCollection(
+                Config.apiKey(),
+                id
+        )
+
+        call.enqueue(object : Callback<CollectionPojo> {
+
+            override fun onResponse(call: Call<CollectionPojo>?, response: Response<CollectionPojo>) {
+            }
+
+            override fun onFailure(call: Call<CollectionPojo>?, t: Throwable?) {
+
             }
         })
     }

@@ -55,6 +55,7 @@ class CropActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_crop)
 
         displayDimen = displayRatio()
+        L.d(NAME,"${displayDimen.first} : ${displayDimen.second}")
         cropImageView.setAspectRatio(displayDimen.second, displayDimen.first)
         cropImageView.setFixedAspectRatio(true)
         cropImageView.scaleType = CropImageView.ScaleType.CENTER_INSIDE

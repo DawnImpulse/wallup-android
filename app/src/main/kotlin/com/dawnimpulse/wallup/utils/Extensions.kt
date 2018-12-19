@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Toast
+import androidx.core.widget.toast
 import org.json.JSONObject
 import java.io.File
 
@@ -114,4 +116,9 @@ fun Context.displayRatio(): Pair<Int, Int> {
 //covert to file type
 fun String.toFile():File{
     return File(this)
+}
+
+//toast
+fun toast(context: Context,message: String,length:Int = Toast.LENGTH_SHORT){
+    context.toast(message,length)
 }

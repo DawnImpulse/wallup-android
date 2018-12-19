@@ -12,6 +12,7 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.models
 
+import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -21,6 +22,7 @@ import com.dawnimpulse.wallup.pojo.NewCollections
 import com.dawnimpulse.wallup.repositories.UnsplashRepository
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.toast
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 
@@ -42,6 +44,7 @@ import com.pixplicity.easyprefs.library.Prefs
  *  2018 10 08 - master - Saksham - user liked photos
  *  2018 10 21 - master - Saksham - add image in user's collection
  *  2018 12 11 - master - Saksham - new collection
+ *  2018 12 19 - master - Saksham - delete collection
  */
 class UnsplashModel() {
     private lateinit var lifecycle: Lifecycle
@@ -474,5 +477,13 @@ class UnsplashModel() {
             }
         else
             callback("internet not available !!", null)
+    }
+
+    // delete collection
+    fun deleteCollection(context: Context, id: String) {
+        if (Config.CONNECTED)
+            UnsplashRepository.deleteCollection(id)
+        else
+            toast(context, "internet not available !!")
     }
 }

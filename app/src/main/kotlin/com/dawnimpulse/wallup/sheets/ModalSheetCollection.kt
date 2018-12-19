@@ -13,6 +13,7 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.sheets
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,8 @@ import com.dawnimpulse.wallup.utils.L
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.bottom_sheet_collection.*
+import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -159,7 +162,23 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
             if (event.obj.getString(C.TYPE) == C.NEW_COLLECTION) {
                 val col = Gson().fromJson(event.obj.getString(C.COLLECTION), CollectionPojo::class.java)
                 cols.add(0, col)
+                imageColString?.add(null)
                 adapter.notifyDataSetChanged()
+            }
+            if (event.obj.getString(C.TYPE) == C.DELETE_COLLECTION) {
+                val i = event.obj.getInt(C.POSITION)
+                val id = event.obj.getString(C.DELETE_COLLECTION)
+                cols.removeAt(i)
+                imageColString!!.removeAt(i)
+                adapter.notifyItemRemoved(i + 1)
+                launch {
+                    delay(500)
+                    (context as Activity).runOnUiThread {
+                        adapter.notifyDataSetChanged()
+                        sheetColRecycler.smoothScrollToPosition(i)
+                    }
+                }
+                model.deleteCollection(context!!, id)
             }
         }
     }
