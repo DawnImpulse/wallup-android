@@ -38,10 +38,7 @@ import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.sheets.ModalSheetCollection
 import com.dawnimpulse.wallup.sheets.ModalSheetImage
 import com.dawnimpulse.wallup.sheets.ModalSheetUnsplash
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.Event
-import com.dawnimpulse.wallup.utils.F
+import com.dawnimpulse.wallup.utils.*
 import com.dawnimpulse.wallup.viewholders.LoadingViewHolder
 import com.dawnimpulse.wallup.viewholders.MainViewHolder
 import com.google.gson.Gson
@@ -74,11 +71,9 @@ class MainAdapter(
     private var VIEW_TYPE_LOADING = 0
     private var VIEW_TYPE_ITEM = 1
     private lateinit var context: Context
-    private var imageSheet: ModalSheetImage
 
     // initialization for Load More Listener
     init {
-        imageSheet = ModalSheetImage()
         recycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
@@ -259,9 +254,14 @@ class MainAdapter(
                 (context as AppCompatActivity).startActivity(intent)
             }
 
+
             // image long press
             holder.image.setOnLongClickListener {
-                imageSheet.show((context as AppCompatActivity).supportFragmentManager, imageSheet.tag)
+                var imageSheet = ModalSheetImage()
+                var bundle = Bundle()
+                bundle.putString(C.IMAGE_POJO, F.toJson(image))
+                imageSheet.arguments = bundle
+                imageSheet.show((context as AppCompatActivity).supportFragmentManager)
                 true
             }
 

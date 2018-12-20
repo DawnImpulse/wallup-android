@@ -253,8 +253,8 @@ object F {
     }
 
     //convert json to gson
-    fun toGson(json: String, any: Any): Any {
-        return Gson().fromJson(json, any::class.java)
+    fun <T> toGson(json: String, gsonClass: Class<T>): Class<T> {
+        return Gson().fromJson(json, gsonClass::class.java)
     }
 
     // get display height

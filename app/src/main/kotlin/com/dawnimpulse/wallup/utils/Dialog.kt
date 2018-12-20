@@ -54,6 +54,7 @@ import org.json.JSONObject
  * @note Updates :
  *  Saksham - 2018 12 16 - master - download dialog
  *  Saksham - 2018 12 16 - master - progress dialog
+ *  Saksham - 2018 12 20 - master - callback for download ok
  */
 object Dialog {
     private val NAME = "Dialog"
@@ -217,7 +218,7 @@ object Dialog {
     }
 
     //download dialog
-    fun download(context: Context, id: String, url: String, isWallpaper: Boolean = false) {
+    fun download(context: Context, id: String, url: String, isWallpaper: Boolean = false, callback: () -> Unit) {
         val factory = LayoutInflater.from(context)
         val view = factory.inflate(R.layout.dialog_download, null)
         val shouldShow = Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true)
@@ -321,6 +322,7 @@ object Dialog {
                 if (path.text.toString().toFile().exists()) {
                     dismiss()
                     EventBus.getDefault().post(Event(jsonOf(Pair(C.TYPE, C.WALLPAPER))))
+                    callback()
                 } else {
                     context.toast("File path doesn't exists , please select a new one.", Toast.LENGTH_LONG)
                     Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, true)
@@ -335,6 +337,7 @@ object Dialog {
 
                     DownloadHandler.downloadData(context, newUrl, "${id}_${quality.replace("&h=", "")}",
                             Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString(), isWallpaper)
+                    callback()
                 } else {
                     context.toast("File path doesn't exists , please select a new one.", Toast.LENGTH_LONG)
                     Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, true)

@@ -8,9 +8,10 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.widget.toast
 import androidx.fragment.app.FragmentManager
-import com.dawnimpulse.wallup.sheets.ModalSheetUser
+import com.dawnimpulse.wallup.sheets.RoundedBottomSheetDialogFragment
 import org.json.JSONObject
 import java.io.File
 
@@ -126,6 +127,11 @@ fun toast(context: Context, message: String, length: Int = Toast.LENGTH_SHORT) {
 }
 
 //modal sheet show
-fun ModalSheetUser.show(supportFragmentManager: FragmentManager) {
+fun RoundedBottomSheetDialogFragment.show(supportFragmentManager: FragmentManager) {
     this.show(supportFragmentManager, this.tag)
+}
+
+//start web
+fun Context.startWeb(url: String) {
+    startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
 }

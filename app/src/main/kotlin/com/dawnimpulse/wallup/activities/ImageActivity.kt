@@ -164,7 +164,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         super.onResume()
 
         if (dialogOpen) {
-            Dialog.download(this, details!!.id, details!!.urls!!.full, isWallpaper)
+            Dialog.download(this, details!!.id, details!!.urls!!.full, isWallpaper){
+                model.downloadedPhoto(details!!.links!!.download_location)
+            }
         }
     }
 
@@ -196,7 +198,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                                 imagePreviewProgress.visibility = View.GONE
                             }
                         }*/
-                        Dialog.download(this, details!!.id, details!!.urls!!.raw, true)
+                        Dialog.download(this, details!!.id, details!!.urls!!.raw, true){
+                            model.downloadedPhoto(details!!.links!!.download_location)
+                        }
                     }
                 }
             }
@@ -208,10 +212,9 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                     if (no != null)
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
                     else {
-                        Dialog.download(this, details!!.id, details!!.urls!!.raw)
-                        //DownloadHandler.downloadData(this, details!!.links!!.download, details!!.id)
-                        //Toast.short(this, "Downloading Image in /Downloads/Wallup/${details!!.id}.jpg .Check notification for progress.")
-                        model.downloadedPhoto(details!!.links!!.download_location)
+                        Dialog.download(this, details!!.id, details!!.urls!!.raw,false){
+                            model.downloadedPhoto(details!!.links!!.download_location)
+                        }
                     }
                 }
             }

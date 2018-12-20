@@ -15,8 +15,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    android:paddingBottom="16dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="16dp">
 
     <View
         android:layout_width="30dp"
@@ -28,8 +28,9 @@
     <LinearLayout
         android:id="@+id/sheetImageDownload"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp">
+        android:layout_height="48dp"
+        android:layout_marginTop="32dp"
+        android:background="?selectableItemBackground">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="24dp"
@@ -51,8 +52,9 @@
     <LinearLayout
         android:id="@+id/sheetImageWall"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp">
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="?selectableItemBackground">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="24dp"
@@ -74,8 +76,9 @@
     <LinearLayout
         android:id="@+id/sheetImageCol"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp">
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="?selectableItemBackground">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="24dp"
@@ -97,8 +100,9 @@
     <LinearLayout
         android:id="@+id/sheetImageUnsplash"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp">
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="?selectableItemBackground">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="24dp"
