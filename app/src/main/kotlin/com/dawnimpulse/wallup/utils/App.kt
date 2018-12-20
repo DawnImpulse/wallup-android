@@ -52,6 +52,8 @@ class App : Application() {
         analytics()
         F.connectivityListener(this)
         mkdir()
+
+        Prefs.remove(C.MAIN_ADAPTER_HELP)
     }
 
     // setup Firebase Remote Config

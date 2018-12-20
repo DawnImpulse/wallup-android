@@ -8,10 +8,14 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.core.widget.toast
 import androidx.fragment.app.FragmentManager
+import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.sheets.RoundedBottomSheetDialogFragment
+import com.getkeepsafe.taptargetview.TapTarget
+import com.getkeepsafe.taptargetview.TapTargetView
 import org.json.JSONObject
 import java.io.File
 
@@ -134,4 +138,41 @@ fun RoundedBottomSheetDialogFragment.show(supportFragmentManager: FragmentManage
 //start web
 fun Context.startWeb(url: String) {
     startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+}
+
+//show target
+fun showTarget(context: AppCompatActivity, view: View, title: String, description: String, callback: () -> Unit) {
+    TapTargetView.showFor(context,
+            TapTarget.forView(view, title, description)
+                    .outerCircleColor(R.color.colorAccent)
+                    .targetCircleColor(R.color.black)
+                    .titleTextSize(16)
+                    .titleTextColor(R.color.white)
+                    .descriptionTextSize(14)
+                    .descriptionTextColor(R.color.grey400)
+                    .drawShadow(true)
+                    .cancelable(false)
+                    .transparentTarget(true),
+            object : TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
+                override fun onOuterCircleClick(view: TapTargetView?) {
+                    super.onOuterCircleClick(view)
+                    callback()
+                }
+
+                override fun onTargetClick(view: TapTargetView?) {
+                    super.onTargetClick(view)
+                    callback()
+                }
+
+                override fun onTargetDismissed(view: TapTargetView?, userInitiated: Boolean) {
+                    super.onTargetDismissed(view, userInitiated)
+                    callback()
+                }
+
+                override fun onTargetCancel(view: TapTargetView?) {
+                    super.onTargetCancel(view)
+                    callback()
+                }
+            }
+    )
 }

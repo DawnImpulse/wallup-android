@@ -54,6 +54,7 @@ import org.json.JSONObject
  * @note Updates :
  *  Saksham - 2018 05 25 - recent - intent to Image Activity
  *  Saksham - 2018 12 04 - master - long press toast
+ *  Saksham - 2018 12 20 - master - help dialog
  */
 class MainAdapter(
         private val lifecycle: Lifecycle,
@@ -119,6 +120,7 @@ class MainAdapter(
     // binding view holder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MainViewHolder) {
+            help(holder)
             val point = F.displayDimensions(context)
             var image = images[position]!!
 
@@ -276,5 +278,9 @@ class MainAdapter(
     // is loading
     fun setLoaded() {
         isLoading = false
+    }
+
+    // help
+    private fun help(holder: MainViewHolder) {
     }
 }

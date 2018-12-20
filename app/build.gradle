@@ -66,6 +66,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1' //event bus
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha' //chart library
     implementation 'commons-io:commons-io:2.4' // apache commons io
+    implementation 'com.getkeepsafe.taptargetview:taptargetview:1.12.0' //tap target
 
     //------------------ Additional -------------------------
     implementation 'androidx.core:core-ktx:1.0.0-alpha1'

@@ -71,6 +71,19 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         setContentView(R.layout.activity_main)
         //setSupportActionBar(mainToolbar)
 
+        if (!Prefs.contains(C.MAIN_ADAPTER_HELP)) {
+            Prefs.putBoolean(C.MAIN_ADAPTER_HELP, true)
+
+            showTarget(
+                    this,
+                    wallup,
+                    "Tap view image detailed info",
+                    "Long press for common option"
+            ) {
+                EventBus.getDefault().post(Event(jsonOf(Pair(C.TYPE, C.MAIN_ADAPTER_HELP))))
+            }
+        }
+
         navSheet = ModalSheetNav()
         unsplashSheet = ModalSheetUnsplash()
         userSheet = ModalSheetUser()
