@@ -35,6 +35,16 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <!--Tap view-->
+                <View
+                    android:id="@+id/imageTapTarget"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:visibility="gone"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:background="@android:color/transparent" />
+
                 <!--image-->
                 <RelativeLayout
                     android:id="@+id/imageL"

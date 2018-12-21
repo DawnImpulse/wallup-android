@@ -85,6 +85,9 @@ object C {
     const val WALLPAPER = "wallpaper"
     const val DELETE_COLLECTION = "deleteCollection"
     const val MAIN_ADAPTER_HELP = "mainAdapterHelp"
+    const val HELP_MAIN = "helpMain"
+    const val HELP_IMAGE = "helpImage"
+    const val HELP_AUTHOR = "helpAuthor"
 
     const val UTM = "?utm_source=wallup&utm_medium=referral"
     const val UNSPLASH = "https://unsplash.com$UTM"

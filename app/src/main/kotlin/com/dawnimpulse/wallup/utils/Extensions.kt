@@ -142,36 +142,50 @@ fun Context.startWeb(url: String) {
 
 //show target
 fun showTarget(context: AppCompatActivity, view: View, title: String, description: String, callback: () -> Unit) {
+    var called = false
     TapTargetView.showFor(context,
             TapTarget.forView(view, title, description)
                     .outerCircleColor(R.color.colorAccent)
                     .targetCircleColor(R.color.black)
-                    .titleTextSize(16)
-                    .titleTextColor(R.color.white)
-                    .descriptionTextSize(14)
-                    .descriptionTextColor(R.color.grey400)
+                    .titleTextSize(18)
+                    .titleTextColor(R.color.black)
+                    .descriptionTextSize(16)
+                    .descriptionTextColor(R.color.black)
                     .drawShadow(true)
-                    .cancelable(false)
+                    .cancelable(true)
                     .transparentTarget(true),
-            object : TapTargetView.Listener() {          // The listener can listen for regular clicks, long clicks or cancels
+            object : TapTargetView.Listener() {
                 override fun onOuterCircleClick(view: TapTargetView?) {
                     super.onOuterCircleClick(view)
-                    callback()
+                    if (!called){
+                        callback()
+                        called = true
+                        onTargetCancel(view)
+                    }
                 }
 
                 override fun onTargetClick(view: TapTargetView?) {
                     super.onTargetClick(view)
-                    callback()
+                    if (!called){
+                        callback()
+                        called = true
+                    }
                 }
 
                 override fun onTargetDismissed(view: TapTargetView?, userInitiated: Boolean) {
                     super.onTargetDismissed(view, userInitiated)
-                    callback()
+                    if (!called){
+                        callback()
+                        called = true
+                    }
                 }
 
                 override fun onTargetCancel(view: TapTargetView?) {
                     super.onTargetCancel(view)
-                    callback()
+                    if (!called){
+                        callback()
+                        called = true
+                    }
                 }
             }
     )

@@ -71,18 +71,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
         setContentView(R.layout.activity_main)
         //setSupportActionBar(mainToolbar)
 
-        if (!Prefs.contains(C.MAIN_ADAPTER_HELP)) {
-            Prefs.putBoolean(C.MAIN_ADAPTER_HELP, true)
-
-            showTarget(
-                    this,
-                    wallup,
-                    "Tap view image detailed info",
-                    "Long press for common option"
-            ) {
-                EventBus.getDefault().post(Event(jsonOf(Pair(C.TYPE, C.MAIN_ADAPTER_HELP))))
-            }
-        }
+        help()
 
         navSheet = ModalSheetNav()
         unsplashSheet = ModalSheetUnsplash()
@@ -260,6 +249,37 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                 mainNavRandomT.typeface = Typeface.DEFAULT_BOLD
                 mainNavLatestT.textSize = 12f
                 mainNavRandomT.textSize = 14f*/
+            }
+        }
+    }
+
+    //help section
+    private fun help() {
+        if (!Prefs.contains(C.HELP_MAIN)) {
+            showTarget(this,
+                    wallup,
+                    "Welcome",
+                    "Click on an image to view its details.\nLong press image for common options"
+            ) {
+                showTarget(this,
+                        mainUser,
+                        "Unsplash User Profile",
+                        "Manage your unsplash user profile"
+                ) {
+                    showTarget(this,
+                            mainSearch,
+                            "Search a wide variety of images on Unsplash.",
+                            ""
+                    ) {
+                        showTarget(this,
+                                mainNavUp,
+                                "Menu",
+                                "Tap to open bottom navigation"
+                        ) {
+                            Prefs.putBoolean(C.HELP_MAIN, true)
+                        }
+                    }
+                }
             }
         }
     }

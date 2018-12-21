@@ -120,7 +120,6 @@ class MainAdapter(
     // binding view holder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is MainViewHolder) {
-            help(holder)
             val point = F.displayDimensions(context)
             var image = images[position]!!
 
@@ -280,7 +279,4 @@ class MainAdapter(
         isLoading = false
     }
 
-    // help
-    private fun help(holder: MainViewHolder) {
-    }
 }

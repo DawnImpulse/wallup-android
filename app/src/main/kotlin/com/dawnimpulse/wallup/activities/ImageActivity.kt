@@ -69,7 +69,8 @@ import org.json.JSONObject
  *  Saksham - 2018 11 28 - master - Connection handling
  *  Saksham - 2018 12 04 - master - Long click icons
  *  Saksham - 2018 12 09 - master - Image stats
- *  Saksham - 2018 12 17 - master - Donwload wallpaper handling
+ *  Saksham - 2018 12 17 - master - Download wallpaper handling
+ *  Saksham - 2018 12 21 - master - Help screen
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private val NAME = "ImageActivity"
@@ -93,6 +94,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
+
+        help()
 
         color = Colors(this).WHITE
         val point = F.displayDimensions(this)
@@ -162,9 +165,8 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
     // on resume for dialog only
     override fun onResume() {
         super.onResume()
-
         if (dialogOpen) {
-            Dialog.download(this, details!!.id, details!!.urls!!.full, isWallpaper){
+            Dialog.download(this, details!!.id, details!!.urls!!.full, isWallpaper) {
                 model.downloadedPhoto(details!!.links!!.download_location)
             }
         }
@@ -198,7 +200,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                                 imagePreviewProgress.visibility = View.GONE
                             }
                         }*/
-                        Dialog.download(this, details!!.id, details!!.urls!!.raw, true){
+                        Dialog.download(this, details!!.id, details!!.urls!!.raw, true) {
                             model.downloadedPhoto(details!!.links!!.download_location)
                         }
                     }
@@ -212,7 +214,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                     if (no != null)
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
                     else {
-                        Dialog.download(this, details!!.id, details!!.urls!!.raw,false){
+                        Dialog.download(this, details!!.id, details!!.urls!!.raw, false) {
                             model.downloadedPhoto(details!!.links!!.download_location)
                         }
                     }
@@ -492,6 +494,27 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         imagePreviewDownloadT.setTextColor(ColorHandler.getContrastColor(color))
         imagePreviewDownloadCount.setTextColor(ColorHandler.getContrastColor(color))
         //imagePreviewWallpaperT.setTextColor(color)
+    }
+
+    //help screen
+    private fun help() {
+        imageTapTarget.show()
+        if (!Prefs.contains(C.HELP_IMAGE)) {
+            showTarget(
+                    this,
+                    imageTapTarget,
+                    "Zoom image in & out",
+                    "Or even pan image left/right") {
+                imageTapTarget.gone()
+                showTarget(
+                        this,
+                        imagePreviewAuthorImage,
+                        "Click on Author name/image to view details",
+                        "") {
+                    Prefs.putBoolean(C.HELP_IMAGE, true)
+                }
+            }
+        }
     }
 
     /* // set tags
