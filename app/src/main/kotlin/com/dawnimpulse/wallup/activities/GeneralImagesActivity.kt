@@ -12,14 +12,15 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.adapters.MainAdapter
-import com.dawnimpulse.wallup.adapters.RandomAdapter
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.models.UnsplashModel
+import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Colors
 import com.dawnimpulse.wallup.utils.Event
 import com.dawnimpulse.wallup.utils.L
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_general_images.*
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
@@ -38,6 +39,7 @@ import org.greenrobot.eventbus.ThreadMode
  * Saksham - 2018 09 22 - master - random images tag
  * Saksham - 2018 11 28 - master - connection handling
  * Saksham - 2018 12 04 - master - new reload / progress
+ * Saksham - 2018 12 21 - master - fix issue with random adapter collection add
  */
 class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
         SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
@@ -47,7 +49,6 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     private var nextPage = 2
     private var randomImages = false //if random images are set
     private lateinit var model: UnsplashModel
-    private lateinit var randomAdapter: RandomAdapter
     private lateinit var mainAdapter: MainAdapter
     private lateinit var username: String
     private lateinit var images: MutableList<ImagePojo?>
@@ -165,7 +166,7 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     // on message event
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: Event) {
         if (event.obj.has(C.TYPE)) {
             if (event.obj.getString(C.TYPE) == C.LIKE) {
@@ -179,10 +180,49 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                     for (pos in position) {
                         L.d(NAME, pos)
                         images[pos]!!.liked_by_user = event.obj.getBoolean(C.LIKE)
-                        if (randomImages)
-                            randomAdapter.notifyItemChanged(pos)
-                        else
-                            mainAdapter.notifyItemChanged(pos)
+                        mainAdapter.notifyItemChanged(pos)
+                    }
+                }
+            }
+            if (event.obj.getString(C.TYPE) == C.IMAGE_TO_COLLECTION) {
+                // if image is added to a collection
+                if (event.obj.getBoolean(C.IS_ADDED)) {
+                    var col = Gson().fromJson(event.obj.getString(C.COLLECTION), CollectionPojo::class.java)
+                    var list = images
+                            .asSequence()
+                            .withIndex()
+                            .filter { it.value!!.id == event.obj.getString(C.IMAGE) }
+                            .map { it.index }
+                            .toList()
+
+                    if (list.isNotEmpty()) {
+                        for (l in list) {
+                            if (images[l]!!.current_user_collections == null)
+                                images[l]!!.current_user_collections = arrayListOf()
+                            images[l]!!.current_user_collections!!.add(col)
+                            mainAdapter.notifyItemChanged(l)
+                        }
+                    }
+                } else {
+                    //if image is removed from collection
+                    var list = images
+                            .asSequence()
+                            .withIndex()
+                            .filter { it.value!!.id == event.obj.getString(C.IMAGE) }
+                            .map { it.index }
+                            .toList()
+
+                    if (list.isNotEmpty()) {
+                        for (l in list) {
+                            var cid = images[l]!!.current_user_collections!!
+                                    .asSequence()
+                                    .withIndex()
+                                    .filter { it.value.id == event.obj.getString(C.COLLECTION_ID) }
+                                    .map { it.index }
+                                    .toList()
+                            images[l]!!.current_user_collections!!.removeAt(cid[0])
+                            mainAdapter.notifyItemChanged(l)
+                        }
                     }
                 }
             }
@@ -272,10 +312,10 @@ class GeneralImagesActivity : AppCompatActivity(), View.OnClickListener,
                 generalImagesSwipe.visibility = View.VISIBLE
                 generalImagesReload.visibility = View.GONE
 
-                randomAdapter = RandomAdapter(lifecycle, images)
+                mainAdapter = MainAdapter(lifecycle, images, generalImagesRecycler)
                 generalImagesSwipe.isRefreshing = false
                 generalImagesRecycler.layoutManager = LinearLayoutManager(this@GeneralImagesActivity)
-                generalImagesRecycler.adapter = randomAdapter
+                generalImagesRecycler.adapter = mainAdapter
                 (generalImagesRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
             }
         }

@@ -33,7 +33,7 @@ data class CollectionPojo(
         @SerializedName("total_photos") val total_photos: Int,
         @SerializedName("tags") val tags: ArrayList<Tag>? = null,
         @SerializedName("cover_photo") var cover_photo: ImagePojo?,
-        @SerializedName("preview_photos") val preview_photos: ArrayList<PreviewPhotos>?=null,
+        @SerializedName("preview_photos") var preview_photos: ArrayList<PreviewPhotos>?=null,
         @SerializedName("user") val user: UserPojo?=null,
         @SerializedName("links") val links: CollectionLinks
 

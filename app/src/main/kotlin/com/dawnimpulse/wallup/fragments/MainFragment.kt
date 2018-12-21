@@ -150,7 +150,7 @@ class MainFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener, OnLoadMor
     }
 
     // on message event
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: Event) {
         if (event.obj.has(C.TYPE)) {
             if (event.obj.getString(C.TYPE) == C.LIKE) {

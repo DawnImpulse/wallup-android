@@ -283,7 +283,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                         obj.put(C.TYPE, C.LIKE)
                         obj.put(C.LIKE, like)
                         obj.put(C.ID, details!!.id)
-                        EventBus.getDefault().postSticky(Event(obj))
+                        EventBus.getDefault().post(Event(obj))
                     }
                 } else
                     loginSheet.show(supportFragmentManager, loginSheet.tag)

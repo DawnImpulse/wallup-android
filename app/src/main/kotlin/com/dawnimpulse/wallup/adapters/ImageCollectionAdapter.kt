@@ -91,7 +91,6 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
 
     // get total no of items for adapter
     override fun getItemCount(): Int {
-        L.d(NAME, cols.size)
         return cols.size + 1
     }
 
@@ -118,6 +117,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
         if (holder is ImageColViewHolder) {
             var available = false
             var pos = position - 1
+            L.d(NAME, "$pos :: ${cols[pos]!!.preview_photos!!.size}")
             holder.text.text = cols[pos]!!.title
             if (cols[pos]!!.cover_photo != null)
                 ImageHandler.setImageInView(lifecycle, holder.image, cols[pos]!!.cover_photo!!.urls!!.full + Config.IMAGE_LIST_QUALITY)

@@ -151,11 +151,19 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
                 } else {
                     //if image is removed from collection
                     val pos = event.obj.getInt(C.POSITION)
-                    imageColString!![event.obj.getInt(C.POSITION)] = null
-                    if (cols[pos]!!.preview_photos != null)
-                        cols[pos]!!.cover_photo = ImagePojo(urls = cols[pos]!!.preview_photos!![0].urls)
-                    else
-                        cols[pos]!!.cover_photo = null
+                    imageColString!![pos] = null
+                    // there can be no preview image for collection which are forcibly moved on top
+                    if (cols[pos]!!.preview_photos != null) {
+                        if (cols[pos]!!.preview_photos!!.size > 1)
+                        // the preview image [0] & cover photo returned by unsplash is same
+                            if (cols[pos]!!.cover_photo!!.urls!! == cols[pos]!!.preview_photos!![0].urls)
+                                cols[pos]!!.cover_photo = ImagePojo(urls = cols[pos]!!.preview_photos!![1].urls)
+                            else
+                                cols[pos]!!.cover_photo = ImagePojo(urls = cols[pos]!!.preview_photos!![0].urls)
+                        else
+                            cols[pos]!!.cover_photo = image
+                    } else
+                        cols[pos]!!.cover_photo = image
                     adapter.notifyItemChanged(event.obj.getInt(C.POSITION) + 1)
                 }
             }
@@ -268,13 +276,17 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
     }
 
     // populate image cols with cover photo
+    // doing this since imageCols doesn't contain cover photo (as we are moving them on top)
+    // if we find the collection from imageCols in cols then we populate image
+    // else we populate it with current image
     private fun populateCoverPhoto(image: ImagePojo, imageCols: MutableList<CollectionPojo>?, cols: MutableList<CollectionPojo?>): MutableList<CollectionPojo>? {
         var newImageCols = imageCols
         imageCols!!.forEachIndexed { i, col ->
             val cols2 = cols.filter { it -> it!!.id == col.id }
-            if (cols2.isNotEmpty())
+            if (cols2.isNotEmpty()) {
                 newImageCols!![i].cover_photo = cols2[0]!!.cover_photo
-            else
+                newImageCols!![i].preview_photos = cols2[0]!!.preview_photos
+            } else
                 newImageCols!![i].cover_photo = image
         }
         return newImageCols

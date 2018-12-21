@@ -205,7 +205,7 @@ class MainAdapter(
                     obj.put(C.TYPE, C.LIKE)
                     obj.put(C.LIKE, state)
                     obj.put(C.ID, image.id)
-                    EventBus.getDefault().postSticky(Event(obj))
+                    EventBus.getDefault().post(Event(obj))
                     F.like(context, holder.like, image.id, state)
                 }
                 // opening login sheet if user not logged in

@@ -45,6 +45,7 @@ import org.json.JSONObject
  * @note Created on 2018-09-01 by Saksham
  *
  * @note Updates :
+ *  Saksham - 2018 12 21 - master - fix issue collection add
  */
 class RandomAdapter(private val lifecycle: Lifecycle, private val images: List<ImagePojo?>)
     : RecyclerView.Adapter<MainViewHolder>() {
@@ -100,7 +101,7 @@ class RandomAdapter(private val lifecycle: Lifecycle, private val images: List<I
                 obj.put(C.TYPE, C.LIKE)
                 obj.put(C.LIKE, !image.liked_by_user)
                 obj.put(C.ID, image.id)
-                EventBus.getDefault().postSticky(Event(obj))
+                EventBus.getDefault().post(Event(obj))
             }
             // opening login sheet if user not logged in
             else {
