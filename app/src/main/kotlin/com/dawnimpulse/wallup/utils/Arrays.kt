@@ -26,10 +26,11 @@ object Arrays {
             LibraryPojo("PhotoView", "Implementation of ImageView for Android that supports zooming, by various touch gestures.", "https://github.com/chrisbanes/PhotoView"),
             LibraryPojo("Permissions", "Simple permission handling in Android.", "https://github.com/DawnImpulse/permissions-android"),
             LibraryPojo("EasyPrefs", "A small library containing a wrapper/helper for the Shared Preferences of android.", "https://github.com/Pixplicity/EasyPrefs"),
-            LibraryPojo("AutoFitTextView", "A TextView that automatically resizes text to fit perfectly within its bounds.", "https://github.com/grantland/android-autofittextview"),
+            LibraryPojo("AutoFitTextView", "A TextView that automatically resize text to fit perfectly within its bounds.", "https://github.com/grantland/android-autofittextview"),
             LibraryPojo("EventBus", "Event bus for Android and Java that simplifies communication between Activities, Fragments, Threads, Services, etc. Less code, better quality.", "https://github.com/greenrobot/EventBus"),
             LibraryPojo("MPAndroidChart", "A powerful \uD83D\uDE80 Android chart view / graph view library, supporting line- bar- pie- radar- bubble- and candlestick charts as well as scaling, dragging and animations.", "https://github.com/PhilJay/MPAndroidChart"),
-            LibraryPojo("Apache CommonsIO", "Commons IO is a library of utilities to assist with developing IO functionality.", "https://commons.apache.org/proper/commons-io/")
+            LibraryPojo("Apache CommonsIO", "Commons IO is a library of utilities to assist with developing IO functionality.", "https://commons.apache.org/proper/commons-io/"),
+            LibraryPojo("TapTargetView", "An implementation of tap targets from the Material Design guidelines for feature discovery", "https://github.com/KeepSafe/TapTargetView")
     )
     val downloadIds = ArrayList<Long>() // long for ref id
     val downloadWalls = ArrayList<Boolean>() // boolean for if set wallpaper
@@ -46,6 +47,9 @@ object Arrays {
         val search = ContextCompat.getDrawable(context, R.drawable.vd_search_outline)
         val random = ContextCompat.getDrawable(context, R.drawable.vd_shuffle)
         val paypal = ContextCompat.getDrawable(context, R.drawable.vd_paypal_2)
+        val heart = ContextCompat.getDrawable(context, R.drawable.vd_heart)
+        val col = ContextCompat.getDrawable(context, R.drawable.vd_coll)
+        val user = ContextCompat.getDrawable(context, R.drawable.vd_talent)
 
         return listOf(
                 IconsPojo(library!!, "Dmitri13", "flaticon.com", "https://www.flaticon.com/free-icon/reload_813310"),
@@ -56,7 +60,10 @@ object Arrays {
                 IconsPojo(icons!!, "Icons8", "icons8.com", "https://icons8.com"),
                 IconsPojo(search!!, "Katarina Stefanikova", "flaticon.com", "https://www.flaticon.com/free-icon/search-magnifier-outline_59200"),
                 IconsPojo(random!!, "Freepik", "flaticon.com", "https://www.flaticon.com/free-icon/shuffle_456232"),
-                IconsPojo(paypal!!, "Pixel Perfect", "flaticon.com", "https://www.flaticon.com/free-icon/paypal_888920")
+                IconsPojo(paypal!!, "Pixel Perfect", "flaticon.com", "https://www.flaticon.com/free-icon/paypal_888920"),
+                IconsPojo(heart!!, "Pixel Buddha", "flaticon.com", "https://www.flaticon.com/free-icon/heart_214309"),
+                IconsPojo(col!!, "Freepik", "flaticon.com", "https://www.flaticon.com/free-icon/layout_747843"),
+                IconsPojo(user!!, "Freepik", "flaticon.com", "https://www.flaticon.com/free-icon/talent_1152844")
         )
     }
 
