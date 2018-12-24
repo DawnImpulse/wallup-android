@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
+import android.util.Log
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,8 @@ import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.UnsplashModel
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.gson.Gson
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
@@ -243,6 +246,9 @@ object F {
                 obj.put(C.TYPE, C.NETWORK)
                 obj.put(C.NETWORK, isConnected)
                 EventBus.getDefault().post(Event(obj))
+
+                if (isConnected && Config.UNSPLASH_API_KEY.isEmpty())
+                    setUpRemoteConfig()
             }
         }
     }
@@ -292,6 +298,34 @@ object F {
         launch {
             FileUtils.deleteQuietly(context.cacheDir)
         }
+    }
+
+    // setup remote config
+    fun setUpRemoteConfig() {
+        var cacheExpiration: Long = 3600 // 1 hour in seconds.
+        val mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+        val configSettings = FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build()
+
+        if (mFirebaseRemoteConfig.info.configSettings.isDeveloperModeEnabled) {
+            cacheExpiration = 0
+        }
+
+        Config.UNSPLASH_API_KEY = mFirebaseRemoteConfig.getString(C.UNSPLASH_API_KEY)
+        mFirebaseRemoteConfig.setConfigSettings(configSettings)
+        mFirebaseRemoteConfig.setDefaults(R.xml.remote_defaults)
+        mFirebaseRemoteConfig.fetch(cacheExpiration)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        mFirebaseRemoteConfig.activateFetched()
+                        Config.UNSPLASH_API_KEY = mFirebaseRemoteConfig.getString(C.UNSPLASH_API_KEY)
+                        Config.UNSPLASH_SECRET = mFirebaseRemoteConfig.getString(C.UNSPLASH_SECRET)
+                    } else
+                        Log.d("Test", "Fetch failed")
+                }
+
     }
 
     // sort labels
