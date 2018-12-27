@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.openActivity
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
@@ -46,10 +47,11 @@ class SplashActivity : AppCompatActivity() {
 
             if (Prefs.contains(C.VERSION_CODE)) {
                 when {
-                    Prefs.getInt(C.VERSION_CODE, 10) == BuildConfig.VERSION_CODE -> {
-                        startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+                    Prefs.getInt(C.VERSION_CODE, 10) == BuildConfig.VERSION_CODE ->
+                        this@SplashActivity.openActivity(MainActivity::class.java)
+                    else -> this@SplashActivity.openActivity(ChangesActivity::class.java) {
+                        putBoolean(C.TYPE, true)
                     }
-                    else -> startActivity(Intent(this@SplashActivity, ChangesActivity::class.java))
                 }
             } else
                 startActivity(Intent(this@SplashActivity, IntroActivity::class.java))

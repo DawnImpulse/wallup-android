@@ -42,9 +42,8 @@ class ChangesActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             changesFab.id -> {
-                intent.extras?.let {
+                if (intent.extras != null)
                     startActivity(Intent(this, MainActivity::class.java))
-                }
                 finish()
             }
         }
