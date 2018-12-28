@@ -12,6 +12,15 @@ import com.dawnimpulse.wallup.utils.*
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_settings.*
 
+/**
+ * @author Saksham
+ *
+ * @note Last Branch Update - recent
+ * @note Created on 2018-12 by Saksham
+ *
+ * @note Updates :
+ *  Saksham - 2018 12 28 - master - wallpaper quality
+ */
 class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private val NAME = "SettingsActivity"
     private var toast = true
@@ -29,6 +38,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
         settingDownloadFHD.setOnClickListener(this)
         settingDownloadUHD.setOnClickListener(this)
         settingDownloadOriginal.setOnClickListener(this)
+        settingWallpaperFHD.setOnClickListener(this)
+        settingWallpaperUHD.setOnClickListener(this)
         settingCacheL.setOnClickListener(this)
 
         settingPreviewListHQ.setOnLongClickListener(this)
@@ -40,10 +51,17 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
         settingDownloadFHD.setOnLongClickListener(this)
         settingDownloadUHD.setOnLongClickListener(this)
         settingDownloadOriginal.setOnLongClickListener(this)
+        settingWallpaperFHD.setOnLongClickListener(this)
+        settingWallpaperUHD.setOnLongClickListener(this)
 
         settingDownloadAsk.setOnCheckedChangeListener { _, isChecked ->
             Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, isChecked)
         }
+
+        settingWallpaperAsk.setOnCheckedChangeListener { _, isChecked ->
+            Prefs.putBoolean(C.IMAGE_WALLPAPER_ASK, isChecked)
+        }
+
         settingCrashlytics.setOnCheckedChangeListener { _, isChecked ->
             Prefs.putBoolean(C.CRASHLYTICS, isChecked)
         }
@@ -185,6 +203,26 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
                 settingDownloadOriginalT.background = drawable
                 settingDownloadOriginalT.setTextColor(black)
             }
+            settingWallpaperFHD.id -> {
+                Prefs.putString(C.IMAGE_WALLPAPER_QUALITY, C.FHD)
+                Config.IMAGE_WALLPAPER_QUALITY = C.FHD
+
+                settingWallpaperFHDT.background = drawable
+                settingWallpaperFHDT.setTextColor(black)
+
+                settingWallpaperUHDT.background = null
+                settingWallpaperUHDT.setTextColor(white)
+            }
+            settingWallpaperUHD.id -> {
+                Prefs.putString(C.IMAGE_WALLPAPER_QUALITY, C.UHD)
+                Config.IMAGE_WALLPAPER_QUALITY = C.UHD
+
+                settingWallpaperFHDT.background = null
+                settingWallpaperFHDT.setTextColor(white)
+
+                settingWallpaperUHDT.background = drawable
+                settingWallpaperUHDT.setTextColor(black)
+            }
             settingCacheL.id -> {
                 Dialog.simpleOk(this, "Clear Application Cache", "", DialogInterface.OnClickListener { _, _ ->
                     F.deleteCache(this)
@@ -208,6 +246,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
             settingDownloadFHD.id -> toast("Full HD (1080p)")
             settingDownloadUHD.id -> toast("Ultra HD (2160p)")
             settingDownloadOriginal.id -> toast("Original Image")
+            settingWallpaperFHD.id -> toast("Full HD (1080p)")
+            settingWallpaperUHD.id -> toast("Ultra HD (2160p)")
         }
         return true
     }
@@ -217,6 +257,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
         val list = Prefs.getString(C.IMAGE_LIST_QUALITY, Config.IMAGE_LIST_QUALITY)
         val preview = Prefs.getString(C.IMAGE_PREVIEW_QUALITY, Config.IMAGE_PREVIEW_QUALITY)
         val download = Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, Config.IMAGE_DOWNLOAD_QUALITY)
+        val wallpaper = Prefs.getString(C.IMAGE_WALLPAPER_QUALITY, Config.IMAGE_WALLPAPER_QUALITY)
 
         when (list) {
             C.HQ -> {
@@ -242,7 +283,13 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
             C.O -> settingDownloadOriginal.performClick()
         }
 
+        when(wallpaper){
+            C.FHD -> settingWallpaperFHD.performClick()
+            C.UHD -> settingWallpaperUHD.performClick()
+        }
+
         settingDownloadAsk.isChecked = Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true)
+        settingWallpaperAsk.isChecked = Prefs.getBoolean(C.IMAGE_WALLPAPER_ASK, true)
         settingCrashlytics.isChecked = Prefs.getBoolean(C.CRASHLYTICS, true)
         settingAnalytics.isChecked = Prefs.getBoolean(C.ANALYTICS, true)
     }

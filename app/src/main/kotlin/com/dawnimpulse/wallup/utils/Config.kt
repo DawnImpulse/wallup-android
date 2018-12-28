@@ -38,6 +38,7 @@ object Config {
     var IMAGE_LIST_QUALITY = C.HD
     var IMAGE_PREVIEW_QUALITY = C.HD
     var IMAGE_DOWNLOAD_QUALITY = C.O
+    var IMAGE_WALLPAPER_QUALITY = C.UHD
     var CONNECTED = true
 
     val DEFAULT_DOWNLOAD_PATH = "${Environment.getExternalStorageDirectory().path}/WallUp"

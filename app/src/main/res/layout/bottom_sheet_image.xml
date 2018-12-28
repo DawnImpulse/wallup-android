@@ -109,7 +109,7 @@
             android:layout_height="24dp"
             android:layout_gravity="center"
             android:layout_marginLeft="16dp"
-            app:srcCompat="@drawable/vd_camera_white" />
+            app:srcCompat="@drawable/vd_unsplash_white" />
 
         <TextView
             android:layout_width="wrap_content"

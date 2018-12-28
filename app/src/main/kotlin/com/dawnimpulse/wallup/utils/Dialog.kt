@@ -221,7 +221,7 @@ object Dialog {
     fun download(context: Context, id: String, url: String, isWallpaper: Boolean = false, callback: () -> Unit) {
         val factory = LayoutInflater.from(context)
         val view = factory.inflate(R.layout.dialog_download, null)
-        val shouldShow = Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true)
+        var shouldShow: Boolean
         alertDialog = AlertDialog.Builder(context, R.style.MyDialogTheme).create()
         alertDialog.setView(view)
 
@@ -234,9 +234,21 @@ object Dialog {
         val fhdL = view.downloadFHD as LinearLayout
         val ask = view.dialogAsk as CheckBox
         val askL = view.dialogAskL as LinearLayout
+        val dT = view.downloadText as TextView
+
+        shouldShow = if (isWallpaper) {
+            dT.text = "Image Quality for Wallpaper"
+            orL.gone()
+            Prefs.getBoolean(C.IMAGE_WALLPAPER_ASK, true)
+        } else
+            Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true)
+
 
         ask.setOnCheckedChangeListener { _, isChecked ->
-            Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, isChecked)
+            if (isWallpaper)
+                Prefs.putBoolean(C.IMAGE_WALLPAPER_ASK, isChecked)
+            else
+                Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, isChecked)
         }
 
         val drawable = ContextCompat.getDrawable(context, R.drawable.bt_round_complete_corners)
@@ -263,7 +275,10 @@ object Dialog {
                     fhd.setTextColor(white)
                 }
                 uhdL.id -> {
-                    Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.UHD)
+                    if (isWallpaper)
+                        Prefs.putString(C.IMAGE_WALLPAPER_QUALITY, C.UHD)
+                    else
+                        Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.UHD)
                     Config.IMAGE_DOWNLOAD_QUALITY = C.UHD
 
                     or.background = null
@@ -276,7 +291,10 @@ object Dialog {
                     fhd.setTextColor(white)
                 }
                 fhdL.id -> {
-                    Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.FHD)
+                    if (isWallpaper)
+                        Prefs.putString(C.IMAGE_WALLPAPER_QUALITY, C.FHD)
+                    else
+                        Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.FHD)
                     Config.IMAGE_DOWNLOAD_QUALITY = C.FHD
 
                     or.background = null
@@ -290,19 +308,16 @@ object Dialog {
                 }
                 askL.id -> {
                     val value = !ask.isChecked
-                    Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, value)
+                    if (isWallpaper)
+                        Prefs.putBoolean(C.IMAGE_WALLPAPER_ASK, value)
+                    else
+                        Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, value)
                     ask.isChecked = value
                     context.toast(Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true).toString())
                 }
             }
         }
 
-        /*if (!isWallpaper)
-            path.text = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
-        else {
-            path.text = Config.DEFAULT_DOWNLOAD_PATH
-            view.downloadChoose.gone()
-        }*/
         path.text = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
 
         orL.setOnClickListener(clickListener)
@@ -311,10 +326,17 @@ object Dialog {
         askL.setOnClickListener(clickListener)
         view.downloadChoose.setOnClickListener(clickListener)
 
-        when (Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, C.O)) {
-            C.FHD -> fhdL.performClick()
-            C.UHD -> uhdL.performClick()
-            C.O -> orL.performClick()
+        if (isWallpaper) {
+            when (Prefs.getString(C.IMAGE_WALLPAPER_QUALITY, C.FHD)) {
+                C.FHD -> fhdL.performClick()
+                C.UHD -> uhdL.performClick()
+            }
+        } else {
+            when (Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, C.O)) {
+                C.FHD -> fhdL.performClick()
+                C.UHD -> uhdL.performClick()
+                C.O -> orL.performClick()
+            }
         }
 
         fun startDownloadOrWallpaper() {
