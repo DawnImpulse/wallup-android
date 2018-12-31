@@ -66,7 +66,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="Collections"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/grey400" />
                 </LinearLayout>
             </FrameLayout>
 
@@ -101,7 +101,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="Settings"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/grey400" />
 
                 </LinearLayout>
             </FrameLayout>
@@ -134,7 +134,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="About"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/grey400" />
 
                 </LinearLayout>
             </FrameLayout>
@@ -176,7 +176,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="Feedback"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/grey400" />
                 </LinearLayout>
             </FrameLayout>
 

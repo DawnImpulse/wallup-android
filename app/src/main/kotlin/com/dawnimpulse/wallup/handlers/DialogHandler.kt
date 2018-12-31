@@ -233,7 +233,7 @@ object DialogHandler {
         val fhd = view.downloadFHDT as TextView
         val fhdL = view.downloadFHD as LinearLayout
         val ask = view.dialogAsk as CheckBox
-        val askL = view.dialogAskL as LinearLayout
+        val askL = view.dialogAskL as RelativeLayout
         val dT = view.downloadText as TextView
 
 
@@ -247,6 +247,7 @@ object DialogHandler {
         val drawable = ContextCompat.getDrawable(context, R.drawable.bt_round_complete_corners)
         val white = Colors(context).WHITE
         val black = Colors(context).BLACK
+        val buttonC = null
 
         val clickListener = View.OnClickListener {
             when (it.id) {
@@ -261,10 +262,10 @@ object DialogHandler {
                     or.background = drawable
                     or.setTextColor(black)
 
-                    uhd.background = null
+                    uhd.background = buttonC
                     uhd.setTextColor(white)
 
-                    fhd.background = null
+                    fhd.background = buttonC
                     fhd.setTextColor(white)
                 }
                 uhdL.id -> {
@@ -274,13 +275,13 @@ object DialogHandler {
                     Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.UHD)
                     Config.IMAGE_DOWNLOAD_QUALITY = C.UHD
 
-                    or.background = null
+                    or.background = buttonC
                     or.setTextColor(white)
 
                     uhd.background = drawable
                     uhd.setTextColor(black)
 
-                    fhd.background = null
+                    fhd.background = buttonC
                     fhd.setTextColor(white)
                 }
                 fhdL.id -> {
@@ -290,10 +291,10 @@ object DialogHandler {
                     Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.FHD)
                     Config.IMAGE_DOWNLOAD_QUALITY = C.FHD
 
-                    or.background = null
+                    or.background = buttonC
                     or.setTextColor(white)
 
-                    uhd.background = null
+                    uhd.background = buttonC
                     uhd.setTextColor(white)
 
                     fhd.background = drawable

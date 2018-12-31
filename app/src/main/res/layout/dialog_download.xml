@@ -11,26 +11,40 @@
   limitations under the License.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingBottom="32dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
+    <me.grantland.widget.AutofitTextView
         android:id="@+id/downloadText"
-        android:text="Image quality for Download/Wallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="Image Quality"
         android:textColor="@color/white"
+        android:textSize="16sp"
         android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/line_dashed_white"
+        android:layerType="software" />
 
     <!--quality-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="32dp">
 
         <!--FHD-->
         <LinearLayout
@@ -45,6 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@drawable/bt_round_complete_corners_transparent"
                 android:letterSpacing="0.1"
                 android:paddingLeft="16dp"
                 android:paddingTop="8dp"
@@ -69,6 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:background="@drawable/bt_round_complete_corners_transparent"
                 android:letterSpacing="0.1"
                 android:paddingLeft="16dp"
                 android:paddingTop="8dp"
@@ -92,15 +108,15 @@
                 android:id="@+id/downloadOT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bt_round_complete_corners"
                 android:layout_gravity="center"
+                android:background="@drawable/bt_round_complete_corners_transparent"
                 android:letterSpacing="0.1"
                 android:paddingLeft="16dp"
                 android:paddingTop="8dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="8dp"
                 android:text="ORIGINAL"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -111,26 +127,26 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="32dp">
 
         <me.grantland.widget.AutofitTextView
             android:id="@+id/downloadPath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:textColor="@color/white"
             android:layout_marginRight="16dp"
-            android:layout_toLeftOf="@id/downloadChoose" />
+            android:layout_toLeftOf="@id/downloadChoose"
+            android:textColor="@color/white" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/downloadPath"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="4dp"
             android:layout_marginRight="16dp"
             android:layout_toLeftOf="@id/downloadChoose"
-            android:background="@color/grey400" />
+            android:background="@color/colorAccent" />
 
         <FrameLayout
             android:id="@+id/downloadChoose"
@@ -152,17 +168,19 @@
         </FrameLayout>
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/dialogAskL"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="right">
+        android:layout_gravity="right"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:text="Always Ask"
             android:textColor="@color/white" />
 
@@ -170,8 +188,8 @@
             android:id="@+id/dialogAsk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
+            android:layout_alignParentRight="true"
             android:checked="true"
             android:theme="@style/MyCheckBox" />
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

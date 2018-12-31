@@ -42,8 +42,6 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
         settingDownloadFHD.setOnClickListener(this)
         settingDownloadUHD.setOnClickListener(this)
         settingDownloadOriginal.setOnClickListener(this)
-        /*settingWallpaperFHD.setOnClickListener(this)
-        settingWallpaperUHD.setOnClickListener(this)*/
         settingCacheL.setOnClickListener(this)
 
         settingPreviewListHQ.setOnLongClickListener(this)
@@ -55,8 +53,6 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
         settingDownloadFHD.setOnLongClickListener(this)
         settingDownloadUHD.setOnLongClickListener(this)
         settingDownloadOriginal.setOnLongClickListener(this)
-        /*settingWallpaperFHD.setOnLongClickListener(this)
-        settingWallpaperUHD.setOnLongClickListener(this)*/
 
         settingDownloadAsk.setOnCheckedChangeListener { _, isChecked ->
             Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, isChecked)
@@ -287,10 +283,10 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
             C.O -> settingDownloadOriginal.performClick()
         }
 
-        when(wallpaper){
-            /*C.FHD -> settingWallpaperFHD.performClick()
-            C.UHD -> settingWallpaperUHD.performClick()*/
-        }
+        /*when(wallpaper){
+            C.FHD -> settingWallpaperFHD.performClick()
+            C.UHD -> settingWallpaperUHD.performClick()
+        }*/
 
         settingDownloadAsk.isChecked = Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true)
         //settingWallpaperAsk.isChecked = Prefs.getBoolean(C.IMAGE_WALLPAPER_ASK, true)
