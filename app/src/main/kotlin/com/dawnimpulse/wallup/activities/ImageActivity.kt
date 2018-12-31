@@ -72,6 +72,7 @@ import org.json.JSONObject
  *  Saksham - 2018 12 09 - master - Image stats
  *  Saksham - 2018 12 17 - master - Download wallpaper handling
  *  Saksham - 2018 12 21 - master - Help screen
+ *  Saksham - 2018 12 31 - master - Image size to be total height minus author layout
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private val NAME = "ImageActivity"
@@ -100,7 +101,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
 
         color = Colors(this).WHITE
         val point = F.displayDimensions(this)
-        imageL.layoutParams = RelativeLayout.LayoutParams(point.x, (point.y * 0.8).toInt())
+        imageL.layoutParams = RelativeLayout.LayoutParams(point.x, (point.y - F.dpToPx(120, this)))
 
         model = UnsplashModel(lifecycle)
         exifSheet = ModalSheetExif()
