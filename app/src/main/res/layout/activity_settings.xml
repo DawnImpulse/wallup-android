@@ -350,9 +350,17 @@
 
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/white" />
+
             <!--Wallpaper Quality-->
 
-            <RelativeLayout
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -393,7 +401,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
 
-                <!--FHD-->
+                &lt;!&ndash;FHD&ndash;&gt;
                 <LinearLayout
                     android:id="@+id/settingWallpaperFHD"
                     android:layout_width="wrap_content"
@@ -417,7 +425,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <!--2K-->
+                &lt;!&ndash;2K&ndash;&gt;
                 <LinearLayout
                     android:id="@+id/settingWallpaperUHD"
                     android:layout_width="wrap_content"
@@ -441,7 +449,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-            </LinearLayout>
+            </LinearLayout>-->
 
             <!--Crashlytics-->
             <RelativeLayout

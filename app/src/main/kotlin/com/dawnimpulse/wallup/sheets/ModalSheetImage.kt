@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.activities.CropActivity
+import com.dawnimpulse.wallup.handlers.DialogHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.*
@@ -81,7 +82,7 @@ class ModalSheetImage : RoundedBottomSheetDialogFragment(), View.OnClickListener
         super.onResume()
 
         if (dialogOpen)
-            Dialog.download(context!!, details!!.id, details!!.urls!!.full, isWallpaper) {
+            DialogHandler.download(context!!, details!!.id, details!!.urls!!.full, isWallpaper) {
                 model.downloadedPhoto(details!!.links!!.download_location)
             }
     }
@@ -103,7 +104,7 @@ class ModalSheetImage : RoundedBottomSheetDialogFragment(), View.OnClickListener
                     if (no != null)
                         toast(context!!, "Kindly provide external storage permission in Settings")
                     else
-                        Dialog.download(context!!, details!!.id, details!!.urls!!.raw) {
+                        DialogHandler.download(context!!, details!!.id, details!!.urls!!.raw) {
                             model.downloadedPhoto(details!!.links!!.download_location)
                         }
                 }
@@ -130,7 +131,7 @@ class ModalSheetImage : RoundedBottomSheetDialogFragment(), View.OnClickListener
                     if (no != null)
                         Toast.short(context!!, "Kindly provide external storage permission in Settings")
                     else
-                        Dialog.download(context!!, details!!.id, details!!.urls!!.raw, true) {
+                        DialogHandler.download(context!!, details!!.id, details!!.urls!!.raw, true) {
                             model.downloadedPhoto(details!!.links!!.download_location)
                         }
 

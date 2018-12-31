@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.activities.CollectionActivity
+import com.dawnimpulse.wallup.handlers.DialogHandler
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.models.UnsplashModel
@@ -168,7 +169,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
                 }
             }
             holder.image.setOnLongClickListener {
-                Dialog.simpleOk(context, "Delete", "Wish to delete following collection ?", DialogInterface.OnClickListener { dialog, _ ->
+                DialogHandler.simpleOk(context, "Delete", "Wish to delete following collection ?", DialogInterface.OnClickListener { dialog, _ ->
                     EventBus.getDefault().post(Event(jsonOf(
                             Pair(C.TYPE, C.DELETE_COLLECTION),
                             Pair(C.POSITION, pos),
@@ -184,7 +185,7 @@ class ImageCollectionAdapter(private val lifecycle: Lifecycle,
                 holder.text.text = "Add to New Collection"
             }
             holder.layout.setOnClickListener {
-                Dialog.newCollection(context, lifecycle, image)
+                DialogHandler.newCollection(context, lifecycle, image)
             }
         }
     }

@@ -16,6 +16,7 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Point
+import android.net.Uri
 import android.view.Display
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -29,12 +30,15 @@ import kotlinx.coroutines.experimental.launch
  * @note Created on 2018-08-03 by Saksham
  *
  * @note Updates :
+ *  Saksham - 2018 31 12 - master - crop & set wallpaper
  */
 object WallpaperHandler {
 
     // set wallpaper with bitmap
-    fun setHomescreenWallpaper(context: Context, bitmap: Bitmap) {
-        val bitmap2 = bitmapCropper(bitmap, context)!!
+    fun setHomescreenWallpaper(context: Context, bitmap: Bitmap, shouldCrop: Boolean = true) {
+        var bitmap2 = bitmap
+        if (shouldCrop)
+            bitmap2 = bitmapCropper(bitmap, context)!!
 
         launch {
             val wallpaperManager = WallpaperManager.getInstance(context)
@@ -44,6 +48,11 @@ object WallpaperHandler {
                 context.toast("Wallpaper Applied")
             }
         }
+    }
+
+    fun cropAndSetWallpaper(context: Context, uri: Uri) {
+        val wallpaperManager = WallpaperManager.getInstance(context)
+        context.startActivity(wallpaperManager.getCropAndSetWallpaperIntent(uri))
     }
 
     /**

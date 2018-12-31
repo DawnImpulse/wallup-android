@@ -22,7 +22,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
         android:id="@+id/downloadText"
-        android:text="Image Quality to Download"
+        android:text="Image quality for Download/Wallpaper"
         android:textColor="@color/white"
         android:textStyle="bold" />
 

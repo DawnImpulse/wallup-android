@@ -45,6 +45,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="24dp"
             android:text="Download Image"
+            android:textStyle="bold"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -53,7 +54,7 @@
         android:id="@+id/sheetImageWall"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="?selectableItemBackground">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -69,6 +70,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="24dp"
             android:text="Set as Wallpaper"
+            android:textStyle="bold"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -77,7 +79,7 @@
         android:id="@+id/sheetImageCol"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="?selectableItemBackground">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -93,6 +95,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="24dp"
             android:text="Add to Collection"
+            android:textStyle="bold"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -101,7 +104,7 @@
         android:id="@+id/sheetImageUnsplash"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="?selectableItemBackground">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -116,6 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="24dp"
+            android:textStyle="bold"
             android:text="View on Unsplash"
             android:textColor="@color/white" />
     </LinearLayout>

@@ -43,13 +43,15 @@ class IconsAdapter(val list: List<IconsPojo>) : RecyclerView.Adapter<IconsAdapte
         holder.website.text = icon.website
         holder.icon.setImageDrawable(icon.icon)
         holder.layout.setOnClickListener {
-            F.startWeb(context,icon.link)
+            F.startWeb(context, icon.link)
         }
         holder.material.setOnClickListener {
-            F.startWeb(context,"https://materialdesignicons.com")
+            F.startWeb(context, "https://materialdesignicons.com")
         }
-
-        if(position == 0)
+        holder.google.setOnClickListener {
+            F.startWeb(context, "https://material.io/tools/icons/")
+        }
+        if (position == 0)
             holder.heading.show()
         else
             holder.heading.gone()
@@ -63,6 +65,7 @@ class IconsAdapter(val list: List<IconsPojo>) : RecyclerView.Adapter<IconsAdapte
         val author = view.iconAuthor
         val website = view.iconWebsite
         val material = view.iconsMaterial
+        val google = view.iconsGoogle
     }
 
 }

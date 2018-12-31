@@ -32,6 +32,7 @@ import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.ColorHandler
 import com.dawnimpulse.wallup.handlers.DateHandler
+import com.dawnimpulse.wallup.handlers.DialogHandler
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
@@ -166,7 +167,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
     override fun onResume() {
         super.onResume()
         if (dialogOpen) {
-            Dialog.download(this, details!!.id, details!!.urls!!.full, isWallpaper) {
+            DialogHandler.download(this, details!!.id, details!!.urls!!.full, isWallpaper) {
                 model.downloadedPhoto(details!!.links!!.download_location)
             }
         }
@@ -200,7 +201,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                                 imagePreviewProgress.visibility = View.GONE
                             }
                         }*/
-                        Dialog.download(this, details!!.id, details!!.urls!!.raw, true) {
+                        DialogHandler.download(this, details!!.id, details!!.urls!!.raw, true) {
                             model.downloadedPhoto(details!!.links!!.download_location)
                         }
                     }
@@ -208,13 +209,13 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
             }
             imagePreviewDownload.id -> {
                 isWallpaper = false
-                /*Dialog.download(this)*/
+                /*DialogHandler.download(this)*/
 
                 Permissions.askWriteExternalStoragePermission(this) { no, _ ->
                     if (no != null)
                         Toast.short(this@ImageActivity, "Kindly provide external storage permission in Settings")
                     else {
-                        Dialog.download(this, details!!.id, details!!.urls!!.raw, false) {
+                        DialogHandler.download(this, details!!.id, details!!.urls!!.raw, false) {
                             model.downloadedPhoto(details!!.links!!.download_location)
                         }
                     }

@@ -74,6 +74,11 @@ fun String.toFileUri(): Uri {
     return Uri.fromFile(File(this))
 }
 
+// file path string to content uri
+fun String.toContentUri(context: Context): Uri {
+    return this.toFileUri().toContentUri(context)
+}
+
 // tree uri path to file uri path
 fun String.toFileString(): String {
     if (this.contains(":")) {
@@ -101,7 +106,7 @@ fun Uri.toContentUri(context: Context): Uri {
 
 //get display ratio a/b
 fun Context.displayRatio(): Pair<Int, Int> {
-    fun gcd(p: Int, q: Int): Int {
+    /*fun gcd(p: Int, q: Int): Int {
         return if (q == 0) p;
         else gcd(q, p % q);
     }
@@ -117,7 +122,23 @@ fun Context.displayRatio(): Pair<Int, Int> {
     return if (x > y)
         Pair(a, b)
     else
-        Pair(b, a)
+        Pair(b, a)*/
+
+    fun calculateHcf(width1: Int, height1: Int): Int {
+        var width = width1
+        var height = height1
+        while (height != 0) {
+            val t = height
+            height = width % height
+            width = t
+        }
+        return width
+    }
+
+    val point = F.displayDimensions(this)
+    val hcf = calculateHcf(point.x, point.y)
+
+    return Pair(point.y / hcf, point.x / hcf)
 }
 
 //covert to file type
@@ -157,7 +178,7 @@ fun showTarget(context: AppCompatActivity, view: View, title: String, descriptio
             object : TapTargetView.Listener() {
                 override fun onOuterCircleClick(view: TapTargetView?) {
                     super.onOuterCircleClick(view)
-                    if (!called){
+                    if (!called) {
                         callback()
                         called = true
                         onTargetCancel(view)
@@ -166,7 +187,7 @@ fun showTarget(context: AppCompatActivity, view: View, title: String, descriptio
 
                 override fun onTargetClick(view: TapTargetView?) {
                     super.onTargetClick(view)
-                    if (!called){
+                    if (!called) {
                         callback()
                         called = true
                     }
@@ -174,7 +195,7 @@ fun showTarget(context: AppCompatActivity, view: View, title: String, descriptio
 
                 override fun onTargetDismissed(view: TapTargetView?, userInitiated: Boolean) {
                     super.onTargetDismissed(view, userInitiated)
-                    if (!called){
+                    if (!called) {
                         callback()
                         called = true
                     }
@@ -182,7 +203,7 @@ fun showTarget(context: AppCompatActivity, view: View, title: String, descriptio
 
                 override fun onTargetCancel(view: TapTargetView?) {
                     super.onTargetCancel(view)
-                    if (!called){
+                    if (!called) {
                         callback()
                         called = true
                     }

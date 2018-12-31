@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.activities.GeneralImagesActivity
+import com.dawnimpulse.wallup.handlers.DialogHandler
 import com.dawnimpulse.wallup.handlers.ImageHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.UserPojo
@@ -76,7 +77,7 @@ class ModalSheetUser : RoundedBottomSheetDialogFragment(), View.OnClickListener 
     override fun onClick(v: View) {
         when (v.id) {
             userLogout.id -> {
-                Dialog.simpleOk(context!!,
+                DialogHandler.simpleOk(context!!,
                         "User Profile Logout",
                         "Wish to logout from your profile ?",
                         DialogInterface.OnClickListener { dialog, _ ->

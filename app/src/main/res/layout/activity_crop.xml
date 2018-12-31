@@ -61,11 +61,6 @@
             </FrameLayout>
         </LinearLayout>
 
-        <com.theartofdev.edmodo.cropper.CropImageView
-            android:id="@+id/cropImageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/cropButtons" />
     </RelativeLayout>
 
     <ProgressBar

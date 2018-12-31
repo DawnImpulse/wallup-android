@@ -10,7 +10,7 @@ THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH RE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
 INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
-OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.utils
+OR PERFORMANCE OF THIS SOFTWARE.*/package com.dawnimpulse.wallup.handlers
 
 import android.app.DownloadManager
 import android.content.Context
@@ -29,10 +29,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.toast
 import androidx.lifecycle.Lifecycle
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.handlers.DownloadHandler
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.NewCollections
+import com.dawnimpulse.wallup.utils.*
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.pixplicity.easyprefs.library.Prefs
@@ -56,8 +56,8 @@ import org.json.JSONObject
  *  Saksham - 2018 12 16 - master - progress dialog
  *  Saksham - 2018 12 20 - master - callback for download ok
  */
-object Dialog {
-    private val NAME = "Dialog"
+object DialogHandler {
+    private val NAME = "DialogHandler"
     private lateinit var alertDialog: AlertDialog
 
     // simple ok dialog
@@ -221,7 +221,7 @@ object Dialog {
     fun download(context: Context, id: String, url: String, isWallpaper: Boolean = false, callback: () -> Unit) {
         val factory = LayoutInflater.from(context)
         val view = factory.inflate(R.layout.dialog_download, null)
-        var shouldShow: Boolean
+        var shouldShow: Boolean = Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true)
         alertDialog = AlertDialog.Builder(context, R.style.MyDialogTheme).create()
         alertDialog.setView(view)
 
@@ -236,19 +236,12 @@ object Dialog {
         val askL = view.dialogAskL as LinearLayout
         val dT = view.downloadText as TextView
 
-        shouldShow = if (isWallpaper) {
-            dT.text = "Image Quality for Wallpaper"
-            orL.gone()
-            Prefs.getBoolean(C.IMAGE_WALLPAPER_ASK, true)
-        } else
-            Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true)
-
 
         ask.setOnCheckedChangeListener { _, isChecked ->
-            if (isWallpaper)
+            /*if (isWallpaper)
                 Prefs.putBoolean(C.IMAGE_WALLPAPER_ASK, isChecked)
-            else
-                Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, isChecked)
+            else*/
+            Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, isChecked)
         }
 
         val drawable = ContextCompat.getDrawable(context, R.drawable.bt_round_complete_corners)
@@ -275,10 +268,10 @@ object Dialog {
                     fhd.setTextColor(white)
                 }
                 uhdL.id -> {
-                    if (isWallpaper)
+                    /*if (isWallpaper)
                         Prefs.putString(C.IMAGE_WALLPAPER_QUALITY, C.UHD)
-                    else
-                        Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.UHD)
+                    else*/
+                    Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.UHD)
                     Config.IMAGE_DOWNLOAD_QUALITY = C.UHD
 
                     or.background = null
@@ -291,10 +284,10 @@ object Dialog {
                     fhd.setTextColor(white)
                 }
                 fhdL.id -> {
-                    if (isWallpaper)
+                    /*if (isWallpaper)
                         Prefs.putString(C.IMAGE_WALLPAPER_QUALITY, C.FHD)
-                    else
-                        Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.FHD)
+                    else*/
+                    Prefs.putString(C.IMAGE_DOWNLOAD_QUALITY, C.FHD)
                     Config.IMAGE_DOWNLOAD_QUALITY = C.FHD
 
                     or.background = null
@@ -308,10 +301,10 @@ object Dialog {
                 }
                 askL.id -> {
                     val value = !ask.isChecked
-                    if (isWallpaper)
+                    /*if (isWallpaper)
                         Prefs.putBoolean(C.IMAGE_WALLPAPER_ASK, value)
-                    else
-                        Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, value)
+                    else*/
+                    Prefs.putBoolean(C.IMAGE_DOWNLOAD_ASK, value)
                     ask.isChecked = value
                     context.toast(Prefs.getBoolean(C.IMAGE_DOWNLOAD_ASK, true).toString())
                 }
@@ -326,18 +319,18 @@ object Dialog {
         askL.setOnClickListener(clickListener)
         view.downloadChoose.setOnClickListener(clickListener)
 
-        if (isWallpaper) {
+        /*if (isWallpaper) {
             when (Prefs.getString(C.IMAGE_WALLPAPER_QUALITY, C.FHD)) {
                 C.FHD -> fhdL.performClick()
                 C.UHD -> uhdL.performClick()
             }
-        } else {
-            when (Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, C.O)) {
-                C.FHD -> fhdL.performClick()
-                C.UHD -> uhdL.performClick()
-                C.O -> orL.performClick()
-            }
+        } else {*/
+        when (Prefs.getString(C.IMAGE_DOWNLOAD_QUALITY, C.O)) {
+            C.FHD -> fhdL.performClick()
+            C.UHD -> uhdL.performClick()
+            C.O -> orL.performClick()
         }
+
 
         fun startDownloadOrWallpaper() {
             if (isWallpaper) {

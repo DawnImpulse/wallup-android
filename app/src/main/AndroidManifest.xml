@@ -178,7 +178,7 @@
 
         <!-- Folder pick -->
         <activity
-            android:name=".utils.Dialog$FolderPicker"
+            android:name=".handlers.DialogHandler$FolderPicker"
             android:theme="@style/AppTheme.NoActionBar.Trans" />
 
         <!-- Download Receiver -->

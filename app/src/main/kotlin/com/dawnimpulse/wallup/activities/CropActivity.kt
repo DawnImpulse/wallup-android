@@ -15,16 +15,15 @@ package com.dawnimpulse.wallup.activities
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.handlers.DialogHandler
 import com.dawnimpulse.wallup.handlers.WallpaperHandler
 import com.dawnimpulse.wallup.utils.*
 import com.pixplicity.easyprefs.library.Prefs
-import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_crop.*
 import kotlinx.coroutines.experimental.launch
 import org.apache.commons.io.FileUtils
@@ -55,11 +54,11 @@ class CropActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_crop)
 
         displayDimen = displayRatio()
-        L.d(NAME,"${displayDimen.first} : ${displayDimen.second}")
-        cropImageView.setAspectRatio(displayDimen.second, displayDimen.first)
+        L.d(NAME, "${displayDimen.first} : ${displayDimen.second}")
+        /*cropImageView.setAspectRatio(displayDimen.second, displayDimen.first)
         cropImageView.setFixedAspectRatio(true)
         cropImageView.scaleType = CropImageView.ScaleType.CENTER_INSIDE
-        cropImageView.isAutoZoomEnabled = false
+        cropImageView.isAutoZoomEnabled = false*/
 
         cropDefault.setOnClickListener(this)
         cropSelected.setOnClickListener(this)
@@ -68,7 +67,7 @@ class CropActivity : AppCompatActivity(), View.OnClickListener {
         id = intent.getStringExtra(C.ID)
         path = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
         if (!FileUtils.directoryContains(path.toFile(), "$path/$id.jpg".toFile())) {
-            Dialog.downloadProgress(this, path, url, id) {
+            DialogHandler.downloadProgress(this, path, url, id) {
                 if (it) {
                     getImage()
                 } else {
@@ -99,7 +98,7 @@ class CropActivity : AppCompatActivity(), View.OnClickListener {
         toast("Applying Wallpaper")
         when (v.id) {
             cropDefault.id -> WallpaperHandler.setHomescreenWallpaper(this, image)
-            cropSelected.id -> WallpaperHandler.setHomescreenWallpaper(this, cropImageView.croppedImage)
+            //cropSelected.id -> WallpaperHandler.setHomescreenWallpaper(this, cropImageView.croppedImage, false)
         }
         finish()
     }
@@ -118,18 +117,21 @@ class CropActivity : AppCompatActivity(), View.OnClickListener {
     //get image from storage
     private fun getImage() {
         launch {
-            val bmOptions = BitmapFactory.Options()
-            val bitmap = BitmapFactory.decodeFile("$path/$id.jpg", bmOptions)
+            //val bmOptions = BitmapFactory.Options()
+            //val bitmap = BitmapFactory.decodeFile("$path/$id.jpg", bmOptions)
             runOnUiThread {
-                cropLayout.show()
+                /*cropLayout.show()
                 cropProgress.gone()
                 cropImageView.setImageBitmap(bitmap)
-                image = bitmap
-            }
+                image = bitmap*/
+                val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+                intent.data = "$path/$id.jpg".toFileUri()
+                sendBroadcast(intent)
 
-            val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
-            intent.data = "$path/$id.jpg".toFileUri()
-            sendBroadcast(intent)
+                val context = this@CropActivity
+                WallpaperHandler.cropAndSetWallpaper(context, "$path/$id.jpg".toContentUri(context))
+                context.finish()
+            }
         }
     }
 }

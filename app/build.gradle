@@ -58,7 +58,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0' //gson
     implementation 'com.makeramen:roundedimageview:2.3.0' //rounding images
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0' //default font
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0' //cropping image
+    //implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0' //cropping image
     implementation 'com.github.chrisbanes:PhotoView:2.0.0' //image tap & zoom
     implementation 'com.dawnimpulse:permissions:0.9.1' //permission manager
     implementation 'com.pixplicity.easyprefs:library:1.9.0' //preferences manager

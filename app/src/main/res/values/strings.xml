@@ -50,7 +50,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="changes9_3"><b>Bug Fixes: </b>Various crash handling throughout the app.</string>
 
     <string name="changes10_1">Overall design improvements.</string>
-    <string name="changes10_2">Create / Delete custom collection from both profile &amp; image screen.</string>
+    <string name="changes10_2">Create/delete custom collection from both profile &amp; image screen.</string>
     <string name="changes10_3">Pick image quality &amp; location while downloading image.</string>
     <string name="changes10_4">Custom crop &amp; apply wallpaper.</string>
     <string name="changes10_5">Option to change common setting like image quality, cache clear etc.</string>
@@ -84,6 +84,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="intro_setting_1">This project is Open Source &amp; completely free to use. We only collect crash data &amp; some analytics. There will be no personal data collected at all. </string>
     <string name="intro_setting_2">Don\'t want to share crash data or analytics ?\nChange image quality ?\n\nVisit Settings Page to make changes as you like.</string>
 
-    <string name="iconsLicense">Most of the icons in this application are provided by Material Design Icons. Visit to see more from this brilliant community.</string>
+    <string name="iconsLicense">Most of the icons in this application are provided by Material Design Icons &amp; Google Icons. Visit to see more from these brilliant communities.</string>
 
 </resources>

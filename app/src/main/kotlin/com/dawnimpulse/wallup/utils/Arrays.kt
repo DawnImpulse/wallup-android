@@ -22,7 +22,7 @@ object Arrays {
             LibraryPojo("Retrofit", "Type-safe HTTP client for Android and Java by Square, Inc.", "https://github.com/square/retrofit"),
             LibraryPojo("RoundedImageView", "A fast ImageView that supports rounded corners, ovals, and circles.", "https://github.com/vinc3m1/RoundedImageView"),
             LibraryPojo("Calligraphy", "Custom fonts in Android the easy way...", "https://github.com/chrisjenx/Calligraphy"),
-            LibraryPojo("AndroidImageCropper", "Image Cropping Library for Android, optimized for Camera / Gallery.", "https://github.com/ArthurHub/Android-Image-Cropper"),
+            /*LibraryPojo("AndroidImageCropper", "Image Cropping Library for Android, optimized for Camera / Gallery.", "https://github.com/ArthurHub/Android-Image-Cropper"),*/
             LibraryPojo("PhotoView", "Implementation of ImageView for Android that supports zooming, by various touch gestures.", "https://github.com/chrisbanes/PhotoView"),
             LibraryPojo("Permissions", "Simple permission handling in Android.", "https://github.com/DawnImpulse/permissions-android"),
             LibraryPojo("EasyPrefs", "A small library containing a wrapper/helper for the Shared Preferences of android.", "https://github.com/Pixplicity/EasyPrefs"),
