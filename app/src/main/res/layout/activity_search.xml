@@ -87,15 +87,22 @@
             android:visibility="gone" />
 
         <!--progress-->
-        <ProgressBar
+        <FrameLayout
             android:id="@+id/searchProgress"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="128dp"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:visibility="gone"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:indeterminate="true"
-            android:visibility="gone" />
+            android:background="@drawable/bg_circle_outline_accent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/searchProgressI"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_refresh_white" />
+        </FrameLayout>
     </RelativeLayout>
 
     <!--powered by-->
@@ -138,8 +145,8 @@
     <!--fab-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/searchFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:visibility="gone"

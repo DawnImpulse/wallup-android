@@ -229,12 +229,16 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
 
     // current nav item selected
     private fun currentNavItem(pos: Int) {
+        val white = Colors(this).WHITE
+        val accent = Colors(this).ACCENT
         when (pos) {
             0 -> {
                 lastItemSelected = 0
                 mainViewPager.currentItem = 0
                 mainNavLatestI.setImageDrawable(Drawables(this).latest)
                 mainNavRandomI.setImageDrawable(Drawables(this).shuffle1)
+                mainNavLatestT.setTextColor(accent)
+                mainNavRandomT.setTextColor(white)
                 /*mainNavLatestT.typeface = Typeface.DEFAULT_BOLD
                 mainNavRandomT.typeface = Typeface.DEFAULT
                 mainNavLatestT.textSize = 14f
@@ -245,6 +249,8 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                 mainViewPager.currentItem = 1
                 mainNavLatestI.setImageDrawable(Drawables(this).latest_outline)
                 mainNavRandomI.setImageDrawable(Drawables(this).shuffle2)
+                mainNavLatestT.setTextColor(white)
+                mainNavRandomT.setTextColor(accent)
                 /*mainNavLatestT.typeface = Typeface.DEFAULT
                 mainNavRandomT.typeface = Typeface.DEFAULT_BOLD
                 mainNavLatestT.textSize = 12f

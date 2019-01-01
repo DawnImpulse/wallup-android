@@ -80,7 +80,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="v1.0.0 ( 28th Dec '18 )"
+                        android:text="v1.0.0 ( 1st Jan '19 )"
                         android:textColor="@color/latestDark"
                         android:textSize="16sp"
                         android:textStyle="bold" />

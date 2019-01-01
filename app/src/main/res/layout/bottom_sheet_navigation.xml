@@ -200,7 +200,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_update" />
+                        app:srcCompat="@drawable/vd_update_white" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -209,7 +209,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:text="Update"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/grey400" />
 
                 </LinearLayout>
             </FrameLayout>
@@ -259,8 +259,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_margin="8dp"
             android:gravity="center"
             android:maxLines="1"
-            android:text="* next update in 4 days"
-            android:textColor="@color/latestDark"
+            android:text=""
+            android:textColor="@color/colorAccent"
             android:visibility="gone" />
 
     </LinearLayout>

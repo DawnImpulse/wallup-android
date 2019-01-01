@@ -5,19 +5,24 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.adapters.RandomAdapter
+import com.dawnimpulse.wallup.adapters.MainAdapter
 import com.dawnimpulse.wallup.models.UnsplashModel
+import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Colors
 import com.dawnimpulse.wallup.utils.Event
 import com.dawnimpulse.wallup.utils.L
+import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.launch
@@ -33,6 +38,7 @@ import org.greenrobot.eventbus.ThreadMode
  *
  * @note Updates :
  * Saksham - 2018 11 28 - master - Connection handling
+ * Saksham - 2019 01 01 - master - changing random to general adapter
  */
 @SuppressLint("RestrictedApi")
 class SearchActivity : AppCompatActivity(), View.OnClickListener {
@@ -40,7 +46,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     private var close = true // will be false if text is present i.e. clear it
     private var text: String? = null
     private lateinit var model: UnsplashModel
-    private lateinit var adapter: RandomAdapter
+    private lateinit var adapter: MainAdapter
     private lateinit var images: MutableList<ImagePojo?>
 
     // on create
@@ -85,6 +91,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
             }
 
         })
+        searchProgressI.animation = AnimationUtils.loadAnimation(this, R.anim.rotation_progress)
     }
 
     // on start
@@ -145,6 +152,63 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                     }
                 }
             }
+            if (event.obj.getString(C.TYPE) == C.LIKE) {
+                // get id of the image
+                val id = event.obj.getString(C.ID)
+                // get position array for the image
+                var position = images.asSequence().withIndex().filter { it.value!!.id == id }.map { it.index }.toList()
+                // if position found
+                if (position.isNotEmpty()) {
+                    // change like state in images array
+                    for (pos in position) {
+                        L.d(NAME, pos)
+                        images[pos]!!.liked_by_user = event.obj.getBoolean(C.LIKE)
+                        adapter.notifyItemChanged(pos)
+                    }
+                }
+            }
+            if (event.obj.getString(C.TYPE) == C.IMAGE_TO_COLLECTION) {
+                // if image is added to a collection
+                if (event.obj.getBoolean(C.IS_ADDED)) {
+                    var col = Gson().fromJson(event.obj.getString(C.COLLECTION), CollectionPojo::class.java)
+                    var list = images
+                            .asSequence()
+                            .withIndex()
+                            .filter { it.value!!.id == event.obj.getString(C.IMAGE) }
+                            .map { it.index }
+                            .toList()
+
+                    if (list.isNotEmpty()) {
+                        for (l in list) {
+                            if (images[l]!!.current_user_collections == null)
+                                images[l]!!.current_user_collections = arrayListOf()
+                            images[l]!!.current_user_collections!!.add(col)
+                            adapter.notifyItemChanged(l)
+                        }
+                    }
+                } else {
+                    //if image is removed from collection
+                    var list = images
+                            .asSequence()
+                            .withIndex()
+                            .filter { it.value!!.id == event.obj.getString(C.IMAGE) }
+                            .map { it.index }
+                            .toList()
+
+                    if (list.isNotEmpty()) {
+                        for (l in list) {
+                            var cid = images[l]!!.current_user_collections!!
+                                    .asSequence()
+                                    .withIndex()
+                                    .filter { it.value.id == event.obj.getString(C.COLLECTION_ID) }
+                                    .map { it.index }
+                                    .toList()
+                            images[l]!!.current_user_collections!!.removeAt(cid[0])
+                            adapter.notifyItemChanged(l)
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -182,8 +246,11 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                 searchIl.visibility = View.VISIBLE
             }
             r?.let {
+                images = (r as List<ImagePojo?>).toMutableList()
+                adapter = MainAdapter(lifecycle, images, searchRecycler)
                 searchRecycler.layoutManager = LinearLayoutManager(this@SearchActivity)
-                searchRecycler.adapter = RandomAdapter(lifecycle, r as List<ImagePojo?>)
+                searchRecycler.adapter = adapter
+                (searchRecycler.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
                 searchRecycler.visibility = View.VISIBLE
                 searchFab.visibility = View.VISIBLE
                 searchProgress.visibility = View.GONE

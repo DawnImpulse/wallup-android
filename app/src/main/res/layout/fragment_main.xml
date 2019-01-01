@@ -68,6 +68,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:id="@+id/mainRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
                 android:clipToPadding="false"
                 android:paddingTop="56dp"
                 android:visibility="visible" />
