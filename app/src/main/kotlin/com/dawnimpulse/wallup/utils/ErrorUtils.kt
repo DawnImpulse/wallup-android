@@ -21,10 +21,11 @@ import java.io.IOException
 /**
  * @author Saksham
  *
- * @note Last Branch Update - master
+ * @note Last Branch Update - hotfixes
  * @note Created on 2018-10-02 by Saksham
  *
  * @note Updates :
+ * Saksham - 2019 01 05 - hotfixes - general exception for unsplash auth error
  */
 object ErrorUtils {
 
@@ -49,7 +50,7 @@ object ErrorUtils {
 
         try {
             error = converter.convert(response.errorBody())
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             return UnsplashAuthError()
         }
 

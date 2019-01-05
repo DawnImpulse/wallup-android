@@ -9,6 +9,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.widget.toast
 import androidx.fragment.app.FragmentManager
@@ -76,21 +77,22 @@ fun String.toFileUri(): Uri {
 
 // file path string to content uri
 fun String.toContentUri(context: Context): Uri {
-    return this.toFileUri().toContentUri(context)
+    return FileProvider.getUriForFile(context,"com.dawnimpulse.wallup",toFile())
+    //return this.toFileUri().toContentUri(context)
 }
 
 // tree uri path to file uri path
 fun String.toFileString(): String {
-    if (this.contains(":")) {
+    return if (this.contains(":")) {
         var substring = split(":")
         var tree = substring[0]
 
-        return if (tree.contains("primary"))
+        if (tree.contains("primary"))
             Environment.getExternalStorageDirectory().path + "/${substring[1]}"
         else
             "/storage/${tree.replace("/tree/", "")}/${substring[1]}"
     } else
-        return this
+        this
 }
 
 //convert to content uri

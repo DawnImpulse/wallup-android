@@ -27,12 +27,13 @@ import kotlinx.coroutines.experimental.launch
 /**
  * @author Saksham
  *
- * @note Last Branch Update - master
+ * @note Last Branch Update - hotfixes
  * @note Created on 2018-07-22 by Saksham
  *
  * @note Updates :
  *  2018 08 03 - recent - Saksham - using android default download manager
  *  2018 12 16 - master - Saksham - using dynamic path
+ *  2019 01 05 - hotfixes - Saksham - handling of null cursor in download manager
  */
 object DownloadHandler {
 
@@ -105,32 +106,34 @@ object DownloadHandler {
 
                 if (downloadManager.query(q) != null) {
                     val cursor = downloadManager.query(q)
-                    cursor.moveToFirst()
+                    cursor?.let {
+                        if (cursor.count > 0) {
+                            cursor.moveToFirst()
 
-                    if (cursor.count > 0) {
-                        val bytes_downloaded = cursor.getInt(cursor
-                                .getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
-                        val bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+                            val bytes_downloaded = cursor.getInt(cursor
+                                    .getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+                            val bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
 
-                        if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) === DownloadManager.STATUS_SUCCESSFUL) {
+                            if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) === DownloadManager.STATUS_SUCCESSFUL) {
+                                downloading = false
+                                callback(true)
+                            }
+                            if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) === DownloadManager.STATUS_FAILED) {
+                                downloading = false
+                                callback(false)
+                            }
+
+                            context as AppCompatActivity
+                            context.runOnUiThread {
+                                if (bytes_total > 0)
+                                    progress(Pair(bytes_downloaded, bytes_total))
+                            }
+
+                            cursor.close()
+                        } else {
+                            cursor.close()
                             downloading = false
-                            callback(true)
                         }
-                        if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) === DownloadManager.STATUS_FAILED) {
-                            downloading = false
-                            callback(false)
-                        }
-
-                        context as AppCompatActivity
-                        context.runOnUiThread {
-                            if (bytes_total > 0)
-                                progress(Pair(bytes_downloaded, bytes_total))
-                        }
-
-                        cursor.close()
-                    } else {
-                        cursor.close()
-                        downloading = false
                     }
                 } else {
                     downloading = false

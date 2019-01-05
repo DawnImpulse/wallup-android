@@ -151,10 +151,6 @@
             </intent-filter>
         </activity>
 
-        <!-- User Profile -->
-        <activity
-            android:name=".activities.UserActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
 
         <!-- Settings -->
         <activity

@@ -35,10 +35,11 @@ import org.greenrobot.eventbus.ThreadMode
 /**
  * @author Saksham
  *
- * @note Last Branch Update - recent
+ * @note Last Branch Update - hotfixes
  * @note Created on 2018-07-20 by Saksham
  *
  * @note Updates :
+ * Saksham - 2019 01 15 - hotfixes - issue in content uri & other bugs
  */
 class CropActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "CropActivity"
@@ -54,11 +55,6 @@ class CropActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_crop)
 
         displayDimen = displayRatio()
-        L.d(NAME, "${displayDimen.first} : ${displayDimen.second}")
-        /*cropImageView.setAspectRatio(displayDimen.second, displayDimen.first)
-        cropImageView.setFixedAspectRatio(true)
-        cropImageView.scaleType = CropImageView.ScaleType.CENTER_INSIDE
-        cropImageView.isAutoZoomEnabled = false*/
 
         cropDefault.setOnClickListener(this)
         cropSelected.setOnClickListener(this)
@@ -71,8 +67,10 @@ class CropActivity : AppCompatActivity(), View.OnClickListener {
                 if (it) {
                     getImage()
                 } else {
-                    toast("Unable to complete download , please try again!!")
-                    finish()
+                    runOnUiThread {
+                        toast("Unable to complete download , please try again!!")
+                        finish()
+                    }
                 }
             }
         } else
@@ -117,19 +115,14 @@ class CropActivity : AppCompatActivity(), View.OnClickListener {
     //get image from storage
     private fun getImage() {
         launch {
-            //val bmOptions = BitmapFactory.Options()
-            //val bitmap = BitmapFactory.decodeFile("$path/$id.jpg", bmOptions)
             runOnUiThread {
-                /*cropLayout.show()
-                cropProgress.gone()
-                cropImageView.setImageBitmap(bitmap)
-                image = bitmap*/
                 val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
                 intent.data = "$path/$id.jpg".toFileUri()
                 sendBroadcast(intent)
 
                 val context = this@CropActivity
-                WallpaperHandler.cropAndSetWallpaper(context, "$path/$id.jpg".toContentUri(context))
+                val contentUri = "$path/$id.jpg".toContentUri(context)
+                WallpaperHandler.cropAndSetWallpaper(context, contentUri)
                 context.finish()
             }
         }
