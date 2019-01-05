@@ -22,32 +22,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <string name="privacy"><b>NOTE: </b>This app is Open Source hence completely free to use with no Ads at all. Kindly go through our <a href="https://wallup.sourcei.org/privacy">Privacy Policy</a> .</string>
     <string name="changeNote1"><b>NOTE: </b>Trending Images are updated here everyday around 5.30 AM GMT</string>
-    <string name="change4_1"><b>New: </b>Photographer\'s collections in their profile.</string>
-    <string name="change4_2"><b>New: </b>Open unsplash photo links directly in Wallup.</string>
-    <string name="change4_3"><b>New: </b>Wallup\'s own collections available in the app.</string>
-    <string name="change4_4"><b>New: </b>Way to let user\'s know about the upcoming updates. No more guessing friends.</string>
-    <string name="change4_5"><b>New: </b>Shared images will be now saved in Downloads/Wallup/ .</string>
-    <string name="change4_6"><b>Bug Fixed: </b>Image sharing crash on device running Android 7 &amp; above.</string>
-    <string name="change4_7"><b>Improvements: </b>Many other bugs fixes &amp; performance improvements.</string>
-
-    <string name="changes5_1"><b>New: </b>Using machine learning to predict tags for a image (can sometimes give irrelevant results). </string>
-    <string name="changes5_2"><b>New: </b>Using ripple animations for click throughout app. </string>
-    <string name="change5_3"><b>Improvements: </b>Many other bugs fixes &amp; performance improvements.</string>
-
-    <string name="changes6_1"><b>New: </b>You can now search images too. </string>
-    <string name="changes6_2"><b>New: </b>About/Help screen (moved update info here). </string>
-    <string name="changes6_3">Minor performance improvements.</string>
-
-    <string name="changes7_1"><b>New: </b>Login with Unsplash.</string>
-    <string name="changes7_2"><b>New: </b>Sync your image likes with Unsplash.</string>
-
-    <string name="changes8_1"><b>New: </b>All black theme. Easy on eyes, great for amoled devices &amp; images looks stunning on it.</string>
-    <string name="changes8_2"><b>New: </b>Redesigned layout for main screen.</string>
-    <string name="changes8_3"><b>Bug Fixes: </b>Various crash handling throughout the app.</string>
-
-    <string name="changes9_1"><b>New: </b>Add image to your personal collection.</string>
-    <string name="changes9_2"><b>Improvement: </b>Performance &amp; other improvements.</string>
-    <string name="changes9_3"><b>Bug Fixes: </b>Various crash handling throughout the app.</string>
 
     <string name="changes10_1">Overall design improvements.</string>
     <string name="changes10_2">Create/delete custom collection from both profile &amp; image screen.</string>
@@ -66,6 +40,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <string name="changes10_15">Long press on list image for common option.</string>
     <string name="changes10_16">Create new collection.</string>
     <string name="changes10_17">License for icons &amp; libraries.</string>
+
+    <string name="changes11_1">Crash handling in downloading / setting wallpaper.</string>
+    <string name="changes11_2">Issues with unsplash login.</string>
 
 
     <string name="aboutUsername">\@dawnimpulse</string>
