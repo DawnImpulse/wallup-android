@@ -20,7 +20,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible
-import androidx.core.widget.toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.dawnimpulse.wallup.R
@@ -33,11 +32,13 @@ import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Event
 import com.dawnimpulse.wallup.utils.L
+import com.dawnimpulse.wallup.utils.toast
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.bottom_sheet_collection.*
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -179,7 +180,7 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
                 cols.removeAt(i)
                 imageColString!!.removeAt(i)
                 adapter.notifyItemRemoved(i + 1)
-                launch {
+                GlobalScope.launch {
                     delay(500)
                     (context as Activity).runOnUiThread {
                         adapter.notifyDataSetChanged()
@@ -268,7 +269,8 @@ class ModalSheetCollection : RoundedBottomSheetDialogFragment(), OnLoadMoreListe
                 }
             }
             indexes.forEach { i ->
-                cols.removeAt(i)
+                if (i < cols.size)
+                    cols.removeAt(i)
             }
             return cols
         }

@@ -20,8 +20,10 @@ import android.net.Uri
 import android.view.Display
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.toast
-import kotlinx.coroutines.experimental.launch
+import com.dawnimpulse.wallup.utils.getMime
+import com.dawnimpulse.wallup.utils.toast
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * @author Saksham
@@ -31,6 +33,7 @@ import kotlinx.coroutines.experimental.launch
  *
  * @note Updates :
  *  Saksham - 2018 31 12 - master - crop & set wallpaper
+ *  Saksham - 2019 02 06 - master - exception handling
  */
 object WallpaperHandler {
 
@@ -40,7 +43,7 @@ object WallpaperHandler {
         if (shouldCrop)
             bitmap2 = bitmapCropper(bitmap, context)!!
 
-        launch {
+        GlobalScope.launch {
             val wallpaperManager = WallpaperManager.getInstance(context)
             wallpaperManager.setBitmap(bitmap2)
 
@@ -51,8 +54,17 @@ object WallpaperHandler {
     }
 
     fun cropAndSetWallpaper(context: Context, uri: Uri) {
-        val wallpaperManager = WallpaperManager.getInstance(context)
-        context.startActivity(wallpaperManager.getCropAndSetWallpaperIntent(uri))
+        val mime = uri.getMime(context)
+        if (mime != null && mime.contains("image")) {
+            val wallpaperManager = WallpaperManager.getInstance(context)
+            try {
+                context.startActivity(wallpaperManager.getCropAndSetWallpaperIntent(uri))
+            } catch (e: Exception) {
+                e.printStackTrace()
+                context.toast("Issue with getting image from storage!! Kindly switch to Internal Storage if you have selected External SD Card.")
+            }
+        } else
+            context.toast("Issue with getting image from storage!! Kindly switch to Internal Storage if you have selected External SD Card.")
     }
 
     /**

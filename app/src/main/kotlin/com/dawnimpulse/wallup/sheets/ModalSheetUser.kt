@@ -85,7 +85,7 @@ class ModalSheetUser : RoundedBottomSheetDialogFragment(), View.OnClickListener 
                             Prefs.remove(C.USER)
                             Config.USER_API_KEY = ""
                             dialog.dismiss()
-                            toast(context!!, "Successfully logout from your profile")
+                            context!!.toast("Successfully logout from your profile")
                             dismiss()
                         })
             }
@@ -104,18 +104,18 @@ class ModalSheetUser : RoundedBottomSheetDialogFragment(), View.OnClickListener 
                         putString(C.USERNAME, user?.username)
                     }
                 } else
-                    toast(context!!, "kindly wait while loading user details.")
+                    context!!.toast( "kindly wait while loading user details.")
             }
             userReload.id -> userDetails()
         }
     }
 
     //user details
-    private fun userDetails(){
+    private fun userDetails() {
         model.selfProfile() { e, r ->
             e?.let {
                 L.d(NAME, e)
-                toast(context!!, "error fetching profile")
+                context!!.toast("error fetching profile")
                 userProgress.gone()
                 userReload.show()
             }

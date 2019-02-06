@@ -18,14 +18,12 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.DialogHandler
 import com.dawnimpulse.wallup.handlers.WallpaperHandler
 import com.dawnimpulse.wallup.utils.*
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_crop.*
-import kotlinx.coroutines.experimental.launch
 import org.apache.commons.io.FileUtils
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -40,6 +38,7 @@ import org.greenrobot.eventbus.ThreadMode
  *
  * @note Updates :
  * Saksham - 2019 01 15 - hotfixes - issue in content uri & other bugs
+ * Saksham - 2019 02 06 - master - exception handling
  */
 class CropActivity : AppCompatActivity(), View.OnClickListener {
     private val NAME = "CropActivity"
@@ -114,17 +113,19 @@ class CropActivity : AppCompatActivity(), View.OnClickListener {
 
     //get image from storage
     private fun getImage() {
-        launch {
-            runOnUiThread {
-                val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
-                intent.data = "$path/$id.jpg".toFileUri()
-                sendBroadcast(intent)
+        try {
+            val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+            intent.data = "$path/$id.jpg".toFileUri()
+            sendBroadcast(intent)
 
-                val context = this@CropActivity
-                val contentUri = "$path/$id.jpg".toContentUri(context)
-                WallpaperHandler.cropAndSetWallpaper(context, contentUri)
-                context.finish()
-            }
+            val context = this@CropActivity
+            val contentUri = "$path/$id.jpg".toContentUri(context)
+            WallpaperHandler.cropAndSetWallpaper(context, contentUri)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            toast("Issue with getting image from SD card!! Kindly switch to Internal Storage.")
+        } finally {
+            finish()
         }
     }
 }

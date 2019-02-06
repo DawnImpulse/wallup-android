@@ -102,7 +102,7 @@ class ModalSheetImage : RoundedBottomSheetDialogFragment(), View.OnClickListener
 
                 Permissions.askWriteExternalStoragePermission(context!!) { no, _ ->
                     if (no != null)
-                        toast(context!!, "Kindly provide external storage permission in Settings")
+                        context?.toast("Kindly provide external storage permission in Settings")
                     else
                         DialogHandler.download(context!!, details!!.id, details!!.urls!!.raw) {
                             model.downloadedPhoto(details!!.links!!.download_location)

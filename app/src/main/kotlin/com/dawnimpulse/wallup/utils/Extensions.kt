@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
-import androidx.core.widget.toast
 import androidx.fragment.app.FragmentManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.sheets.RoundedBottomSheetDialogFragment
@@ -76,16 +75,21 @@ fun String.toFileUri(): Uri {
 }
 
 // file path string to content uri
+@Throws(Exception::class)
 fun String.toContentUri(context: Context): Uri {
-    return FileProvider.getUriForFile(context,"com.dawnimpulse.wallup",toFile())
+    try {
+        return FileProvider.getUriForFile(context, "com.dawnimpulse.wallup", toFile())
+    } catch (e: Exception) {
+        throw e
+    }
     //return this.toFileUri().toContentUri(context)
 }
 
 // tree uri path to file uri path
 fun String.toFileString(): String {
     return if (this.contains(":")) {
-        var substring = split(":")
-        var tree = substring[0]
+        val substring = split(":")
+        val tree = substring[0]
 
         if (tree.contains("primary"))
             Environment.getExternalStorageDirectory().path + "/${substring[1]}"
@@ -104,6 +108,12 @@ fun Uri.toContentUri(context: Context): Uri {
     val imageDescription: String? = null
     val uriString = MediaStore.Images.Media.insertImage(cr, imagePath, imageName, imageDescription)
     return Uri.parse(uriString)
+}
+
+// get mime type
+fun Uri.getMime(context: Context): String? {
+    val cr = context.contentResolver
+    return cr.getType(this)
 }
 
 //get display ratio a/b
@@ -143,14 +153,14 @@ fun Context.displayRatio(): Pair<Int, Int> {
     return Pair(point.y / hcf, point.x / hcf)
 }
 
+// toast
+fun Context.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, length).show()
+}
+
 //covert to file type
 fun String.toFile(): File {
     return File(this)
-}
-
-//toast
-fun toast(context: Context, message: String, length: Int = Toast.LENGTH_SHORT) {
-    context.toast(message, length)
 }
 
 //modal sheet show

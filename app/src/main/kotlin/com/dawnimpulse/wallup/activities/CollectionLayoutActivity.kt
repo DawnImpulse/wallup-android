@@ -14,8 +14,9 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.fragments.CollectionFragment
 import com.dawnimpulse.wallup.utils.*
 import kotlinx.android.synthetic.main.activity_collection_layout.*
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -100,7 +101,7 @@ class CollectionLayoutActivity : AppCompatActivity(), View.OnClickListener {
                     if (event.obj.getBoolean(C.NETWORK)) {
                         colLConnLayout.setBackgroundColor(Colors(this).GREEN)
                         colLConnText.text = "Back Online"
-                        launch {
+                        GlobalScope.launch {
                             delay(1500)
                             runOnUiThread {
                                 colLConnLayout.visibility = View.GONE

@@ -477,7 +477,7 @@ object UnsplashRepository {
                 if (response.isSuccessful) {
                     callback(null, response.body())
                 } else {
-                    callback(ErrorUtils.parseErrorAuth(response), null)
+                    callback(response.errorBody(), null)
                 }
             }
 

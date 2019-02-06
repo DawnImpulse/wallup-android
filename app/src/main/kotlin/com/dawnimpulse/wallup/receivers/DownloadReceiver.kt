@@ -4,8 +4,8 @@ import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import androidx.core.widget.toast
 import com.dawnimpulse.wallup.utils.Arrays
+import com.dawnimpulse.wallup.utils.toast
 
 /**
  * @info -

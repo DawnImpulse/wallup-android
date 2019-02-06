@@ -18,7 +18,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.ImageStatsData
@@ -48,7 +47,7 @@ class ModalSheetStats : RoundedBottomSheetDialogFragment(), View.OnClickListener
 
     // on create
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.bottom_sheet_statistics, container, false);
+        return inflater.inflate(R.layout.bottom_sheet_statistics, container, false)
     }
 
     // view created

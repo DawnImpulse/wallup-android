@@ -30,8 +30,9 @@ import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.pojo.UserPojo
 import com.dawnimpulse.wallup.utils.*
 import kotlinx.android.synthetic.main.activity_artist_profile.*
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -219,7 +220,7 @@ class ArtistProfileActivity : AppCompatActivity(), View.OnClickListener {
                     if (event.obj.getBoolean(C.NETWORK)) {
                         artistConnLayout.setBackgroundColor(Colors(this).GREEN)
                         artistConnText.text = "Back Online"
-                        launch {
+                        GlobalScope.launch {
                             delay(1500)
                             runOnUiThread {
                                 artistConnLayout.visibility = View.GONE

@@ -9,7 +9,6 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.dawnimpulse.wallup.R
@@ -17,15 +16,12 @@ import com.dawnimpulse.wallup.adapters.MainAdapter
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.CollectionPojo
 import com.dawnimpulse.wallup.pojo.ImagePojo
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Colors
-import com.dawnimpulse.wallup.utils.Event
-import com.dawnimpulse.wallup.utils.L
+import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -139,7 +135,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                     if (event.obj.getBoolean(C.NETWORK)) {
                         searchConnLayout.setBackgroundColor(Colors(this).GREEN)
                         searchConnText.text = "Back Online"
-                        launch {
+                        GlobalScope.launch {
                             delay(1500)
                             runOnUiThread {
                                 searchConnLayout.visibility = View.GONE

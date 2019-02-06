@@ -20,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.updateMargins
-import androidx.core.widget.toast
 import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.fragments.MainFragment
@@ -33,8 +32,9 @@ import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity(), ViewPager.OnPageChangeListener, View.O
                     if (event.obj.getBoolean(C.NETWORK)) {
                         mainConnLayout.setBackgroundColor(Colors(this).GREEN)
                         mainConnText.text = "Back Online"
-                        launch {
+                        GlobalScope.launch {
                             delay(1500)
                             runOnUiThread {
                                 mainConnLayout.visibility = View.GONE

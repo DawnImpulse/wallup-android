@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.toast
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
@@ -20,8 +19,9 @@ import com.dawnimpulse.wallup.pojo.ImagePojo
 import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_collection.*
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -48,7 +48,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_collection)
 
-        type = intent.extras.getString(C.TYPE)
+        type = intent.extras!!.getString(C.TYPE)!!
         if (type == C.WALLUP)
             type = C.FEATURED
         model = UnsplashModel(lifecycle)
@@ -132,7 +132,7 @@ class CollectionActivity : AppCompatActivity(), View.OnClickListener {
                     if (event.obj.getBoolean(C.NETWORK)) {
                         colConnLayout.setBackgroundColor(Colors(this).GREEN)
                         colConnText.text = "Back Online"
-                        launch {
+                        GlobalScope.launch {
                             delay(1500)
                             runOnUiThread {
                                 colConnLayout.visibility = View.GONE

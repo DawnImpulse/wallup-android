@@ -15,15 +15,14 @@ package com.dawnimpulse.wallup.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.UnsplashModel
 import com.dawnimpulse.wallup.pojo.BearerBody
 import com.dawnimpulse.wallup.pojo.BearerToken
-import com.dawnimpulse.wallup.pojo.UnsplashAuthError
 import com.dawnimpulse.wallup.utils.C
 import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.L
+import com.dawnimpulse.wallup.utils.toast
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 
@@ -61,8 +60,8 @@ class LoginActivity : AppCompatActivity() {
 
                     model.bearerToken(body) { e, r ->
                         e?.let {
-                            L.dO(NAME, e)
-                            toast((e as UnsplashAuthError).error)
+                            L.d(NAME,e)
+                            toast("issue with user verification from Unsplash, kindly retry.")
                             finish()
                         }
                         r?.let {

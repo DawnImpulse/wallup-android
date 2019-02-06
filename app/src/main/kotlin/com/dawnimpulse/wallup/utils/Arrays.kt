@@ -33,8 +33,6 @@ object Arrays {
             LibraryPojo("TapTargetView", "An implementation of tap targets from the Material Design guidelines for feature discovery", "https://github.com/KeepSafe/TapTargetView")
     )
     val downloadIds = ArrayList<Long>() // long for ref id
-    val downloadWalls = ArrayList<Boolean>() // boolean for if set wallpaper
-    val downloadUris = ArrayList<Uri>()
 
     // list of icon license
     fun icons(context: Context): List<IconsPojo> {

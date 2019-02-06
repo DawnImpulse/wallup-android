@@ -26,7 +26,6 @@ import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.core.widget.toast
 import androidx.palette.graphics.Palette
 import com.dawnimpulse.permissions.android.Permissions
 import com.dawnimpulse.wallup.R
@@ -45,8 +44,9 @@ import com.dawnimpulse.wallup.utils.*
 import com.google.gson.Gson
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_image.*
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -114,7 +114,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
             imageDetailsLayout.show()
             imagePreviewProgress.show()
             imageDetailsProgress.gone()
-            var params = intent.extras
+            val params = intent.extras
             details = Gson().fromJson(params.getString(C.IMAGE_POJO), ImagePojo::class.java)
 
             getImageDetails(details!!.id)
@@ -122,7 +122,18 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
         } else {
             imagePreviewProgress.gone()
             val appLinkData = intent.data
-            getImageDetails(appLinkData.lastPathSegment)
+
+            if (appLinkData != null) {
+                if (appLinkData.lastPathSegment != null)
+                    getImageDetails(appLinkData.lastPathSegment!!)
+                else {
+                    toast("The url you have opened doesn't point to an Image.")
+                    finish()
+                }
+            } else {
+                toast("The url you have opened doesn't point to an Image.")
+                finish()
+            }
         }
 
         position = intent.getIntExtra(C.POSITION, -1)
@@ -366,7 +377,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClic
                     if (event.obj.getBoolean(C.NETWORK)) {
                         imageConnLayout.setBackgroundColor(Colors(this).GREEN)
                         imageConnText.text = "Back Online"
-                        launch {
+                        GlobalScope.launch {
                             delay(1500)
                             runOnUiThread {
                                 imageConnLayout.visibility = View.GONE

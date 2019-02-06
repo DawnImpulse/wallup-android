@@ -6,13 +6,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.widget.toast
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.handlers.DialogHandler
-import com.dawnimpulse.wallup.utils.C
-import com.dawnimpulse.wallup.utils.Colors
-import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.F
+import com.dawnimpulse.wallup.utils.*
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.activity_settings.*
 
@@ -27,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
  */
 class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongClickListener {
     private val NAME = "SettingsActivity"
-    private var toast = true
+    private var showToast = true
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,8 +78,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
         val black = Colors(this).BLACK
         when (v.id) {
             settingPreviewListHQ.id -> {
-                if (toast)
-                    toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.",Toast.LENGTH_LONG)
+                if (showToast)
+                    toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.", Toast.LENGTH_LONG)
                 Prefs.putString(C.IMAGE_LIST_QUALITY, C.HQ)
                 Config.IMAGE_LIST_QUALITY = C.HQ
 
@@ -123,9 +119,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
                 settingPreviewListFHDT.setTextColor(black)
             }
             settingPreviewImageHQ.id -> {
-                if (toast)
-                    toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.",Toast.LENGTH_LONG
-                    )
+                if (showToast)
+                    toast("Not Recommended. Image quality can be very less , only select if you are on a data plan.", Toast.LENGTH_LONG)
                 Prefs.putString(C.IMAGE_PREVIEW_QUALITY, C.HQ)
                 Config.IMAGE_PREVIEW_QUALITY = C.HQ
 
@@ -231,7 +226,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
                 })
             }
         }
-        toast = true
+        showToast = true
     }
 
     // on long click
@@ -246,8 +241,8 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
             settingDownloadFHD.id -> toast("Full HD (1080p)")
             settingDownloadUHD.id -> toast("Ultra HD (2160p)")
             settingDownloadOriginal.id -> toast("Original Image")
-            /*settingWallpaperFHD.id -> toast("Full HD (1080p)")
-            settingWallpaperUHD.id -> toast("Ultra HD (2160p)")*/
+            /*settingWallpaperFHD.id -> showToast("Full HD (1080p)")
+            settingWallpaperUHD.id -> showToast("Ultra HD (2160p)")*/
         }
         return true
     }
@@ -261,7 +256,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
 
         when (list) {
             C.HQ -> {
-                toast = false
+                showToast = false
                 settingPreviewListHQ.performClick()
             }
             C.HD -> settingPreviewListHD.performClick()
@@ -270,7 +265,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener, View.OnLongC
 
         when (preview) {
             C.HQ -> {
-                toast = false
+                showToast = false
                 settingPreviewImageHQ.performClick()
             }
             C.HD -> settingPreviewImageHD.performClick()

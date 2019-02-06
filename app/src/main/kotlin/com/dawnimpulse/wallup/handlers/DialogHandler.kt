@@ -26,7 +26,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.core.content.ContextCompat
-import androidx.core.widget.toast
 import androidx.lifecycle.Lifecycle
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.UnsplashModel
@@ -38,8 +37,9 @@ import com.google.android.material.textfield.TextInputLayout
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.dialog_download.view.*
 import kotlinx.android.synthetic.main.dialog_progress.view.*
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import me.grantland.widget.AutofitTextView
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
@@ -134,7 +134,7 @@ object DialogHandler {
                     json.put(C.IMAGE, image)
                     EventBus.getDefault().post(Event(json))
 
-                    launch {
+                    GlobalScope.launch {
                         delay(500)
                         dismiss()
                     }
@@ -165,7 +165,7 @@ object DialogHandler {
                     EventBus.getDefault().post(Event(obj))
 
                     if (image == null) {
-                        launch {
+                        GlobalScope.launch {
                             delay(500)
                             dismiss()
                         }
@@ -235,6 +235,7 @@ object DialogHandler {
         val ask = view.dialogAsk as CheckBox
         val askL = view.dialogAskL as RelativeLayout
         val dT = view.downloadText as TextView
+        val notice = view.downloadNotice
 
 
         ask.setOnCheckedChangeListener { _, isChecked ->
@@ -312,7 +313,10 @@ object DialogHandler {
             }
         }
 
-        path.text = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
+        val pathString = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
+        path.text = pathString
+        if (!pathString.contains("primary"))
+            notice.show()
 
         orL.setOnClickListener(clickListener)
         uhdL.setOnClickListener(clickListener)
@@ -455,8 +459,8 @@ object DialogHandler {
 
             val i = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
             i.addCategory(Intent.CATEGORY_DEFAULT)
-            i.putExtra("android.content.extra.SHOW_ADVANCED", false);
-            i.putExtra("android.content.extra.FANCY", false);
+            i.putExtra("android.content.extra.SHOW_ADVANCED", false)
+            i.putExtra("android.content.extra.FANCY", false)
             startActivityForResult(Intent.createChooser(i, "Choose directory"), 1)
         }
 
@@ -464,8 +468,6 @@ object DialogHandler {
             super.onActivityResult(requestCode, resultCode, data)
 
             data?.let {
-                L.d(NAME, it.data.path)
-                L.d(NAME, it.data.toString())
                 Prefs.putString(C.DOWNLOAD_PATH, it.data.path)
             }
 

@@ -9,7 +9,6 @@ import android.os.Environment
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
-import androidx.core.widget.toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -17,7 +16,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
 import com.dawnimpulse.wallup.utils.C
-import kotlinx.coroutines.experimental.launch
+import com.dawnimpulse.wallup.utils.toast
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -121,7 +122,7 @@ object ImageHandler {
      * sharing image via intent
      */
     fun shareImage(context: Context, bitmap: Bitmap, name: String, url: String) {
-        launch {
+        GlobalScope.launch {
             try {
                 val folder = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), C.WALLUP)
                 val filePath = File(folder, "$name.jpg")

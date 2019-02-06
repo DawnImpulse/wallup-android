@@ -484,6 +484,6 @@ class UnsplashModel() {
         if (Config.CONNECTED)
             UnsplashRepository.deleteCollection(id)
         else
-            toast(context, "internet not available !!")
+            context.toast("internet not available !!")
     }
 }

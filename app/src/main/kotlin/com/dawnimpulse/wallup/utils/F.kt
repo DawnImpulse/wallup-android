@@ -1,5 +1,6 @@
 package com.dawnimpulse.wallup.utils
 
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
@@ -13,6 +14,7 @@ import android.text.Html
 import android.text.Spanned
 import android.util.Log
 import android.view.WindowManager
+import android.webkit.MimeTypeMap
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
@@ -23,8 +25,9 @@ import com.dawnimpulse.wallup.models.UnsplashModel
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.gson.Gson
-import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.apache.commons.io.FileUtils
 import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
@@ -234,7 +237,7 @@ object F {
 
     //connection listener
     fun connectivityListener(context: Context) {
-        launch {
+        GlobalScope.launch {
             while (true) {
                 delay(1500)
                 val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -285,7 +288,7 @@ object F {
 
     //calculate app cache
     fun appCache(context: Context, callback: (String) -> Unit) {
-        launch {
+        GlobalScope.launch {
             val size = FileUtils.sizeOfDirectory(context.cacheDir)
             (context as AppCompatActivity).runOnUiThread {
                 callback(FileUtils.byteCountToDisplaySize(size))
@@ -295,7 +298,7 @@ object F {
 
     //delete app cache
     fun deleteCache(context: Context) {
-        launch {
+        GlobalScope.launch {
             FileUtils.deleteQuietly(context.cacheDir)
         }
     }

@@ -168,6 +168,15 @@
         </FrameLayout>
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/downloadNotice"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:text="@string/pathNotice"
+        android:textColor="@color/like"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/dialogAskL"
         android:layout_width="match_parent"
