@@ -1,7 +1,7 @@
 /*
 ISC License
 
-Copyright 2018, Saksham (DawnImpulse)
+Copyright 2018-2019, Saksham (DawnImpulse)
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted,
 provided that the above copyright notice and this permission notice appear in all copies.
@@ -313,9 +313,10 @@ object DialogHandler {
             }
         }
 
-        val pathString = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH).toFileString()
-        path.text = pathString
-        if (!pathString.contains("primary"))
+        val pathString = Prefs.getString(C.DOWNLOAD_PATH, Config.DEFAULT_DOWNLOAD_PATH)
+        path.text = pathString.toFileString()
+
+        if (pathString.contains(":") && !pathString.contains("primary"))
             notice.show()
 
         orL.setOnClickListener(clickListener)
