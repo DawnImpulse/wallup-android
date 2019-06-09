@@ -1,15 +1,15 @@
-![wallup](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%201.jpg?alt=media&token=7d917b2b-edb5-4e4e-9ef3-627495997db3)
-![intro](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%202.jpg?alt=media&token=11299306-e2f2-422c-bf7d-4065fbfd2944)
-![unsplash](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%203.jpg?alt=media&token=0a04b0da-c1b8-4ee1-8c41-051a707c0ee0)
-![image](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%204.jpg?alt=media&token=43275bcc-e096-4836-8cd8-bb047bb31bf2)
-![photographers](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%205.jpg?alt=media&token=14618c49-77f7-4578-bd6c-15f459e5bfb0)
-![collection](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%206.jpg?alt=media&token=50bbb4a7-ca9d-4fa0-876e-6350d2f6c4f4)
+![](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%201.jpg?alt=media&token=7d917b2b-edb5-4e4e-9ef3-627495997db3)
+![](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%202.jpg?alt=media&token=11299306-e2f2-422c-bf7d-4065fbfd2944)
+![](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%206.jpg?alt=media&token=50bbb4a7-ca9d-4fa0-876e-6350d2f6c4f4)
 [![play-store](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%207.jpg?alt=media&token=51873ed9-2af2-408e-ae32-bf7a666d9bcf)](https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup)
 
-#### Download
+#### v1 Deprecation Notice
+Kindly note that the v1 is now completely deprecated and unsplash login feature will be removed from the future releases. If you wish to use the previous app kindly visit [this repository
+](https://github.com/dawnimpulse/wallup-android-deprecated.git). You will be able to download and use the previous version alongside the new version (package name is changed for previous one).
+
+#### Listing
 
 - [Google Play Store](https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup)
-- [Direct Apk](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/files/apk/production/Wallup-v1.0.0.apk?alt=media&token=0a61c465-81e2-48ad-8974-9216dfd9d50d)
 
 
 #### Information
