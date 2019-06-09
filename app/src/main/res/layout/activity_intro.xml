@@ -17,9 +17,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.IntroActivity">
+    tools:context="org.sourcei.wallup.deprecated.activities.IntroActivity">
 
-    <com.dawnimpulse.wallup.view.MovingImageView
+    <org.sourcei.wallup.deprecated.view.MovingImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"

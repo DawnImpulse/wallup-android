@@ -18,7 +18,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context="org.sourcei.wallup.deprecated.activities.MainActivity">
 
     <!--viewpager-->
     <RelativeLayout
@@ -91,7 +91,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_gravity="bottom"
         android:animateLayoutChanges="true"
         android:background="@drawable/bg_round_nav"
-        app:layout_behavior=".utils.BottomNavigationBehaviour">
+        app:layout_behavior="org.sourcei.wallup.deprecated.utils.BottomNavigationBehaviour">
 
         <LinearLayout
             android:layout_width="match_parent"

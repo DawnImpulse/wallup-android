@@ -18,7 +18,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".activities.ImageActivity">
+    tools:context="org.sourcei.wallup.deprecated.activities.ImageActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

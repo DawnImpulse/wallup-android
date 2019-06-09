@@ -17,4 +17,4 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:id="@+id/iconsRecycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.IconsActivity" />
+    tools:context="org.sourcei.wallup.deprecated.activities.IconsActivity" />

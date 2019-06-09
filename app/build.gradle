@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.dawnimpulse.wallup"
+        applicationId "org.sourcei.wallup.deprecated"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode version_code
@@ -18,7 +18,15 @@ android {
         }
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "UNSPLASH_API_KEY", "\"${API_KEY}\""
+            buildConfigField "String", "UNSPLASH_API_SECRET", "\"${API_SECRET}\""
+        }
+
         release {
+            buildConfigField "String", "UNSPLASH_API_KEY", "\"${API_KEY}\""
+            buildConfigField "String", "UNSPLASH_API_SECRET", "\"${API_SECRET}\""
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
