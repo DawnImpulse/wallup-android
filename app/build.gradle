@@ -17,7 +17,15 @@ android {
         }
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "WALLUP_URL", "\"${WALLUP_DEBUG_URL}\""
+            buildConfigField "String", "UNSPLASH_API_KEY", "\"${UNSPLASH_API_KEY}\""
+        }
+
         release {
+            buildConfigField "String", "WALLUP_URL", "\"${WALLUP_RELEASE_URL}\""
+            buildConfigField "String", "UNSPLASH_API_KEY", "\"${UNSPLASH_API_KEY}\""
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -31,14 +39,30 @@ android {
 }
 
 dependencies {
-    def x_version = '1.0.0'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //--------------- Support Libraries ---------------------
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation "androidx.core:core-ktx:1.0.2"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+
+    implementation "com.google.android.material:material:1.0.0"
 
     //--------------- Firebase Libraries --------------------
 
     //--------------- 3rd Party Libraries -------------------
+    implementation 'com.github.bumptech.glide:glide:4.9.0' // image loading
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0' // retrofit
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.github.ReactiveX:RxKotlin:2.3.0' //rx kotlin
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1' //rx android
+    implementation 'com.jakewharton.rxrelay2:rxrelay:2.1.0' //rx relay
 
     //------------------ Additional -------------------------
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+}
+repositories {
+    mavenCentral()
 }
