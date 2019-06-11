@@ -14,8 +14,10 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.network
 
 import com.dawnimpulse.wallup.network.source.UnsplashSource
-import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.network.source.WallupSource
 import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.PEXELS_URL
+import com.dawnimpulse.wallup.utils.UNSPLASH_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -28,38 +30,73 @@ import retrofit2.converter.gson.GsonConverterFactory
  * @note Updates :
  */
 object RetroApiClient {
-    private var retrofitUnsplash: UnsplashSource? = null
+    private var retrofitUnsplash: Retrofit? = null
     private var retrofitPexels: Retrofit? = null
     private var retrofitWallup: Retrofit? = null
 
-    fun getClientUnsplash(): UnsplashSource? {
+    // get unsplash source
+    fun getClientUnsplash(): UnsplashSource {
         if (retrofitUnsplash == null) {
             retrofitUnsplash = Retrofit.Builder()
-                    .baseUrl(C.UNSPLASH_URL)
+                    .baseUrl(UNSPLASH_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
-                    .create(UnsplashSource::class.java)
         }
-        return retrofitUnsplash
+        return retrofitUnsplash!!.create(UnsplashSource::class.java)
     }
 
+    // get pexels source
     fun getClientPexels(): Retrofit? {
         if (retrofitPexels == null) {
             retrofitPexels = Retrofit.Builder()
-                    .baseUrl(C.PEXELS_URL)
+                    .baseUrl(PEXELS_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
         }
         return retrofitPexels
     }
 
-    fun getClientWallup(): Retrofit? {
+    //  get wallup source
+    fun getClientWallup(): WallupSource {
         if (retrofitWallup == null) {
             retrofitWallup = Retrofit.Builder()
                     .baseUrl(Config.WALLUP_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
         }
-        return retrofitWallup
+        return retrofitWallup!!.create(WallupSource::class.java)
+    }
+
+    // get retrofit client for unsplash
+    fun getUnsplashRetro() : Retrofit {
+        if (retrofitUnsplash == null) {
+            retrofitUnsplash = Retrofit.Builder()
+                    .baseUrl(UNSPLASH_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+        }
+        return retrofitUnsplash!!
+    }
+
+    // get retrofit client for pexels
+    fun getPexelsRetro() : Retrofit {
+        if (retrofitPexels == null) {
+            retrofitPexels = Retrofit.Builder()
+                    .baseUrl(PEXELS_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+        }
+        return retrofitPexels!!
+    }
+
+    // get retrofit client for wallup
+    fun getWallupRetro() : Retrofit {
+        if (retrofitWallup == null) {
+            retrofitWallup = Retrofit.Builder()
+                    .baseUrl(Config.WALLUP_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+        }
+        return retrofitWallup!!
     }
 }

@@ -12,9 +12,13 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils
+package com.dawnimpulse.wallup.ui.holders
 
-import com.dawnimpulse.wallup.BuildConfig
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
+import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import kotlinx.android.synthetic.main.inflator_collections.view.*
 
 /**
  * @info -
@@ -22,9 +26,20 @@ import com.dawnimpulse.wallup.BuildConfig
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-10 by Saksham
+ * @note Created on 2019-06-11 by Saksham
  * @note Updates :
  */
-object Config {
-    const val WALLUP_URL = BuildConfig.WALLUP_URL
+class WallupCollectionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+    val primary = view.collectionMainImage
+    val secondary = view.collectionsSecImage
+
+    fun bind(item: WallupCollectionObject) {
+
+        if (item.images.isNotEmpty())
+            ImageHandler.setImageImgix(primary, item.images[0].urls[0])
+
+        if (item.images.size > 1)
+            ImageHandler.setImageImgix(secondary, item.images[1].urls[0])
+    }
 }

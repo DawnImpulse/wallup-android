@@ -16,7 +16,8 @@ package com.dawnimpulse.wallup.network.source
 
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.ui.objects.UnsplashImageObject
-import com.dawnimpulse.wallup.utils.C
+import com.dawnimpulse.wallup.utils.AUTHORIZATION
+import com.dawnimpulse.wallup.utils.QUERY
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -39,7 +40,7 @@ interface UnsplashSource {
 
     @GET("/photos/random?count=30")
     fun randomImages(
-            @Header(C.AUTHORIZATION) apiKey: String = BuildConfig.UNSPLASH_API_KEY
+            @Header(AUTHORIZATION) apiKey: String = BuildConfig.UNSPLASH_API_KEY
     ): Call<List<UnsplashImageObject>>
 
 
@@ -49,7 +50,7 @@ interface UnsplashSource {
 
     @GET("/photos/random?count=30")
     fun searchImages(
-            @Query(C.QUERY) query: String,
-            @Header(C.AUTHORIZATION) apiKey: String = BuildConfig.UNSPLASH_API_KEY
+            @Query(QUERY) query: String,
+            @Header(AUTHORIZATION) apiKey: String = BuildConfig.UNSPLASH_API_KEY
     ): Call<List<UnsplashImageObject>>
 }

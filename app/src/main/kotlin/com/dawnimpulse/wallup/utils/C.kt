@@ -23,17 +23,26 @@ package com.dawnimpulse.wallup.utils
  * @note Created on 2019-06-10 by Saksham
  * @note Updates :
  */
-object C {
+const val UNSPLASH_URL = "https://api.unsplash.com"
+const val PEXELS_URL = "https://api.pexels.com"
 
-    val UNSPLASH_URL = "https://api.unsplash.com"
-    val PEXELS_URL = "https://api.pexels.com"
+const val REFRESH_UNSPLASH_RANDOM = 1001.toString()
+const val REFRESH_WALLUP_COLLECTIONS_SORTED = 1002.toString()
 
-    const val AUTHORIZATION = "Authorization"
-    const val QUERY = "query"
-}
+const val REFRESHED_UNSPLASH_RANDOM = 2001.toString()
+const val REFRESHED_WALLUP_COLLECTIONS_SORTED = 2002.toString()
 
-val REFRESH_UNSPLASH_RANDOM = "refreshUnsplashRandom"
-val REFRESH_UNSPLASH_RANDOM_DONE = "refreshUnsplashRandomDone"
+const val LOAD_MORE_WALLUP_COLLECTIONS_SORTED = 3001.toString()
 
+const val LOADED_WALLUP_COLLECTIONS_SORTED = 4001.toString()
 
-val ERROR_UNSPLASH_RANDOM = "errorUnsplashRandom"
+const val FINISHED_WALLUP_COLLECTIONS_SORTED = 5001.toString()
+
+const val AUTHORIZATION = "Authorization"
+const val QUERY = "query"
+const val X_API_KEY = "x-api-key"
+const val PAGE = "page"
+const val LIMIT = "limit"
+
+const val ERROR_UNSPLASH_RANDOM = "errorUnsplashRandom"
+const val ERROR_WALLUP_COLLECTIONS_SORTED = "errorWallupCollectionsSorted"

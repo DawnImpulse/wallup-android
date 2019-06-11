@@ -12,9 +12,9 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils
+package com.dawnimpulse.wallup.ui.objects
 
-import com.dawnimpulse.wallup.BuildConfig
+import com.google.gson.annotations.SerializedName
 
 /**
  * @info -
@@ -22,9 +22,19 @@ import com.dawnimpulse.wallup.BuildConfig
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-10 by Saksham
+ * @note Created on 2019-06-07 by Saksham
  * @note Updates :
  */
-object Config {
-    const val WALLUP_URL = BuildConfig.WALLUP_URL
-}
+data class WallupImageObject(
+        @SerializedName("iid") val iid: String,
+        @SerializedName("rid") val rid: String,
+        @SerializedName("height") val height: Int,
+        @SerializedName("width") val width: Int,
+        @SerializedName("issuer") val issuer: String,
+        @SerializedName("urls") val urls: List<String>,
+        @SerializedName("author") val author: WallupUserObject
+)
+
+data class WallupImageList(
+        @SerializedName("details") val details: List<WallupImageObject>
+)

@@ -17,7 +17,7 @@ import com.dawnimpulse.wallup.utils.*
 import com.dawnimpulse.wallup.utils.functions.loge
 import com.dawnimpulse.wallup.utils.functions.toast
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.activity_random.*
+import kotlinx.android.synthetic.main.activity_general.*
 
 class RandomActivity : AppCompatActivity(),
         SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, OnLoadMoreListener {
@@ -39,7 +39,7 @@ class RandomActivity : AppCompatActivity(),
     // general event on bus
     private fun events(event: String) {
         when (event) {
-            REFRESH_UNSPLASH_RANDOM_DONE -> {
+            REFRESHED_UNSPLASH_RANDOM -> {
                 generalSwipe.isRefreshing = false
             }
         }
@@ -48,7 +48,7 @@ class RandomActivity : AppCompatActivity(),
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_random)
+        setContentView(R.layout.activity_general)
 
         unsplashModel = ViewModelProviders.of(this).get(UnsplashViewModel::class.java)
         unsplashModel.randomImages.observe(this, randomImagesObserver())

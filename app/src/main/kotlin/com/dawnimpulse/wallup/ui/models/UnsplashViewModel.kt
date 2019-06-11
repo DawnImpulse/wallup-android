@@ -73,7 +73,7 @@ class UnsplashViewModel : ViewModel() {
 
                 // publish event that refresh is handled
                 if (refreshRandom)
-                    RxBus.accept(REFRESH_UNSPLASH_RANDOM_DONE)
+                    RxBus.accept(REFRESHED_UNSPLASH_RANDOM)
                 refreshRandom = false
             }
         }

@@ -14,7 +14,7 @@
  **/
 package com.dawnimpulse.wallup.utils
 
-import com.dawnimpulse.wallup.BuildConfig
+import kotlin.properties.Delegates
 
 /**
  * @info -
@@ -22,9 +22,18 @@ import com.dawnimpulse.wallup.BuildConfig
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-10 by Saksham
+ * @note Created on 2019-06-11 by Saksham
  * @note Updates :
  */
-object Config {
-    const val WALLUP_URL = BuildConfig.WALLUP_URL
+class Live<T>(private val value1: T) {
+    private lateinit var change: (T) -> Unit
+
+    var value: T by Delegates.observable(value1) { prop, old, new ->
+        if (::change.isInitialized)
+            change(new)
+    }
+
+    fun onChange(change: (T) -> Unit) {
+        this.change = change
+    }
 }

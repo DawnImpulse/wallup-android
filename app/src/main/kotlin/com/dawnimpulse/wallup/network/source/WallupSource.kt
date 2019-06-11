@@ -14,6 +14,16 @@
  **/
 package com.dawnimpulse.wallup.network.source
 
+import com.dawnimpulse.wallup.BuildConfig
+import com.dawnimpulse.wallup.ui.objects.WallupCollectionList
+import com.dawnimpulse.wallup.utils.LIMIT
+import com.dawnimpulse.wallup.utils.PAGE
+import com.dawnimpulse.wallup.utils.X_API_KEY
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Query
+
 /**
  * @info -
  *
@@ -23,3 +33,16 @@ package com.dawnimpulse.wallup.network.source
  * @note Created on 2019-06-10 by Saksham
  * @note Updates :
  */
+interface WallupSource {
+
+    // --------------------------
+    //      RANDOM COLLECTIONS
+    // --------------------------
+
+    @GET("/v1/collections/sorted")
+    fun sortedCollections(
+            @Query(PAGE) page: Int,
+            @Query(LIMIT) limit: Int = 20,
+            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
+    ): Call<WallupCollectionList>
+}
