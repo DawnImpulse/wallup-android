@@ -15,10 +15,13 @@
 package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
+import com.dawnimpulse.wallup.ui.objects.UnsplashImageObject
+import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
-import kotlinx.android.synthetic.main.inflator_collections.view.*
+import kotlinx.android.synthetic.main.inflator_image.view.*
 
 /**
  * @info -
@@ -26,20 +29,22 @@ import kotlinx.android.synthetic.main.inflator_collections.view.*
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-11 by Saksham
+ * @note Created on 2019-06-10 by Saksham
  * @note Updates :
  */
-class WallupCollectionViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+class UnsplashHolder(view: View) : RecyclerView.ViewHolder(view) {
+    val image = view.imageMain
+    val layout = view.imageL
+    val context = view.context
 
-    val primary = view.collectionMainImage
-    val secondary = view.collectionsSecImage
+    fun bind(item: UnsplashImageObject) {
+        val point = F.displayDimensions(context)
+        val width = point.x / 2
+        val height = F.getDynamicHeight(context, point.x / 2, point.y, item.width, item.height)
 
-    fun bind(item: WallupCollectionObject) {
+        layout.layoutParams = FrameLayout.LayoutParams(width, height)
+        image.layoutParams = RelativeLayout.LayoutParams(width - F.dpToPx(4, context), height)
 
-        if (item.images.isNotEmpty())
-            ImageHandler.setImageImgix(primary, item.images[0].urls[0])
-
-        if (item.images.size > 1)
-            ImageHandler.setImageImgix(secondary, item.images[1].urls[0])
+        ImageHandler.setImageImgix(image, item.urls.raw)
     }
 }

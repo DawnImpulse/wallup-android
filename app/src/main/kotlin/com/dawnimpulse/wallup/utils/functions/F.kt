@@ -19,6 +19,9 @@ import android.graphics.Point
 import android.net.Uri
 import android.view.WindowManager
 import com.google.gson.Gson
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -79,5 +82,13 @@ object F {
             "$url&"
         else
             "$url?"
+    }
+
+    // add auto change listener
+    // used for scrolling images
+    fun publishInterval(): Observable<Int> {
+        return Observable.interval(10, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .map { it.toInt() }
     }
 }

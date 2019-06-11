@@ -20,7 +20,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="360dp"
+        android:layout_height="320dp"
         android:layout_margin="8dp"
         app:cardCornerRadius="8dp">
 
@@ -34,6 +34,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 tools:src="@tools:sample/backgrounds/scenic[1]" />
+
+            <ProgressBar
+                android:id="@+id/collectionProgress"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:theme="@style/ScrollingProgressBar" />
 
             <com.makeramen.roundedimageview.RoundedImageView
                 android:id="@+id/collectionsSecImage"

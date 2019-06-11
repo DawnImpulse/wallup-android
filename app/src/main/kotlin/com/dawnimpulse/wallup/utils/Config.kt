@@ -15,6 +15,8 @@
 package com.dawnimpulse.wallup.utils
 
 import com.dawnimpulse.wallup.BuildConfig
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 /**
  * @info -
@@ -27,4 +29,7 @@ import com.dawnimpulse.wallup.BuildConfig
  */
 object Config {
     const val WALLUP_URL = BuildConfig.WALLUP_URL
+
+    val disposableWallupCollection = CompositeDisposable()
+    val disposableWallupViewHolder:MutableMap<Int, Disposable> = mutableMapOf()
 }

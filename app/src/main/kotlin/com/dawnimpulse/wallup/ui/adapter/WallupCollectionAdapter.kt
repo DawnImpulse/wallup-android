@@ -16,19 +16,14 @@ package com.dawnimpulse.wallup.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.ui.holders.WallupCollectionViewHolder
-import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
+import com.dawnimpulse.wallup.ui.holders.LoadingHolder
+import com.dawnimpulse.wallup.ui.holders.WallupCollectionHolder
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
-import com.dawnimpulse.wallup.utils.Live
-import com.dawnimpulse.wallup.utils.functions.logd
-import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.subscribeBy
-import java.util.concurrent.TimeUnit
+import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.LOADED_WALLUP_COLLECTIONS_SORTED
+import com.dawnimpulse.wallup.utils.LOAD_MORE_WALLUP_COLLECTIONS_SORTED
 
 /**
  * @info -
@@ -40,97 +35,65 @@ import java.util.concurrent.TimeUnit
  * @note Updates :
  */
 class WallupCollectionAdapter(
-        private val data: MutableList<WallupCollectionObject>,
-        recycler: RecyclerView
-) : RecyclerView.Adapter<WallupCollectionViewHolder>() {
+        private val data: MutableList<WallupCollectionObject?>,
+        private val recycler: RecyclerView
+) : CustomAdapter(Config.disposableWallupCollection, recycler,
+        LOAD_MORE_WALLUP_COLLECTIONS_SORTED, LOADED_WALLUP_COLLECTIONS_SORTED) {
 
-    private var compositeDisposable = CompositeDisposable()
-    private var lastVisibleItem: Int = 0
-    private var totalItemCount: Int = 0
-    private val visibleThreshold = 3
-    private var loadMoreListener: OnLoadMoreListener? = null
-    private var VIEW_TYPE_LOADING = 0
-    private var VIEW_TYPE_ITEM = 1
+    private val VIEW_TYPE = 0
+    private val VIEW_LOADING = 1
 
-    private var isLoading = Live(false)
-
-    init {
-
-        isLoading.onChange {
-            logd("Value $it")
-        }
-
-        compositeDisposable.add(
-
-                recycler.scrollStateChanges()
-                        .debounce(1000, TimeUnit.MILLISECONDS)
-                        .filter { !isLoading.value }
-                        .subscribeBy(
-                                onNext = {
-                                    val layoutManager = recycler.layoutManager
-
-                                    // last visible item for staggered grid
-                                    fun getLastVisibleItem(lastVisibleItemPositions: List<Int>): Int {
-                                        var maxSize = 0
-                                        lastVisibleItemPositions.forEachIndexed { index, i ->
-                                            if (index == 0) {
-                                                maxSize = lastVisibleItemPositions[index]
-                                            } else if (lastVisibleItemPositions[index] > maxSize) {
-                                                maxSize = lastVisibleItemPositions[index]
-                                            }
-                                        }
-
-                                        return maxSize
-                                    }
-
-                                    totalItemCount = layoutManager!!.itemCount
-
-                                    if (layoutManager is StaggeredGridLayoutManager)
-                                        lastVisibleItem = getLastVisibleItem(layoutManager.findLastVisibleItemPositions(null).toList())
-
-                                    if (layoutManager is LinearLayoutManager)
-                                        lastVisibleItem = layoutManager.findLastVisibleItemPosition()
-
-                                    if (totalItemCount <= lastVisibleItem + visibleThreshold) {
-                                        if (loadMoreListener != null) {
-                                            isLoading.value = true
-                                            loadMoreListener!!.onLoadMore()
-                                        }
-                                    }
-                                },
-
-                                onError = {
-                                    logd(it)
-                                }
-                        )
-        )
-    }
-
+    // get items count
     override fun getItemCount(): Int {
         return data.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WallupCollectionViewHolder {
-        return WallupCollectionViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_collections, parent, false))
+    override fun getItemViewType(position: Int): Int {
+        return if (data[position] == null) VIEW_LOADING else VIEW_TYPE
     }
 
-    override fun onBindViewHolder(holder: WallupCollectionViewHolder, position: Int) {
-        holder.bind(data[position])
+    // create view holder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (VIEW_TYPE == viewType)
+            WallupCollectionHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_collections, parent, false))
+        else
+            LoadingHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading, parent, false))
     }
 
-    // set load more listener
-    fun setOnLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
-        this.loadMoreListener = loadMoreListener
+    // bind view holder
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is WallupCollectionHolder) {
+            holder.bind(data[position]!!)
+        }
     }
 
-    // is loading
-    fun setLoaded() {
-        isLoading.value = false
+    // remove progress disposable if view recycled
+    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
+        super.onViewRecycled(holder)
+        /*if (holder is WallupCollectionHolder)
+            Config.disposableWallupViewHolder[holder.adapterPosition]?.dispose()*/
     }
 
+    // remove all progress disposables if adapter removed
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
-
+        Config.disposableWallupViewHolder.forEach { it.value.dispose() }
     }
 
+    // on data loaded
+    override fun onLoaded() {
+        super.onLoaded()
+        data.asSequence().withIndex().filter { it.value == null }.map { it.index }
+                .forEach {
+                    data.removeAt(it)
+                    notifyItemRemoved(it)
+                }
+    }
+
+    // on data loading
+    override fun onLoading() {
+        super.onLoading()
+        data.add(data.size, null)
+        notifyItemInserted(data.size)
+    }
 }

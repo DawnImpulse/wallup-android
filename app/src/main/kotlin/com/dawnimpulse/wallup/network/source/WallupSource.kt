@@ -39,7 +39,7 @@ interface WallupSource {
     //      RANDOM COLLECTIONS
     // --------------------------
 
-    @GET("/v1/collections/sorted")
+    @GET("/v1/collections/random")
     fun sortedCollections(
             @Query(PAGE) page: Int,
             @Query(LIMIT) limit: Int = 20,

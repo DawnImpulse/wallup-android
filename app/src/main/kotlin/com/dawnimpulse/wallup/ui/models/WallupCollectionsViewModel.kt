@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModel
 import com.dawnimpulse.wallup.network.repo.WallupRepo
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
 import com.dawnimpulse.wallup.utils.*
+import com.dawnimpulse.wallup.utils.functions.logd
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -33,38 +34,38 @@ import io.reactivex.disposables.CompositeDisposable
 class WallupCollectionsViewModel : ViewModel() {
     private var compositeDisposable = CompositeDisposable()
     private var refreshSortedCollections = false
-    private var pageSortedCollections = 2
     private var finishedSortedCollections = false
-    private var page = 2
+    private var pageSortedCollections = 2
 
     init {
         // event handling
         compositeDisposable.add(
-                RxBus.subscribe {
-                    when (it) {
-                        // refresh
-                        REFRESH_WALLUP_COLLECTIONS_SORTED -> {
-                            page = 1
-                            refreshSortedCollections = true
-                            finishedSortedCollections = false
-                            getSortedCollections(page)
-                        }
+                RxBus
+                        .subscribe {
+                            when (it) {
+                                // refresh
+                                REFRESH_WALLUP_COLLECTIONS_SORTED -> {
+                                    pageSortedCollections = 1
+                                    refreshSortedCollections = true
+                                    finishedSortedCollections = false
+                                    getSortedCollections(pageSortedCollections)
+                                }
 
-                        // load more
-                        LOAD_MORE_WALLUP_COLLECTIONS_SORTED -> {
-                            if (!finishedSortedCollections)
-                                getSortedCollections(page)
-                            else
-                                RxBus.accept(FINISHED_WALLUP_COLLECTIONS_SORTED)
+                                // load more
+                                LOAD_MORE_WALLUP_COLLECTIONS_SORTED -> {
+                                    if (!finishedSortedCollections)
+                                        getSortedCollections(pageSortedCollections)
+                                    else
+                                        RxBus.accept(LOADED_WALLUP_COLLECTIONS_SORTED)
+                                }
+                            }
                         }
-                    }
-                }
         )
     }
 
     // random unsplash images
-    val sortedCollections: MutableLiveData<MutableList<WallupCollectionObject>> by lazy {
-        MutableLiveData<MutableList<WallupCollectionObject>>().also {
+    val sortedCollections: MutableLiveData<MutableList<WallupCollectionObject?>> by lazy {
+        MutableLiveData<MutableList<WallupCollectionObject?>>().also {
             getSortedCollections(1)
         }
     }
@@ -81,10 +82,12 @@ class WallupCollectionsViewModel : ViewModel() {
                 // get list for live object
                 val cols = sortedCollections.value
 
+                logd("Size : ${it.size}")
+
                 // check if result list is empty or not
                 if (it.isNotEmpty()) {
                     if (cols != null && !refreshSortedCollections) {
-                        this.page++
+                        this.pageSortedCollections++
                         cols.addAll(it)
                         sortedCollections.value = cols
                         RxBus.accept(LOADED_WALLUP_COLLECTIONS_SORTED)
@@ -98,7 +101,7 @@ class WallupCollectionsViewModel : ViewModel() {
                     // list is finished
                 } else {
                     finishedSortedCollections = true
-                    RxBus.accept(FINISHED_WALLUP_COLLECTIONS_SORTED)
+                    RxBus.accept(LOADED_WALLUP_COLLECTIONS_SORTED)
                 }
             }
         }

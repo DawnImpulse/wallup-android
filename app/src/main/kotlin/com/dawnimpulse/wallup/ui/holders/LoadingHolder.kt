@@ -15,13 +15,7 @@
 package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.RelativeLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.ui.objects.UnsplashImageObject
-import com.dawnimpulse.wallup.utils.functions.F
-import com.dawnimpulse.wallup.utils.handlers.ImageHandler
-import kotlinx.android.synthetic.main.inflator_image.view.*
 
 /**
  * @info -
@@ -29,22 +23,9 @@ import kotlinx.android.synthetic.main.inflator_image.view.*
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-10 by Saksham
+ * @note Created on 2019-06-07 by Saksham
  * @note Updates :
  */
-class UnsplashViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    val image = view.imageMain
-    val layout = view.imageL
-    val context = view.context
+class LoadingHolder (view: View):RecyclerView.ViewHolder(view){
 
-    fun bind(item: UnsplashImageObject) {
-        val point = F.displayDimensions(context)
-        val width = point.x / 2
-        val height = F.getDynamicHeight(context, point.x / 2, point.y, item.width, item.height)
-
-        layout.layoutParams = FrameLayout.LayoutParams(width, height)
-        image.layoutParams = RelativeLayout.LayoutParams(width - F.dpToPx(4, context), height)
-
-        ImageHandler.setImageImgix(image, item.urls.raw)
-    }
 }

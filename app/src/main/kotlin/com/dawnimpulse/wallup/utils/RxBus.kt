@@ -26,9 +26,10 @@ import com.jakewharton.rxrelay2.BehaviorRelay
  * @note Updates :
  */
 
-val RxBus = BehaviorRelay.createDefault<String>("")
-val RxObjectBus = BehaviorRelay.createDefault<RxBusObject>(RxBusObject())
-val RxErrorBus = BehaviorRelay.createDefault<RxErrorBusObject>(RxErrorBusObject())
+val RxBus by lazy { BehaviorRelay.createDefault<String>("") }
+val RxObjectBus by lazy { BehaviorRelay.createDefault<RxBusObject>(RxBusObject()) }
+val RxErrorBus by lazy { BehaviorRelay.createDefault<RxErrorBusObject>(RxErrorBusObject()) }
+val RxBusTime by lazy { BehaviorRelay.createDefault(0) }
 
 // normal bus
 data class RxBusObject(

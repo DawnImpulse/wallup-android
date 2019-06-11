@@ -14,9 +14,15 @@
  **/
 package com.dawnimpulse.wallup.utils.handlers
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.dawnimpulse.wallup.utils.functions.F
 
 /**
@@ -36,7 +42,34 @@ object ImageHandler {
                 .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
                 .thumbnail(Glide.with(view.context).load("${F.addQuery(url)}fm=webp&h=256&blur=1200"))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontAnimate()
                 .into(view)
                 .clearOnDetach()
+    }
+
+    // load image
+    fun cacheImage(context: Context, url: String, height: Int = 480) {
+        Glide.with(context)
+                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
+                .onlyRetrieveFromCache(true)
+                .addListener(object : RequestListener<Drawable> {
+
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        return true
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        Glide.with(context)
+                                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
+                                .thumbnail(Glide.with(context).load("${F.addQuery(url)}fm=webp&h=256&q=80"))
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .preload()
+
+                        return true
+                    }
+                })
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .preload()
+
     }
 }

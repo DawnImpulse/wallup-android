@@ -14,4 +14,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
+    <!--Progress bar scrolling-->
+    <style name="ScrollingProgressBar" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/white</item>
+    </style>
 </resources>

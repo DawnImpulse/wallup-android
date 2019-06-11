@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.objects.UnsplashImageObject
-import com.dawnimpulse.wallup.ui.holders.UnsplashViewHolder
+import com.dawnimpulse.wallup.ui.holders.UnsplashHolder
 
 
 /**
@@ -37,7 +37,7 @@ import com.dawnimpulse.wallup.ui.holders.UnsplashViewHolder
 class UnsplashAdapter(
         private val data: MutableList<UnsplashImageObject>,
         recycler: RecyclerView
-) : RecyclerView.Adapter<UnsplashViewHolder>() {
+) : RecyclerView.Adapter<UnsplashHolder>() {
 
     private var lastVisibleItem: Int = 0
     private var totalItemCount: Int = 0
@@ -90,11 +90,11 @@ class UnsplashAdapter(
         return data.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UnsplashViewHolder {
-        return UnsplashViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_image, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UnsplashHolder {
+        return UnsplashHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_image, parent, false))
     }
 
-    override fun onBindViewHolder(holder: UnsplashViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UnsplashHolder, position: Int) {
         holder.bind(data[position])
     }
 

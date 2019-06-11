@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.adapter.WallupCollectionAdapter
-import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.WallupCollectionsViewModel
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
 import com.dawnimpulse.wallup.utils.*
+import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.loge
 import com.dawnimpulse.wallup.utils.functions.toast
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_general.*
 
@@ -26,7 +27,7 @@ import kotlinx.android.synthetic.main.activity_general.*
  * @note Created on 2019-06-11 by Saksham
  * @note Updates :
  */
-class CollectionsActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+class CollectionsActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var wallupModel: WallupCollectionsViewModel
     private lateinit var adapter: WallupCollectionAdapter
     private var compositeDisposable = CompositeDisposable()
@@ -36,18 +37,6 @@ class CollectionsActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefres
         when (event) {
             // refreshed
             REFRESHED_WALLUP_COLLECTIONS_SORTED -> generalSwipe.isRefreshing = false
-
-            // loaded
-            LOADED_WALLUP_COLLECTIONS_SORTED -> {
-                adapter.setLoaded()
-            }
-
-            // finished
-            FINISHED_WALLUP_COLLECTIONS_SORTED -> {
-                if (::adapter.isInitialized)
-                    adapter.setLoaded()
-            }
-
         }
     }
 
@@ -71,17 +60,22 @@ class CollectionsActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefres
         compositeDisposable.add(RxErrorBus.subscribe { errorEvents(it) })
         compositeDisposable.add(RxBus.subscribe { events(it) })
         generalSwipe.setOnRefreshListener(this)
+
+        compositeDisposable.add(
+                F.publishInterval()
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            RxBusTime.accept(it)
+                        }
+        )
     }
 
     // clear disposables
     override fun onDestroy() {
         super.onDestroy()
         compositeDisposable.clear()
-    }
-
-    // load more items
-    override fun onLoadMore() {
-        RxBus.accept(LOAD_MORE_WALLUP_COLLECTIONS_SORTED)
+        Config.disposableWallupCollection.clear()
+        adapter.onDetachedFromRecyclerView(generalRecycler)
     }
 
     // refreshing data
@@ -90,7 +84,7 @@ class CollectionsActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefres
     }
 
     // collection live data
-    private fun collectionsObserver(): Observer<MutableList<WallupCollectionObject>> {
+    private fun collectionsObserver(): Observer<MutableList<WallupCollectionObject?>> {
         return Observer {
             if (::adapter.isInitialized) {
                 adapter.notifyDataSetChanged()
@@ -98,7 +92,6 @@ class CollectionsActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefres
                 adapter = WallupCollectionAdapter(it, generalRecycler)
                 generalRecycler.layoutManager = LinearLayoutManager(this)
                 generalRecycler.adapter = adapter
-                adapter.setOnLoadMoreListener(this)
             }
         }
     }

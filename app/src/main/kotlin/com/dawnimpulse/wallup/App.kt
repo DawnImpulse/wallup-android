@@ -15,7 +15,6 @@
 package com.dawnimpulse.wallup
 
 import android.app.Application
-import com.dawnimpulse.wallup.network.RetroApiClient
 
 /**
  * @info -
@@ -26,13 +25,10 @@ import com.dawnimpulse.wallup.network.RetroApiClient
  * @note Created on 2019-06-10 by Saksham
  * @note Updates :
  */
-class App : Application(){
+class App : Application() {
 
     // on create
     override fun onCreate() {
         super.onCreate()
-
-        val i = RetroApiClient.getClientWallup()
-        
     }
 }
