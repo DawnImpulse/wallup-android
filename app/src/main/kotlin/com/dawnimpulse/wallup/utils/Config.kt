@@ -30,6 +30,6 @@ import io.reactivex.disposables.Disposable
 object Config {
     const val WALLUP_URL = BuildConfig.WALLUP_URL
 
-    val disposableWallupCollection = CompositeDisposable()
-    val disposableWallupViewHolder:MutableMap<Int, Disposable> = mutableMapOf()
+    val disposableCollectionsActivity = CompositeDisposable()
+    val disposableWallupCollectionsViewHolder: MutableMap<Int, Disposable> = mutableMapOf()
 }

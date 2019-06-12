@@ -17,13 +17,16 @@ package com.dawnimpulse.wallup.utils.handlers
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.functions.F
+
 
 /**
  * @info -
@@ -36,18 +39,44 @@ import com.dawnimpulse.wallup.utils.functions.F
  */
 object ImageHandler {
 
-    // set image in view
+    // -------------------------
+    //     set image in view
+    // -------------------------
     fun setImageImgix(view: ImageView, url: String, height: Int = 480) {
         Glide.with(view.context)
                 .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
                 .thumbnail(Glide.with(view.context).load("${F.addQuery(url)}fm=webp&h=256&blur=1200"))
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .dontAnimate()
                 .into(view)
                 .clearOnDetach()
     }
 
-    // load image
+    // ---------------------------
+    //     set image fadein
+    // ---------------------------
+    fun setImageImgixFadein(view: ImageView, url: String, height: Int = 480) {
+        Glide.with(view.context)
+                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
+                .thumbnail(Glide.with(view.context).load("${F.addQuery(url)}fm=webp&h=256&blur=1200"))
+                .transition(GenericTransitionOptions.with(R.anim.fade_in_animation))
+                .into(view)
+                .clearOnDetach()
+    }
+
+    // -----------------------
+    //     set image slide
+    // -----------------------
+    fun setImageImgixSlide(view: ImageView, url: String, height: Int = 480) {
+        Glide.with(view.context)
+                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
+                .thumbnail(Glide.with(view.context).load("${F.addQuery(url)}fm=webp&h=256&blur=1200"))
+                .transition(GenericTransitionOptions.with(R.anim.enter_from_right))
+                .into(view)
+                .clearOnDetach()
+    }
+
+    // -------------------
+    //     load image
+    // -------------------
     fun cacheImage(context: Context, url: String, height: Int = 480) {
         Glide.with(context)
                 .load("${F.addQuery(url)}fm=webp&h=$height&q=80")

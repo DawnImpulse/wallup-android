@@ -183,6 +183,12 @@ fun Context.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, length).show()
 }
 
+// debug toast
+fun Context.toastd(message: String, length: Int = Toast.LENGTH_SHORT) {
+    if (BuildConfig.DEBUG)
+        Toast.makeText(this, message, length).show()
+}
+
 //covert to file type
 fun String.toFile(): File {
     return File(this)

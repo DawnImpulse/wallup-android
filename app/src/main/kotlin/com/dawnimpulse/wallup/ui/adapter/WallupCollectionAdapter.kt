@@ -20,10 +20,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.holders.LoadingHolder
 import com.dawnimpulse.wallup.ui.holders.WallupCollectionHolder
+import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
 import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.LOADED_WALLUP_COLLECTIONS_SORTED
-import com.dawnimpulse.wallup.utils.LOAD_MORE_WALLUP_COLLECTIONS_SORTED
 
 /**
  * @info -
@@ -35,24 +34,32 @@ import com.dawnimpulse.wallup.utils.LOAD_MORE_WALLUP_COLLECTIONS_SORTED
  * @note Updates :
  */
 class WallupCollectionAdapter(
-        private val data: MutableList<WallupCollectionObject?>,
-        private val recycler: RecyclerView
-) : CustomAdapter(Config.disposableWallupCollection, recycler,
-        LOAD_MORE_WALLUP_COLLECTIONS_SORTED, LOADED_WALLUP_COLLECTIONS_SORTED) {
+        private val recycler: RecyclerView,
+        private val data: MutableList<WallupCollectionObject?>
+
+) : CustomAdapter(Config.disposableCollectionsActivity, recycler) {
 
     private val VIEW_TYPE = 0
     private val VIEW_LOADING = 1
+    private lateinit var loadMoreListener: OnLoadMoreListener
 
-    // get items count
+    // --------------------
+    //     items count
+    // --------------------
     override fun getItemCount(): Int {
         return data.size
     }
 
+    // --------------------
+    //      view type
+    // --------------------
     override fun getItemViewType(position: Int): Int {
         return if (data[position] == null) VIEW_LOADING else VIEW_TYPE
     }
 
-    // create view holder
+    // --------------------
+    //     create holder
+    // --------------------
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (VIEW_TYPE == viewType)
             WallupCollectionHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_collections, parent, false))
@@ -60,40 +67,46 @@ class WallupCollectionAdapter(
             LoadingHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading, parent, false))
     }
 
-    // bind view holder
+    // --------------------
+    //     bind holder
+    // --------------------
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is WallupCollectionHolder) {
             holder.bind(data[position]!!)
         }
     }
 
-    // remove progress disposable if view recycled
+    // -----------------------------
+    //     dispose progress holder
+    // ----------------------------
     override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
         super.onViewRecycled(holder)
-        /*if (holder is WallupCollectionHolder)
-            Config.disposableWallupViewHolder[holder.adapterPosition]?.dispose()*/
+        if (holder is WallupCollectionHolder)
+            Config.disposableWallupCollectionsViewHolder[holder.adapterPosition]?.dispose()
     }
 
-    // remove all progress disposables if adapter removed
+    // ------------------------------
+    //     dispose progress detach
+    // ------------------------------
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
-        Config.disposableWallupViewHolder.forEach { it.value.dispose() }
+        Config.disposableWallupCollectionsViewHolder.forEach { it.value.dispose() }
     }
 
-    // on data loaded
-    override fun onLoaded() {
-        super.onLoaded()
-        data.asSequence().withIndex().filter { it.value == null }.map { it.index }
-                .forEach {
-                    data.removeAt(it)
-                    notifyItemRemoved(it)
-                }
-    }
-
-    // on data loading
+    // ------------------------
+    //     loading items
+    // ------------------------
     override fun onLoading() {
         super.onLoading()
-        data.add(data.size, null)
-        notifyItemInserted(data.size)
+
+        loadMoreListener.onLoadMore()
     }
+
+    // --------------------
+    //     set listener
+    // --------------------
+    fun setOnLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
+        this.loadMoreListener = loadMoreListener
+    }
+
 }

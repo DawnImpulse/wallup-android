@@ -18,7 +18,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.dawnimpulse.wallup.utils.RxBus
 import com.dawnimpulse.wallup.utils.functions.logd
 import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -35,7 +34,7 @@ import java.util.concurrent.TimeUnit
  * @note Created on 2019-06-11 by Saksham
  * @note Updates :
  */
-open class CustomAdapter(compositeDisposable: CompositeDisposable, recyclerView: RecyclerView, loadMore: String, loaded: String) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+open class CustomAdapter(compositeDisposable: CompositeDisposable, recyclerView: RecyclerView) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var isLoading = false
 
     private var lastVisibleItem: Int = 0
@@ -79,7 +78,6 @@ open class CustomAdapter(compositeDisposable: CompositeDisposable, recyclerView:
                                     if (totalItemCount <= lastVisibleItem + visibleThreshold) {
                                         isLoading = true
                                         onLoading()
-                                        RxBus.accept(loadMore)
                                     }
                                 },
                                 onError = {
@@ -87,19 +85,6 @@ open class CustomAdapter(compositeDisposable: CompositeDisposable, recyclerView:
                                 }
                         )
         )
-
-        // subscriber
-        compositeDisposable.add(
-                RxBus
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeBy(onNext = {
-                            when (it) {
-                                loaded -> {
-                                    isLoading = false
-                                    onLoaded()
-                                }
-                            }
-                        }, onError = { logd(it) }))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -116,5 +101,7 @@ open class CustomAdapter(compositeDisposable: CompositeDisposable, recyclerView:
 
     open fun onLoading() {}
 
-    open fun onLoaded() {}
+    open fun onLoaded() {
+        isLoading = false
+    }
 }
