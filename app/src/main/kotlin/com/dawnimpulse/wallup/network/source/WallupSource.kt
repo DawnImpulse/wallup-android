@@ -15,6 +15,7 @@
 package com.dawnimpulse.wallup.network.source
 
 import com.dawnimpulse.wallup.BuildConfig
+import com.dawnimpulse.wallup.ui.objects.HomescreenDetailsObject
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionList
 import com.dawnimpulse.wallup.utils.LIMIT
 import com.dawnimpulse.wallup.utils.PAGE
@@ -45,4 +46,13 @@ interface WallupSource {
             @Query(LIMIT) limit: Int = 20,
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<WallupCollectionList>
+
+
+    // --------------------
+    //      HOMESCREEN
+    // --------------------
+    @GET("/v1/generic/homescreen")
+    fun homescreen(
+            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
+    ): Call<HomescreenDetailsObject>
 }

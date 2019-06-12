@@ -22,7 +22,11 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.view.ViewParent
 import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
@@ -61,6 +65,17 @@ fun View.hide() {
 // gone view
 fun View.show() {
     visibility = View.VISIBLE
+}
+
+// change layout parameters
+fun View.setParams(width: Int, height: Int) {
+    val parent: ViewParent = parent
+    if (parent is FrameLayout)
+        layoutParams = FrameLayout.LayoutParams(width, height)
+    if (parent is RelativeLayout)
+        layoutParams = RelativeLayout.LayoutParams(width, height)
+    if (parent is LinearLayout)
+        layoutParams = LinearLayout.LayoutParams(width, height)
 }
 
 // open activity

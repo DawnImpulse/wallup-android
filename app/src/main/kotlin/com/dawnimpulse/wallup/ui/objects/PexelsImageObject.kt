@@ -12,11 +12,9 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils
+package com.dawnimpulse.wallup.ui.objects
 
-import com.dawnimpulse.wallup.BuildConfig
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+import com.google.gson.annotations.SerializedName
 
 /**
  * @info -
@@ -24,15 +22,22 @@ import io.reactivex.disposables.Disposable
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-10 by Saksham
+ * @note Created on 2019-06-07 by Saksham
  * @note Updates :
  */
-object Config {
-    const val WALLUP_URL = BuildConfig.WALLUP_URL
+data class PexelsImageObject (
+        @SerializedName("id") val id: String,
+        @SerializedName("width") val width: Int,
+        @SerializedName("height") val height: Int,
+        @SerializedName("src") val src: ImagePexelsSrc,
+        @SerializedName("photographer") val photographer: String,
+        @SerializedName("photographer_url") val photographer_url: String
+)
 
-    val disposableCollectionsActivity by lazy { CompositeDisposable() }
-    val disposableHomescreenActivity by lazy { CompositeDisposable() }
+data class ImagePexelsSrc(
+        @SerializedName("original") val original: String
+)
 
-    val disposableWallupCollectionsViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
-    val disposableCollectionViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
-}
+data class ImagePexelsList(
+        @SerializedName("photos") val photos: List<PexelsImageObject>
+)

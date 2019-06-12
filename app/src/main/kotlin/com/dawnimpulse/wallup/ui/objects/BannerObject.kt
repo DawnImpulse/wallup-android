@@ -12,11 +12,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils
-
-import com.dawnimpulse.wallup.BuildConfig
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
+package com.dawnimpulse.wallup.ui.objects
 
 /**
  * @info -
@@ -24,15 +20,10 @@ import io.reactivex.disposables.Disposable
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-10 by Saksham
+ * @note Created on 2019-06-12 by Saksham
  * @note Updates :
  */
-object Config {
-    const val WALLUP_URL = BuildConfig.WALLUP_URL
-
-    val disposableCollectionsActivity by lazy { CompositeDisposable() }
-    val disposableHomescreenActivity by lazy { CompositeDisposable() }
-
-    val disposableWallupCollectionsViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
-    val disposableCollectionViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
-}
+data class BannerObject(
+        var image: String,
+        var collections: List<WallupCollectionHomescreenObject>
+)

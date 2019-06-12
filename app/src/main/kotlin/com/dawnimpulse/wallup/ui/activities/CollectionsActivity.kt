@@ -7,7 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.adapter.WallupCollectionAdapter
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
-import com.dawnimpulse.wallup.ui.models.WallupCollectionsViewModel
+import com.dawnimpulse.wallup.ui.models.WallupViewModel
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
 import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.RxBusTime
@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.activity_general.*
  * @note Updates :
  */
 class CollectionsActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
-    private lateinit var wallupModel: WallupCollectionsViewModel
+    private lateinit var wallupModel: WallupViewModel
     private lateinit var adapter: WallupCollectionAdapter
     private lateinit var items: MutableList<WallupCollectionObject?>
     private var compositeDisposable = CompositeDisposable()
@@ -43,7 +43,7 @@ class CollectionsActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshLis
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_general)
 
-        wallupModel = WallupCollectionsViewModel(this)
+        wallupModel = WallupViewModel(this)
         compositeDisposable.add(
                 F.publishInterval()
                         .observeOn(AndroidSchedulers.mainThread())

@@ -45,7 +45,7 @@ object ImageHandler {
     fun setImageImgix(view: ImageView, url: String, height: Int = 480) {
         Glide.with(view.context)
                 .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
-                .thumbnail(Glide.with(view.context).load("${F.addQuery(url)}fm=webp&h=256&blur=1200"))
+                //.thumbnail(Glide.with(view.context).load("${F.addQuery(url)}fm=webp&h=256&blur=1200"))
                 .into(view)
                 .clearOnDetach()
     }

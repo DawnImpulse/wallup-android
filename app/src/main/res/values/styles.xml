@@ -14,9 +14,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-
     <!--Progress bar scrolling-->
     <style name="ScrollingProgressBar" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/white</item>
+    </style>
+
+    <!--Fullscreen-->
+    <style name="AppTheme.Fullscreen" parent="AppTheme.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

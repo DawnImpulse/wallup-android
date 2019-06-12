@@ -30,7 +30,15 @@ data class WallupCollectionObject(
         @SerializedName("author") val author: WallupUserObject,
         @SerializedName("description") val description: String?,
         @SerializedName("images") val images: List<WallupImageObject>,
-        @SerializedName("name") val name: String
+        @SerializedName("name") val name: String,
+        @SerializedName("scrollable") val scrollable: Boolean,
+        @SerializedName("vertical") val vertical: Boolean
+)
+
+data class WallupCollectionHomescreenObject(
+        @SerializedName("cid") val cid: String,
+        @SerializedName("name") val name: String,
+        @SerializedName("image") val image: String
 )
 
 data class WallupCollectionList(
