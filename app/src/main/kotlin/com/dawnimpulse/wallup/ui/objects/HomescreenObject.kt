@@ -26,10 +26,10 @@ import com.google.gson.annotations.SerializedName
  * @note Updates :
  */
 data class HomescreenObject(
-        @SerializedName("banner") val banner: String,
-        @SerializedName("homescreen") val homescreen: List<WallupCollectionHomescreenObject>,
+        @SerializedName("banner") val banner: String? = null,
+        @SerializedName("homescreen") val homescreen: List<WallupCollectionHomescreenObject>? = null,
         @SerializedName("images") val images: List<WallupImageObject>,
-        @SerializedName("random") val random: List<WallupCollectionObject>
+        @SerializedName("cols") val cols: List<WallupCollectionObject>
 )
 
 data class HomescreenDetailsObject(

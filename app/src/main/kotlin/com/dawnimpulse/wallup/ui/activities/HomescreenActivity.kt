@@ -7,16 +7,25 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.adapter.HomescreenAdapter
+import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.WallupViewModel
 import com.dawnimpulse.wallup.ui.objects.BannerObject
 import com.dawnimpulse.wallup.ui.objects.HomescreenObject
 import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.functions.logd
 import com.dawnimpulse.wallup.utils.functions.loge
 import com.dawnimpulse.wallup.utils.functions.toastd
 import kotlinx.android.synthetic.main.activity_general.*
 
-class HomescreenActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
+/**
+ * @info -
+ *
+ * @author - Saksham
+ * @note Last Branch Update - master
+ *
+ * @note Created on 2019-06-12 by Saksham
+ * @note Updates :
+ */
+class HomescreenActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
     private lateinit var model: WallupViewModel
     private lateinit var adapter: HomescreenAdapter
     private lateinit var items: MutableList<Any?>
@@ -29,7 +38,8 @@ class HomescreenActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshList
         setContentView(R.layout.activity_general)
 
         model = WallupViewModel(this)
-        fetch(1, callback)
+        fetch(0, callback)
+        generalSwipe.setOnRefreshListener(this)
     }
 
     // -----------------------
@@ -46,14 +56,24 @@ class HomescreenActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshList
     //     refresh
     // ----------------
     override fun onRefresh() {
+        fetch(0, callback)
+    }
 
+    // ----------------
+    //     refresh
+    // ----------------
+    override fun onLoadMore() {
+        fetch(1, callbackPaginated)
     }
 
     // -----------------
     //     fetch items
     // -----------------
-    private fun fetch(page: Int, callback: (Any?, HomescreenObject?) -> Unit) {
-        model.homescreen(callback)
+    private fun fetch(type: Int, callback: (Any?, HomescreenObject?) -> Unit) {
+        when (type) {
+            0 -> model.homescreen(callback)
+            1 -> model.homescreenRandom(callback)
+        }
     }
 
     // -----------------
@@ -67,33 +87,77 @@ class HomescreenActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshList
                 toastd(it.toString())
             }
             r?.let {
+                if (::items.isInitialized)
+                    items.clear()
+                else
+                    items = mutableListOf()
 
                 val image = it.banner
                 val images = it.images
-                val cols = it.random
+                val cols = it.cols
                 val homeCols = it.homescreen
 
-                logd("${images.size} :: ${cols.size} :: ${homeCols.size}")
-
-                items = mutableListOf()
-                items.add(BannerObject(image, homeCols))
-
-                logd(items.size)
+                items.add(BannerObject(image!!, homeCols!!))
 
                 var index = 0
-                cols.forEach {
-                    items.add(it)
+                cols.forEach { wco ->
+                    items.add(wco)
                     val itms = images.asSequence().withIndex().filter { i -> i.index >= index && i.index < index + 4 }.map { it.value }
-                    index += itms.count()
                     items.addAll(itms)
-                    logd(items.size)
+                    index += itms.count()
                 }
 
-                logd("yeah")
+                items.add(null)
 
-                adapter = HomescreenAdapter(items, generalRecycler)
-                generalRecycler.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-                generalRecycler.adapter = adapter
+                if (!::adapter.isInitialized) {
+                    adapter = HomescreenAdapter(items, generalRecycler)
+                    generalRecycler.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+                    generalRecycler.adapter = adapter
+                } else
+                    adapter.notifyDataSetChanged()
+
+                generalSwipe.isRefreshing = false
+                adapter.setOnLoadMoreListener(this@HomescreenActivity)
+            }
+        }
+
+    }
+
+
+    // -----------------------
+    //    callback paginated
+    // -----------------------
+    private val callbackPaginated = object : (Any?, HomescreenObject?) -> Unit {
+
+        override fun invoke(e: Any?, r: HomescreenObject?) {
+
+            adapter.onLoaded()
+
+            e?.let {
+                loge(it)
+                toastd(it.toString())
+            }
+            r?.let {
+
+                // remove progress bar
+                items.asSequence().withIndex().filter { it.value == null }.map { it.index }
+                        .forEach {
+                            items.removeAt(it)
+                            adapter.notifyItemRemoved(it)
+                        }
+
+                val images = it.images
+                val cols = it.cols
+
+                var index = 0
+                cols.forEach { wco ->
+                    items.add(wco)
+                    val itms = images.asSequence().withIndex().filter { i -> i.index >= index && i.index < index + 4 }.map { it.value }
+                    items.addAll(itms)
+                    index += itms.count()
+                }
+
+                items.add(null)
             }
         }
 

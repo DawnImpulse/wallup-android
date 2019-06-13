@@ -19,6 +19,15 @@ import com.dawnimpulse.wallup.utils.functions.toast
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_general.*
 
+/**
+ * @info -
+ *
+ * @author - Saksham
+ * @note Last Branch Update - master
+ *
+ * @note Created on 2019-06-10 by Saksham
+ * @note Updates :
+ */
 class RandomActivity : AppCompatActivity(),
         SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, OnLoadMoreListener {
     private lateinit var unsplashModel: UnsplashViewModel

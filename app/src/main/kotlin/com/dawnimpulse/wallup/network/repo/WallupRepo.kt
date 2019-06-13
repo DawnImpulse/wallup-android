@@ -83,4 +83,28 @@ object WallupRepo {
             }
         })
     }
+
+    // -----------------------
+    //    homescreen random
+    // -----------------------
+    fun homescreenRandom(callback: (Any?, HomescreenObject?) -> Unit) {
+
+        val call = client.homescreenRandom()
+
+        call.enqueue(object : Callback<HomescreenDetailsObject> {
+
+            // response
+            override fun onResponse(call: Call<HomescreenDetailsObject>, response: Response<HomescreenDetailsObject>) {
+                if (response.isSuccessful)
+                    callback(null, response.body()!!.details)
+                else
+                    callback(ErrorWallupUtil.parseError(response), null)
+            }
+
+            // on failure
+            override fun onFailure(call: Call<HomescreenDetailsObject>, t: Throwable) {
+                callback(t.toString(), null)
+            }
+        })
+    }
 }

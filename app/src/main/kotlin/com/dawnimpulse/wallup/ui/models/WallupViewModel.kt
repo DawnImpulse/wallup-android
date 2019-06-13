@@ -49,4 +49,13 @@ class WallupViewModel(private val activity: AppCompatActivity) {
             WallupRepo.homescreen(callback)
         }
     }
+
+    // -------------------------
+    //      homescreen random
+    // -------------------------
+    fun homescreenRandom(callback: (Any?, HomescreenObject?) -> Unit) {
+        Lifecycle.onStart(activity) {
+            WallupRepo.homescreenRandom(callback)
+        }
+    }
 }

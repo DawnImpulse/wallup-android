@@ -15,6 +15,7 @@
 package com.dawnimpulse.wallup.utils.handlers
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.GenericTransitionOptions
@@ -48,6 +49,29 @@ object ImageHandler {
                 //.thumbnail(Glide.with(view.context).load("${F.addQuery(url)}fm=webp&h=256&blur=1200"))
                 .into(view)
                 .clearOnDetach()
+    }
+
+
+    // -------------------------
+    //     set image in view
+    // -------------------------
+    fun getImageImgixBitmapCallback(context: Context, url: String, height: Int, callback: (Bitmap?) -> Unit) {
+        Glide.with(context)
+                .asBitmap()
+                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
+                .listener(object : RequestListener<Bitmap> {
+
+                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        callback(resource)
+                        return true
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                        callback(null)
+                        return true
+                    }
+                })
+                .submit()
     }
 
     // ---------------------------

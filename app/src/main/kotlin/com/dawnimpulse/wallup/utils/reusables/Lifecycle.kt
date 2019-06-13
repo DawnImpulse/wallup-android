@@ -48,4 +48,23 @@ object Lifecycle {
                 }
             })
     }
+
+    // run function onResume
+    fun onResume(activity: AppCompatActivity, function: () -> Unit) {
+        var once = true
+        if (activity.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED))
+            function()
+        else
+            activity.lifecycle.addObserver(object : LifecycleObserver {
+                @OnLifecycleEvent(Lifecycle.Event.ON_START)
+                fun onStart() {
+                    if (once) {
+                        once = false
+                        activity.runOnUiThread {
+                            function()
+                        }
+                    }
+                }
+            })
+    }
 }

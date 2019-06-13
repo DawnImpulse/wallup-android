@@ -75,14 +75,16 @@ class CollectionsActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshLis
     }
 
     // -------------------------
-    //     oad more items
+    //     load more items
     // -------------------------
     override fun onLoadMore() {
         if (next)
             fetchData(page, callbackPaginated)
     }
 
-    // fetch data
+    // -------------------
+    //     fetch data
+    // -------------------
     private fun fetchData(page: Int, callback: (Any?, List<WallupCollectionObject?>?) -> Unit) {
         wallupModel.getSortedCollections(page, callback)
     }

@@ -61,6 +61,8 @@ dependencies {
     implementation 'com.jakewharton.rxrelay2:rxrelay:2.1.0' //rx relay
     implementation 'com.jakewharton.rxbinding3:rxbinding-recyclerview:3.0.0-alpha2' //rx recycler
     implementation 'com.makeramen:roundedimageview:2.3.0' //rounding images
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0' // photo view
+    implementation 'jp.wasabeef:blurry:3.0.0' //blur library
 
     //------------------ Additional -------------------------
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0'

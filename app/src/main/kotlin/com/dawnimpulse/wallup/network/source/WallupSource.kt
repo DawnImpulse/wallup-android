@@ -55,4 +55,13 @@ interface WallupSource {
     fun homescreen(
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<HomescreenDetailsObject>
+
+
+    // -------------------------
+    //      HOMESCREEN RANDOM
+    // -------------------------
+    @GET("/v1/generic/homescreen/random")
+    fun homescreenRandom(
+            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
+    ): Call<HomescreenDetailsObject>
 }

@@ -22,11 +22,11 @@ import com.dawnimpulse.wallup.ui.holders.BannerHolder
 import com.dawnimpulse.wallup.ui.holders.CollectionHolder
 import com.dawnimpulse.wallup.ui.holders.LoadingHolder
 import com.dawnimpulse.wallup.ui.holders.WallupImageHolder
+import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.objects.BannerObject
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
 import com.dawnimpulse.wallup.ui.objects.WallupImageObject
 import com.dawnimpulse.wallup.utils.Config
-
 
 
 /**
@@ -41,12 +41,13 @@ import com.dawnimpulse.wallup.utils.Config
 class HomescreenAdapter(
         val items: List<Any?>,
         recycler: RecyclerView
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+) : CustomAdapter(Config.disposableHomescreenActivity, recycler) {
 
     private val VIEW_BANNER = 0
     private val VIEW_COLLECTION = 1
     private val VIEW_LOADING = 2
     private val VIEW_IMAGE = 3
+    private lateinit var onLoadMoreListener:OnLoadMoreListener
 
     // -------------------
     //      items
@@ -111,5 +112,21 @@ class HomescreenAdapter(
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
         Config.disposableCollectionViewHolder.forEach { it.value.dispose() }
+    }
+
+    // --------------------
+    //     set listener
+    // --------------------
+    fun setOnLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
+        this.onLoadMoreListener = loadMoreListener
+    }
+
+    // ---------------
+    //     loading
+    // ---------------
+    override fun onLoading() {
+        super.onLoading()
+
+        onLoadMoreListener.onLoadMore()
     }
 }

@@ -29,6 +29,7 @@ data class WallupImageObject(
         @SerializedName("iid") val iid: String,
         @SerializedName("rid") val rid: String,
         @SerializedName("height") val height: Int,
+        @SerializedName("html") val html: String? = null,
         @SerializedName("width") val width: Int,
         @SerializedName("issuer") val issuer: String,
         @SerializedName("urls") val urls: List<String>,

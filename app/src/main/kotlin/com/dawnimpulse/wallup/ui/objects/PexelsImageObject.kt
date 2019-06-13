@@ -31,7 +31,8 @@ data class PexelsImageObject (
         @SerializedName("height") val height: Int,
         @SerializedName("src") val src: ImagePexelsSrc,
         @SerializedName("photographer") val photographer: String,
-        @SerializedName("photographer_url") val photographer_url: String
+        @SerializedName("photographer_url") val photographer_url: String,
+        @SerializedName("url") val url: String
 )
 
 data class ImagePexelsSrc(

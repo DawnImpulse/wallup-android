@@ -41,7 +41,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:id="@+id/hctint"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_black_tint" />
+                android:background="@drawable/bg_gradient" />
 
             <ProgressBar
                 android:id="@+id/hcprogress"
@@ -59,10 +59,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp"
-                app:autoSizeStepGranularity="1sp"
                 android:gravity="bottom|left"
                 android:textColor="@color/white"
-                app:autoSizeMaxTextSize="24sp"
+                app:autoSizeMaxTextSize="18sp"
+                app:autoSizeStepGranularity="1sp"
                 app:autoSizeTextType="uniform" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

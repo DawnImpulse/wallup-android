@@ -28,16 +28,16 @@ const val PEXELS_URL = "https://api.pexels.com"
 
 const val REFRESH_UNSPLASH_RANDOM = 1001.toString()
 const val REFRESH_WALLUP_COLLECTIONS_SORTED = 1002.toString()
-
 const val REFRESHED_UNSPLASH_RANDOM = 2001.toString()
 const val REFRESHED_WALLUP_COLLECTIONS_SORTED = 2002.toString()
-
 const val LOAD_MORE_WALLUP_COLLECTIONS_SORTED = 3001.toString()
-
 const val LOADED_WALLUP_COLLECTIONS_SORTED = 4001.toString()
-
 const val FINISHED_WALLUP_COLLECTIONS_SORTED = 5001.toString()
 
+const val TYPE = "type"
+const val WALLUP = "wallup"
+const val UNSPLASH = "unsplash"
+const val PEXELS = "pexels"
 const val AUTHORIZATION = "Authorization"
 const val QUERY = "query"
 const val X_API_KEY = "x-api-key"

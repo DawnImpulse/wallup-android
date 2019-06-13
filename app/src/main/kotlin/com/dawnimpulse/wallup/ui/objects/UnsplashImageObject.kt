@@ -30,9 +30,14 @@ data class UnsplashImageObject(
         @SerializedName("width") val width: Int = 0,
         @SerializedName("height") val height: Int = 0,
         @SerializedName("urls") val urls: UnsplashImageUrlsObject,
-        @SerializedName("user") val user: UnsplashUserObject
+        @SerializedName("user") val user: UnsplashUserObject,
+        @SerializedName("links") val links: UnsplashImageLinksObject
 )
 
 data class UnsplashImageUrlsObject(
         @SerializedName("raw") val raw: String = ""
+)
+
+data class UnsplashImageLinksObject(
+        @SerializedName("html") val html: String
 )

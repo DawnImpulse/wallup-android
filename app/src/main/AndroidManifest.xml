@@ -10,12 +10,16 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:allowBackup="false"
         android:largeHeap="true"
-        android:supportsRtl="false"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="false"
         tools:ignore="GoogleAppIndexingWarning,MissingApplicationIcon"
-        tools:replace="android:supportsRtl"
-        android:allowBackup="false">
+        tools:replace="android:supportsRtl">
+
+        <activity
+            android:name=".ui.activities.ImageActivity"
+            android:theme="@style/AppTheme.Fullscreen" /> <!--Image Activity-->
 
         <activity
             android:name=".ui.activities.HomescreenActivity"
@@ -25,15 +29,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!--Homescreen-->
-
+        </activity> <!-- Homescreen -->
 
         <activity
             android:name=".ui.activities.CollectionsActivity"
-            android:theme="@style/AppTheme.NoActionBar"> <!-- Collections Activity -->
+            android:theme="@style/AppTheme.NoActionBar"/> <!-- Collections Activity -->
 
-
-        </activity>
         <activity
             android:name=".ui.activities.RandomActivity"
             android:theme="@style/AppTheme.NoActionBar"> <!-- Random Activity -->

@@ -18,8 +18,13 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.ui.activities.ImageActivity
 import com.dawnimpulse.wallup.ui.objects.WallupImageObject
+import com.dawnimpulse.wallup.utils.TYPE
+import com.dawnimpulse.wallup.utils.WALLUP
 import com.dawnimpulse.wallup.utils.functions.F
+import com.dawnimpulse.wallup.utils.functions.openActivity
+import com.dawnimpulse.wallup.utils.functions.toJson
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import kotlinx.android.synthetic.main.inflator_image.view.*
 
@@ -46,5 +51,13 @@ class WallupImageHolder(val view: View) : RecyclerView.ViewHolder(view) {
         image.layoutParams = RelativeLayout.LayoutParams(width - F.dpToPx(4, context), height)
 
         ImageHandler.setImageImgix(image, item.urls[0])
+
+        // set on click
+        layout.setOnClickListener {
+            context.openActivity(ImageActivity::class.java) {
+                putString(TYPE, WALLUP)
+                putString(WALLUP, toJson(item))
+            }
+        }
     }
 }
