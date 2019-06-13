@@ -22,7 +22,6 @@ import com.dawnimpulse.wallup.utils.functions.logd
 import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.subscribeBy
 import java.util.concurrent.TimeUnit
 
 /**
@@ -49,41 +48,38 @@ open class CustomAdapter(compositeDisposable: CompositeDisposable, recyclerView:
                         .debounce(500, TimeUnit.MILLISECONDS)
                         .filter { !isLoading }
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeBy(
-                                onNext = {
-                                    val layoutManager = recyclerView.layoutManager
+                        .subscribe({
+                            val layoutManager = recyclerView.layoutManager
 
-                                    // last visible item for staggered grid
-                                    fun getLastVisibleItem(lastVisibleItemPositions: List<Int>): Int {
-                                        var maxSize = 0
-                                        lastVisibleItemPositions.forEachIndexed { index, i ->
-                                            if (index == 0) {
-                                                maxSize = lastVisibleItemPositions[index]
-                                            } else if (lastVisibleItemPositions[index] > maxSize) {
-                                                maxSize = lastVisibleItemPositions[index]
-                                            }
-                                        }
-
-                                        return maxSize
+                            // last visible item for staggered grid
+                            fun getLastVisibleItem(lastVisibleItemPositions: List<Int>): Int {
+                                var maxSize = 0
+                                lastVisibleItemPositions.forEachIndexed { index, i ->
+                                    if (index == 0) {
+                                        maxSize = lastVisibleItemPositions[index]
+                                    } else if (lastVisibleItemPositions[index] > maxSize) {
+                                        maxSize = lastVisibleItemPositions[index]
                                     }
-
-                                    totalItemCount = layoutManager!!.itemCount
-
-                                    if (layoutManager is StaggeredGridLayoutManager)
-                                        lastVisibleItem = getLastVisibleItem(layoutManager.findLastVisibleItemPositions(null).toList())
-
-                                    if (layoutManager is LinearLayoutManager)
-                                        lastVisibleItem = layoutManager.findLastVisibleItemPosition()
-
-                                    if (totalItemCount <= lastVisibleItem + visibleThreshold) {
-                                        isLoading = true
-                                        onLoading()
-                                    }
-                                },
-                                onError = {
-                                    logd(it)
                                 }
-                        )
+
+                                return maxSize
+                            }
+
+                            totalItemCount = layoutManager!!.itemCount
+
+                            if (layoutManager is StaggeredGridLayoutManager)
+                                lastVisibleItem = getLastVisibleItem(layoutManager.findLastVisibleItemPositions(null).toList())
+
+                            if (layoutManager is LinearLayoutManager)
+                                lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+
+                            if (totalItemCount <= lastVisibleItem + visibleThreshold) {
+                                isLoading = true
+                                onLoading()
+                            }
+                        }, {
+                            logd(it)
+                        })
         )
     }
 

@@ -17,6 +17,8 @@ package com.dawnimpulse.wallup.network.source
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.ui.objects.HomescreenDetailsObject
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionList
+import com.dawnimpulse.wallup.ui.objects.WallupImageList
+import com.dawnimpulse.wallup.utils.CID
 import com.dawnimpulse.wallup.utils.LIMIT
 import com.dawnimpulse.wallup.utils.PAGE
 import com.dawnimpulse.wallup.utils.X_API_KEY
@@ -64,4 +66,14 @@ interface WallupSource {
     fun homescreenRandom(
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<HomescreenDetailsObject>
+
+    // -----------------------
+    //    COLLECTION IMAGES
+    // -----------------------
+    @GET("/v1/images/collection")
+    fun collectionImages(
+            @Query(PAGE) page: Int,
+            @Query(CID) cid: String,
+            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
+    ): Call<WallupImageList>
 }

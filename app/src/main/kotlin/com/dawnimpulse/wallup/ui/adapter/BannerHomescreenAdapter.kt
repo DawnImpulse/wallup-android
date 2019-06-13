@@ -18,7 +18,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.ui.holders.BannerCollectionsHolder
+import com.dawnimpulse.wallup.ui.holders.BannerHomescreenHolder
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionHomescreenObject
 
 /**
@@ -30,9 +30,9 @@ import com.dawnimpulse.wallup.ui.objects.WallupCollectionHomescreenObject
  * @note Created on 2019-06-12 by Saksham
  * @note Updates :
  */
-class BannerCollectionAdapter(
+class BannerHomescreenAdapter(
         val items: List<WallupCollectionHomescreenObject>
-) : RecyclerView.Adapter<BannerCollectionsHolder>() {
+) : RecyclerView.Adapter<BannerHomescreenHolder>() {
 
     // --------------------
     //      get count
@@ -44,14 +44,14 @@ class BannerCollectionAdapter(
     // --------------------
     //      create
     // --------------------
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerCollectionsHolder {
-        return BannerCollectionsHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_homescreen_collection, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerHomescreenHolder {
+        return BannerHomescreenHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_homescreen_collection, parent, false))
     }
 
     // --------------------
     //      bind
     // --------------------
-    override fun onBindViewHolder(holder: BannerCollectionsHolder, position: Int) {
+    override fun onBindViewHolder(holder: BannerHomescreenHolder, position: Int) {
         holder.bind(items[position])
     }
 

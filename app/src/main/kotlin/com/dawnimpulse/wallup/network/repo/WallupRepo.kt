@@ -15,10 +15,7 @@
 package com.dawnimpulse.wallup.network.repo
 
 import com.dawnimpulse.wallup.network.RetroApiClient
-import com.dawnimpulse.wallup.ui.objects.HomescreenDetailsObject
-import com.dawnimpulse.wallup.ui.objects.HomescreenObject
-import com.dawnimpulse.wallup.ui.objects.WallupCollectionList
-import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
+import com.dawnimpulse.wallup.ui.objects.*
 import com.dawnimpulse.wallup.utils.error.ErrorWallupUtil
 import retrofit2.Call
 import retrofit2.Callback
@@ -103,6 +100,30 @@ object WallupRepo {
 
             // on failure
             override fun onFailure(call: Call<HomescreenDetailsObject>, t: Throwable) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    // -----------------------
+    //    collection images
+    // -----------------------
+    fun collectionImages(page: Int, cid: String, callback: (Any?, List<WallupImageObject>?) -> Unit) {
+
+        val call = client.collectionImages(page,cid)
+
+        call.enqueue(object : Callback<WallupImageList> {
+
+            // response
+            override fun onResponse(call: Call<WallupImageList>, response: Response<WallupImageList>) {
+                if (response.isSuccessful)
+                    callback(null, response.body()!!.details)
+                else
+                    callback(ErrorWallupUtil.parseError(response), null)
+            }
+
+            // on failure
+            override fun onFailure(call: Call<WallupImageList>, t: Throwable) {
                 callback(t.toString(), null)
             }
         })

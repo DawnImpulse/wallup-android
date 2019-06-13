@@ -179,8 +179,14 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     // -------------------------------
     private fun setBlurZoom(bitmap: Bitmap?) {
         runOnUiThread {
-            previewImage.setImageBitmap(bitmap)
-            Blurry.with(this).from(bitmap).into(previewImageBg)
+            bitmap?.let{
+                previewImage.setImageBitmap(bitmap)
+                Blurry.with(this)
+                        .async()
+                        .sampling(8)
+                        .from(bitmap)
+                        .into(previewImageBg)
+            }
 
             when (type) {
                 UNSPLASH -> {

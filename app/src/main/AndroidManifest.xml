@@ -16,11 +16,10 @@
         android:supportsRtl="false"
         tools:ignore="GoogleAppIndexingWarning,MissingApplicationIcon"
         tools:replace="android:supportsRtl">
-
+        <activity android:name=".ui.activities.CollectionHorizontalActivity"></activity>
         <activity
             android:name=".ui.activities.ImageActivity"
-            android:theme="@style/AppTheme.Fullscreen" /> <!--Image Activity-->
-
+            android:theme="@style/AppTheme.Fullscreen" /> <!-- Image Activity -->
         <activity
             android:name=".ui.activities.HomescreenActivity"
             android:theme="@style/AppTheme.Fullscreen">
@@ -30,11 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity> <!-- Homescreen -->
-
         <activity
             android:name=".ui.activities.CollectionsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/> <!-- Collections Activity -->
-
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- Collections Activity -->
         <activity
             android:name=".ui.activities.RandomActivity"
             android:theme="@style/AppTheme.NoActionBar"> <!-- Random Activity -->

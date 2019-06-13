@@ -15,12 +15,13 @@
 package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.ui.adapter.BannerHomescreenAdapter
-import com.dawnimpulse.wallup.ui.objects.BannerObject
+import com.dawnimpulse.wallup.ui.objects.WallupCollectionHomescreenObject
+import com.dawnimpulse.wallup.utils.functions.F
+import com.dawnimpulse.wallup.utils.functions.setParams
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
-import kotlinx.android.synthetic.main.inflator_banner.view.*
+import kotlinx.android.synthetic.main.inflator_homescreen_collection.view.*
 
 /**
  * @info -
@@ -31,18 +32,19 @@ import kotlinx.android.synthetic.main.inflator_banner.view.*
  * @note Created on 2019-06-12 by Saksham
  * @note Updates :
  */
-class BannerHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val recycler = view.bannerRecycler
-    private val banner = view.bannerImage
-    private val context = view.context
-    private lateinit var adapter: BannerHomescreenAdapter
+class BannerHomescreenHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private val layout = view.hclayout!!
+    private val image = view.hcimage!!
+    private val text = view.hctext!!
+    private val context = view.context!!
 
-    fun bind(item: BannerObject) {
-        if (!::adapter.isInitialized) {
-            ImageHandler.setImageImgix(banner, item.image, 720)
-            adapter = BannerHomescreenAdapter(item.collections)
-            recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            recycler.adapter = adapter
-        }
+    init {
+        layout.layoutParams = FrameLayout.LayoutParams(F.dpToPx(148, context), F.dpToPx(88, context))
+        image.setParams(F.dpToPx(148, context), F.dpToPx(80, context))
+    }
+
+    fun bind(item: WallupCollectionHomescreenObject) {
+        ImageHandler.setImageImgix(image, item.image, 240)
+        text.text = item.name
     }
 }

@@ -43,6 +43,7 @@ const val QUERY = "query"
 const val X_API_KEY = "x-api-key"
 const val PAGE = "page"
 const val LIMIT = "limit"
+const val CID = "cid"
 
 const val ERROR_UNSPLASH_RANDOM = "errorUnsplashRandom"
 const val ERROR_WALLUP_COLLECTIONS_SORTED = "errorWallupCollectionsSorted"

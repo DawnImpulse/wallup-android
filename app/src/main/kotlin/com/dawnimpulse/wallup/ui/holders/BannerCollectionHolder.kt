@@ -15,13 +15,10 @@
 package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
-import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.ui.objects.WallupCollectionHomescreenObject
-import com.dawnimpulse.wallup.utils.functions.F
-import com.dawnimpulse.wallup.utils.functions.setParams
+import com.dawnimpulse.wallup.ui.objects.BannerCollectionObject
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
-import kotlinx.android.synthetic.main.inflator_homescreen_collection.view.*
+import kotlinx.android.synthetic.main.inflator_banner_collection.view.*
 
 /**
  * @info -
@@ -32,19 +29,12 @@ import kotlinx.android.synthetic.main.inflator_homescreen_collection.view.*
  * @note Created on 2019-06-12 by Saksham
  * @note Updates :
  */
-class BannerCollectionsHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val layout = view.hclayout!!
-    private val image = view.hcimage!!
-    private val text = view.hctext!!
-    private val context = view.context!!
+class BannerCollectionHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private val banner = view.bannerColImage
+    private val text = view.bannerColText
 
-    init {
-        layout.layoutParams = FrameLayout.LayoutParams(F.dpToPx(148, context), F.dpToPx(88, context))
-        image.setParams(F.dpToPx(148, context), F.dpToPx(80, context))
-    }
-
-    fun bind(item: WallupCollectionHomescreenObject) {
-        ImageHandler.setImageImgix(image, item.image, 240)
-        text.text = item.name
+    fun bind(item: BannerCollectionObject) {
+        ImageHandler.setImageImgix(banner, item.image, 720)
+        text.text = item.title
     }
 }
