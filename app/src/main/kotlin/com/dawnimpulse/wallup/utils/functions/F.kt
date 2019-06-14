@@ -67,7 +67,6 @@ object F {
 
     // get height based on screen width
     fun getDynamicHeight(context: Context, screenWidth: Int, screenHeight: Int, width: Int, height: Int): Int {
-        val point = displayDimensions(context)
         val h = ((screenWidth - dpToPx(16, context)) * height) / width
 
         return if (h > (screenHeight - dpToPx(48, context)))

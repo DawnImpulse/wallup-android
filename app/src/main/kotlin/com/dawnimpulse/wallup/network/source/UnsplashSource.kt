@@ -16,8 +16,8 @@ package com.dawnimpulse.wallup.network.source
 
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.ui.objects.UnsplashImageObject
-import com.dawnimpulse.wallup.utils.AUTHORIZATION
-import com.dawnimpulse.wallup.utils.QUERY
+import com.dawnimpulse.wallup.utils.reusables.AUTHORIZATION
+import com.dawnimpulse.wallup.utils.reusables.QUERY
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

@@ -12,9 +12,12 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils
+package com.dawnimpulse.wallup.utils.reusables
 
-import com.jakewharton.rxrelay2.BehaviorRelay
+import android.content.SharedPreferences
+import com.dawnimpulse.wallup.BuildConfig
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
 /**
  * @info -
@@ -25,20 +28,14 @@ import com.jakewharton.rxrelay2.BehaviorRelay
  * @note Created on 2019-06-10 by Saksham
  * @note Updates :
  */
+object Config {
+    const val WALLUP_URL = BuildConfig.WALLUP_URL
 
-val RxBus by lazy { BehaviorRelay.createDefault<String>("") }
-val RxObjectBus by lazy { BehaviorRelay.createDefault<RxBusObject>(RxBusObject()) }
-val RxErrorBus by lazy { BehaviorRelay.createDefault<RxErrorBusObject>(RxErrorBusObject()) }
-val RxBusTime by lazy { BehaviorRelay.createDefault(0) }
+    val disposableCollectionsActivity by lazy { CompositeDisposable() }
+    val disposableHomescreenActivity by lazy { CompositeDisposable() }
 
-// normal bus
-data class RxBusObject(
-        var type: String = "",
-        var data: Any? = null
-)
+    val disposableWallupCollectionsViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
+    val disposableCollectionViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
+}
 
-// error bus
-data class RxErrorBusObject(
-        var type: String = "",
-        var error: Any? = null
-)
+lateinit var Prefs: SharedPreferences

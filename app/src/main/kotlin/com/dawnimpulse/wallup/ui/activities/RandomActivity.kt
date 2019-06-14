@@ -13,9 +13,10 @@ import com.dawnimpulse.wallup.ui.adapter.UnsplashAdapter
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.UnsplashViewModel
 import com.dawnimpulse.wallup.ui.objects.UnsplashImageObject
-import com.dawnimpulse.wallup.utils.*
-import com.dawnimpulse.wallup.utils.functions.loge
-import com.dawnimpulse.wallup.utils.functions.toast
+import com.dawnimpulse.wallup.utils.functions.*
+import com.dawnimpulse.wallup.utils.reusables.ERROR_UNSPLASH_RANDOM
+import com.dawnimpulse.wallup.utils.reusables.REFRESHED_UNSPLASH_RANDOM
+import com.dawnimpulse.wallup.utils.reusables.REFRESH_UNSPLASH_RANDOM
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_general.*
 

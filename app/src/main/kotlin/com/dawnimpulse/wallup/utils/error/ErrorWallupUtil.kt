@@ -28,11 +28,11 @@ object ErrorWallupUtil {
 
     // parse unsplash errors
     fun parseError(response: Response<*>): ErrorWallupObject {
-        val converter = RetroApiClient.getWallupRetro()!!.responseBodyConverter<ErrorWallupObject>(ErrorWallupObject::class.java, arrayOfNulls<Annotation>(0))
+        val converter = RetroApiClient.getWallupRetro().responseBodyConverter<ErrorWallupObject>(ErrorWallupObject::class.java, arrayOfNulls<Annotation>(0))
         val error: ErrorWallupObject
 
         try {
-            error = converter.convert(response.errorBody())
+            error = converter.convert(response.errorBody()!!)
         } catch (e: Exception) {
             return ErrorWallupObject()
         }

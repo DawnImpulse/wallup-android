@@ -20,8 +20,8 @@ import android.widget.RelativeLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.ui.activities.ImageActivity
 import com.dawnimpulse.wallup.ui.objects.WallupImageObject
-import com.dawnimpulse.wallup.utils.TYPE
-import com.dawnimpulse.wallup.utils.WALLUP
+import com.dawnimpulse.wallup.utils.reusables.TYPE
+import com.dawnimpulse.wallup.utils.reusables.WALLUP
 import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.openActivity
 import com.dawnimpulse.wallup.utils.functions.toJson

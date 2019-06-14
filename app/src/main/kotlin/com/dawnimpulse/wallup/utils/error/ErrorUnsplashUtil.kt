@@ -29,11 +29,11 @@ object ErrorUnsplashUtil {
 
     // parse unsplash errors
     fun parseError(response: Response<*>): ErrorUnsplashObject {
-        val converter = RetroApiClient.getUnsplashRetro()!!.responseBodyConverter<ErrorUnsplashObject>(ErrorUnsplashObject::class.java, arrayOfNulls<Annotation>(0))
+        val converter = RetroApiClient.getUnsplashRetro().responseBodyConverter<ErrorUnsplashObject>(ErrorUnsplashObject::class.java, arrayOfNulls<Annotation>(0))
         val error: ErrorUnsplashObject
 
         try {
-            error = converter.convert(response.errorBody())
+            error = converter.convert(response.errorBody()!!)
         } catch (e: IOException) {
             return ErrorUnsplashObject()
         }

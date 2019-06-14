@@ -57,7 +57,7 @@ class UnsplashAdapter(
                 // last visible item for staggered grid
                 fun getLastVisibleItem(lastVisibleItemPositions: List<Int>): Int {
                     var maxSize = 0
-                    lastVisibleItemPositions.forEachIndexed { index, i ->
+                    lastVisibleItemPositions.forEachIndexed { index, _ ->
                         if (index == 0) {
                             maxSize = lastVisibleItemPositions[index]
                         } else if (lastVisibleItemPositions[index] > maxSize) {

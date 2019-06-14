@@ -26,7 +26,7 @@ import com.dawnimpulse.wallup.ui.holders.WallupImageHolder
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.objects.BannerCollectionObject
 import com.dawnimpulse.wallup.ui.objects.WallupImageObject
-import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.reusables.Config
 
 /**
  * @info -

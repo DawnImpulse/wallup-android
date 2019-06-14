@@ -34,7 +34,7 @@ object UnsplashRepo {
 
     // random images
     fun randomImages(callback: (Any?, List<UnsplashImageObject>?) -> Unit) {
-        val call = client!!.randomImages()
+        val call = client.randomImages()
 
         call.enqueue(object : Callback<List<UnsplashImageObject>> {
 
@@ -53,7 +53,7 @@ object UnsplashRepo {
 
     // search images
     fun searchImages(query: String, callback: (Any?, List<UnsplashImageObject>?) -> Unit) {
-        val call = client!!.searchImages(query)
+        val call = client.searchImages(query)
 
         call.enqueue(object : Callback<List<UnsplashImageObject>> {
 

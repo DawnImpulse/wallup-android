@@ -9,8 +9,8 @@ import com.dawnimpulse.wallup.ui.adapter.WallupCollectionAdapter
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.WallupViewModel
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
-import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.RxBusTime
+import com.dawnimpulse.wallup.utils.reusables.Config
+import com.dawnimpulse.wallup.utils.functions.RxBusTime
 import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.loge
 import com.dawnimpulse.wallup.utils.functions.toastd

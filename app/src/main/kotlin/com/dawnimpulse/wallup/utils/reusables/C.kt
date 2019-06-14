@@ -12,7 +12,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils
+package com.dawnimpulse.wallup.utils.reusables
 
 /**
  * @info -
@@ -44,6 +44,7 @@ const val X_API_KEY = "x-api-key"
 const val PAGE = "page"
 const val LIMIT = "limit"
 const val CID = "cid"
+const val AUTO_WALLPAPER = "autoWallpaper"
 
 const val ERROR_UNSPLASH_RANDOM = "errorUnsplashRandom"
 const val ERROR_WALLUP_COLLECTIONS_SORTED = "errorWallupCollectionsSorted"

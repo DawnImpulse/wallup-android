@@ -18,7 +18,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dawnimpulse.wallup.network.repo.UnsplashRepo
 import com.dawnimpulse.wallup.ui.objects.UnsplashImageObject
-import com.dawnimpulse.wallup.utils.*
+import com.dawnimpulse.wallup.utils.functions.RxBus
+import com.dawnimpulse.wallup.utils.functions.RxErrorBus
+import com.dawnimpulse.wallup.utils.functions.RxErrorBusObject
+import com.dawnimpulse.wallup.utils.reusables.ERROR_UNSPLASH_RANDOM
+import com.dawnimpulse.wallup.utils.reusables.REFRESHED_UNSPLASH_RANDOM
+import com.dawnimpulse.wallup.utils.reusables.REFRESH_UNSPLASH_RANDOM
 import io.reactivex.disposables.CompositeDisposable
 
 /**

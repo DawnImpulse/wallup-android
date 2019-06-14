@@ -15,9 +15,9 @@ package com.dawnimpulse.wallup.network
 
 import com.dawnimpulse.wallup.network.source.UnsplashSource
 import com.dawnimpulse.wallup.network.source.WallupSource
-import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.PEXELS_URL
-import com.dawnimpulse.wallup.utils.UNSPLASH_URL
+import com.dawnimpulse.wallup.utils.reusables.Config
+import com.dawnimpulse.wallup.utils.reusables.PEXELS_URL
+import com.dawnimpulse.wallup.utils.reusables.UNSPLASH_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

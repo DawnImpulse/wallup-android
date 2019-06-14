@@ -17,8 +17,8 @@ package com.dawnimpulse.wallup.ui.holders
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
-import com.dawnimpulse.wallup.utils.Config
-import com.dawnimpulse.wallup.utils.RxBusTime
+import com.dawnimpulse.wallup.utils.reusables.Config
+import com.dawnimpulse.wallup.utils.functions.RxBusTime
 import com.dawnimpulse.wallup.utils.functions.gone
 import com.dawnimpulse.wallup.utils.functions.show
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler

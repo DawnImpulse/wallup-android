@@ -32,7 +32,7 @@ object ErrorPexelsUtil {
         val error: ErrorPexelsObject
 
         try {
-            error = converter.convert(response.errorBody())
+            error = converter.convert(response.errorBody()!!)
         } catch (e: Exception) {
             return ErrorPexelsObject()
         }

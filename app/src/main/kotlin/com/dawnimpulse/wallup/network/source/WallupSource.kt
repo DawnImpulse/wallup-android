@@ -18,10 +18,10 @@ import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.ui.objects.HomescreenDetailsObject
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionList
 import com.dawnimpulse.wallup.ui.objects.WallupImageList
-import com.dawnimpulse.wallup.utils.CID
-import com.dawnimpulse.wallup.utils.LIMIT
-import com.dawnimpulse.wallup.utils.PAGE
-import com.dawnimpulse.wallup.utils.X_API_KEY
+import com.dawnimpulse.wallup.utils.reusables.CID
+import com.dawnimpulse.wallup.utils.reusables.LIMIT
+import com.dawnimpulse.wallup.utils.reusables.PAGE
+import com.dawnimpulse.wallup.utils.reusables.X_API_KEY
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

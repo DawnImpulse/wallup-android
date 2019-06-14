@@ -12,7 +12,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils
+package com.dawnimpulse.wallup.utils.reusables
 
 import kotlin.properties.Delegates
 
@@ -28,7 +28,7 @@ import kotlin.properties.Delegates
 class Live<T>(private val value1: T) {
     private lateinit var change: (T) -> Unit
 
-    var value: T by Delegates.observable(value1) { prop, old, new ->
+    var value: T by Delegates.observable(value1) { _, _, new ->
         if (::change.isInitialized)
             change(new)
     }

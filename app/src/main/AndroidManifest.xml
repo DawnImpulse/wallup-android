@@ -8,26 +8,41 @@
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
+        android:name=".App"
         android:allowBackup="false"
         android:largeHeap="true"
+        android:label="Wallup"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:supportsRtl="false"
-        tools:ignore="GoogleAppIndexingWarning,MissingApplicationIcon"
-        tools:replace="android:supportsRtl">
-        <activity android:name=".ui.activities.CollectionHorizontalActivity"></activity>
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute,MissingApplicationIcon">
+
         <activity
-            android:name=".ui.activities.ImageActivity"
-            android:theme="@style/AppTheme.Fullscreen" /> <!-- Image Activity -->
-        <activity
-            android:name=".ui.activities.HomescreenActivity"
+            android:name=".ui.activities.SettingsActivity"
+            android:label="Settings"
             android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity> <!--Settings-->
+
+
+        <activity
+            android:name=".ui.activities.CollectionHorizontalActivity"
+            android:theme="@style/AppTheme.Fullscreen" /> <!--Horizontal Collection-->
+        <activity
+            android:name=".ui.activities.ImageActivity"
+            android:theme="@style/AppTheme.Fullscreen" /> <!-- Image Activity -->
+        <activity
+            android:name=".ui.activities.HomescreenActivity"
+            android:theme="@style/AppTheme.Fullscreen">
+
         </activity> <!-- Homescreen -->
         <activity
             android:name=".ui.activities.CollectionsActivity"

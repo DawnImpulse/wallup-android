@@ -11,9 +11,9 @@ import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.WallupViewModel
 import com.dawnimpulse.wallup.ui.objects.BannerObject
 import com.dawnimpulse.wallup.ui.objects.HomescreenObject
-import com.dawnimpulse.wallup.utils.Config
 import com.dawnimpulse.wallup.utils.functions.loge
 import com.dawnimpulse.wallup.utils.functions.toastd
+import com.dawnimpulse.wallup.utils.reusables.Config
 import kotlinx.android.synthetic.main.activity_general.*
 
 /**
@@ -80,8 +80,9 @@ class HomescreenActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshList
     //    callback
     // -----------------
     private val callback = object : (Any?, HomescreenObject?) -> Unit {
-
         override fun invoke(e: Any?, r: HomescreenObject?) {
+            generalSwipe.isRefreshing = false
+
             e?.let {
                 loge(it)
                 toastd(it.toString())
@@ -116,7 +117,6 @@ class HomescreenActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshList
                 } else
                     adapter.notifyDataSetChanged()
 
-                generalSwipe.isRefreshing = false
                 adapter.setOnLoadMoreListener(this@HomescreenActivity)
             }
         }

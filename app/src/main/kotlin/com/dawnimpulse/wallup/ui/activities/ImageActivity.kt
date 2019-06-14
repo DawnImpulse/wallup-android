@@ -10,13 +10,15 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.objects.PexelsImageObject
 import com.dawnimpulse.wallup.ui.objects.UnsplashImageObject
 import com.dawnimpulse.wallup.ui.objects.WallupImageObject
-import com.dawnimpulse.wallup.utils.PEXELS
-import com.dawnimpulse.wallup.utils.TYPE
-import com.dawnimpulse.wallup.utils.UNSPLASH
-import com.dawnimpulse.wallup.utils.WALLUP
 import com.dawnimpulse.wallup.utils.functions.F
+import com.dawnimpulse.wallup.utils.handlers.WallpaperHandler
 import com.dawnimpulse.wallup.utils.functions.logd
+import com.dawnimpulse.wallup.utils.functions.toast
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import com.dawnimpulse.wallup.utils.reusables.PEXELS
+import com.dawnimpulse.wallup.utils.reusables.TYPE
+import com.dawnimpulse.wallup.utils.reusables.UNSPLASH
+import com.dawnimpulse.wallup.utils.reusables.WALLUP
 import com.google.gson.Gson
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.activity_image.*
@@ -37,6 +39,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var wallup: WallupImageObject
     private lateinit var unsplash: UnsplashImageObject
     private lateinit var pexels: PexelsImageObject
+    private lateinit var bitmap: Bitmap
 
     // ------------------
     //      create
@@ -88,6 +91,13 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
                 // wallpaper
                 previewImageWallpaper.id -> {
+                    logd("man")
+                    if (::bitmap.isInitialized) {
+                        logd("yeah")
+                        WallpaperHandler.setWallpaper(this, bitmap)
+                        logd("meah")
+                    } else
+                        toast("bitmap not available")
                 }
 
                 // info
@@ -114,7 +124,6 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                     UNSPLASH -> {
                         // get bitmap
                         ImageHandler.getImageImgixBitmapCallback(this, wallup.urls[0], 720) {
-                            logd("here3")
                             setBlurZoom(it)
                         }
                         // set author dp
@@ -179,11 +188,12 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     // -------------------------------
     private fun setBlurZoom(bitmap: Bitmap?) {
         runOnUiThread {
-            bitmap?.let{
-                previewImage.setImageBitmap(bitmap)
+            bitmap?.let {
+                this.bitmap = it
+                previewImage.setImageBitmap(it)
                 Blurry.with(this)
                         .async()
-                        .sampling(8)
+                        .sampling(4)
                         .from(bitmap)
                         .into(previewImageBg)
             }

@@ -12,11 +12,12 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup
+package com.dawnimpulse.wallup.workers
 
-import android.app.Application
-import android.preference.PreferenceManager
-import com.dawnimpulse.wallup.utils.reusables.Prefs
+import android.content.Context
+import androidx.work.Worker
+import androidx.work.WorkerParameters
+import com.dawnimpulse.wallup.utils.functions.logd
 
 /**
  * @info -
@@ -24,15 +25,14 @@ import com.dawnimpulse.wallup.utils.reusables.Prefs
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-10 by Saksham
+ * @note Created on 2019-06-14 by Saksham
  * @note Updates :
  */
-class App : Application() {
+class AutoWallpaper(appContext: Context, workerParams: WorkerParameters) : Worker(appContext, workerParams) {
 
-    // on create
-    override fun onCreate() {
-        super.onCreate()
+    override fun doWork(): Result {
 
-        Prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        logd("here i am")
+        return Result.success()
     }
 }

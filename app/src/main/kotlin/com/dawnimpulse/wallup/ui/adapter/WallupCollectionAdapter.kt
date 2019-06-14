@@ -22,7 +22,7 @@ import com.dawnimpulse.wallup.ui.holders.LoadingHolder
 import com.dawnimpulse.wallup.ui.holders.WallupCollectionHolder
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
-import com.dawnimpulse.wallup.utils.Config
+import com.dawnimpulse.wallup.utils.reusables.Config
 
 /**
  * @info -
