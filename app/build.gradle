@@ -21,12 +21,14 @@ android {
             buildConfigField "String", "WALLUP_URL", "\"${WALLUP_DEBUG_URL}\""
             buildConfigField "String", "UNSPLASH_API_KEY", "\"${UNSPLASH_API_KEY}\""
             buildConfigField "String", "WALLUP_API_KEY", "\"${WALLUP_API_KEY_DEBUG}\""
+            buildConfigField "String", "WALLUP_EDITORIAL_CID", "\"${WALLUP_EDITORIAL_CID}\""
         }
 
         release {
             buildConfigField "String", "WALLUP_URL", "\"${WALLUP_RELEASE_URL}\""
             buildConfigField "String", "UNSPLASH_API_KEY", "\"${UNSPLASH_API_KEY}\""
             buildConfigField "String", "WALLUP_API_KEY", "\"${WALLUP_API_KEY_RELEASE}\""
+            buildConfigField "String", "WALLUP_EDITORIAL_CID", "\"${WALLUP_EDITORIAL_CID}\""
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -48,6 +50,7 @@ dependencies {
     implementation "androidx.core:core-ktx:1.0.2"
     implementation "androidx.work:work-runtime-ktx:2.0.1"
     implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    implementation "androidx.concurrent:concurrent-futures:1.0.0-beta01"
 
     implementation "com.google.android.material:material:1.0.0"
 
@@ -63,6 +66,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0' //rounding images
     implementation 'com.github.chrisbanes:PhotoView:2.3.0' // photo view
     implementation 'jp.wasabeef:blurry:3.0.0' //blur library
+    implementation 'commons-io:commons-io:2.4' // apache commons io
 
     //------------------ Additional -------------------------
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'

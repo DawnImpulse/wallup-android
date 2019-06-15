@@ -27,6 +27,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.functions.F
+import com.dawnimpulse.wallup.utils.functions.loge
 
 
 /**
@@ -52,9 +53,9 @@ object ImageHandler {
     }
 
 
-    // -------------------------
-    //     set image in view
-    // -------------------------
+    // -----------------------
+    //     get image bitmap
+    // -----------------------
     fun getImageImgixBitmapCallback(context: Context, url: String, height: Int, callback: (Bitmap?) -> Unit) {
         Glide.with(context)
                 .asBitmap()
@@ -67,6 +68,46 @@ object ImageHandler {
                     }
 
                     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                        e?.let {
+                            it.causes?.forEach {
+                                it.localizedMessage.let {
+                                    if (it.contains("java.io.FileNotFoundException"))
+                                    //delete this image from our storage
+                                        loge("yeah yeah yeah")
+                                }
+                            }
+                        }
+                        callback(null)
+                        return true
+                    }
+                })
+                .submit()
+    }
+
+    // -----------------------------------
+    //     get image bitmap with quality
+    // -----------------------------------
+    fun getImageImgixBitmapCacheCallback(context: Context, url: String, height: Int, quality: Int, callback: (Bitmap?) -> Unit) {
+        Glide.with(context)
+                .asBitmap()
+                .load("${F.addQuery(url)}fm=jpg&h=$height&q=$quality")
+                .listener(object : RequestListener<Bitmap> {
+
+                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        callback(resource)
+                        return true
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                        /*e?.let {
+                            it.causes?.forEach {
+                                it.localizedMessage.let {
+                                    if (it.contains("java.io.FileNotFoundException"))
+                                    //delete this image from our storage
+                                        loge("yeah yeah yeah")
+                                }
+                            }
+                        }*/
                         callback(null)
                         return true
                     }

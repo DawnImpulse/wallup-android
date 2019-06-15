@@ -110,7 +110,31 @@ object WallupRepo {
     // -----------------------
     fun collectionImages(page: Int, cid: String, callback: (Any?, List<WallupImageObject>?) -> Unit) {
 
-        val call = client.collectionImages(page,cid)
+        val call = client.collectionImages(page, cid)
+
+        call.enqueue(object : Callback<WallupImageList> {
+
+            // response
+            override fun onResponse(call: Call<WallupImageList>, response: Response<WallupImageList>) {
+                if (response.isSuccessful)
+                    callback(null, response.body()!!.details)
+                else
+                    callback(ErrorWallupUtil.parseError(response), null)
+            }
+
+            // on failure
+            override fun onFailure(call: Call<WallupImageList>, t: Throwable) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    // -----------------------
+    //    editorial images
+    // -----------------------
+    fun editorialImages(count: Int, callback: (Any?, List<WallupImageObject>?) -> Unit) {
+
+        val call = client.editorialImages(count)
 
         call.enqueue(object : Callback<WallupImageList> {
 

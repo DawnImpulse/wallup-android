@@ -76,4 +76,13 @@ interface WallupSource {
             @Query(CID) cid: String,
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<WallupImageList>
+
+    // -----------------------
+    //    EDITORIAL IMAGES
+    // -----------------------
+    @GET("/v1/images/editorial")
+    fun editorialImages(
+            @Query(LIMIT) limit: Int,
+            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
+    ): Call<WallupImageList>
 }

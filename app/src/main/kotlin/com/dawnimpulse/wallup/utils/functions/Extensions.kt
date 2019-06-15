@@ -16,6 +16,7 @@ package com.dawnimpulse.wallup.utils.functions
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -209,9 +210,18 @@ fun String.toFile(): File {
     return File(this)
 }
 
-//start web
+// start web
 fun Context.startWeb(url: String) {
     startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+}
+
+// put directly with shared preference object
+fun SharedPreferences.putAny(name: String, any: Any) {
+    when (any) {
+        is String -> edit().putString(name, any).apply()
+        is Int -> edit().putInt(name, any).apply()
+        is Boolean -> edit().putBoolean(name,any).apply()
+    }
 }
 
 // to json
