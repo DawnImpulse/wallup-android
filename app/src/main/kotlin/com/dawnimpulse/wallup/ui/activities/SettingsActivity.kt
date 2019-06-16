@@ -1,21 +1,12 @@
 package com.dawnimpulse.wallup.ui.activities
 
 import android.os.Bundle
-import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
+import androidx.preference.PreferenceFragmentCompat
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.utils.reusables.AUTO_WALLPAPER
-import com.dawnimpulse.wallup.utils.reusables.Prefs
-import com.dawnimpulse.wallup.workers.AutoWallpaper
-import kotlinx.android.synthetic.main.activity_settings.*
-import org.apache.commons.io.FileUtils
-import java.util.*
-import java.util.concurrent.TimeUnit
 
-class SettingsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
-    private var list = mutableListOf<Int>()
+class SettingsActivity : AppCompatActivity() {
+   /* private var list = mutableListOf<Int>()
 
     // -------------
     //    create
@@ -58,6 +49,21 @@ class SettingsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
 
                 }
             }
+        }
+    }*/
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_settings)
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.frameLayout, MySettingsFragment())
+                .commit()
+    }
+
+    class MySettingsFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.root, rootKey)
         }
     }
 }

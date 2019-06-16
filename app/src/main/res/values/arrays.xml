@@ -1,0 +1,42 @@
+<resources>
+
+    <!--wallpaper interval-->
+    <string-array name="wallpaper_interval">
+        <item>30 min</item>
+        <item>1 hour</item>
+        <item>2 hour</item>
+        <item>3 hour</item>
+        <item>6 hour</item>
+        <item>12 hour</item>
+        <item>1 day</item>
+        <item>3 day</item>
+        <item>7 day</item>
+    </string-array>
+
+    <!--wallpaper interval values-->
+    <string-array name="wallpaper_interval_values">
+        <item>30</item>
+        <item>60</item>
+        <item>120</item>
+        <item>180</item>
+        <item>360</item>
+        <item>720</item>
+        <item>1440</item>
+        <item>4320</item>
+        <item>10080</item>
+    </string-array>
+
+    <!--Download Quality-->
+    <string-array name="download_quality">
+        <item>Full HD</item>
+        <item>Ultra HD</item>
+        <item>Original</item>
+    </string-array>
+
+    <!--Download Quality Values-->
+    <string-array name="download_quality_values">
+        <item>1080</item>
+        <item>2160</item>
+        <item>0</item>
+    </string-array>
+</resources>

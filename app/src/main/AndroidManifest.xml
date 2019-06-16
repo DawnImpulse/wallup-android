@@ -13,13 +13,15 @@
     <application
         android:name=".App"
         android:allowBackup="false"
-        android:largeHeap="true"
         android:label="Wallup"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:networkSecurityConfig="@xml/network_security_config"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute,MissingApplicationIcon">
-
+        <activity
+            android:name=".Settings3Activity"
+            android:label="@string/title_activity_settings3"></activity>
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:label="Settings"
@@ -29,21 +31,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-        </activity> <!--Settings-->
-
-
+        </activity> <!-- Settings -->
         <activity
             android:name=".ui.activities.CollectionHorizontalActivity"
-            android:theme="@style/AppTheme.Fullscreen" /> <!--Horizontal Collection-->
+            android:theme="@style/AppTheme.Fullscreen" /> <!-- Horizontal Collection -->
         <activity
             android:name=".ui.activities.ImageActivity"
             android:theme="@style/AppTheme.Fullscreen" /> <!-- Image Activity -->
         <activity
             android:name=".ui.activities.HomescreenActivity"
-            android:theme="@style/AppTheme.Fullscreen">
-
-        </activity> <!-- Homescreen -->
+            android:theme="@style/AppTheme.Fullscreen"></activity> <!-- Homescreen -->
         <activity
             android:name=".ui.activities.CollectionsActivity"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- Collections Activity -->

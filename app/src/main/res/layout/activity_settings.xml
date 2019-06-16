@@ -16,7 +16,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_height="match_parent">
 
     <!--Auto Wallpaper-->
-    <FrameLayout
+    <!--<FrameLayout
         android:layout_width="match_parent"
         android:layout_height="48dp">
 
@@ -35,5 +35,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="16dp" />
 
+    </FrameLayout>-->
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     </FrameLayout>
+
+
 </LinearLayout>
