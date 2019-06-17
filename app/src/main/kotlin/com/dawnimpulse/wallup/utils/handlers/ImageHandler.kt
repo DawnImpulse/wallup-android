@@ -87,7 +87,7 @@ object ImageHandler {
     // -----------------------------------
     //     get image bitmap with quality
     // -----------------------------------
-    fun getImageImgixBitmapCacheCallback(context: Context, url: String, height: Int, quality: Int, callback: (Bitmap?) -> Unit) {
+    fun getImageImgixBitmapQualityCallback(context: Context, url: String, height: Int, quality: Int, callback: (Bitmap?) -> Unit) {
         Glide.with(context)
                 .asBitmap()
                 .load("${F.addQuery(url)}fm=jpg&h=$height&q=$quality")
@@ -165,5 +165,73 @@ object ImageHandler {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .preload()
 
+    }
+
+
+    // -------------------
+    //     load image
+    // -------------------
+    fun cacheImageCallback(context: Context, url: String, height: Int = 480, callback: (Boolean) -> Unit) {
+        Glide.with(context)
+                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
+                .onlyRetrieveFromCache(true)
+                .addListener(object : RequestListener<Drawable> {
+
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        callback(true)
+                        return true
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        Glide.with(context)
+                                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .listener(object : RequestListener<Drawable> {
+
+                                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                                        if (resource != null)
+                                            callback(true)
+                                        else
+                                            callback(false)
+                                        return true
+                                    }
+
+                                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                                        callback(false)
+                                        return true
+                                    }
+                                })
+                                .preload()
+
+                        return true
+                    }
+                })
+                .preload()
+
+    }
+
+    // ----------------
+    //   check cache
+    // ----------------
+    fun isImageCached(context: Context, url: String, callback: (Boolean) -> Unit) {
+        Glide.with(context)
+                .load(url)
+                .onlyRetrieveFromCache(true)
+                .addListener(object : RequestListener<Drawable> {
+
+                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        if (resource != null)
+                            callback(true)
+                        else
+                            callback(false)
+                        return true
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        callback(false)
+                        return true
+                    }
+                })
+                .submit()
     }
 }

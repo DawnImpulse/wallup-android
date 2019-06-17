@@ -12,15 +12,11 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup
+package com.dawnimpulse.wallup.utils.reusables
 
-import android.app.Application
-import android.preference.PreferenceManager
-import com.dawnimpulse.wallup.utils.reusables.Config
-import com.dawnimpulse.wallup.utils.reusables.EDITORIAL_IMAGES
-import com.dawnimpulse.wallup.utils.reusables.HOME_IMAGES
-import com.dawnimpulse.wallup.utils.reusables.Prefs
-import com.google.gson.Gson
+import android.content.Context
+import androidx.core.content.ContextCompat
+import com.dawnimpulse.wallup.R
 
 /**
  * @info -
@@ -28,17 +24,10 @@ import com.google.gson.Gson
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-10 by Saksham
+ * @note Created on 2019-06-17 by Saksham
  * @note Updates :
  */
-class App : Application() {
-
-    // on create
-    override fun onCreate() {
-        super.onCreate()
-
-        Prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        Config.homeImages = Gson().fromJson(Prefs.getString(HOME_IMAGES, "[]"), Array<String>::class.java).asList().toMutableList()
-        Config.editorialImages = Gson().fromJson(Prefs.getString(EDITORIAL_IMAGES, "[]"), Array<String>::class.java).asList().toMutableList()
-    }
+class Colors(val context: Context) {
+    val BLACK = ContextCompat.getColor(context, R.color.black)
+    val WHITE = ContextCompat.getColor(context, R.color.white)
 }

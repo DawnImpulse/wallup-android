@@ -182,7 +182,7 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                 when (wall.issuer) {
                     UNSPLASH, PEXELS -> {
                         // get bitmap for imgix
-                        ImageHandler.getImageImgixBitmapCacheCallback(appContext, wall.urls[0], 1080, 95) {
+                        ImageHandler.getImageImgixBitmapQualityCallback(appContext, wall.urls[0], 1080, 95) {
                             // store in files dir
                             it?.let {
                                 // get recent files

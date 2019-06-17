@@ -19,18 +19,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute,MissingApplicationIcon">
+
         <activity
-            android:name=".Settings3Activity"
-            android:label="@string/title_activity_settings3"></activity>
-        <activity
-            android:name=".ui.activities.SettingsActivity"
-            android:label="Settings"
+            android:name=".ui.activities.Homescreen2Activity"
             android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity> <!--New Homesreen-->
+
+        <activity
+            android:name=".ui.activities.SettingsActivity"
+            android:label="Settings"
+            android:theme="@style/AppTheme.Fullscreen">
+
         </activity> <!-- Settings -->
         <activity
             android:name=".ui.activities.CollectionHorizontalActivity"
@@ -40,7 +44,7 @@
             android:theme="@style/AppTheme.Fullscreen" /> <!-- Image Activity -->
         <activity
             android:name=".ui.activities.HomescreenActivity"
-            android:theme="@style/AppTheme.Fullscreen"></activity> <!-- Homescreen -->
+            android:theme="@style/AppTheme.Fullscreen" /> <!-- Homescreen -->
         <activity
             android:name=".ui.activities.CollectionsActivity"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- Collections Activity -->

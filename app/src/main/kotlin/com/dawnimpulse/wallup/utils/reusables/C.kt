@@ -47,6 +47,8 @@ const val CID = "cid"
 const val AUTO_WALLPAPER = "autoWallpaper"
 const val LAST_WALLPAPER = "lastWallpaper"
 const val LAST_WALLPAPER_NAME = "lastWallpaperName"
+const val HOME_IMAGES = "homeImages"
+const val EDITORIAL_IMAGES = "editorialImages"
 
 const val ERROR_UNSPLASH_RANDOM = "errorUnsplashRandom"
 const val ERROR_WALLUP_COLLECTIONS_SORTED = "errorWallupCollectionsSorted"

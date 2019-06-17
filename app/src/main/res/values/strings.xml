@@ -1,6 +1,4 @@
 <resources>
-    <string name="title_activity_settings3">Settings</string>
-
     <string name="crashlytics">Crashlytics helps us to analyse any misbehaviour in this application due to a crash. Only crash data will be sent to us.</string>
     <string name="analytics">Analytics helps us to process some metrics that will help to improve this application. There will be no personal data collected at all!! Read privacy policy for more info.</string>
 </resources>

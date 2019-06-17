@@ -36,6 +36,9 @@ object Config {
 
     val disposableWallupCollectionsViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
     val disposableCollectionViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
+
+    var homeImages = mutableListOf<String>()
+    var editorialImages = mutableListOf<String>()
 }
 
 lateinit var Prefs: SharedPreferences
