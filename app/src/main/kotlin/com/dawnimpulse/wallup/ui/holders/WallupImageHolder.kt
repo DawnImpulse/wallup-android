@@ -19,13 +19,13 @@ import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.ui.activities.ImageActivity
-import com.dawnimpulse.wallup.ui.objects.WallupImageObject
-import com.dawnimpulse.wallup.utils.reusables.TYPE
-import com.dawnimpulse.wallup.utils.reusables.WALLUP
+import com.dawnimpulse.wallup.ui.objects.ImageObject
 import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.openActivity
 import com.dawnimpulse.wallup.utils.functions.toJson
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import com.dawnimpulse.wallup.utils.reusables.TYPE
+import com.dawnimpulse.wallup.utils.reusables.WALLUP
 import kotlinx.android.synthetic.main.inflator_image.view.*
 
 /**
@@ -42,7 +42,8 @@ class WallupImageHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val layout = view.imageL!!
     val context = view.context!!
 
-    fun bind(item: WallupImageObject) {
+    // binding items to view
+    fun bind(item: ImageObject) {
         val point = F.displayDimensions(context)
         val width = point.x / 2
         val height = F.getDynamicHeight(context, point.x / 2, point.y, item.width, item.height)
@@ -50,7 +51,7 @@ class WallupImageHolder(val view: View) : RecyclerView.ViewHolder(view) {
         layout.layoutParams = FrameLayout.LayoutParams(width, height)
         image.layoutParams = RelativeLayout.LayoutParams(width - F.dpToPx(4, context), height)
 
-        ImageHandler.setImageImgix(image, item.urls[0])
+        ImageHandler.setImageOnStaggered(image, item.links.url)
 
         // set on click
         layout.setOnClickListener {

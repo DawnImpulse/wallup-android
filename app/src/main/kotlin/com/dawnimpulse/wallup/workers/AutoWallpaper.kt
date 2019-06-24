@@ -22,12 +22,9 @@ import android.os.Looper
 import androidx.concurrent.futures.CallbackToFutureAdapter
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
-import com.dawnimpulse.wallup.network.repo.WallupRepo
-import com.dawnimpulse.wallup.ui.objects.WallupImageObject
+import com.dawnimpulse.wallup.ui.objects.ImageObject
 import com.dawnimpulse.wallup.utils.functions.logd
 import com.dawnimpulse.wallup.utils.functions.toast
-import com.dawnimpulse.wallup.utils.handlers.ImageHandler
-import com.dawnimpulse.wallup.utils.handlers.StorageHandler
 import com.dawnimpulse.wallup.utils.reusables.PEXELS
 import com.dawnimpulse.wallup.utils.reusables.UNSPLASH
 import com.google.common.util.concurrent.ListenableFuture
@@ -35,7 +32,6 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.comparator.LastModifiedFileComparator
-import java.io.File
 import java.util.*
 
 /**
@@ -159,7 +155,7 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
     //   fetch images from server
     // ----------------------------
     private fun imagesFetching(callback: (Boolean) -> Unit) {
-        WallupRepo.editorialImages(10) { e, r ->
+        /*WallupRepo.editorialImages(10) { e, r ->
             e?.let {
                 callback(false)
             }
@@ -168,21 +164,21 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                     callback(true)
                 }
             }
-        }
+        }*/
     }
 
     // ----------------------------
     //   save images to internal
     // ----------------------------
-    private fun wallpaperCaching(images: List<WallupImageObject>, callback: () -> Unit) {
+    private fun wallpaperCaching(images: List<ImageObject>, callback: () -> Unit) {
 
         // image observable
-        fun image(wall: WallupImageObject): Observable<Boolean> {
+        fun image(wall: ImageObject): Observable<Boolean> {
             return Observable.create<Boolean> { em ->
                 when (wall.issuer) {
                     UNSPLASH, PEXELS -> {
                         // get bitmap for imgix
-                        ImageHandler.getImageImgixBitmapQualityCallback(appContext, wall.urls[0], 1080, 95) {
+                        /*ImageHandler.getImageImgixBitmapQualityCallback(appContext, wall.urls[0], 1080, 95) {
                             // store in files dir
                             it?.let {
                                 // get recent files
@@ -192,7 +188,7 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                                 logd("image ${wall.iid} cached")
                             }
                             em.onComplete()
-                        }
+                        }*/
                     }
                 }
             }

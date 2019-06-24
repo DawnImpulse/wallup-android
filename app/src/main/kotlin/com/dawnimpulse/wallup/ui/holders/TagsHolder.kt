@@ -12,7 +12,13 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.ui.objects
+package com.dawnimpulse.wallup.ui.holders
+
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.ui.objects.TagObject
+import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import kotlinx.android.synthetic.main.inflator_tags.view.*
 
 /**
  * @info -
@@ -20,10 +26,15 @@ package com.dawnimpulse.wallup.ui.objects
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-12 by Saksham
+ * @note Created on 2019-06-24 by Saksham
  * @note Updates :
  */
-data class BannerCollectionObject(
-        var image: String,
-        var title: String
-)
+class TagsHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private val image = view.tagsImage
+    private val tag = view.tagsName
+
+    fun bind(data: TagObject) {
+        ImageHandler.setImageOnTag(image, data.image)
+        tag.text = data.tag
+    }
+}

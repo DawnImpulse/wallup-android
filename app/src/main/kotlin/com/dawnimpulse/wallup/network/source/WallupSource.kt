@@ -16,16 +16,11 @@ package com.dawnimpulse.wallup.network.source
 
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.ui.objects.HomescreenDetailsObject
-import com.dawnimpulse.wallup.ui.objects.WallupCollectionList
-import com.dawnimpulse.wallup.ui.objects.WallupImageList
-import com.dawnimpulse.wallup.utils.reusables.CID
-import com.dawnimpulse.wallup.utils.reusables.LIMIT
-import com.dawnimpulse.wallup.utils.reusables.PAGE
+import com.dawnimpulse.wallup.ui.objects.ImageList
 import com.dawnimpulse.wallup.utils.reusables.X_API_KEY
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
-import retrofit2.http.Query
 
 /**
  * @info -
@@ -35,54 +30,24 @@ import retrofit2.http.Query
  *
  * @note Created on 2019-06-10 by Saksham
  * @note Updates :
+ *  Saksham - 2019 06 24 - master - new endpoints
  */
 interface WallupSource {
 
-    // --------------------------
-    //      RANDOM COLLECTIONS
-    // --------------------------
-
-    @GET("/v1/collections/sorted")
-    fun sortedCollections(
-            @Query(PAGE) page: Int,
-            @Query(LIMIT) limit: Int = 20,
+    /**
+     * get random images
+     */
+    @GET("/v1/images/random?limit=30")
+    fun randomImages(
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
-    ): Call<WallupCollectionList>
+    ): Call<ImageList>
 
 
-    // --------------------
-    //      HOMESCREEN
-    // --------------------
+    /**
+     * get homescreen
+     */
     @GET("/v1/generic/homescreen")
     fun homescreen(
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<HomescreenDetailsObject>
-
-
-    // -------------------------
-    //      HOMESCREEN RANDOM
-    // -------------------------
-    @GET("/v1/generic/homescreen/random")
-    fun homescreenRandom(
-            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
-    ): Call<HomescreenDetailsObject>
-
-    // -----------------------
-    //    COLLECTION IMAGES
-    // -----------------------
-    @GET("/v1/images/collection")
-    fun collectionImages(
-            @Query(PAGE) page: Int,
-            @Query(CID) cid: String,
-            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
-    ): Call<WallupImageList>
-
-    // -----------------------
-    //    EDITORIAL IMAGES
-    // -----------------------
-    @GET("/v1/images/editorial")
-    fun editorialImages(
-            @Query(LIMIT) limit: Int,
-            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
-    ): Call<WallupImageList>
 }

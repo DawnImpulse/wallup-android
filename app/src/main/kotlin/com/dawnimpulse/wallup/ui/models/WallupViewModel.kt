@@ -17,8 +17,7 @@ package com.dawnimpulse.wallup.ui.models
 import androidx.appcompat.app.AppCompatActivity
 import com.dawnimpulse.wallup.network.repo.WallupRepo
 import com.dawnimpulse.wallup.ui.objects.HomescreenObject
-import com.dawnimpulse.wallup.ui.objects.WallupCollectionObject
-import com.dawnimpulse.wallup.ui.objects.WallupImageObject
+import com.dawnimpulse.wallup.ui.objects.ImageObject
 import com.dawnimpulse.wallup.utils.reusables.Lifecycle
 
 /**
@@ -32,40 +31,23 @@ import com.dawnimpulse.wallup.utils.reusables.Lifecycle
  */
 class WallupViewModel(private val activity: AppCompatActivity) {
 
-    // ---------------------------------------
-    // fetching sorted collection from wallup
-    // ---------------------------------------
-    fun getSortedCollections(page: Int, callback: (Any?, List<WallupCollectionObject>?) -> Unit) {
+    /**
+     * get random images
+     * @param callback
+     */
+    fun getRandomImages(callback: (Any?, List<ImageObject>?) -> Unit) {
         Lifecycle.onStart(activity) {
-            WallupRepo.getSortedCollections(page, callback)
+            WallupRepo.getRandomImages(callback)
         }
     }
 
-
-    // ------------------
-    //    homescreen
-    // ------------------
-    fun homescreen(callback: (Any?, HomescreenObject?) -> Unit) {
+    /**
+     * get homescreen
+     * @param callback
+     */
+    fun getHomescreen(callback: (Any?, HomescreenObject?) -> Unit) {
         Lifecycle.onStart(activity) {
-            WallupRepo.homescreen(callback)
-        }
-    }
-
-    // ------------------------
-    //    homescreen random
-    // ------------------------
-    fun homescreenRandom(callback: (Any?, HomescreenObject?) -> Unit) {
-        Lifecycle.onStart(activity) {
-            WallupRepo.homescreenRandom(callback)
-        }
-    }
-
-    // ------------------------
-    //    collection images
-    // ------------------------
-    fun collectionImages(page: Int, cid: String, callback: (Any?, List<WallupImageObject>?) -> Unit) {
-        Lifecycle.onStart(activity) {
-            WallupRepo.collectionImages(page,cid, callback)
+            WallupRepo.getHomescreen(callback)
         }
     }
 }

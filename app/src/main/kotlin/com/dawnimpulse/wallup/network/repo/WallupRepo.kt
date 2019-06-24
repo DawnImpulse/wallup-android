@@ -15,7 +15,10 @@
 package com.dawnimpulse.wallup.network.repo
 
 import com.dawnimpulse.wallup.network.RetroApiClient
-import com.dawnimpulse.wallup.ui.objects.*
+import com.dawnimpulse.wallup.ui.objects.HomescreenDetailsObject
+import com.dawnimpulse.wallup.ui.objects.HomescreenObject
+import com.dawnimpulse.wallup.ui.objects.ImageList
+import com.dawnimpulse.wallup.ui.objects.ImageObject
 import com.dawnimpulse.wallup.utils.error.ErrorWallupUtil
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,21 +32,25 @@ import retrofit2.Response
  *
  * @note Created on 2019-06-11 by Saksham
  * @note Updates :
+ *  Saksham - 2019 06 24 - master - new endpoints
  */
 object WallupRepo {
     private val client = RetroApiClient.getClientWallup()
 
-    // ----------------------------
-    //    get sorted collections
-    // ----------------------------
-    fun getSortedCollections(page: Int, callback: (Any?, List<WallupCollectionObject>?) -> Unit) {
 
-        val call = client.sortedCollections(page)
+    /**
+     * get random images
+     *
+     * @param callback
+     */
+    fun getRandomImages(callback: (Any?, List<ImageObject>?) -> Unit) {
 
-        call.enqueue(object : Callback<WallupCollectionList> {
+        val call = client.randomImages()
+
+        call.enqueue(object : Callback<ImageList> {
 
             // response
-            override fun onResponse(call: Call<WallupCollectionList>, response: Response<WallupCollectionList>) {
+            override fun onResponse(call: Call<ImageList>, response: Response<ImageList>) {
                 if (response.isSuccessful)
                     callback(null, response.body()!!.details)
                 else
@@ -51,16 +58,18 @@ object WallupRepo {
             }
 
             // on failure
-            override fun onFailure(call: Call<WallupCollectionList>, t: Throwable) {
+            override fun onFailure(call: Call<ImageList>, t: Throwable) {
                 callback(t.toString(), null)
             }
         })
     }
 
-    // -----------------
-    //    homescreen
-    // -----------------
-    fun homescreen(callback: (Any?, HomescreenObject?) -> Unit) {
+    /**
+     * get homescreen
+     *
+     * @param callback
+     */
+    fun getHomescreen(callback: (Any?, HomescreenObject?) -> Unit) {
 
         val call = client.homescreen()
 
@@ -76,78 +85,6 @@ object WallupRepo {
 
             // on failure
             override fun onFailure(call: Call<HomescreenDetailsObject>, t: Throwable) {
-                callback(t.toString(), null)
-            }
-        })
-    }
-
-    // -----------------------
-    //    homescreen random
-    // -----------------------
-    fun homescreenRandom(callback: (Any?, HomescreenObject?) -> Unit) {
-
-        val call = client.homescreenRandom()
-
-        call.enqueue(object : Callback<HomescreenDetailsObject> {
-
-            // response
-            override fun onResponse(call: Call<HomescreenDetailsObject>, response: Response<HomescreenDetailsObject>) {
-                if (response.isSuccessful)
-                    callback(null, response.body()!!.details)
-                else
-                    callback(ErrorWallupUtil.parseError(response), null)
-            }
-
-            // on failure
-            override fun onFailure(call: Call<HomescreenDetailsObject>, t: Throwable) {
-                callback(t.toString(), null)
-            }
-        })
-    }
-
-    // -----------------------
-    //    collection images
-    // -----------------------
-    fun collectionImages(page: Int, cid: String, callback: (Any?, List<WallupImageObject>?) -> Unit) {
-
-        val call = client.collectionImages(page, cid)
-
-        call.enqueue(object : Callback<WallupImageList> {
-
-            // response
-            override fun onResponse(call: Call<WallupImageList>, response: Response<WallupImageList>) {
-                if (response.isSuccessful)
-                    callback(null, response.body()!!.details)
-                else
-                    callback(ErrorWallupUtil.parseError(response), null)
-            }
-
-            // on failure
-            override fun onFailure(call: Call<WallupImageList>, t: Throwable) {
-                callback(t.toString(), null)
-            }
-        })
-    }
-
-    // -----------------------
-    //    editorial images
-    // -----------------------
-    fun editorialImages(count: Int, callback: (Any?, List<WallupImageObject>?) -> Unit) {
-
-        val call = client.editorialImages(count)
-
-        call.enqueue(object : Callback<WallupImageList> {
-
-            // response
-            override fun onResponse(call: Call<WallupImageList>, response: Response<WallupImageList>) {
-                if (response.isSuccessful)
-                    callback(null, response.body()!!.details)
-                else
-                    callback(ErrorWallupUtil.parseError(response), null)
-            }
-
-            // on failure
-            override fun onFailure(call: Call<WallupImageList>, t: Throwable) {
                 callback(t.toString(), null)
             }
         })

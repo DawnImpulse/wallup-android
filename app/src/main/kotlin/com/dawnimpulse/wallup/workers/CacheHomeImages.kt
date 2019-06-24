@@ -19,7 +19,6 @@ import androidx.concurrent.futures.CallbackToFutureAdapter
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
 import com.dawnimpulse.wallup.utils.functions.logd
-import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.reusables.Config
 import com.dawnimpulse.wallup.utils.reusables.PEXELS
 import com.dawnimpulse.wallup.utils.reusables.UNSPLASH
@@ -68,9 +67,9 @@ class CacheHomeImages(private val appContext: Context, workerParams: WorkerParam
         fun image(image: String): Observable<Boolean> {
             return Observable.create<Boolean> { em ->
                 if(image.contains(UNSPLASH) || image.contains(PEXELS)){
-                    ImageHandler.cacheImageCallback(appContext,image,480){
+                    /*ImageHandler.cacheImageCallback(appContext,image,480){
                         em.onComplete()
-                    }
+                    }*/
                 }
             }
         }

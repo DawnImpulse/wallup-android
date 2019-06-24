@@ -15,7 +15,6 @@
 package com.dawnimpulse.wallup.utils.handlers
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.GenericTransitionOptions
@@ -26,8 +25,6 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.utils.functions.F
-import com.dawnimpulse.wallup.utils.functions.loge
 
 
 /**
@@ -38,200 +35,76 @@ import com.dawnimpulse.wallup.utils.functions.loge
  *
  * @note Created on 2019-06-07 by Saksham
  * @note Updates :
+ *  Saksham - 2019 06 24 - master - handling for cloudvry only
  */
 object ImageHandler {
 
-    // -------------------------
-    //     set image in view
-    // -------------------------
-    fun setImageImgix(view: ImageView, url: String, height: Int = 480) {
+
+    /**
+     * Image in a staggered layout
+     * @param view
+     * @param url
+     */
+    fun setImageOnStaggered(view: ImageView, url: String) {
         Glide.with(view.context)
-                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
-                //.thumbnail(Glide.with(view.context).load("${F.addQuery(url)}fm=webp&h=256&blur=1200"))
-                .into(view)
-                .clearOnDetach()
-    }
-
-
-    // -----------------------
-    //     get image bitmap
-    // -----------------------
-    fun getImageImgixBitmapCallback(context: Context, url: String, height: Int, callback: (Bitmap?) -> Unit) {
-        Glide.with(context)
-                .asBitmap()
-                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
-                .listener(object : RequestListener<Bitmap> {
-
-                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        callback(resource)
-                        return true
-                    }
-
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
-                        e?.let {
-                            it.causes?.forEach {
-                                it.localizedMessage.let {
-                                    if (it.contains("java.io.FileNotFoundException"))
-                                    //delete this image from our storage
-                                        loge("yeah yeah yeah")
-                                }
-                            }
-                        }
-                        callback(null)
-                        return true
-                    }
-                })
-                .submit()
-    }
-
-    // -----------------------------------
-    //     get image bitmap with quality
-    // -----------------------------------
-    fun getImageImgixBitmapQualityCallback(context: Context, url: String, height: Int, quality: Int, callback: (Bitmap?) -> Unit) {
-        Glide.with(context)
-                .asBitmap()
-                .load("${F.addQuery(url)}fm=jpg&h=$height&q=$quality")
-                .listener(object : RequestListener<Bitmap> {
-
-                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        callback(resource)
-                        return true
-                    }
-
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
-                        /*e?.let {
-                            it.causes?.forEach {
-                                it.localizedMessage.let {
-                                    if (it.contains("java.io.FileNotFoundException"))
-                                    //delete this image from our storage
-                                        loge("yeah yeah yeah")
-                                }
-                            }
-                        }*/
-                        callback(null)
-                        return true
-                    }
-                })
-                .submit()
-    }
-
-    // ---------------------------
-    //     set image fadein
-    // ---------------------------
-    fun setImageImgixFadein(view: ImageView, url: String, height: Int = 480) {
-        Glide.with(view.context)
-                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
-                .thumbnail(Glide.with(view.context).load("${F.addQuery(url)}fm=webp&h=256&blur=1200"))
+                .load("$url&fm=webp&h=480&q=80")
                 .transition(GenericTransitionOptions.with(R.anim.fade_in_animation))
                 .into(view)
                 .clearOnDetach()
     }
 
-    // -----------------------
-    //     set image slide
-    // -----------------------
-    fun setImageImgixSlide(view: ImageView, url: String, height: Int = 480) {
+    /**
+     * Image on homescreen background
+     * @param view
+     * @param url
+     */
+    fun setImageOnHomescreenBackground(view: ImageView, url: String) {
         Glide.with(view.context)
-                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
-                .thumbnail(Glide.with(view.context).load("${F.addQuery(url)}fm=webp&h=256&blur=1200"))
-                .transition(GenericTransitionOptions.with(R.anim.enter_from_right))
+                .load("$url&fm=webp&h=720&q=75&bl=5")
+                .transition(GenericTransitionOptions.with(R.anim.fade_in_animation))
                 .into(view)
                 .clearOnDetach()
     }
 
-    // -------------------
-    //     load image
-    // -------------------
-    fun cacheImage(context: Context, url: String, height: Int = 480) {
+    /**
+     * cache homescreen images
+     * @param context
+     * @param url
+     */
+    fun cacheHomescreenImage(context: Context, url: String) {
         Glide.with(context)
-                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
+                .load("$url&fm=webp&h=720&q=75&bl=5")
                 .onlyRetrieveFromCache(true)
                 .addListener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                        return true
+                    }
 
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        return true
-                    }
-
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                         Glide.with(context)
-                                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
-                                .thumbnail(Glide.with(context).load("${F.addQuery(url)}fm=webp&h=256&q=80"))
+                                .load("$url&fm=webp&h=720&q=75&bl=5")
                                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .preload()
-
+                                .preload(1280,720)
                         return true
                     }
+
                 })
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .preload()
 
     }
 
-
-    // -------------------
-    //     load image
-    // -------------------
-    fun cacheImageCallback(context: Context, url: String, height: Int = 480, callback: (Boolean) -> Unit) {
-        Glide.with(context)
-                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
-                .onlyRetrieveFromCache(true)
-                .addListener(object : RequestListener<Drawable> {
-
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        callback(true)
-                        return true
-                    }
-
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        Glide.with(context)
-                                .load("${F.addQuery(url)}fm=webp&h=$height&q=80")
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .listener(object : RequestListener<Drawable> {
-
-                                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                                        if (resource != null)
-                                            callback(true)
-                                        else
-                                            callback(false)
-                                        return true
-                                    }
-
-                                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                                        callback(false)
-                                        return true
-                                    }
-                                })
-                                .preload()
-
-                        return true
-                    }
-                })
-                .preload()
-
+    /**
+     * image on tag view
+     * @param view
+     * @param url
+     */
+    fun setImageOnTag(view: ImageView, url: String) {
+        Glide.with(view.context)
+                .load("$url&fm=webp&h=480&q=80")
+                .transition(GenericTransitionOptions.with(R.anim.fade_in_animation))
+                .into(view)
+                .clearOnDetach()
     }
 
-    // ----------------
-    //   check cache
-    // ----------------
-    fun isImageCached(context: Context, url: String, callback: (Boolean) -> Unit) {
-        Glide.with(context)
-                .load(url)
-                .onlyRetrieveFromCache(true)
-                .addListener(object : RequestListener<Drawable> {
-
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        if (resource != null)
-                            callback(true)
-                        else
-                            callback(false)
-                        return true
-                    }
-
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        callback(false)
-                        return true
-                    }
-                })
-                .submit()
-    }
 }

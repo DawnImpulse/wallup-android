@@ -3,163 +3,115 @@ package com.dawnimpulse.wallup.ui.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.ui.adapter.HomescreenAdapter
+import com.dawnimpulse.wallup.ui.adapter.HomeAdapter
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.WallupViewModel
-import com.dawnimpulse.wallup.ui.objects.BannerObject
-import com.dawnimpulse.wallup.ui.objects.HomescreenObject
+import com.dawnimpulse.wallup.ui.objects.CollectionList
+import com.dawnimpulse.wallup.ui.objects.EditorialObject
 import com.dawnimpulse.wallup.utils.functions.loge
+import com.dawnimpulse.wallup.utils.functions.toast
 import com.dawnimpulse.wallup.utils.functions.toastd
+import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.reusables.Config
-import kotlinx.android.synthetic.main.activity_general.*
+import kotlinx.android.synthetic.main.activity_homescreen.*
 
-/**
- * @info -
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2019-06-12 by Saksham
- * @note Updates :
- */
-class HomescreenActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
+
+class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
+    private lateinit var adapter: HomeAdapter
     private lateinit var model: WallupViewModel
-    private lateinit var adapter: HomescreenAdapter
-    private lateinit var items: MutableList<Any?>
+    private lateinit var list: MutableList<Any?>
+    private lateinit var backgrounds: List<String>
 
     // -------------
     //    create
     // -------------
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_general)
+        setContentView(R.layout.activity_homescreen)
+
+        if (savedInstanceState == null) {
+            val snapHelper = PagerSnapHelper()
+            snapHelper.attachToRecyclerView(homescreenRecycler)
+        }
 
         model = WallupViewModel(this)
-        fetch(0, callback)
-        generalSwipe.setOnRefreshListener(this)
+
+        // set first page of homescreen
+        setHomescreen()
+
+        // get homescreen
+        model.getHomescreen { e, r ->
+            e?.let {
+                loge(e)
+                toastd("error fetching homescreen")
+            }
+            r?.let {
+                backgrounds = it.background
+                // homescreen background
+                ImageHandler.setImageOnHomescreenBackground(homescreenFrame, backgrounds[0])
+                // cache other images
+                backgrounds.asSequence().withIndex().filter { it.index > 0 }.forEach {
+                    ImageHandler.cacheHomescreenImage(this, it.value)
+                }
+
+                // remove loading
+                list.asSequence().withIndex().filter { it.value == null }.map { it.index }.forEach {
+                    list.removeAt(it)
+                    adapter.notifyItemRemoved(it)
+                }
+
+                // set editorial & explore in list
+                list.add(EditorialObject(it.background[1], it.tags, it.images))
+                list.add(CollectionList(it.collections))
+                adapter.notifyItemRangeInserted(1, 2)
+            }
+        }
+
+        /*fetch {
+            list = it.toMutableList()
+            recyclerDemo.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            adapter = HomeAdapter(list, recyclerDemo)
+            recyclerDemo.adapter = adapter
+            adapter.setOnLoadMoreListener(this)
+        }*/
+
     }
 
-    // -----------------------
-    //    disposables clear
-    // -----------------------
+    /**
+     * clearing recycler disposables
+     */
     override fun onDestroy() {
         super.onDestroy()
+
         Config.disposableHomescreenActivity.clear()
-        if (::adapter.isInitialized)
-            adapter.onDetachedFromRecyclerView(generalRecycler)
     }
 
-    // ----------------
-    //     refresh
-    // ----------------
-    override fun onRefresh() {
-        fetch(0, callback)
-    }
 
-    // ----------------
-    //     refresh
-    // ----------------
+    // ---------------
+    //    load more
+    // ---------------
     override fun onLoadMore() {
-        fetch(1, callbackPaginated)
-    }
-
-    // -----------------
-    //     fetch items
-    // -----------------
-    private fun fetch(type: Int, callback: (Any?, HomescreenObject?) -> Unit) {
-        when (type) {
-            0 -> model.homescreen(callback)
-            1 -> model.homescreenRandom(callback)
-        }
-    }
-
-    // -----------------
-    //    callback
-    // -----------------
-    private val callback = object : (Any?, HomescreenObject?) -> Unit {
-        override fun invoke(e: Any?, r: HomescreenObject?) {
-            generalSwipe.isRefreshing = false
-
-            e?.let {
-                loge(it)
-                toastd(it.toString())
-            }
-            r?.let {
-                if (::items.isInitialized)
-                    items.clear()
-                else
-                    items = mutableListOf()
-
-                val image = it.banner
-                val images = it.images
-                val cols = it.cols
-                val homeCols = it.homescreen
-
-                items.add(BannerObject(image!!, homeCols!!))
-
-                var index = 0
-                cols.forEach { wco ->
-                    items.add(wco)
-                    val itms = images.asSequence().withIndex().filter { i -> i.index >= index && i.index < index + 4 }.map { it.value }
-                    items.addAll(itms)
-                    index += itms.count()
-                }
-
-                items.add(null)
-
-                if (!::adapter.isInitialized) {
-                    adapter = HomescreenAdapter(items, generalRecycler)
-                    generalRecycler.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-                    generalRecycler.adapter = adapter
-                } else
-                    adapter.notifyDataSetChanged()
-
-                adapter.setOnLoadMoreListener(this@HomescreenActivity)
-            }
-        }
-
-    }
-
-
-    // -----------------------
-    //    callback paginated
-    // -----------------------
-    private val callbackPaginated = object : (Any?, HomescreenObject?) -> Unit {
-
-        override fun invoke(e: Any?, r: HomescreenObject?) {
-
+        toast("loading")
+        /*fetch {
+            val pos = list.size
+            list.addAll(it)
+            adapter.notifyItemRangeInserted(pos, it.count())
             adapter.onLoaded()
+            toast("loaded")
+        }*/
+    }
 
-            e?.let {
-                loge(it)
-                toastd(it.toString())
-            }
-            r?.let {
 
-                // remove progress bar
-                items.asSequence().withIndex().filter { it.value == null }.map { it.index }
-                        .forEach {
-                            items.removeAt(it)
-                            adapter.notifyItemRemoved(it)
-                        }
-
-                val images = it.images
-                val cols = it.cols
-
-                var index = 0
-                cols.forEach { wco ->
-                    items.add(wco)
-                    val itms = images.asSequence().withIndex().filter { i -> i.index >= index && i.index < index + 4 }.map { it.value }
-                    items.addAll(itms)
-                    index += itms.count()
-                }
-
-                items.add(null)
-            }
-        }
-
+    /**
+     * set homescreen's first screen
+     */
+    private fun setHomescreen() {
+        list = mutableListOf(1, null)
+        adapter = HomeAdapter(list, homescreenRecycler)
+        homescreenRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        homescreenRecycler.adapter = adapter
     }
 }

@@ -12,13 +12,14 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.ui.holders
+package com.dawnimpulse.wallup.ui.adapter
 
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.ui.objects.BannerCollectionObject
-import com.dawnimpulse.wallup.utils.handlers.ImageHandler
-import kotlinx.android.synthetic.main.inflator_banner_collection.view.*
+import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.ui.holders.TagsHolder
+import com.dawnimpulse.wallup.ui.objects.TagObject
 
 /**
  * @info -
@@ -26,15 +27,30 @@ import kotlinx.android.synthetic.main.inflator_banner_collection.view.*
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-12 by Saksham
+ * @note Created on 2019-06-24 by Saksham
  * @note Updates :
  */
-class BannerCollectionHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val banner = view.bannerColImage
-    private val text = view.bannerColText
+class TagsAdapter(val items: List<TagObject>) : RecyclerView.Adapter<TagsHolder>() {
 
-    fun bind(item: BannerCollectionObject) {
-        ImageHandler.setImageImgix(banner, item.image, 720)
-        text.text = item.title
+    /**
+     * no of items
+     */
+    override fun getItemCount(): Int {
+        return items.size
     }
+
+    /**
+     * create view holder
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TagsHolder {
+        return TagsHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_tags, parent, false))
+    }
+
+    /**
+     * binding data
+     */
+    override fun onBindViewHolder(holder: TagsHolder, position: Int) {
+        holder.bind(items[position])
+    }
+
 }

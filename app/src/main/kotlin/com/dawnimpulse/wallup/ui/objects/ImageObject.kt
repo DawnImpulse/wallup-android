@@ -14,16 +14,30 @@
  **/
 package com.dawnimpulse.wallup.ui.objects
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * @info -
  *
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-12 by Saksham
+ * @note Created on 2019-06-07 by Saksham
  * @note Updates :
  */
-data class BannerObject(
-        var image: String,
-        var collections: List<WallupCollectionHomescreenObject>
+data class ImageObject(
+        @SerializedName("author") val author: String,
+        @SerializedName("height") val height: Int,
+        @SerializedName("issuer") val issuer: String,
+        @SerializedName("links") val links: ImageLinks,
+        @SerializedName("width") val width: Int
+)
+
+data class ImageList(
+        @SerializedName("details") val details: List<ImageObject>
+)
+
+data class ImageLinks(
+        @SerializedName("url") val url: String,
+        @SerializedName("html") val html: String
 )

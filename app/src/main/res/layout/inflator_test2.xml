@@ -12,23 +12,19 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
+    android:layout_width="240dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_height="480dp"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/demo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
         android:textSize="64dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/demoR"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 </RelativeLayout>

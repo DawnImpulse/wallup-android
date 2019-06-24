@@ -18,12 +18,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.utils.functions.F
-import com.dawnimpulse.wallup.utils.functions.logd
-import com.dawnimpulse.wallup.utils.handlers.ImageHandler
-import com.dawnimpulse.wallup.utils.reusables.PEXELS
-import com.dawnimpulse.wallup.utils.reusables.UNSPLASH
-import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.inflator_home.view.*
 
 /**
@@ -37,56 +31,16 @@ import kotlinx.android.synthetic.main.inflator_home.view.*
  */
 class HomeHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val info = view.homeInfo
-    private val editorialL = view.homeEditorialL
-    private val editorialI = view.homeEditorialI
     private val homeDown = view.homeDown
-    private val bg = view.homeBg
+    //private val bg = view.homeBg
     private val context = view.context
 
     fun bind() {
         homeDown.animation = AnimationUtils.loadAnimation(context, R.anim.hover)
-        loadHomeImage()
-        loadEditorialImage()
 
         // info
         info.setOnClickListener {
 
-        }
-
-        // editorial
-        editorialL.setOnClickListener {
-
-        }
-    }
-
-    // --------------
-    //   load image
-    // --------------
-    private fun loadHomeImage() {
-        F.homeImages(context) {
-            logd(it)
-            if (it.contains(UNSPLASH) || it.contains(PEXELS))
-                ImageHandler.getImageImgixBitmapCallback(context, it, 480) {
-                    if (it != null) {
-                        Blurry.with(context)
-                                .async()
-                                .radius(10)
-                                .from(it)
-                                .into(bg)
-                    } else
-                        loadHomeImage()
-                }
-        }
-    }
-
-    // ------------------------
-    //   load editorial image
-    // ------------------------
-    private fun loadEditorialImage() {
-        F.editorialImages(context) {
-            logd(it)
-            if (it.contains(UNSPLASH) || it.contains(PEXELS))
-                ImageHandler.setImageImgix(editorialI, it, 480)
         }
     }
 }

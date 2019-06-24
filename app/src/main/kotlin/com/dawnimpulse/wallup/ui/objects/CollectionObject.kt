@@ -22,22 +22,20 @@ import com.google.gson.annotations.SerializedName
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-10 by Saksham
+ * @note Created on 2019-06-07 by Saksham
  * @note Updates :
  */
-data class UnsplashImageObject(
-        @SerializedName("id") val id: String = "",
-        @SerializedName("width") val width: Int = 0,
-        @SerializedName("height") val height: Int = 0,
-        @SerializedName("urls") val urls: UnsplashImageUrlsObject,
-        @SerializedName("user") val user: UnsplashUserObject,
-        @SerializedName("links") val links: UnsplashImageLinksObject
+data class CollectionObject(
+        @SerializedName("description") val description: String?,
+        @SerializedName("images") val images: List<ImageObject>,
+        @SerializedName("name") val name: String
 )
 
-data class UnsplashImageUrlsObject(
-        @SerializedName("raw") val raw: String = ""
+data class CollectionHomescreenObject(
+        @SerializedName("name") val name: String,
+        @SerializedName("image") val image: String
 )
 
-data class UnsplashImageLinksObject(
-        @SerializedName("html") val html: String
+data class CollectionList(
+        @SerializedName("details") val details: List<CollectionObject>
 )

@@ -26,14 +26,6 @@ package com.dawnimpulse.wallup.utils.reusables
 const val UNSPLASH_URL = "https://api.unsplash.com"
 const val PEXELS_URL = "https://api.pexels.com"
 
-const val REFRESH_UNSPLASH_RANDOM = 1001.toString()
-const val REFRESH_WALLUP_COLLECTIONS_SORTED = 1002.toString()
-const val REFRESHED_UNSPLASH_RANDOM = 2001.toString()
-const val REFRESHED_WALLUP_COLLECTIONS_SORTED = 2002.toString()
-const val LOAD_MORE_WALLUP_COLLECTIONS_SORTED = 3001.toString()
-const val LOADED_WALLUP_COLLECTIONS_SORTED = 4001.toString()
-const val FINISHED_WALLUP_COLLECTIONS_SORTED = 5001.toString()
-
 const val TYPE = "type"
 const val WALLUP = "wallup"
 const val UNSPLASH = "unsplash"
@@ -49,6 +41,8 @@ const val LAST_WALLPAPER = "lastWallpaper"
 const val LAST_WALLPAPER_NAME = "lastWallpaperName"
 const val HOME_IMAGES = "homeImages"
 const val EDITORIAL_IMAGES = "editorialImages"
+const val HOMESCREEN_BACKGROUND = "homescreenBackground"
+const val HOMESCREEN_OTHER = "homescreenOther"
 
 const val ERROR_UNSPLASH_RANDOM = "errorUnsplashRandom"
 const val ERROR_WALLUP_COLLECTIONS_SORTED = "errorWallupCollectionsSorted"
