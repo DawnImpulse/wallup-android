@@ -9,8 +9,8 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.adapter.HomeAdapter
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.WallupViewModel
-import com.dawnimpulse.wallup.ui.objects.CollectionList
 import com.dawnimpulse.wallup.ui.objects.EditorialObject
+import com.dawnimpulse.wallup.ui.objects.ExploreObject
 import com.dawnimpulse.wallup.utils.functions.loge
 import com.dawnimpulse.wallup.utils.functions.toast
 import com.dawnimpulse.wallup.utils.functions.toastd
@@ -52,10 +52,11 @@ class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
                 backgrounds = it.background
                 // homescreen background
                 ImageHandler.setImageOnHomescreenBackground(homescreenFrame, backgrounds[0])
+
                 // cache other images
-                backgrounds.asSequence().withIndex().filter { it.index > 0 }.forEach {
-                    ImageHandler.cacheHomescreenImage(this, it.value)
-                }
+                /*backgrounds.asSequence().withIndex().filter { it.index > 0 }.forEach {
+                    ImageHandler.cacheHomescreenImage(applicationContext, it.value)
+                }*/
 
                 // remove loading
                 list.asSequence().withIndex().filter { it.value == null }.map { it.index }.forEach {
@@ -65,7 +66,7 @@ class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
 
                 // set editorial & explore in list
                 list.add(EditorialObject(it.background[1], it.tags, it.images))
-                list.add(CollectionList(it.collections))
+                list.add(ExploreObject(it.background[2], it.collections))
                 adapter.notifyItemRangeInserted(1, 2)
             }
         }

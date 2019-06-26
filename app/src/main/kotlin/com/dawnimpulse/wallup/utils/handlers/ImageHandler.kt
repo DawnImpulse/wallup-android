@@ -48,6 +48,7 @@ object ImageHandler {
     fun setImageOnStaggered(view: ImageView, url: String) {
         Glide.with(view.context)
                 .load("$url&fm=webp&h=480&q=80")
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transition(GenericTransitionOptions.with(R.anim.fade_in_animation))
                 .into(view)
                 .clearOnDetach()
@@ -61,6 +62,7 @@ object ImageHandler {
     fun setImageOnHomescreenBackground(view: ImageView, url: String) {
         Glide.with(view.context)
                 .load("$url&fm=webp&h=720&q=75&bl=5")
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transition(GenericTransitionOptions.with(R.anim.fade_in_animation))
                 .into(view)
                 .clearOnDetach()
@@ -82,14 +84,15 @@ object ImageHandler {
 
                     override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
                         Glide.with(context)
+                                .downloadOnly()
+                                .diskCacheStrategy(DiskCacheStrategy.DATA) // Cache resource before it's decoded
                                 .load("$url&fm=webp&h=720&q=75&bl=5")
-                                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                                .preload(1280,720)
+                                .submit(1280, 720)
+                                .get()
                         return true
                     }
 
                 })
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .preload()
 
     }
@@ -102,6 +105,21 @@ object ImageHandler {
     fun setImageOnTag(view: ImageView, url: String) {
         Glide.with(view.context)
                 .load("$url&fm=webp&h=480&q=80")
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .transition(GenericTransitionOptions.with(R.anim.fade_in_animation))
+                .into(view)
+                .clearOnDetach()
+    }
+
+    /**
+     * image on vertical collections
+     * @param view
+     * @param url
+     */
+    fun setImageOnVerticalCols(view: ImageView, url: String) {
+        Glide.with(view.context)
+                .load("$url&fm=webp&h=720&q=85")
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transition(GenericTransitionOptions.with(R.anim.fade_in_animation))
                 .into(view)
                 .clearOnDetach()

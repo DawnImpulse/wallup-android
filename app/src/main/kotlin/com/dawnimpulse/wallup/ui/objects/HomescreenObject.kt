@@ -32,17 +32,35 @@ data class HomescreenObject(
         @SerializedName("tags") val tags: List<TagObject>
 )
 
+/**
+ * homescreen details
+ */
 data class HomescreenDetailsObject(
         @SerializedName("details") val details: HomescreenObject
 )
 
+
+/**
+ * homescreen tags
+ */
 data class TagObject(
         @SerializedName("image") val image: String,
         @SerializedName("tag") val tag: String
 )
 
+/**
+ * homescreen editorial
+ */
 data class EditorialObject(
         val image: String,
         val tags: List<TagObject>,
         val images: List<ImageObject>
+)
+
+/**
+ * homescreen explore
+ */
+data class ExploreObject(
+        val image: String,
+        val cols: List<CollectionObject>
 )

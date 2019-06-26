@@ -15,10 +15,8 @@
 package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
-import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.adapter.TagsAdapter
 import com.dawnimpulse.wallup.ui.objects.EditorialObject
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
@@ -34,6 +32,7 @@ import kotlinx.android.synthetic.main.inflator_editorial.view.*
  * @note Updates :
  */
 class EditorialHolder(view: View) : RecyclerView.ViewHolder(view) {
+    val down = view.editorialDown
     private val bg = view.editorialBg
     private val tags = view.editorialTags
     private val img1 = view.editorialImage1
@@ -41,12 +40,10 @@ class EditorialHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val img3 = view.editorialImage3
     private val img4 = view.editorialImage4
     private val more = view.editorialMore
-    private val below = view.editorialDown
     private val context = view.context
     private lateinit var adapter: TagsAdapter
 
     fun bind(data: EditorialObject) {
-        below.animation = AnimationUtils.loadAnimation(context, R.anim.hover)
 
         // setting images
         ImageHandler.setImageOnHomescreenBackground(bg, data.image)

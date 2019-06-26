@@ -14,16 +14,19 @@
  **/
 package com.dawnimpulse.wallup.ui.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.holders.EditorialHolder
+import com.dawnimpulse.wallup.ui.holders.ExploreHolder
 import com.dawnimpulse.wallup.ui.holders.HomeHolder
 import com.dawnimpulse.wallup.ui.holders.LoadingHolder
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
-import com.dawnimpulse.wallup.ui.objects.CollectionList
 import com.dawnimpulse.wallup.ui.objects.EditorialObject
+import com.dawnimpulse.wallup.ui.objects.ExploreObject
 import com.dawnimpulse.wallup.utils.reusables.Config
 
 /**
@@ -34,11 +37,13 @@ import com.dawnimpulse.wallup.utils.reusables.Config
  *
  * @note Created on 2019-06-17 by Saksham
  * @note Updates :
+ *  Saksham - 2019-06-26 - master - explore
  */
 class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
     : CustomAdapter(Config.disposableHomescreenActivity, recyclerView) {
 
     private lateinit var onLoadMoreListener: OnLoadMoreListener
+    private lateinit var context: Context
     private val VIEW_HOME = 0
     private val VIEW_EDITORIAL = 1
     private val VIEW_FEATURED = 2
@@ -60,7 +65,7 @@ class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
         return when (items[position]) {
             is Int -> VIEW_HOME
             is EditorialObject -> VIEW_EDITORIAL
-            is CollectionList -> VIEW_HOME
+            is ExploreObject -> VIEW_EXPLORE
             else -> VIEW_LOADING
         }
     }
@@ -69,10 +74,11 @@ class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
      * creating view holder based on item type
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        context = parent.context
         return when (viewType) {
             VIEW_HOME -> HomeHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_home, parent, false))
             VIEW_EDITORIAL -> EditorialHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_editorial, parent, false))
-            VIEW_EXPLORE -> abc(LayoutInflater.from(parent.context).inflate(R.layout.inflator_editorial, parent, false))
+            VIEW_EXPLORE -> ExploreHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_explore, parent, false))
             else -> LoadingHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading_full, parent, false))
         }
     }
@@ -81,10 +87,29 @@ class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
      * binding views
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        // home
         if (holder is HomeHolder)
             holder.bind()
+
+        // editorial
         if (holder is EditorialHolder)
             holder.bind(items[1] as EditorialObject)
+
+        //explore
+        if (holder is ExploreHolder)
+            holder.bind(items[2] as ExploreObject)
+    }
+
+    /**
+     * change animation on attach
+     */
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+
+        when (holder) {
+            is HomeHolder -> holder.homeDown.animation = AnimationUtils.loadAnimation(context, R.anim.hover)
+            is EditorialHolder -> holder.down.animation = AnimationUtils.loadAnimation(context, R.anim.hover)
+            is ExploreHolder -> holder.down.animation = AnimationUtils.loadAnimation(context, R.anim.hover)
+        }
     }
 
     /**
