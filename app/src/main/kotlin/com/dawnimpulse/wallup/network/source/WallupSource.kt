@@ -15,6 +15,7 @@
 package com.dawnimpulse.wallup.network.source
 
 import com.dawnimpulse.wallup.BuildConfig
+import com.dawnimpulse.wallup.ui.objects.CollectionHomescreenList
 import com.dawnimpulse.wallup.ui.objects.HomescreenDetailsObject
 import com.dawnimpulse.wallup.ui.objects.ImageList
 import com.dawnimpulse.wallup.utils.reusables.X_API_KEY
@@ -34,6 +35,8 @@ import retrofit2.http.Header
  */
 interface WallupSource {
 
+
+
     /**
      * get random images
      */
@@ -43,6 +46,8 @@ interface WallupSource {
     ): Call<ImageList>
 
 
+
+
     /**
      * get homescreen
      */
@@ -50,4 +55,16 @@ interface WallupSource {
     fun homescreen(
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<HomescreenDetailsObject>
+
+
+
+
+
+    /**
+     * get homescreen cols
+     */
+    @GET("/v1/collections/homescreen")
+    fun homescreenCols(
+            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
+    ): Call<CollectionHomescreenList>
 }

@@ -26,16 +26,32 @@ import com.google.gson.annotations.SerializedName
  * @note Updates :
  */
 data class CollectionObject(
+        @SerializedName("cid") val cid: String,
         @SerializedName("description") val description: String?,
         @SerializedName("images") val images: List<ImageObject>,
         @SerializedName("name") val name: String
 )
 
+/**
+ * col for homecreen
+ */
 data class CollectionHomescreenObject(
-        @SerializedName("name") val name: String,
-        @SerializedName("image") val image: String
+        @SerializedName("cid") val cid: String,
+        @SerializedName("description") val description: String?,
+        @SerializedName("images") val images: List<String>,
+        @SerializedName("name") val name: String
 )
 
+/**
+ * get list of cols for homescreen
+ */
+data class CollectionHomescreenList(
+        @SerializedName("details") val details: List<CollectionHomescreenObject>
+)
+
+/**
+ * get list of cols
+ */
 data class CollectionList(
         @SerializedName("details") val details: List<CollectionObject>
 )

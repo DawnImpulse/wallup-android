@@ -19,7 +19,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.holders.ExploreCollectionsHolder
-import com.dawnimpulse.wallup.ui.objects.CollectionObject
+import com.dawnimpulse.wallup.ui.holders.LoadingHolder
+import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
+import com.dawnimpulse.wallup.ui.objects.CollectionHomescreenObject
 import com.dawnimpulse.wallup.utils.reusables.Config
 
 /**
@@ -31,8 +33,12 @@ import com.dawnimpulse.wallup.utils.reusables.Config
  * @note Created on 2019-06-26 by Saksham
  * @note Updates :
  */
-class ExploreCollectionsAdapter(val items: List<CollectionObject>, recyclerView: RecyclerView)
+class ExploreCollectionsAdapter(val items: List<CollectionHomescreenObject?>, recyclerView: RecyclerView)
     : CustomAdapter(Config.disposableHomescreenActivity, recyclerView) {
+
+    private val VIEW_ITEM = 0
+    private val VIEW_LOADING = 1
+    private lateinit var onLoadMoreListener: OnLoadMoreListener
 
     /**
      * get count
@@ -42,10 +48,23 @@ class ExploreCollectionsAdapter(val items: List<CollectionObject>, recyclerView:
     }
 
     /**
+     * get type of item
+     */
+    override fun getItemViewType(position: Int): Int {
+        return if (items[position] == null)
+            VIEW_LOADING
+        else
+            VIEW_ITEM
+    }
+
+    /**
      * create
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ExploreCollectionsHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_collections_vertical_cards, parent, false))
+        return if (viewType == VIEW_ITEM)
+            ExploreCollectionsHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_collections_vertical_cards, parent, false))
+        else
+            LoadingHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading_cols_vertical, parent, false))
     }
 
     /**
@@ -54,6 +73,20 @@ class ExploreCollectionsAdapter(val items: List<CollectionObject>, recyclerView:
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         if (holder is ExploreCollectionsHolder)
-            holder.bind(items[position])
+            holder.bind(items[position]!!)
+    }
+
+    /**
+     * loading
+     */
+    override fun onLoading() {
+        onLoadMoreListener.onLoadMore()
+    }
+
+    /**
+     * attaching load more listener
+     */
+    fun setLoadMoreListener(onLoadMoreListener: OnLoadMoreListener){
+        this.onLoadMoreListener = onLoadMoreListener
     }
 }

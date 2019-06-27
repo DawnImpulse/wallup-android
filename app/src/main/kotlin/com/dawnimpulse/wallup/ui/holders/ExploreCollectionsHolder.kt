@@ -16,7 +16,7 @@ package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.ui.objects.CollectionObject
+import com.dawnimpulse.wallup.ui.objects.CollectionHomescreenObject
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import kotlinx.android.synthetic.main.inflator_collections_vertical_cards.view.*
 
@@ -34,8 +34,8 @@ class ExploreCollectionsHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val image = view.collectionVImage
 
 
-    fun bind(item: CollectionObject) {
-        ImageHandler.setImageOnVerticalCols(image, item.images[0].links.url)
+    fun bind(item: CollectionHomescreenObject) {
+        ImageHandler.setImageOnVerticalCols(image, item.images[0])
         name.text = item.name
     }
 }

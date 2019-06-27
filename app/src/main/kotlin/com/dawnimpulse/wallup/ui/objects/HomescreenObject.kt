@@ -27,7 +27,7 @@ import com.google.gson.annotations.SerializedName
  */
 data class HomescreenObject(
         @SerializedName("background") val background: List<String>,
-        @SerializedName("collections") val collections: List<CollectionObject>,
+        @SerializedName("collections") val collections: List<CollectionHomescreenObject>,
         @SerializedName("images") val images: List<ImageObject>,
         @SerializedName("tags") val tags: List<TagObject>
 )
@@ -62,5 +62,5 @@ data class EditorialObject(
  */
 data class ExploreObject(
         val image: String,
-        val cols: List<CollectionObject>
+        val cols: List<CollectionHomescreenObject>
 )
