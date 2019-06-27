@@ -80,13 +80,14 @@ class ExploreCollectionsAdapter(val items: List<CollectionHomescreenObject?>, re
      * loading
      */
     override fun onLoading() {
-        onLoadMoreListener.onLoadMore()
+        if (::onLoadMoreListener.isInitialized)
+            onLoadMoreListener.onLoadMore()
     }
 
     /**
      * attaching load more listener
      */
-    fun setLoadMoreListener(onLoadMoreListener: OnLoadMoreListener){
+    fun setLoadMoreListener(onLoadMoreListener: OnLoadMoreListener) {
         this.onLoadMoreListener = onLoadMoreListener
     }
 }

@@ -20,11 +20,9 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.ui.holders.EditorialHolder
-import com.dawnimpulse.wallup.ui.holders.ExploreHolder
-import com.dawnimpulse.wallup.ui.holders.HomeHolder
-import com.dawnimpulse.wallup.ui.holders.LoadingHolder
+import com.dawnimpulse.wallup.ui.holders.*
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
+import com.dawnimpulse.wallup.ui.objects.CollectionObject
 import com.dawnimpulse.wallup.ui.objects.EditorialObject
 import com.dawnimpulse.wallup.ui.objects.ExploreObject
 import com.dawnimpulse.wallup.utils.reusables.Config
@@ -42,7 +40,7 @@ import com.dawnimpulse.wallup.utils.reusables.Config
 class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
     : CustomAdapter(Config.disposableHomescreenActivity, recyclerView) {
 
-    private lateinit var onLoadMoreListener: OnLoadMoreListener
+    private var onLoadMoreListener: OnLoadMoreListener? = null
     private lateinit var context: Context
     private val VIEW_HOME = 0
     private val VIEW_EDITORIAL = 1
@@ -66,6 +64,7 @@ class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
             is Int -> VIEW_HOME
             is EditorialObject -> VIEW_EDITORIAL
             is ExploreObject -> VIEW_EXPLORE
+            is CollectionObject -> VIEW_FEATURED
             else -> VIEW_LOADING
         }
     }
@@ -79,6 +78,7 @@ class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
             VIEW_HOME -> HomeHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_home, parent, false))
             VIEW_EDITORIAL -> EditorialHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_editorial, parent, false))
             VIEW_EXPLORE -> ExploreHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_explore, parent, false))
+            VIEW_FEATURED -> FeaturedHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_featured, parent, false))
             else -> LoadingHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading_full, parent, false))
         }
     }
@@ -87,17 +87,14 @@ class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
      * binding views
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        // home
-        if (holder is HomeHolder)
-            holder.bind()
 
-        // editorial
-        if (holder is EditorialHolder)
-            holder.bind(items[1] as EditorialObject)
+        when (holder) {
+            is HomeHolder -> holder.bind()
+            is EditorialHolder -> holder.bind(items[1] as EditorialObject)
+            is ExploreHolder -> holder.bind(items[2] as ExploreObject)
+            is FeaturedHolder -> holder.bind(items[position] as CollectionObject)
+        }
 
-        //explore
-        if (holder is ExploreHolder)
-            holder.bind(items[2] as ExploreObject)
     }
 
     /**
@@ -117,13 +114,16 @@ class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
      */
     override fun onLoading() {
         super.onLoading()
-        onLoadMoreListener.onLoadMore()
+        if (onLoadMoreListener != null)
+            onLoadMoreListener!!.onLoadMore()
+        else
+            onLoaded()
     }
 
     /**
      * attach load more listener
      */
-    fun setOnLoadMoreListener(loadMoreListener: OnLoadMoreListener) {
+    fun setOnLoadMoreListener(loadMoreListener: OnLoadMoreListener?) {
         this.onLoadMoreListener = loadMoreListener
     }
 

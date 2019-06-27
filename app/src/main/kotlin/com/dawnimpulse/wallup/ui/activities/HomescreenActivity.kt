@@ -18,12 +18,21 @@ import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.reusables.Config
 import kotlinx.android.synthetic.main.activity_homescreen.*
 
-
+/**
+ * @info -
+ *
+ * @author - Saksham
+ * @note Last Branch Update - master
+ *
+ * @note Created on 2019-06-13 by Saksham
+ * @note Updates :
+ */
 class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
     private lateinit var adapter: HomeAdapter
     private lateinit var model: WallupViewModel
     private lateinit var list: MutableList<Any?>
     private lateinit var backgrounds: List<String>
+    private var page = 1
 
     // -------------
     //    create
@@ -50,13 +59,9 @@ class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
             }
             r?.let {
                 backgrounds = it.background
+
                 // homescreen background
                 ImageHandler.setImageOnHomescreenBackground(homescreenFrame, backgrounds[0])
-
-                // cache other images
-                /*backgrounds.asSequence().withIndex().filter { it.index > 0 }.forEach {
-                    ImageHandler.cacheHomescreenImage(applicationContext, it.value)
-                }*/
 
                 // remove loading
                 list.asSequence().withIndex().filter { it.value == null }.map { it.index }.forEach {
@@ -67,18 +72,11 @@ class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
                 // set editorial & explore in list
                 list.add(EditorialObject(it.background[1], it.tags, it.images))
                 list.add(ExploreObject(it.background[2], it.collections))
-                adapter.notifyItemRangeInserted(1, 2)
+                list.add(null)
+                adapter.notifyItemRangeInserted(1, 3)
+                adapter.setOnLoadMoreListener(this)
             }
         }
-
-        /*fetch {
-            list = it.toMutableList()
-            recyclerDemo.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            adapter = HomeAdapter(list, recyclerDemo)
-            recyclerDemo.adapter = adapter
-            adapter.setOnLoadMoreListener(this)
-        }*/
-
     }
 
     /**
@@ -95,16 +93,51 @@ class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
     //    load more
     // ---------------
     override fun onLoadMore() {
-        toast("loading")
-        /*fetch {
-            val pos = list.size
-            list.addAll(it)
-            adapter.notifyItemRangeInserted(pos, it.count())
+        model.getSortedCols(page, 8) { e, r ->
+
+            // set loaded
             adapter.onLoaded()
-            toast("loaded")
-        }*/
+
+            e?.let {
+                loge(it)
+                toast("error fetching")
+            }
+            r?.let {
+
+                // remove loading
+                list.asSequence().withIndex().filter { it.value == null }.map { it.index }.forEach {
+                    list.removeAt(it)
+                    adapter.notifyItemRemoved(it)
+                }
+
+                if (it.isNotEmpty()) {
+                    // add items
+                    val count = list.size
+                    page++
+                    list.addAll(it)
+                    list.add(null)
+                    adapter.notifyItemRangeInserted(count, it.size + 1)
+                } else
+                // no more items remaining
+                    adapter.setOnLoadMoreListener(null)
+            }
+        }
     }
 
+
+    /**
+     * event object
+     *
+     * @param obj
+     */
+   /* private fun event(obj: RxBusObject) {
+        when (obj.type) {
+            HOMESCREEN_BACKGROUND -> {
+                ImageHandler.setImageOnHomescreenBackground(homescreenFrame, obj.data.toString())
+            }
+        }
+    }
+*/
 
     /**
      * set homescreen's first screen

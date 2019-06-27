@@ -16,12 +16,14 @@ package com.dawnimpulse.wallup.network.source
 
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.ui.objects.CollectionHomescreenList
+import com.dawnimpulse.wallup.ui.objects.CollectionList
 import com.dawnimpulse.wallup.ui.objects.HomescreenDetailsObject
 import com.dawnimpulse.wallup.ui.objects.ImageList
-import com.dawnimpulse.wallup.utils.reusables.X_API_KEY
+import com.dawnimpulse.wallup.utils.reusables.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Query
 
 /**
  * @info -
@@ -36,7 +38,6 @@ import retrofit2.http.Header
 interface WallupSource {
 
 
-
     /**
      * get random images
      */
@@ -44,8 +45,6 @@ interface WallupSource {
     fun randomImages(
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<ImageList>
-
-
 
 
     /**
@@ -57,14 +56,23 @@ interface WallupSource {
     ): Call<HomescreenDetailsObject>
 
 
-
-
-
     /**
      * get homescreen cols
      */
     @GET("/v1/collections/homescreen")
     fun homescreenCols(
-            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
+            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY,
+            @Query(ORIENTATION) orientation: String = VERTICAL
     ): Call<CollectionHomescreenList>
+
+    /**
+     * get sorted collections
+     */
+    @GET("/v1/collections/sorted")
+    fun sortedCols(
+            @Query(PAGE) page: Int,
+            @Query(LIMIT) limit: Int = 8,
+            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY,
+            @Query(ORIENTATION) orientation: String = VERTICAL
+    ): Call<CollectionList>
 }

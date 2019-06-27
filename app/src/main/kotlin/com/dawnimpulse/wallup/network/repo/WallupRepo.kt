@@ -62,7 +62,6 @@ object WallupRepo {
     }
 
 
-
     /**
      * get homescreen
      *
@@ -90,7 +89,6 @@ object WallupRepo {
     }
 
 
-
     /**
      * get homescreen cols
      *
@@ -112,6 +110,33 @@ object WallupRepo {
 
             // on failure
             override fun onFailure(call: Call<CollectionHomescreenList>, t: Throwable) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+
+    /**
+     * get sorted cols
+     *
+     * @param callback
+     */
+    fun getSortedCols(page: Int, limit: Int, callback: (Any?, List<CollectionObject>?) -> Unit) {
+
+        val call = client.sortedCols(page,limit)
+
+        call.enqueue(object : Callback<CollectionList> {
+
+            // response
+            override fun onResponse(call: Call<CollectionList>, response: Response<CollectionList>) {
+                if (response.isSuccessful)
+                    callback(null, response.body()!!.details)
+                else
+                    callback(ErrorWallupUtil.parseError(response), null)
+            }
+
+            // on failure
+            override fun onFailure(call: Call<CollectionList>, t: Throwable) {
                 callback(t.toString(), null)
             }
         })

@@ -17,6 +17,7 @@ package com.dawnimpulse.wallup.ui.models
 import androidx.appcompat.app.AppCompatActivity
 import com.dawnimpulse.wallup.network.repo.WallupRepo
 import com.dawnimpulse.wallup.ui.objects.CollectionHomescreenObject
+import com.dawnimpulse.wallup.ui.objects.CollectionObject
 import com.dawnimpulse.wallup.ui.objects.HomescreenObject
 import com.dawnimpulse.wallup.ui.objects.ImageObject
 import com.dawnimpulse.wallup.utils.reusables.Lifecycle
@@ -43,7 +44,6 @@ class WallupViewModel(private val activity: AppCompatActivity) {
     }
 
 
-
     /**
      * get homescreen
      * @param callback
@@ -55,7 +55,6 @@ class WallupViewModel(private val activity: AppCompatActivity) {
     }
 
 
-
     /**
      * get homescreen cols
      * @param callback
@@ -63,6 +62,17 @@ class WallupViewModel(private val activity: AppCompatActivity) {
     fun getHomescreenCols(callback: (Any?, List<CollectionHomescreenObject>?) -> Unit) {
         Lifecycle.onStart(activity) {
             WallupRepo.getHomescreenCols(callback)
+        }
+    }
+
+
+    /**
+     * get sorted cols
+     * @param callback
+     */
+    fun getSortedCols(page: Int, limit: Int, callback: (Any?, List<CollectionObject>?) -> Unit) {
+        Lifecycle.onStart(activity) {
+            WallupRepo.getSortedCols(page, limit, callback)
         }
     }
 }

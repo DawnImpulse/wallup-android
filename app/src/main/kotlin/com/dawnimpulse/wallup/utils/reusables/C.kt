@@ -43,6 +43,8 @@ const val HOME_IMAGES = "homeImages"
 const val EDITORIAL_IMAGES = "editorialImages"
 const val HOMESCREEN_BACKGROUND = "homescreenBackground"
 const val HOMESCREEN_OTHER = "homescreenOther"
+const val ORIENTATION = "orientation"
+const val VERTICAL = "vertical"
 
 const val ERROR_UNSPLASH_RANDOM = "errorUnsplashRandom"
 const val ERROR_WALLUP_COLLECTIONS_SORTED = "errorWallupCollectionsSorted"

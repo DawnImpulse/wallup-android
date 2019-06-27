@@ -16,11 +16,11 @@ package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.ui.objects.CollectionHomescreenObject
+import com.dawnimpulse.wallup.ui.objects.CollectionObject
 import com.dawnimpulse.wallup.utils.functions.gone
 import com.dawnimpulse.wallup.utils.functions.show
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
-import kotlinx.android.synthetic.main.inflator_collections_vertical_cards.view.*
+import kotlinx.android.synthetic.main.inflator_featured.view.*
 
 /**
  * @info -
@@ -28,22 +28,25 @@ import kotlinx.android.synthetic.main.inflator_collections_vertical_cards.view.*
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-26 by Saksham
+ * @note Created on 2019-06-27 by Saksham
  * @note Updates :
  */
-class ExploreCollectionsHolder(view: View) : RecyclerView.ViewHolder(view) {
-    private val name = view.collectionVText
-    private val image = view.collectionVImage
-    private val left = view.collectionVLeft
+class FeaturedHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private val name = view.featuredText
+    private val image = view.featuredBg
+    private val heading = view.featuredHeading
 
+    /**
+     * binding data to view
+     */
+    fun bind(item: CollectionObject) {
 
-    fun bind(item: CollectionHomescreenObject) {
-        ImageHandler.setImageOnVerticalCols(image, item.images[0])
         name.text = item.name
+        ImageHandler.setImageOnVerticalCols(image, item.images[0].links.url)
 
-        if (adapterPosition == 0)
-            left.gone()
+        if (adapterPosition == 3)
+            heading.show()
         else
-            left.show()
+            heading.gone()
     }
 }
