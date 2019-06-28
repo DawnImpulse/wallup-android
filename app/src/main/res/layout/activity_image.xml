@@ -70,7 +70,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/vd_unsplash" />
+                app:srcCompat="@drawable/vd_web" />
         </FrameLayout>
     </RelativeLayout>
 

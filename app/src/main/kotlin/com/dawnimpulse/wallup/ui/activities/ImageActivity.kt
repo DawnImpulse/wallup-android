@@ -10,8 +10,8 @@ import com.dawnimpulse.wallup.ui.objects.ImageObject
 import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.logd
 import com.dawnimpulse.wallup.utils.functions.toast
+import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.handlers.WallpaperHandler
-import com.dawnimpulse.wallup.utils.reusables.TYPE
 import com.dawnimpulse.wallup.utils.reusables.WALLUP
 import com.google.gson.Gson
 import jp.wasabeef.blurry.Blurry
@@ -29,7 +29,6 @@ import kotlinx.coroutines.launch
  * @note Updates :
  */
 class ImageActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var type: String
     private lateinit var wallup: ImageObject
     private lateinit var bitmap: Bitmap
 
@@ -40,7 +39,6 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image)
 
-        type = intent.extras!!.getString(TYPE)!!
         details()
 
         previewImageAuthorLink.setOnClickListener(this)
@@ -56,15 +54,15 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    // ------------------
-    //      click
-    // ------------------
+    /**
+     * handling click for info, link , download & wallpaper
+     */
     override fun onClick(v: View?) {
         v?.let {
             when (v.id) {
                 // image link
                 previewImageAuthorLink.id -> {
-                    F.startWeb(this, "sdfsd")
+                    F.startWeb(this, wallup.links.html)
                 }
 
                 // download
@@ -91,23 +89,24 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    // -------------------
-    //    set details
-    // -------------------
+    /**
+     * set image & details
+     */
     private fun details() {
         wallup = Gson().fromJson(intent.extras!!.getString(WALLUP)!!, ImageObject::class.java)
 
-        // issuer for the image
-        /*ImageHandler.setImageImgix(previewImage, wallup.urls[0], 720)
-        ImageHandler.setImageImgix(previewImageAuthorI, wallup.author.dp ?: "", 256)
-        previewImageAuthorName.text = wallup.author.name
-        previewImageAuthorI.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_pexels))*/
+        previewImageAuthorName.text = wallup.author
+
+        ImageHandler.getBitmapImageFullscreen(this,wallup.links.url){
+            setBlurZoom(it)
+        }
     }
 
 
-    // -------------------------------
-    //    set blur & zoom animation
-    // -------------------------------
+    /**
+     * set background blur & start zoom animation
+     * @param bitmap
+     */
     private fun setBlurZoom(bitmap: Bitmap?) {
         runOnUiThread {
             bitmap?.let {
@@ -127,18 +126,18 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    // -------------------
-    //    hide info
-    // -------------------
+    /**
+     * hide info
+     */
     private fun hideInfo() {
         previewImageAuthorL.animate().translationY(-previewImageButton.height.toFloat())
         previewImageButton.animate().translationY(previewImageButton.height.toFloat())
         previewImageInfo.animate().alpha(1f)
     }
 
-    // -------------------
-    //    show info
-    // -------------------
+    /**
+     * show info
+     */
     private fun showInfo() {
         previewImageAuthorL.animate().translationY(0f)
         previewImageButton.animate().translationY(0f)

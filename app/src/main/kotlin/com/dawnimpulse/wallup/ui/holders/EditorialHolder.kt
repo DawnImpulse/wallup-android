@@ -17,9 +17,13 @@ package com.dawnimpulse.wallup.ui.holders
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.ui.activities.ImageActivity
 import com.dawnimpulse.wallup.ui.adapter.TagsAdapter
 import com.dawnimpulse.wallup.ui.objects.EditorialObject
+import com.dawnimpulse.wallup.utils.functions.openActivity
+import com.dawnimpulse.wallup.utils.functions.toJson
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import com.dawnimpulse.wallup.utils.reusables.WALLUP
 import kotlinx.android.synthetic.main.inflator_editorial.view.*
 
 /**
@@ -53,16 +57,48 @@ class EditorialHolder(view: View) : RecyclerView.ViewHolder(view) {
         ImageHandler.setImageOnStaggered(img4, data.images[3].links.url)
 
         // handling recycler view
-        if(!::adapter.isInitialized){
+        if (!::adapter.isInitialized) {
             adapter = TagsAdapter(data.tags)
-            tags.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            tags.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             tags.adapter = adapter
         }
 
-        // more images
-        more.setOnClickListener {
+        // click handling
+        val listener = View.OnClickListener {
+            when (it.id) {
 
+                // image 1
+                img1.id -> context.openActivity(ImageActivity::class.java) {
+                    putString(WALLUP, toJson(data.images[0]))
+                }
+
+                // image 2
+                img2.id -> context.openActivity(ImageActivity::class.java) {
+                    putString(WALLUP, toJson(data.images[1]))
+                }
+
+                // image 3
+                img3.id -> context.openActivity(ImageActivity::class.java) {
+                    putString(WALLUP, toJson(data.images[2]))
+                }
+
+                // image 4
+                img4.id -> context.openActivity(ImageActivity::class.java) {
+                    putString(WALLUP, toJson(data.images[3]))
+                }
+
+                more.id -> {
+
+                }
+            }
         }
+
+        img1.setOnClickListener(listener)
+        img2.setOnClickListener(listener)
+        img3.setOnClickListener(listener)
+        img4.setOnClickListener(listener)
+        more.setOnClickListener(listener)
     }
+
 
 }

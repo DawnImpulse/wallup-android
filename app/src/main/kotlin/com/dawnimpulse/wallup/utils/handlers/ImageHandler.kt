@@ -15,6 +15,7 @@
 package com.dawnimpulse.wallup.utils.handlers
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.GenericTransitionOptions
@@ -125,4 +126,29 @@ object ImageHandler {
                 .clearOnDetach()
     }
 
+
+    /**
+     * get bitmap for fullscreen image
+     * @param context
+     * @param url
+     */
+    fun getBitmapImageFullscreen(context: Context, url: String, callback: (Bitmap?) -> Unit) {
+        Glide.with(context)
+                .asBitmap()
+                .load("$url&fm=webp&h=720&q=85")
+                .listener(object : RequestListener<Bitmap> {
+
+                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        callback(resource)
+                        return true
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                        callback(null)
+                        return true
+                    }
+
+                })
+                .submit()
+    }
 }

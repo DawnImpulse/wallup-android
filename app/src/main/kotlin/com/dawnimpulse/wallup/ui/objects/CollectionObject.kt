@@ -33,12 +33,12 @@ data class CollectionObject(
 )
 
 /**
- * col for homecreen
+ * col for homescreen
  */
 data class CollectionHomescreenObject(
         @SerializedName("cid") val cid: String,
         @SerializedName("description") val description: String?,
-        @SerializedName("images") val images: List<String>,
+        @SerializedName("images") val images: List<ImageObject>,
         @SerializedName("name") val name: String
 )
 

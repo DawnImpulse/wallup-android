@@ -59,7 +59,7 @@ interface WallupSource {
     /**
      * get homescreen cols
      */
-    @GET("/v1/collections/homescreen")
+    @GET("/v1/collections/random/homescreen")
     fun homescreenCols(
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY,
             @Query(ORIENTATION) orientation: String = VERTICAL

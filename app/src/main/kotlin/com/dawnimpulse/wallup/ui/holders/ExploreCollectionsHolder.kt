@@ -38,7 +38,7 @@ class ExploreCollectionsHolder(view: View) : RecyclerView.ViewHolder(view) {
 
 
     fun bind(item: CollectionHomescreenObject) {
-        ImageHandler.setImageOnVerticalCols(image, item.images[0])
+        ImageHandler.setImageOnVerticalCols(image, item.images[0].links.url)
         name.text = item.name
 
         if (adapterPosition == 0)
