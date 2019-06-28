@@ -16,7 +16,7 @@ import com.dawnimpulse.wallup.utils.reusables.Config
 import com.dawnimpulse.wallup.utils.reusables.WALLUP
 import com.google.gson.Gson
 import jp.wasabeef.blurry.Blurry
-import kotlinx.android.synthetic.main.activity_image.*
+import kotlinx.android.synthetic.main.inflator_image_fullscreen.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.sourcei.android.permissions.Permissions

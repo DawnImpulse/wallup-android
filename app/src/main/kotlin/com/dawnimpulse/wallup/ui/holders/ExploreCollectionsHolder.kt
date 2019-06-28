@@ -16,10 +16,15 @@ package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.ui.activities.CollectionVerticalActivity
 import com.dawnimpulse.wallup.ui.objects.CollectionHomescreenObject
+import com.dawnimpulse.wallup.ui.objects.CollectionTransferObject
 import com.dawnimpulse.wallup.utils.functions.gone
+import com.dawnimpulse.wallup.utils.functions.openActivity
 import com.dawnimpulse.wallup.utils.functions.show
+import com.dawnimpulse.wallup.utils.functions.toJson
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import com.dawnimpulse.wallup.utils.reusables.COLLECTION
 import kotlinx.android.synthetic.main.inflator_collections_vertical_cards.view.*
 
 /**
@@ -34,9 +39,15 @@ import kotlinx.android.synthetic.main.inflator_collections_vertical_cards.view.*
 class ExploreCollectionsHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val name = view.collectionVText
     private val image = view.collectionVImage
+    private val card = view.collectionVCard
     private val left = view.collectionVLeft
 
+    private val context = view.context
 
+
+    /**
+     * bind data to views
+     */
     fun bind(item: CollectionHomescreenObject) {
         ImageHandler.setImageOnVerticalCols(image, item.images[0].links.url)
         name.text = item.name
@@ -45,5 +56,13 @@ class ExploreCollectionsHolder(view: View) : RecyclerView.ViewHolder(view) {
             left.gone()
         else
             left.show()
+
+        // on click of card
+        card.setOnClickListener {
+            val col = CollectionTransferObject(item.cid, item.images[0].links.url, item.name, item.description)
+            context.openActivity(CollectionVerticalActivity::class.java) {
+                putString(COLLECTION, toJson(col))
+            }
+        }
     }
 }

@@ -43,6 +43,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="32dp"
+        android:id="@+id/collectionVCard"
         android:layout_marginTop="8dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="8dp"
@@ -55,6 +56,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         app:layout_constraintTop_toTopOf="parent">
 
 
+        <!--Image-->
         <ImageView
             android:id="@+id/collectionVImage"
             android:layout_width="match_parent"
@@ -66,6 +68,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="match_parent"
             android:background="@drawable/bg_gradient" />
 
+        <!--Title-->
         <TextView
             android:id="@+id/collectionVText"
             android:layout_width="match_parent"

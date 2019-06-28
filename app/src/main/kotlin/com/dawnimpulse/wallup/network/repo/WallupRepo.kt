@@ -123,7 +123,7 @@ object WallupRepo {
      */
     fun getSortedCols(page: Int, limit: Int, callback: (Any?, List<CollectionObject>?) -> Unit) {
 
-        val call = client.sortedCols(page,limit)
+        val call = client.sortedCols(page, limit)
 
         call.enqueue(object : Callback<CollectionList> {
 
@@ -137,6 +137,32 @@ object WallupRepo {
 
             // on failure
             override fun onFailure(call: Call<CollectionList>, t: Throwable) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+    /**
+     * get sorted collection images
+     *
+     * @param callback
+     */
+    fun getSortedCollectionImages(cid: String, page: Int, callback: (Any?, List<ImageObject>?) -> Unit) {
+
+        val call = client.sortedCollectionImages(cid, page)
+
+        call.enqueue(object : Callback<ImageList> {
+
+            // response
+            override fun onResponse(call: Call<ImageList>, response: Response<ImageList>) {
+                if (response.isSuccessful)
+                    callback(null, response.body()!!.details)
+                else
+                    callback(ErrorWallupUtil.parseError(response), null)
+            }
+
+            // on failure
+            override fun onFailure(call: Call<ImageList>, t: Throwable) {
                 callback(t.toString(), null)
             }
         })

@@ -40,7 +40,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!--New Homesreen-->
+        </activity> <!--New Homescreen-->
 
         <activity
             android:name=".ui.activities.SettingsActivity"
@@ -57,6 +57,9 @@
             android:name=".ui.activities.RandomActivity"
             android:theme="@style/AppTheme.NoActionBar"> <!-- Random Activity -->
         </activity>
+
+        <activity android:name=".ui.activities.CollectionVerticalActivity"
+            android:theme="@style/AppTheme.Fullscreen"/> <!--Vertical Collection Activity-->
     </application>
 
 </manifest>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ui.activities.ImageActivity">
+
+    <!--Progress-->
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <!--Blur bg-->
+    <ImageView
+        android:id="@+id/previewImageBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <!--Image-->
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/previewImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        tools:src="@tools:sample/backgrounds/scenic[14]" />
+
+    <!--Author-->
+    <RelativeLayout
+        android:id="@+id/previewImageAuthorL"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_gradient_reverse">
+
+        <TextView
+            android:id="@+id/previewImageAuthorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_toLeftOf="@id/previewImageAuthorLink"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            app:autoSizeTextType="uniform" />
+
+        <FrameLayout
+            android:id="@+id/previewImageAuthorLink"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/previewImageAuthorLinkI"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_web" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <!--Buttons-->
+    <RelativeLayout
+        android:id="@+id/previewImageButton"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_gradient">
+
+        <FrameLayout
+            android:id="@+id/previewImageDownload"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_download" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/previewImageWallpaper"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@id/previewImageDownload">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_wallpaper" />
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <!--Info-->
+    <FrameLayout
+        android:id="@+id/previewImageInfo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:alpha="0">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:srcCompat="@drawable/vd_info" />
+    </FrameLayout>
+
+    <!--Left-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/previewImageLeft"
+        android:layout_width="18dp"
+        android:visibility="gone"
+        android:layout_height="18dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        app:srcCompat="@drawable/vd_left" />
+
+    <!--right-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/previewImageRight"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        app:srcCompat="@drawable/vd_right" />
+</RelativeLayout>

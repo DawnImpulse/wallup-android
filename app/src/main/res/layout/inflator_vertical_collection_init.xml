@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+ISC License
+
+Copyright 2018-2019, Saksham (DawnImpulse)
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted,
+provided that the above copyright notice and this permission notice appear in all copies.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+OR PERFORMANCE OF THIS SOFTWARE.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <!--Blur bg-->
+    <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/verticalColsBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.3" />
+
+    <!--Description-->
+    <TextView
+        android:id="@+id/verticalColsDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <!--Title-->
+    <TextView
+        android:id="@+id/verticalColsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/verticalColsDescription"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="bottom"
+        android:textColor="@color/white"
+        app:autoSizeMaxTextSize="36sp"
+        app:autoSizeMinTextSize="24sp"
+        app:autoSizeTextType="uniform" />
+
+    <!--Arrow Right-->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/verticalColsRight"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        app:srcCompat="@drawable/vd_right" />
+
+</RelativeLayout>

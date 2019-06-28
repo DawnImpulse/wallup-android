@@ -23,6 +23,7 @@ import com.dawnimpulse.wallup.utils.reusables.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -75,4 +76,16 @@ interface WallupSource {
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY,
             @Query(ORIENTATION) orientation: String = VERTICAL
     ): Call<CollectionList>
+
+
+    /**
+     * get sorted collection images
+     */
+    @GET("/v1/images/collection/sorted/{cid}")
+    fun sortedCollectionImages(
+            @Path(CID) cid: String,
+            @Query(PAGE) page: Int,
+            @Query(LIMIT) limit: Int = 2,
+            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
+    ): Call<ImageList>
 }

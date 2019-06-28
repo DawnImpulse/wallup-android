@@ -43,6 +43,16 @@ data class CollectionHomescreenObject(
 )
 
 /**
+ * normal collection to pass between activities
+ */
+data class CollectionTransferObject(
+        val cid: String,
+        val image: String,
+        val name: String,
+        val description: String?
+)
+
+/**
  * get list of cols for homescreen
  */
 data class CollectionHomescreenList(

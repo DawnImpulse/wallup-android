@@ -68,11 +68,25 @@ class WallupViewModel(private val activity: AppCompatActivity) {
 
     /**
      * get sorted cols
+     * @param page
+     * @param limit
      * @param callback
      */
     fun getSortedCols(page: Int, limit: Int, callback: (Any?, List<CollectionObject>?) -> Unit) {
         Lifecycle.onStart(activity) {
             WallupRepo.getSortedCols(page, limit, callback)
+        }
+    }
+
+    /**
+     * get sorted collection images
+     * @param cid
+     * @param page
+     * @param callback
+     */
+    fun getSortedCollectionImages(cid: String, page: Int, callback: (Any?, List<ImageObject>?) -> Unit) {
+        Lifecycle.onStart(activity) {
+            WallupRepo.getSortedCollectionImages(cid, page, callback)
         }
     }
 }
