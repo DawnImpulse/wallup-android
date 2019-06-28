@@ -7,17 +7,19 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.objects.ImageObject
-import com.dawnimpulse.wallup.utils.functions.F
-import com.dawnimpulse.wallup.utils.functions.logd
-import com.dawnimpulse.wallup.utils.functions.toast
+import com.dawnimpulse.wallup.utils.functions.*
+import com.dawnimpulse.wallup.utils.handlers.DialogHandler
+import com.dawnimpulse.wallup.utils.handlers.DownloadHandler
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.handlers.WallpaperHandler
+import com.dawnimpulse.wallup.utils.reusables.Config
 import com.dawnimpulse.wallup.utils.reusables.WALLUP
 import com.google.gson.Gson
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.sourcei.android.permissions.Permissions
 
 /**
  * @info -
@@ -54,12 +56,14 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+
     /**
      * handling click for info, link , download & wallpaper
      */
     override fun onClick(v: View?) {
         v?.let {
             when (v.id) {
+
                 // image link
                 previewImageAuthorLink.id -> {
                     F.startWeb(this, wallup.links.html)
@@ -67,17 +71,44 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
                 // download
                 previewImageDownload.id -> {
+                    Permissions.askWriteExternalStoragePermission(this) { e, r ->
+                        e?.let {
+                            toast("kindly provide storage permissions")
+                        }
+                        r?.let {
+                            toast("downloading image, check notification")
+                            F.mkdir()
+                            DownloadHandler.downloadData(this, "${wallup.links.url}&fm=webp", "${wallup.iid}.webp")
+                        }
+                    }
                 }
 
                 // wallpaper
                 previewImageWallpaper.id -> {
-                    logd("man")
-                    if (::bitmap.isInitialized) {
-                        logd("yeah")
-                        WallpaperHandler.setWallpaper(this, bitmap)
-                        logd("meah")
-                    } else
-                        toast("bitmap not available")
+
+                    // check permissions
+                    Permissions.askWriteExternalStoragePermission(this) { e, r ->
+                        e?.let {
+                            toast("kindly provide storage permissions")
+                        }
+                        r?.let {
+                            val file = "${Config.DEFAULT_DOWNLOAD_PATH}/${wallup.iid}.webp"
+
+                            // file already exists
+                            if (file.toFile().exists())
+                                WallpaperHandler.askToSetWallpaper(this, file)
+                            else {
+                                // download file with progress
+                                DialogHandler.downloadProgress(this, "${wallup.links.url}&fm=webp", "${wallup.iid}.webp") {
+                                    if (it) {
+                                        // file downloaded set it
+                                        WallpaperHandler.askToSetWallpaper(this, file)
+                                    } else
+                                        toast("failed setting wallpaper")
+                                }
+                            }
+                        }
+                    }
                 }
 
                 // info
@@ -89,6 +120,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+
     /**
      * set image & details
      */
@@ -97,7 +129,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
         previewImageAuthorName.text = wallup.author
 
-        ImageHandler.getBitmapImageFullscreen(this,wallup.links.url){
+        ImageHandler.getBitmapImageFullscreen(this, wallup.links.url) {
             setBlurZoom(it)
         }
     }
@@ -127,24 +159,26 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * hide info
+     * hide information bars
      */
     private fun hideInfo() {
+        previewImageInfo.show()
         previewImageAuthorL.animate().translationY(-previewImageButton.height.toFloat())
         previewImageButton.animate().translationY(previewImageButton.height.toFloat())
         previewImageInfo.animate().alpha(1f)
     }
 
     /**
-     * show info
+     * show information bars
      */
     private fun showInfo() {
         previewImageAuthorL.animate().translationY(0f)
         previewImageButton.animate().translationY(0f)
         previewImageInfo.animate().alpha(0f)
+        previewImageInfo.gone()
 
         GlobalScope.launch {
-            Thread.sleep(1500)
+            Thread.sleep(3000)
             runOnUiThread {
                 hideInfo()
             }

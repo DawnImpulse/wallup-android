@@ -175,7 +175,7 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
         // image observable
         fun image(wall: ImageObject): Observable<Boolean> {
             return Observable.create<Boolean> { em ->
-                when (wall.issuer) {
+                when (wall.iid) {
                     UNSPLASH, PEXELS -> {
                         // get bitmap for imgix
                         /*ImageHandler.getImageImgixBitmapQualityCallback(appContext, wall.urls[0], 1080, 95) {

@@ -17,11 +17,18 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Point
 import android.net.Uri
+import android.os.Environment
 import android.view.WindowManager
+import com.dawnimpulse.wallup.utils.reusables.Config
 import com.google.gson.Gson
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import java.io.File
 import java.util.concurrent.TimeUnit
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+
+
 
 
 /**
@@ -89,6 +96,19 @@ object F {
         return Observable.interval(10, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .map { it.toInt() }
+    }
+
+    //make dir
+    fun mkdir() {
+        if (Environment.getExternalStorageDirectory().exists()) {
+            if (!Config.DEFAULT_DOWNLOAD_PATH.toFile().exists())
+                Config.DEFAULT_DOWNLOAD_PATH.toFile().mkdir()
+        }
+    }
+
+    // get file
+    fun fileToBitmap(file: File): Bitmap{
+        return BitmapFactory.decodeFile(file.getAbsolutePath())
     }
 
 

@@ -45,6 +45,7 @@ const val HOMESCREEN_BACKGROUND = "homescreenBackground"
 const val HOMESCREEN_OTHER = "homescreenOther"
 const val ORIENTATION = "orientation"
 const val VERTICAL = "vertical"
+const val DOWNLOAD_CANCELLED = "downloadCancelled"
 
 const val ERROR_UNSPLASH_RANDOM = "errorUnsplashRandom"
 const val ERROR_WALLUP_COLLECTIONS_SORTED = "errorWallupCollectionsSorted"

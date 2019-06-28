@@ -20,6 +20,18 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute,MissingApplicationIcon">
 
+        <!-- File provider for Android 7+ -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.dawnimpulse.wallup"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_provider_path" />
+        </provider>
+
+
         <activity
             android:name=".ui.activities.HomescreenActivity"
             android:theme="@style/AppTheme.Fullscreen">

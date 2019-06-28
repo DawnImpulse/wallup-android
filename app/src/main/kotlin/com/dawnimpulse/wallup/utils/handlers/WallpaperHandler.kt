@@ -18,6 +18,9 @@ import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Bitmap
 import com.dawnimpulse.wallup.utils.functions.F
+import com.dawnimpulse.wallup.utils.functions.getMime
+import com.dawnimpulse.wallup.utils.functions.toContentUri
+import com.dawnimpulse.wallup.utils.functions.toast
 
 /**
  * @info -
@@ -36,8 +39,30 @@ object WallpaperHandler {
         manager.setBitmap(bitmap)
     }
 
+    /**
+     * ask user to set wallpaper
+     * @param context
+     * @param file - path to image
+     */
+    fun askToSetWallpaper(context: Context, file: String) {
+        // get content uri
+        val uri = file.toContentUri(context)
+
+        // check uri if it is image or not
+        val mime = uri.getMime(context)
+        if (mime != null && mime.contains("image")) {
+
+            // get wallpaper intent
+            val wallpaperManager = WallpaperManager.getInstance(context)
+            context.startActivity(wallpaperManager.getCropAndSetWallpaperIntent(uri))
+
+        } else
+            // issue with storage
+            context.toast("Issue with getting image from storage!!")
+    }
+
     // get cropped bitmap
-    private fun croppedBitmap(context: Context, bitmap: Bitmap) : Bitmap {
+    private fun croppedBitmap(context: Context, bitmap: Bitmap): Bitmap {
         val screenDimens = F.displayDimensions(context)
 
         // getting required width/height of screen from wallpaper manager

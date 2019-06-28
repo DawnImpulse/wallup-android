@@ -6,4 +6,8 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <color name="grey300">#EEEEEE</color>
+    <color name="grey400">#BDBDBD</color>
+    <color name="grey500">#9E9E9E</color>
 </resources>

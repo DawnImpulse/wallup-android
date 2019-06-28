@@ -69,6 +69,7 @@ dependencies {
     implementation 'jp.wasabeef:blurry:3.0.0' //blur library
     implementation 'commons-io:commons-io:2.4' // apache commons io
     implementation 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2'
+    implementation 'org.sourcei.android:permissions:1.0.1' //permissions
 
     //------------------ Additional -------------------------
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.1'
