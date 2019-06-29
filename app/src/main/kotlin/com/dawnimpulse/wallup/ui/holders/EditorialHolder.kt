@@ -18,6 +18,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.ui.activities.ImageActivity
+import com.dawnimpulse.wallup.ui.activities.RandomActivity
 import com.dawnimpulse.wallup.ui.adapter.TagsAdapter
 import com.dawnimpulse.wallup.ui.objects.EditorialObject
 import com.dawnimpulse.wallup.utils.functions.openActivity
@@ -87,8 +88,9 @@ class EditorialHolder(view: View) : RecyclerView.ViewHolder(view) {
                     putString(WALLUP, toJson(data.images[3]))
                 }
 
+                // random images activity
                 more.id -> {
-
+                    context.openActivity(RandomActivity::class.java)
                 }
             }
         }

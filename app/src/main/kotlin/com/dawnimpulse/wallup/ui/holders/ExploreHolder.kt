@@ -54,6 +54,7 @@ class ExploreHolder(view: View) : RecyclerView.ViewHolder(view), OnLoadMoreListe
      */
     fun bind(data: ExploreObject) {
 
+        // handling of explore collections
         if (!::adapter.isInitialized) {
             PagerSnapHelper().attachToRecyclerView(recycler)
 
@@ -69,7 +70,10 @@ class ExploreHolder(view: View) : RecyclerView.ViewHolder(view), OnLoadMoreListe
             adapter.setLoadMoreListener(this)
         }
 
+        // set background image
         ImageHandler.setImageOnHomescreenBackground(bg, data.image)
+
+
     }
 
     /**

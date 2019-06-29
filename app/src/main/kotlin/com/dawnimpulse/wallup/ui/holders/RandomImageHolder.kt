@@ -37,7 +37,7 @@ import kotlinx.android.synthetic.main.inflator_image.view.*
  * @note Created on 2019-06-07 by Saksham
  * @note Updates :
  */
-class WallupImageHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class RandomImageHolder(val view: View) : RecyclerView.ViewHolder(view) {
     val image = view.imageMain!!
     val layout = view.imageL!!
     val context = view.context!!

@@ -16,10 +16,15 @@ package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.ui.activities.CollectionVerticalActivity
 import com.dawnimpulse.wallup.ui.objects.CollectionObject
+import com.dawnimpulse.wallup.ui.objects.CollectionTransferObject
 import com.dawnimpulse.wallup.utils.functions.gone
+import com.dawnimpulse.wallup.utils.functions.openActivity
 import com.dawnimpulse.wallup.utils.functions.show
+import com.dawnimpulse.wallup.utils.functions.toJson
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import com.dawnimpulse.wallup.utils.reusables.COLLECTION
 import kotlinx.android.synthetic.main.inflator_featured.view.*
 
 /**
@@ -35,6 +40,9 @@ class FeaturedHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val name = view.featuredText
     private val image = view.featuredBg
     private val heading = view.featuredHeading
+    private val layout = view.featuredLayout
+
+    private val context = view.context
 
     /**
      * binding data to view
@@ -48,5 +56,13 @@ class FeaturedHolder(view: View) : RecyclerView.ViewHolder(view) {
             heading.show()
         else
             heading.gone()
+
+        // click handling
+        layout.setOnClickListener {
+            val col = CollectionTransferObject(item.cid, item.images[0].links.url, item.name, item.description)
+            context.openActivity(CollectionVerticalActivity::class.java){
+                putString(COLLECTION, toJson(col))
+            }
+        }
     }
 }

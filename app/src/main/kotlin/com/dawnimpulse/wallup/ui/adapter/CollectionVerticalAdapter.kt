@@ -14,8 +14,10 @@
  **/
 package com.dawnimpulse.wallup.ui.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.holders.CollectionVerticalHolder
@@ -24,6 +26,9 @@ import com.dawnimpulse.wallup.ui.holders.LoadingHolder
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.objects.CollectionTransferObject
 import com.dawnimpulse.wallup.ui.objects.ImageObject
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * @info -
@@ -41,6 +46,7 @@ class CollectionVerticalAdapter(
 
 
     private var onLoadMoreListener: OnLoadMoreListener? = null
+    private lateinit var context: Context
     private val VIEW_INITIAL = 0
     private val VIEW_ITEM = 1
     private val VIEW_LOADING = 2
@@ -67,6 +73,8 @@ class CollectionVerticalAdapter(
      * creating item type
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        context = parent.context
+
         return when (viewType) {
             VIEW_INITIAL -> CollectionVerticalInitialHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_vertical_collection_init, parent, false))
             VIEW_ITEM -> CollectionVerticalHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_image_fullscreen, parent, false))
@@ -81,6 +89,27 @@ class CollectionVerticalAdapter(
         when (holder) {
             is CollectionVerticalInitialHolder -> holder.bind(items[0] as CollectionTransferObject)
             is CollectionVerticalHolder -> holder.bind(items[position] as ImageObject)
+        }
+    }
+
+    /**
+     * start animation & info
+     */
+    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+
+        if (holder is CollectionVerticalHolder) {
+
+            // thread sleep
+            GlobalScope.launch {
+                delay(1500)
+                (context as AppCompatActivity).runOnUiThread {
+                    holder.hideInfo()
+                }
+            }
+
+            // binding image
+            holder.details(items[holder.adapterPosition] as ImageObject)
         }
     }
 

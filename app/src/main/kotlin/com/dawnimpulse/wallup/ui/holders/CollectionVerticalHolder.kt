@@ -30,6 +30,7 @@ import com.dawnimpulse.wallup.utils.reusables.Config
 import jp.wasabeef.blurry.Blurry
 import kotlinx.android.synthetic.main.inflator_image_fullscreen.view.*
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.sourcei.android.permissions.Permissions
 
@@ -67,15 +68,6 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
         left.show()
         right.show()
 
-        GlobalScope.launch {
-            Thread.sleep(1500)
-            activity.runOnUiThread {
-                hideInfo()
-            }
-        }
-
-        // set details
-        details(image)
 
         // on click handling
         val listener = View.OnClickListener {
@@ -139,7 +131,7 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
     /**
      * set image & details
      */
-    private fun details(image:ImageObject) {
+    fun details(image:ImageObject) {
 
         authorN.text = image.author
 
@@ -175,7 +167,7 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
     /**
      * hide information bars
      */
-    private fun hideInfo() {
+    fun hideInfo() {
         info.show()
         authorL.animate().translationY(-buttons.height.toFloat())
         buttons.animate().translationY(buttons.height.toFloat())
@@ -192,7 +184,7 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
         info.gone()
 
         GlobalScope.launch {
-            Thread.sleep(3000)
+            delay(3000)
             activity.runOnUiThread {
                 hideInfo()
             }

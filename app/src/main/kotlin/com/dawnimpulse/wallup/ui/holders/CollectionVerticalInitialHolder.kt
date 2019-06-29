@@ -46,13 +46,13 @@ class CollectionVerticalInitialHolder(view: View) : RecyclerView.ViewHolder(view
     /**
      * binding data to views
      */
-    fun bind(item:CollectionTransferObject){
+    fun bind(item: CollectionTransferObject) {
 
         // set animation
         right.animation = AnimationUtils.loadAnimation(context, R.anim.hover_right)
 
         // setting image
-        ImageHandler.getBitmapImageFullscreen(context,item.image){
+        ImageHandler.getBitmapImageFullscreen(context, item.image) {
             setBlurZoom(it)
         }
 
@@ -60,7 +60,7 @@ class CollectionVerticalInitialHolder(view: View) : RecyclerView.ViewHolder(view
         title.text = item.name
 
         // making description gone if not available
-        if(item.description != null)
+        if (item.description != null)
             description.text = item.description
         else
             description.gone()
