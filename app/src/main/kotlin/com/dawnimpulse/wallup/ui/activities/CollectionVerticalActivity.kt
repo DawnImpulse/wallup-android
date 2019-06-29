@@ -18,12 +18,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
-import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.adapter.CollectionVerticalAdapter
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.WallupViewModel
 import com.dawnimpulse.wallup.ui.objects.CollectionTransferObject
+import com.dawnimpulse.wallup.utils.functions.logd
 import com.dawnimpulse.wallup.utils.functions.loge
 import com.dawnimpulse.wallup.utils.functions.toast
 import com.dawnimpulse.wallup.utils.reusables.COLLECTION
@@ -53,6 +53,7 @@ class CollectionVerticalActivity : AppCompatActivity(), OnLoadMoreListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_general_recycler)
+
 
         if (savedInstanceState == null) {
             val snapHelper = PagerSnapHelper()
@@ -106,11 +107,9 @@ class CollectionVerticalActivity : AppCompatActivity(), OnLoadMoreListener {
      * clear disposables
      */
     override fun onDestroy() {
-        super.onDestroy()
-
-        toast("destroyed")
         Config.disposableCollectionsActivity.clear()
-        adapter.setLoadMore(null)
+        logd("collection destroyed")
+        super.onDestroy()
     }
 
     /**
@@ -122,7 +121,7 @@ class CollectionVerticalActivity : AppCompatActivity(), OnLoadMoreListener {
         list.add(null)
 
         adapter = CollectionVerticalAdapter(list, generalRecycler)
-        generalRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        generalRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         generalRecycler.adapter = adapter
 
         model.getSortedCollectionImages(col.cid, 1) { e, r ->

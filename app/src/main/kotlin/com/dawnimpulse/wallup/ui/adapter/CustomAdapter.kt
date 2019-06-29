@@ -18,11 +18,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.dawnimpulse.wallup.utils.functions.logd
-import com.jakewharton.rxbinding3.recyclerview.scrollStateChanges
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import java.util.concurrent.TimeUnit
 
 /**
  * @info -
@@ -33,54 +28,48 @@ import java.util.concurrent.TimeUnit
  * @note Created on 2019-06-11 by Saksham
  * @note Updates :
  */
-open class CustomAdapter(compositeDisposable: CompositeDisposable, recyclerView: RecyclerView) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+open class CustomAdapter(val visibleThreshold: Int, recyclerView: RecyclerView) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var isLoading = false
 
     private var lastVisibleItem: Int = 0
     private var totalItemCount: Int = 0
-    private val visibleThreshold = 3
 
     init {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
 
-        // scroll state change
-        compositeDisposable.add(
-                recyclerView.scrollStateChanges()
-                        .debounce(500, TimeUnit.MILLISECONDS)
-                        .filter { !isLoading }
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe({
-                            val layoutManager = recyclerView.layoutManager
+                if (!isLoading) {
+                    val layoutManager = recyclerView.layoutManager
 
-                            // last visible item for staggered grid
-                            fun getLastVisibleItem(lastVisibleItemPositions: List<Int>): Int {
-                                var maxSize = 0
-                                lastVisibleItemPositions.forEachIndexed { index,_ ->
-                                    if (index == 0) {
-                                        maxSize = lastVisibleItemPositions[index]
-                                    } else if (lastVisibleItemPositions[index] > maxSize) {
-                                        maxSize = lastVisibleItemPositions[index]
-                                    }
-                                }
-
-                                return maxSize
+                    // last visible item for staggered grid
+                    fun getLastVisibleItem(lastVisibleItemPositions: List<Int>): Int {
+                        var maxSize = 0
+                        lastVisibleItemPositions.forEachIndexed { index, _ ->
+                            if (index == 0) {
+                                maxSize = lastVisibleItemPositions[index]
+                            } else if (lastVisibleItemPositions[index] > maxSize) {
+                                maxSize = lastVisibleItemPositions[index]
                             }
+                        }
 
-                            totalItemCount = layoutManager!!.itemCount
+                        return maxSize
+                    }
 
-                            if (layoutManager is StaggeredGridLayoutManager)
-                                lastVisibleItem = getLastVisibleItem(layoutManager.findLastVisibleItemPositions(null).toList())
+                    totalItemCount = layoutManager!!.itemCount
 
-                            if (layoutManager is LinearLayoutManager)
-                                lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+                    if (layoutManager is StaggeredGridLayoutManager)
+                        lastVisibleItem = getLastVisibleItem(layoutManager.findLastVisibleItemPositions(null).toList())
 
-                            if (totalItemCount <= lastVisibleItem + visibleThreshold) {
-                                isLoading = true
-                                onLoading()
-                            }
-                        }, {
-                            logd(it)
-                        })
-        )
+                    if (layoutManager is LinearLayoutManager)
+                        lastVisibleItem = layoutManager.findLastVisibleItemPosition()
+
+                    if (totalItemCount <= lastVisibleItem + visibleThreshold) {
+                        isLoading = true
+                        onLoading()
+                    }
+                }
+            }
+        })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

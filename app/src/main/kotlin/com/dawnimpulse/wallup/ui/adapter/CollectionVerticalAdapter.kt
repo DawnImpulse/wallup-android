@@ -24,7 +24,6 @@ import com.dawnimpulse.wallup.ui.holders.LoadingHolder
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.objects.CollectionTransferObject
 import com.dawnimpulse.wallup.ui.objects.ImageObject
-import com.dawnimpulse.wallup.utils.reusables.Config
 
 /**
  * @info -
@@ -38,7 +37,7 @@ import com.dawnimpulse.wallup.utils.reusables.Config
 class CollectionVerticalAdapter(
         val items: List<Any?>,
         recyclerView: RecyclerView
-) : CustomAdapter(Config.disposableCollectionsActivity, recyclerView) {
+) : CustomAdapter(2, recyclerView) {
 
 
     private var onLoadMoreListener: OnLoadMoreListener? = null

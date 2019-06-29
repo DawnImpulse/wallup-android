@@ -22,7 +22,6 @@ import com.dawnimpulse.wallup.ui.holders.ExploreCollectionsHolder
 import com.dawnimpulse.wallup.ui.holders.LoadingHolder
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.objects.CollectionHomescreenObject
-import com.dawnimpulse.wallup.utils.reusables.Config
 
 /**
  * @info -
@@ -34,7 +33,7 @@ import com.dawnimpulse.wallup.utils.reusables.Config
  * @note Updates :
  */
 class ExploreCollectionsAdapter(val items: List<CollectionHomescreenObject?>, recyclerView: RecyclerView)
-    : CustomAdapter(Config.disposableHomescreenActivity, recyclerView) {
+    : CustomAdapter(2, recyclerView) {
 
     private val VIEW_ITEM = 0
     private val VIEW_LOADING = 1

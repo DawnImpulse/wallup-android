@@ -25,7 +25,6 @@ import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.objects.CollectionObject
 import com.dawnimpulse.wallup.ui.objects.EditorialObject
 import com.dawnimpulse.wallup.ui.objects.ExploreObject
-import com.dawnimpulse.wallup.utils.reusables.Config
 
 /**
  * @info -
@@ -38,7 +37,7 @@ import com.dawnimpulse.wallup.utils.reusables.Config
  *  Saksham - 2019-06-26 - master - explore
  */
 class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
-    : CustomAdapter(Config.disposableHomescreenActivity, recyclerView) {
+    : CustomAdapter(2, recyclerView) {
 
     private var onLoadMoreListener: OnLoadMoreListener? = null
     private lateinit var context: Context
