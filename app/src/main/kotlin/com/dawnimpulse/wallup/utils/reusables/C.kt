@@ -48,6 +48,8 @@ const val VERTICAL = "vertical"
 const val DOWNLOAD_CANCELLED = "downloadCancelled"
 const val COLLECTION = "collection"
 const val TAG = "tag"
+const val WALLPAPER_TIME = "wallpaperTime"
+const val WALLPAPER_WIFI = "wallpaperWifi"
 
 const val ERROR_UNSPLASH_RANDOM = "errorUnsplashRandom"
 const val ERROR_WALLUP_COLLECTIONS_SORTED = "errorWallupCollectionsSorted"

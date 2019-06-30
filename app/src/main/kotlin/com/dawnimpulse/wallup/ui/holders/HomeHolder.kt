@@ -16,6 +16,8 @@ package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.ui.activities.SettingsActivity
+import com.dawnimpulse.wallup.utils.functions.openActivity
 import kotlinx.android.synthetic.main.inflator_home.view.*
 
 /**
@@ -30,14 +32,13 @@ import kotlinx.android.synthetic.main.inflator_home.view.*
 class HomeHolder(view: View) : RecyclerView.ViewHolder(view) {
     val homeDown = view.homeDown
     private val info = view.homeInfo
-    //private val bg = view.homeBg
     private val context = view.context
 
     fun bind() {
 
         // info
         info.setOnClickListener {
-
+            context.openActivity(SettingsActivity::class.java)
         }
     }
 }

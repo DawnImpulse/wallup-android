@@ -151,4 +151,30 @@ object ImageHandler {
                 })
                 .submit()
     }
+
+
+    /**
+     * get bitmap for fullscreen image
+     * @param context
+     * @param url
+     */
+    fun getBitmapWallpaper(context: Context, url: String, callback: (Bitmap?) -> Unit) {
+        Glide.with(context)
+                .asBitmap()
+                .load("$url&fm=webp")
+                .listener(object : RequestListener<Bitmap> {
+
+                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        callback(resource)
+                        return true
+                    }
+
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                        callback(null)
+                        return true
+                    }
+
+                })
+                .submit()
+    }
 }

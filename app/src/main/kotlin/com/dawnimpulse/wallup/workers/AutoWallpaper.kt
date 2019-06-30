@@ -22,16 +22,18 @@ import android.os.Looper
 import androidx.concurrent.futures.CallbackToFutureAdapter
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
+import com.dawnimpulse.wallup.network.repo.WallupRepo
 import com.dawnimpulse.wallup.ui.objects.ImageObject
 import com.dawnimpulse.wallup.utils.functions.logd
 import com.dawnimpulse.wallup.utils.functions.toast
-import com.dawnimpulse.wallup.utils.reusables.PEXELS
-import com.dawnimpulse.wallup.utils.reusables.UNSPLASH
+import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import com.dawnimpulse.wallup.utils.handlers.StorageHandler
 import com.google.common.util.concurrent.ListenableFuture
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.comparator.LastModifiedFileComparator
+import java.io.File
 import java.util.*
 
 /**
@@ -80,8 +82,8 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
         val files = appContext.filesDir.listFiles()
         Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_COMPARATOR)
 
-        // if < 5 wallpaper available in cache then get more
-        if (files.size < 5) {
+        // if < 3 wallpaper available in cache then get more
+        if (files.size < 3) {
             // if images available in cache
             if (files.isNotEmpty()) {
                 setWallpaper(callback)
@@ -133,7 +135,7 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                 handler.post {
                     appContext.toast("wallpaper changed")
                 }
-                logd("wallpaper set ${file.name}")
+
                 // delete the file
                 FileUtils.deleteQuietly(file)
                 callback(true)
@@ -155,7 +157,7 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
     //   fetch images from server
     // ----------------------------
     private fun imagesFetching(callback: (Boolean) -> Unit) {
-        /*WallupRepo.editorialImages(10) { e, r ->
+        WallupRepo.getRandomTagImges("homescreen", 10) { e, r ->
             e?.let {
                 callback(false)
             }
@@ -164,7 +166,7 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                     callback(true)
                 }
             }
-        }*/
+        }
     }
 
     // ----------------------------
@@ -174,22 +176,16 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
 
         // image observable
         fun image(wall: ImageObject): Observable<Boolean> {
-            return Observable.create<Boolean> { em ->
-                when (wall.iid) {
-                    UNSPLASH, PEXELS -> {
-                        // get bitmap for imgix
-                        /*ImageHandler.getImageImgixBitmapQualityCallback(appContext, wall.urls[0], 1080, 95) {
-                            // store in files dir
-                            it?.let {
-                                // get recent files
-
-                                val file = File(appContext.filesDir, "${wall.iid}.jpg")
-                                StorageHandler.storeBitmapInFile(it, file)
-                                logd("image ${wall.iid} cached")
-                            }
-                            em.onComplete()
-                        }*/
+            return Observable.create { em ->
+                ImageHandler.getBitmapWallpaper(appContext, wall.links.url) {
+                    // store in files dir
+                    it?.let {
+                        // get recent files
+                        val file = File(appContext.filesDir, "${wall.iid}.webp")
+                        StorageHandler.storeBitmapInFile(it, file)
+                        logd("image ${wall.iid} cached")
                     }
+                    em.onComplete()
                 }
             }
         }

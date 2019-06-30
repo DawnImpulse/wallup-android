@@ -224,6 +224,10 @@ fun SharedPreferences.putAny(name: String, any: Any) {
     }
 }
 
+fun SharedPreferences.remove(name:String){
+    edit().remove(name).apply()
+}
+
 // to json
 fun toJson(data: Any): String {
     return Gson().toJson(data)
