@@ -13,7 +13,9 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.functions.putAny
 import com.dawnimpulse.wallup.utils.functions.remove
 import com.dawnimpulse.wallup.utils.functions.toast
+import com.dawnimpulse.wallup.utils.reusables.ANALYTICS
 import com.dawnimpulse.wallup.utils.reusables.AUTO_WALLPAPER
+import com.dawnimpulse.wallup.utils.reusables.CRASHLYTICS
 import com.dawnimpulse.wallup.utils.reusables.Prefs
 import com.dawnimpulse.wallup.workers.AutoWallpaper
 import org.apache.commons.io.FileUtils
@@ -42,17 +44,20 @@ class SettingsActivity : AppCompatActivity() {
         private lateinit var wallStatus: SwitchPreference
         private lateinit var wallInterval: ListPreference
         private lateinit var wallWifi: SwitchPreference
-        private lateinit var wallStorage: SwitchPreference
+        private lateinit var crashlytics: SwitchPreference
+        private lateinit var analytics: SwitchPreference
 
         /**
          * set preference layout
          */
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            setPreferencesFromResource(R.xml.root, rootKey)
+            setPreferencesFromResource(R.xml.preferences, rootKey)
 
             wallStatus = findPreference("wallStatus")!!
             wallInterval = findPreference("wallInterval")!!
             wallWifi = findPreference("wallWifi")!!
+            crashlytics = findPreference("crashlytics")!!
+            analytics = findPreference("analytics")!!
 //            wallStorage = findPreference("wallStorage")!!
 
             val time = Prefs.getString("wallInterval", "1440")!!.toLong()
@@ -109,6 +114,10 @@ class SettingsActivity : AppCompatActivity() {
                     Prefs.putAny("wallWifi", newValue as Boolean)
                     setWallpaper()
                 }
+
+                crashlytics -> Prefs.putAny(CRASHLYTICS, newValue as Boolean)
+
+                analytics -> Prefs.putAny(ANALYTICS, newValue as Boolean)
             }
 
             return true

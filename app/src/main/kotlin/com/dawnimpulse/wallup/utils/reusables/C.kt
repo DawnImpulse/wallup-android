@@ -50,6 +50,8 @@ const val COLLECTION = "collection"
 const val TAG = "tag"
 const val WALLPAPER_TIME = "wallpaperTime"
 const val WALLPAPER_WIFI = "wallpaperWifi"
+const val CRASHLYTICS = "crashlytics"
+const val ANALYTICS = "analytics"
 
 const val ERROR_UNSPLASH_RANDOM = "errorUnsplashRandom"
 const val ERROR_WALLUP_COLLECTIONS_SORTED = "errorWallupCollectionsSorted"

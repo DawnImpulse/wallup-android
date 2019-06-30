@@ -16,11 +16,11 @@ package com.dawnimpulse.wallup
 
 import android.app.Application
 import android.preference.PreferenceManager
-import com.dawnimpulse.wallup.utils.reusables.Config
-import com.dawnimpulse.wallup.utils.reusables.EDITORIAL_IMAGES
-import com.dawnimpulse.wallup.utils.reusables.HOME_IMAGES
-import com.dawnimpulse.wallup.utils.reusables.Prefs
+import com.crashlytics.android.Crashlytics
+import com.dawnimpulse.wallup.utils.reusables.*
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.Gson
+import io.fabric.sdk.android.Fabric
 
 /**
  * @info -
@@ -40,5 +40,17 @@ class App : Application() {
         Prefs = PreferenceManager.getDefaultSharedPreferences(this)
         Config.homeImages = Gson().fromJson(Prefs.getString(HOME_IMAGES, "[]"), Array<String>::class.java).asList().toMutableList()
         Config.editorialImages = Gson().fromJson(Prefs.getString(EDITORIAL_IMAGES, "[]"), Array<String>::class.java).asList().toMutableList()
+
+        analytics()
     }
+
+    // enabling crashlytics in release builds
+    private fun analytics() {
+        if (!BuildConfig.DEBUG) {
+            if (Prefs.getBoolean(CRASHLYTICS, true))
+                Fabric.with(this, Crashlytics())
+            FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(Prefs.getBoolean(ANALYTICS, true))
+        }
+    }
+
 }
