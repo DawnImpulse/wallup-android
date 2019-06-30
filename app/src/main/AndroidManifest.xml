@@ -31,7 +31,7 @@
                 android:resource="@xml/file_provider_path" />
         </provider>
 
-
+        <!--Homescreen-->
         <activity
             android:name=".ui.activities.HomescreenActivity"
             android:theme="@style/AppTheme.Fullscreen">
@@ -40,26 +40,33 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!--New Homescreen-->
+        </activity>
 
+        <!--Settings-->
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:label="Settings"
-            android:theme="@style/AppTheme.Fullscreen">
+            android:theme="@style/AppTheme.Fullscreen" />
 
-        </activity> <!-- Settings -->
-
+        <!--Image Screen-->
         <activity
             android:name=".ui.activities.ImageActivity"
-            android:theme="@style/AppTheme.Fullscreen" /> <!-- Image Activity -->
+            android:theme="@style/AppTheme.Fullscreen" />
 
+        <!--Random Images-->
         <activity
             android:name=".ui.activities.RandomActivity"
-            android:theme="@style/AppTheme.Fullscreen"> <!-- Random Activity -->
-        </activity>
+            android:theme="@style/AppTheme.Fullscreen" />
 
-        <activity android:name=".ui.activities.CollectionVerticalActivity"
-            android:theme="@style/AppTheme.Fullscreen"/> <!--Vertical Collection Activity-->
+        <!--Vertical collection activity-->
+        <activity
+            android:name=".ui.activities.CollectionVerticalActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--Tags activity-->
+        <activity
+            android:name=".ui.activities.TagActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
     </application>
 
 </manifest>

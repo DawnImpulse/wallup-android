@@ -142,6 +142,7 @@ object WallupRepo {
         })
     }
 
+
     /**
      * get sorted collection images
      *
@@ -150,6 +151,33 @@ object WallupRepo {
     fun getSortedCollectionImages(cid: String, page: Int, callback: (Any?, List<ImageObject>?) -> Unit) {
 
         val call = client.sortedCollectionImages(cid, page)
+
+        call.enqueue(object : Callback<ImageList> {
+
+            // response
+            override fun onResponse(call: Call<ImageList>, response: Response<ImageList>) {
+                if (response.isSuccessful)
+                    callback(null, response.body()!!.details)
+                else
+                    callback(ErrorWallupUtil.parseError(response), null)
+            }
+
+            // on failure
+            override fun onFailure(call: Call<ImageList>, t: Throwable) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+
+    /**
+     * get random tag images
+     *
+     * @param callback
+     */
+    fun getRandomTagImges(tag: String, limit: Int, callback: (Any?, List<ImageObject>?) -> Unit) {
+
+        val call = client.randomTagImages(tag, limit)
 
         call.enqueue(object : Callback<ImageList> {
 

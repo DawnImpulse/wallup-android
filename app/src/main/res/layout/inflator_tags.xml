@@ -20,6 +20,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="64dp"
+        android:id="@+id/tagsL"
         android:layout_margin="4dp"
         app:cardCornerRadius="8dp">
 

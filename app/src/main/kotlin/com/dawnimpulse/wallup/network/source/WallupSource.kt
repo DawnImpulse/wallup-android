@@ -88,4 +88,14 @@ interface WallupSource {
             @Query(LIMIT) limit: Int = 2,
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<ImageList>
+
+    /**
+     * get random tag images
+     */
+    @GET("/v1/images/random/tagged/{tag}")
+    fun randomTagImages(
+            @Path(TAG) tag: String,
+            @Query(LIMIT) limit: Int = 2,
+            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
+    ): Call<ImageList>
 }

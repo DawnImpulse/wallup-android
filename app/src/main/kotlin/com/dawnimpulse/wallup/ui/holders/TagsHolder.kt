@@ -16,8 +16,12 @@ package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.ui.activities.TagActivity
 import com.dawnimpulse.wallup.ui.objects.TagObject
+import com.dawnimpulse.wallup.utils.functions.openActivity
+import com.dawnimpulse.wallup.utils.functions.toJson
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import com.dawnimpulse.wallup.utils.reusables.TAG
 import kotlinx.android.synthetic.main.inflator_tags.view.*
 
 /**
@@ -32,9 +36,22 @@ import kotlinx.android.synthetic.main.inflator_tags.view.*
 class TagsHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val image = view.tagsImage
     private val tag = view.tagsName
+    private val layout = view.tagsL
+    private val context = view.context
 
     fun bind(data: TagObject) {
+
+        // image handling
         ImageHandler.setImageOnTag(image, data.image)
+
+        // name
         tag.text = data.tag
+
+        // click handling
+        layout.setOnClickListener {
+            context.openActivity(TagActivity::class.java) {
+                putString(TAG, toJson(data))
+            }
+        }
     }
 }

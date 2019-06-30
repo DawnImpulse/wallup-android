@@ -89,4 +89,16 @@ class WallupViewModel(private val activity: AppCompatActivity) {
             WallupRepo.getSortedCollectionImages(cid, page, callback)
         }
     }
+
+    /**
+     * get random tag images
+     * @param tag
+     * @param callback
+     */
+    fun getRandomTagImages(tag: String, callback: (Any?, List<ImageObject>?) -> Unit) {
+        Lifecycle.onStart(activity) {
+            WallupRepo.getRandomTagImges(tag, 30, callback)
+        }
+    }
 }
+
