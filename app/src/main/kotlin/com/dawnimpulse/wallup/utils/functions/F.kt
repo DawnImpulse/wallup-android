@@ -13,8 +13,11 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.utils.functions
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Point
 import android.net.Uri
 import android.os.Environment
@@ -23,12 +26,11 @@ import com.dawnimpulse.wallup.utils.reusables.Config
 import com.google.gson.Gson
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.apache.commons.io.FileUtils
 import java.io.File
 import java.util.concurrent.TimeUnit
-import android.graphics.BitmapFactory
-import android.graphics.Bitmap
-
-
 
 
 /**
@@ -107,54 +109,30 @@ object F {
     }
 
     // get file
-    fun fileToBitmap(file: File): Bitmap{
+    fun fileToBitmap(file: File): Bitmap {
         return BitmapFactory.decodeFile(file.getAbsolutePath())
     }
 
-
-    /*// editorial images
-    fun editorialImages(context: Context, callback: (String) -> Unit) {
-        if (Config.editorialImages.isNotEmpty()) {
-
-            if (Config.editorialImages.size > 1) {
-                val image = Config.editorialImages[1]
-                if (image.contains(UNSPLASH) || image.contains(PEXELS))
-                    ImageHandler.isImageCached(context, "${addQuery(image)}fm=webp&h=480&q=80") {
-                        if (it) {
-                            callback(Config.editorialImages[1])
-                            Config.editorialImages.removeAt(0)
-                        } else
-                            callback(Config.editorialImages[0])
-                    }
-            } else
-            // returning image
-                callback(Config.editorialImages[0])
-
-            // fetching more images
-            if (Config.editorialImages.size < 5) {
-                WallupRepo.editorialImages(30) { e, r ->
-                    e?.let {
-                        loge(e)
-                    }
-                    r?.let {
-                        Config.editorialImages.addAll(it.map { it.urls[0] })
-                        callback(Config.editorialImages[0])
-                        Config.editorialImages.removeAt(0)
-                    }
+    //calculate app cache
+    fun appCache(context: Context, callback: (String) -> Unit) {
+        GlobalScope.launch {
+            try {
+                val size = FileUtils.sizeOfDirectory(context.cacheDir)
+                (context as Activity).runOnUiThread {
+                    callback(FileUtils.byteCountToDisplaySize(size))
                 }
-            }
-        } else {
-            // no images in list get some more
-            WallupRepo.editorialImages(30) { e, r ->
-                e?.let {
-                    loge(e)
-                    editorialImages(context, callback)
-                }
-                r?.let {
-                    Config.editorialImages = it.map { it.urls[0] }.toMutableList()
-                    callback(Config.editorialImages[0])
+            }catch (e:Exception){
+                (context as Activity).runOnUiThread {
+                    callback("- MB")
                 }
             }
         }
-    }*/
+    }
+
+    //delete app cache
+    fun deleteCache(context: Context) {
+        GlobalScope.launch {
+            FileUtils.deleteQuietly(context.cacheDir)
+        }
+    }
 }
