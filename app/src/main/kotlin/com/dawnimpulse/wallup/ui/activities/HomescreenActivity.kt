@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.adapter.HomeAdapter
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
@@ -26,17 +27,18 @@ import kotlinx.android.synthetic.main.activity_homescreen.*
  *
  * @note Created on 2019-06-13 by Saksham
  * @note Updates :
+ *  Saksham - 2019 07 02 - master - swipe to refresh
  */
-class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
+class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener,SwipeRefreshLayout.OnRefreshListener {
     private lateinit var adapter: HomeAdapter
     private lateinit var model: WallupViewModel
     private lateinit var list: MutableList<Any?>
     private lateinit var backgrounds: List<String>
     private var page = 1
 
-    // -------------
-    //    create
-    // -------------
+    /**
+     * on create
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homescreen)
@@ -51,32 +53,8 @@ class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
         // set first page of homescreen
         setHomescreen()
 
-        // get homescreen
-        model.getHomescreen { e, r ->
-            e?.let {
-                loge(e)
-                toastd("error fetching homescreen")
-            }
-            r?.let {
-                backgrounds = it.background
-
-                // homescreen background
-                ImageHandler.setImageOnHomescreenBackground(homescreenFrame, backgrounds[0])
-
-                // remove loading
-                list.asSequence().withIndex().filter { it.value == null }.map { it.index }.forEach {
-                    list.removeAt(it)
-                    adapter.notifyItemRemoved(it)
-                }
-
-                // set editorial & explore in list
-                list.add(EditorialObject(it.background[1], it.tags, it.images))
-                list.add(ExploreObject(it.background[2], it.collections))
-                list.add(null)
-                adapter.notifyItemRangeInserted(1, 3)
-                adapter.setOnLoadMoreListener(this)
-            }
-        }
+        // handle swipe refresh
+        homescreenSwipe.setOnRefreshListener(this)
     }
 
     /**
@@ -88,10 +66,9 @@ class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
         Config.disposableHomescreenActivity.clear()
     }
 
-
-    // ---------------
-    //    load more
-    // ---------------
+    /**
+     * load more items
+     */
     override fun onLoadMore() {
         model.getSortedCols(page, 8) { e, r ->
 
@@ -124,20 +101,13 @@ class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
         }
     }
 
-
     /**
-     * event object
-     *
-     * @param obj
+     * if refreshed
      */
-   /* private fun event(obj: RxBusObject) {
-        when (obj.type) {
-            HOMESCREEN_BACKGROUND -> {
-                ImageHandler.setImageOnHomescreenBackground(homescreenFrame, obj.data.toString())
-            }
-        }
+    override fun onRefresh() {
+        page = 1
+        setHomescreen()
     }
-*/
 
     /**
      * set homescreen's first screen
@@ -147,5 +117,42 @@ class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener {
         adapter = HomeAdapter(list, homescreenRecycler)
         homescreenRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         homescreenRecycler.adapter = adapter
+
+        // set homescreen content
+        setHomescreenContent()
+    }
+
+    /**
+     * homescreen first content fetch
+     */
+    private fun setHomescreenContent(){
+        model.getHomescreen { e, r ->
+
+            homescreenSwipe.isRefreshing = false
+
+            e?.let {
+                loge(e)
+                toastd("error fetching homescreen")
+            }
+            r?.let {
+                backgrounds = it.background
+
+                // homescreen background
+                ImageHandler.setImageOnHomescreenBackground(homescreenFrame, backgrounds[0])
+
+                // remove loading
+                list.asSequence().withIndex().filter { it.value == null }.map { it.index }.forEach {
+                    list.removeAt(it)
+                    adapter.notifyItemRemoved(it)
+                }
+
+                // set editorial & explore in list
+                list.add(EditorialObject(it.background[1], it.tags, it.images))
+                list.add(ExploreObject(it.background[2], it.collections))
+                list.add(null)
+                adapter.notifyItemRangeInserted(1, 3)
+                adapter.setOnLoadMoreListener(this)
+            }
+        }
     }
 }
