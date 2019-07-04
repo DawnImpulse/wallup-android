@@ -24,9 +24,13 @@ import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.WallupViewModel
 import com.dawnimpulse.wallup.ui.objects.CollectionHomescreenObject
 import com.dawnimpulse.wallup.ui.objects.ExploreObject
+import com.dawnimpulse.wallup.utils.functions.RxBus
 import com.dawnimpulse.wallup.utils.functions.loge
 import com.dawnimpulse.wallup.utils.functions.toast
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import com.dawnimpulse.wallup.utils.reusables.Config
+import com.dawnimpulse.wallup.utils.reusables.FAIL_LOAD_MORE_V
+import com.dawnimpulse.wallup.utils.reusables.LOAD_MORE_V
 import kotlinx.android.synthetic.main.inflator_explore.view.*
 
 /**
@@ -73,20 +77,35 @@ class ExploreHolder(view: View) : RecyclerView.ViewHolder(view), OnLoadMoreListe
         // set background image
         ImageHandler.setImageOnHomescreenBackground(bg, data.image)
 
-
+        // event handling
+        Config.disposableHomescreenActivity.add(
+                RxBus.subscribe {
+                    if(it == LOAD_MORE_V)
+                        model.getHomescreenCols(paginated)
+                }
+        )
     }
 
     /**
      * loading more
      */
     override fun onLoadMore() {
-        model.getHomescreenCols { e, r ->
+        model.getHomescreenCols(paginated)
+    }
+
+
+    /**
+     * paginated listener
+     */
+    private var paginated = object : (Any?, List<CollectionHomescreenObject>?) -> Unit {
+        override fun invoke(e: Any?, r: List<CollectionHomescreenObject>?) {
 
             adapter.onLoaded()
 
             e?.let {
                 loge(it)
                 context.toast("error fetching")
+                RxBus.accept(FAIL_LOAD_MORE_V)
             }
 
             r?.let {

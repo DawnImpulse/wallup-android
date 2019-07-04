@@ -63,7 +63,7 @@ interface WallupSource {
     @GET("/v1/collections/random/homescreen")
     fun homescreenCols(
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY,
-            @Query(ORIENTATION) orientation: String = VERTICAL
+            @Query(ORIENTATION) orientation: String = ANY
     ): Call<CollectionHomescreenList>
 
     /**
@@ -74,7 +74,7 @@ interface WallupSource {
             @Query(PAGE) page: Int,
             @Query(LIMIT) limit: Int = 8,
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY,
-            @Query(ORIENTATION) orientation: String = VERTICAL
+            @Query(ORIENTATION) orientation: String = ANY
     ): Call<CollectionList>
 
 

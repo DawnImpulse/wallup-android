@@ -24,11 +24,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:cardCornerRadius="16dp"
         app:cardBackgroundColor="@color/black"
+        app:cardCornerRadius="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="H,9:16"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,10 +37,36 @@ OR PERFORMANCE OF THIS SOFTWARE.
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <ProgressBar
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:id="@+id/loadVP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center" />
+
+            <!--Load-->
+            <FrameLayout
+                android:visibility="gone"
+                android:id="@+id/loadVL"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_circle_accent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/vd_refresh" />
+            </FrameLayout>
+
+        </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

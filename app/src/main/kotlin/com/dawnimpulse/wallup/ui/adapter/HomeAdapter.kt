@@ -78,7 +78,7 @@ class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
             VIEW_EDITORIAL -> EditorialHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_editorial, parent, false))
             VIEW_EXPLORE -> ExploreHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_explore, parent, false))
             VIEW_FEATURED -> FeaturedHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_featured, parent, false))
-            else -> LoadingHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading_full, parent, false))
+            else -> LoadingFHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading_full, parent, false))
         }
     }
 
@@ -92,6 +92,7 @@ class HomeAdapter(val items: List<Any?>, recyclerView: RecyclerView)
             is EditorialHolder -> holder.bind(items[1] as EditorialObject)
             is ExploreHolder -> holder.bind(items[2] as ExploreObject)
             is FeaturedHolder -> holder.bind(items[position] as CollectionObject)
+            is LoadingFHolder -> holder.bind()
         }
 
     }

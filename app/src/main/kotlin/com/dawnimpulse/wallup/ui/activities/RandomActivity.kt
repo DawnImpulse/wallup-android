@@ -15,6 +15,7 @@
 package com.dawnimpulse.wallup.ui.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -24,8 +25,10 @@ import com.dawnimpulse.wallup.ui.adapter.RandomImagesAdapter
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.WallupViewModel
 import com.dawnimpulse.wallup.ui.objects.ImageObject
-import com.dawnimpulse.wallup.utils.functions.loge
-import com.dawnimpulse.wallup.utils.functions.toast
+import com.dawnimpulse.wallup.utils.functions.*
+import com.dawnimpulse.wallup.utils.reusables.Config
+import com.dawnimpulse.wallup.utils.reusables.FAIL_LOAD_MORE
+import com.dawnimpulse.wallup.utils.reusables.LOAD_MORE
 import kotlinx.android.synthetic.main.activity_general.*
 
 /**
@@ -37,7 +40,7 @@ import kotlinx.android.synthetic.main.activity_general.*
  * @note Created on 2019-06-29 by Saksham
  * @note Updates :
  */
-class RandomActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+class RandomActivity : AppCompatActivity(), View.OnClickListener, OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
     private lateinit var adapter: RandomImagesAdapter
     private lateinit var items: MutableList<ImageObject?>
     private lateinit var model: WallupViewModel
@@ -52,6 +55,32 @@ class RandomActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayo
         model = WallupViewModel(this)
         generalSwipe.setOnRefreshListener(this)
         fetch(listener)
+        Config.disposableRandomActivity.add(RxBus.subscribe { events(it) })
+        generalLoad.setOnClickListener(this)
+    }
+
+    /**
+     * clear disposables
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+
+        Config.disposableRandomActivity.clear()
+    }
+
+    /**
+     * click handling
+     */
+    override fun onClick(v: View?) {
+        v?.let {
+            when (v.id) {
+                generalLoad.id -> {
+                    generalLoad.gone()
+                    generalP.show()
+                    fetch(listener)
+                }
+            }
+        }
     }
 
     /**
@@ -75,6 +104,18 @@ class RandomActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayo
         model.getRandomImages(callback)
     }
 
+
+    /**
+     * string events handling
+     */
+    private fun events(event: String) {
+        when (event) {
+            LOAD_MORE -> {
+                fetch(listenerPaginated)
+            }
+        }
+    }
+
     /**
      * set items listener
      */
@@ -82,10 +123,12 @@ class RandomActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayo
         override fun invoke(e: Any?, r: List<ImageObject>?) {
 
             generalSwipe.isRefreshing = false
+            generalP.gone()
 
             e?.let {
                 loge(it)
                 toast("failed to fetch images")
+                generalLoad.show()
             }
             r?.let {
                 items = it.toMutableList()
@@ -113,6 +156,7 @@ class RandomActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayo
             e?.let {
                 loge(it)
                 toast("failed to fetch images")
+                RxBus.accept(FAIL_LOAD_MORE)
             }
             r?.let {
 

@@ -19,7 +19,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.holders.ExploreCollectionsHolder
-import com.dawnimpulse.wallup.ui.holders.LoadingHolder
+import com.dawnimpulse.wallup.ui.holders.LoadingVHolder
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.objects.CollectionHomescreenObject
 
@@ -63,7 +63,7 @@ class ExploreCollectionsAdapter(val items: List<CollectionHomescreenObject?>, re
         return if (viewType == VIEW_ITEM)
             ExploreCollectionsHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_collections_vertical_cards, parent, false))
         else
-            LoadingHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading_cols_vertical, parent, false))
+            LoadingVHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading_cols_vertical, parent, false))
     }
 
     /**
@@ -73,6 +73,9 @@ class ExploreCollectionsAdapter(val items: List<CollectionHomescreenObject?>, re
 
         if (holder is ExploreCollectionsHolder)
             holder.bind(items[position]!!)
+
+        if(holder is LoadingVHolder)
+            holder.bind()
     }
 
     /**

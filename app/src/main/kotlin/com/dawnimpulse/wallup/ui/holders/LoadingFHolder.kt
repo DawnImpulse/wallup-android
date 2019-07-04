@@ -18,44 +18,43 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.utils.functions.RxBus
 import com.dawnimpulse.wallup.utils.functions.gone
-import com.dawnimpulse.wallup.utils.functions.hide
 import com.dawnimpulse.wallup.utils.functions.show
 import com.dawnimpulse.wallup.utils.reusables.Config
-import com.dawnimpulse.wallup.utils.reusables.FAIL_LOAD_MORE
-import com.dawnimpulse.wallup.utils.reusables.LOAD_MORE
-import kotlinx.android.synthetic.main.inflator_loading.view.*
+import com.dawnimpulse.wallup.utils.reusables.FAIL_LOAD_MORE_F
+import com.dawnimpulse.wallup.utils.reusables.LOAD_MORE_F
+import kotlinx.android.synthetic.main.inflator_loading_full.view.*
 
 /**
- * @info -
+ * @info - loading for fullscreen
  *
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-07 by Saksham
+ * @note Created on 2019-07-04 by Saksham
  * @note Updates :
- *  Saksham - adding load more listener
  */
-class LoadingHolder (view: View):RecyclerView.ViewHolder(view){
-    val progress = view.loadP
-    val load = view.loadT
+class LoadingFHolder (view: View):RecyclerView.ViewHolder(view){
+    val progress = view.loadFP
+    val loading = view.loadFL
 
     /**
-     * binding loader
+     * loading
      */
     fun bind(){
-        load.setOnClickListener {
+        loading.setOnClickListener {
             progress.show()
-            load.gone()
-            RxBus.accept(LOAD_MORE)
+            loading.gone()
+            RxBus.accept(LOAD_MORE_F)
         }
 
-        Config.disposableRandomActivity.add(
+        Config.disposableCollectionsActivity.add(
                 RxBus.subscribe {
-                    if(it == FAIL_LOAD_MORE){
-                        progress.hide()
-                        load.show()
+                    if(it == FAIL_LOAD_MORE_F){
+                        progress.gone()
+                        loading.show()
                     }
                 }
         )
     }
+
 }

@@ -23,11 +23,14 @@ import com.dawnimpulse.wallup.ui.adapter.CollectionVerticalAdapter
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.WallupViewModel
 import com.dawnimpulse.wallup.ui.objects.CollectionTransferObject
-import com.dawnimpulse.wallup.utils.functions.logd
+import com.dawnimpulse.wallup.ui.objects.ImageObject
+import com.dawnimpulse.wallup.utils.functions.RxBus
 import com.dawnimpulse.wallup.utils.functions.loge
 import com.dawnimpulse.wallup.utils.functions.toast
 import com.dawnimpulse.wallup.utils.reusables.COLLECTION
 import com.dawnimpulse.wallup.utils.reusables.Config
+import com.dawnimpulse.wallup.utils.reusables.FAIL_LOAD_MORE_F
+import com.dawnimpulse.wallup.utils.reusables.LOAD_MORE_F
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_general_recycler.*
 
@@ -45,7 +48,7 @@ class CollectionVerticalActivity : AppCompatActivity(), OnLoadMoreListener {
     private lateinit var list: MutableList<Any?>
     private lateinit var adapter: CollectionVerticalAdapter
     private lateinit var model: WallupViewModel
-    private var page = 2
+    private var page = 1
 
     /**
      * on create
@@ -63,6 +66,7 @@ class CollectionVerticalActivity : AppCompatActivity(), OnLoadMoreListener {
         col = Gson().fromJson(intent.getStringExtra(COLLECTION), CollectionTransferObject::class.java)
         model = WallupViewModel(this)
         setDetails()
+        Config.disposableCollectionsActivity.add(RxBus.subscribe { events(it) })
     }
 
 
@@ -70,7 +74,73 @@ class CollectionVerticalActivity : AppCompatActivity(), OnLoadMoreListener {
      * load more items
      */
     override fun onLoadMore() {
-        model.getSortedCollectionImages(col.cid, page) { e, r ->
+        model.getSortedCollectionImages(col.cid, page, paginatedListener)
+    }
+
+
+    /**
+     * string events
+     */
+    private fun events(event: String) {
+        when (event) {
+            LOAD_MORE_F -> {
+                model.getSortedCollectionImages(col.cid, page, listener)
+            }
+        }
+    }
+
+    /**
+     * set initial details
+     */
+    private fun setDetails() {
+        list = mutableListOf()
+        list.add(col)
+        list.add(null)
+
+        adapter = CollectionVerticalAdapter(list, generalRecycler)
+        generalRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        generalRecycler.adapter = adapter
+
+        model.getSortedCollectionImages(col.cid, 1, listener)
+    }
+
+    /**
+     * listener
+     */
+    private var listener = object : (Any?, List<ImageObject>?) -> Unit {
+        override fun invoke(e: Any?, r: List<ImageObject>?) {
+            e?.let {
+                loge(it)
+                toast("error fetching images")
+                RxBus.accept(FAIL_LOAD_MORE_F)
+            }
+            r?.let {
+
+                // remove loading from list
+                list.asSequence().withIndex().filter { it.value == null }.map { it.index }
+                        .forEach {
+                            list.removeAt(it)
+                            adapter.notifyItemRemoved(it)
+                        }
+
+                // add items
+
+                val count = list.size
+                list.addAll(it)
+                list.add(null)
+
+                adapter.notifyItemRangeInserted(count, it.size)
+                adapter.setLoadMore(this@CollectionVerticalActivity)
+                page++
+            }
+        }
+    }
+
+    /**
+     * paginated listener
+     */
+    private var paginatedListener = object : (Any?, List<ImageObject>?) -> Unit {
+        override fun invoke(e: Any?, r: List<ImageObject>?) {
 
             // set loaded
             adapter.onLoaded()
@@ -78,6 +148,7 @@ class CollectionVerticalActivity : AppCompatActivity(), OnLoadMoreListener {
             e?.let {
                 loge(e)
                 toast("error fetching images")
+                RxBus.accept(FAIL_LOAD_MORE_F)
             }
             r?.let {
 
@@ -97,63 +168,8 @@ class CollectionVerticalActivity : AppCompatActivity(), OnLoadMoreListener {
                     list.add(null)
 
                     adapter.notifyItemRangeInserted(count, it.size)
-                }else
+                } else
                     adapter.setLoadMore(null)
-            }
-        }
-    }
-
-    /**
-     * clear disposables
-     */
-    override fun onDestroy() {
-        Config.disposableCollectionsActivity.clear()
-        logd("collection destroyed")
-        super.onDestroy()
-    }
-
-    /**
-     * set initial details
-     */
-    private fun setDetails() {
-        list = mutableListOf()
-        list.add(col)
-        list.add(null)
-
-        adapter = CollectionVerticalAdapter(list, generalRecycler)
-        generalRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        generalRecycler.adapter = adapter
-
-        model.getSortedCollectionImages(col.cid, 1) { e, r ->
-
-            e?.let {
-                loge(it)
-                toast("error fetching images")
-
-                // remove loading from list
-                list.asSequence().withIndex().filter { it.value == null }.map { it.index }
-                        .forEach {
-                            list.removeAt(it)
-                            adapter.notifyItemRemoved(it)
-                        }
-            }
-            r?.let {
-
-                // remove loading from list
-                list.asSequence().withIndex().filter { it.value == null }.map { it.index }
-                        .forEach {
-                            list.removeAt(it)
-                            adapter.notifyItemRemoved(it)
-                        }
-
-                // add items
-
-                val count = list.size
-                list.addAll(it)
-                list.add(null)
-
-                adapter.notifyItemRangeInserted(count, it.size)
-                adapter.setLoadMore(this)
             }
         }
     }

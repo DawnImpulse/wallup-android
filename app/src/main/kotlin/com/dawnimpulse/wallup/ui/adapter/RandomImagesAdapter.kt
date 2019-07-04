@@ -74,13 +74,15 @@ class RandomImagesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is RandomImageHolder)
             holder.bind(items[position]!!)
+        if (holder is LoadingHolder)
+            holder.bind()
     }
 
     /**
      * loading event
      */
     override fun onLoading() {
-        if(onLoadMoreListener != null)
+        if (onLoadMoreListener != null)
             onLoadMoreListener!!.onLoadMore()
         else
             onLoaded()
@@ -89,7 +91,7 @@ class RandomImagesAdapter(
     /**
      * attach load more listener
      */
-    fun setLoadMore(onLoadMoreListener: OnLoadMoreListener?){
+    fun setLoadMore(onLoadMoreListener: OnLoadMoreListener?) {
         this.onLoadMoreListener = onLoadMoreListener
     }
 }

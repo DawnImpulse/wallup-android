@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.holders.CollectionVerticalHolder
 import com.dawnimpulse.wallup.ui.holders.CollectionVerticalInitialHolder
-import com.dawnimpulse.wallup.ui.holders.LoadingHolder
+import com.dawnimpulse.wallup.ui.holders.LoadingFHolder
 import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.objects.CollectionTransferObject
 import com.dawnimpulse.wallup.ui.objects.ImageObject
@@ -78,7 +78,7 @@ class CollectionVerticalAdapter(
         return when (viewType) {
             VIEW_INITIAL -> CollectionVerticalInitialHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_vertical_collection_init, parent, false))
             VIEW_ITEM -> CollectionVerticalHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_image_fullscreen, parent, false))
-            else -> LoadingHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading_full, parent, false))
+            else -> LoadingFHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading_full, parent, false))
         }
     }
 
@@ -89,6 +89,7 @@ class CollectionVerticalAdapter(
         when (holder) {
             is CollectionVerticalInitialHolder -> holder.bind(items[0] as CollectionTransferObject)
             is CollectionVerticalHolder -> holder.bind(items[position] as ImageObject)
+            is LoadingFHolder -> holder.bind()
         }
     }
 

@@ -35,6 +35,7 @@ object Config {
 
     val disposableCollectionsActivity by lazy { CompositeDisposable() }
     val disposableHomescreenActivity by lazy { CompositeDisposable() }
+    val disposableRandomActivity by lazy { CompositeDisposable() }
 
     val disposableWallupCollectionsViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
     val disposableCollectionViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
