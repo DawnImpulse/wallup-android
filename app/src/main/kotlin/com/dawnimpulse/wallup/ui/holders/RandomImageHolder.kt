@@ -23,6 +23,7 @@ import com.dawnimpulse.wallup.ui.objects.ImageObject
 import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.openActivity
 import com.dawnimpulse.wallup.utils.functions.toJson
+import com.dawnimpulse.wallup.utils.handlers.GradientHandler
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.reusables.TYPE
 import com.dawnimpulse.wallup.utils.reusables.WALLUP
@@ -48,9 +49,14 @@ class RandomImageHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val width = point.x / 2
         val height = F.getDynamicHeight(context, point.x / 2, point.y, item.width, item.height)
 
+        // change layout parameters based on image
         layout.layoutParams = FrameLayout.LayoutParams(width, height)
         image.layoutParams = RelativeLayout.LayoutParams(width - F.dpToPx(4, context), height)
 
+        // set background
+        GradientHandler.randomGradientOnBg(image)
+
+        // set images
         ImageHandler.setImageOnStaggered(image, item.links.url)
 
         // set on click

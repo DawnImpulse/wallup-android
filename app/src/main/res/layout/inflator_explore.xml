@@ -32,7 +32,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:alpha="0.2" />
+            android:alpha="0.5"
+            android:background="@color/black" />
     </FrameLayout>
 
     <LinearLayout
@@ -67,20 +68,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_marginBottom="8dp" />
         </LinearLayout>
 
-        <!--Floating indicator-->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dp">
-
-            <!--Below-->
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/exploreDown"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/vd_chevron_down" />
-
-        </FrameLayout>
+        <!--Below-->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/exploreDown"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            app:srcCompat="@drawable/vd_up" />
 
     </LinearLayout>
 </RelativeLayout>

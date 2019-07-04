@@ -73,5 +73,5 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/vd_chevron_down" />
+        app:srcCompat="@drawable/vd_up" />
 </RelativeLayout>

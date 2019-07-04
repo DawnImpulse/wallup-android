@@ -28,7 +28,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"
-            android:src="@drawable/vd_info" />
+            android:src="@drawable/vd_settings_outline" />
     </FrameLayout>
 
 
@@ -78,6 +78,18 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_height="24dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/vd_chevron_down" />
+        android:layout_marginBottom="48dp"
+        app:srcCompat="@drawable/vd_up" />
+
+    <TextView
+        android:textColor="@color/white"
+        android:letterSpacing="0.1"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:text="SWIPE UP"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
