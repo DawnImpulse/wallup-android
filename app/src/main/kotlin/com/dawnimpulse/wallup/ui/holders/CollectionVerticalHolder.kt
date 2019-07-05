@@ -63,7 +63,7 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
      * binding image
      * @param image
      */
-    fun bind(image: ImageObject) {
+    fun bind(item: ImageObject) {
 
         left.show()
         right.show()
@@ -73,7 +73,7 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
         val listener = View.OnClickListener {
             when (it.id) {
                 // image link
-                link.id -> F.startWeb(context, image.links.html)
+                link.id -> F.startWeb(context, item.links.html)
 
                 // download
                 download.id -> {
@@ -84,7 +84,7 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
                         r?.let {
                             context.toast("downloading image, check notification")
                             F.mkdir()
-                            DownloadHandler.downloadData(context, "${image.links.url}&fm=webp", "${image.iid}.webp")
+                            DownloadHandler.downloadData(context, "${item.links.url}&fm=webp", "${item.iid}.webp")
                         }
                     }
                 }
@@ -98,14 +98,14 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
                             context.toast("kindly provide storage permissions")
                         }
                         r?.let {
-                            val file = "${Config.DEFAULT_DOWNLOAD_PATH}/${image.iid}.webp"
+                            val file = "${Config.DEFAULT_DOWNLOAD_PATH}/${item.iid}.webp"
 
                             // file already exists
                             if (file.toFile().exists())
                                 WallpaperHandler.askToSetWallpaper(context, file)
                             else {
                                 // download file with progress
-                                DialogHandler.downloadProgress(context, "${image.links.url}&fm=webp", "${image.iid}.webp") {
+                                DialogHandler.downloadProgress(context, "${item.links.url}&fm=webp", "${item.iid}.webp") {
                                     if (it) {
                                         // file downloaded set it
                                         WallpaperHandler.askToSetWallpaper(context, file)
@@ -118,10 +118,11 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
                 }
 
                 // info
-                info.id -> showInfo()
+                image.id, info.id -> showInfo()
             }
         }
 
+        image.setOnClickListener(listener)
         info.setOnClickListener(listener)
         wallpaper.setOnClickListener(listener)
         download.setOnClickListener(listener)
@@ -131,12 +132,12 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
     /**
      * set image & details
      */
-    fun details(image:ImageObject) {
+    fun details(image: ImageObject) {
 
         authorN.text = image.author
 
         ImageHandler.getBitmapImageFullscreen(context, image.links.url) {
-            setBlurZoom(it)
+            setBlurZoom(it,image)
         }
     }
 
@@ -145,7 +146,7 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
      * set background blur & start zoom animation
      * @param bitmap
      */
-    private fun setBlurZoom(bitmap: Bitmap?) {
+    private fun setBlurZoom(bitmap: Bitmap?, item:ImageObject) {
         activity.runOnUiThread {
             bitmap?.let {
 
@@ -157,7 +158,7 @@ class CollectionVerticalHolder(view: View) : RecyclerView.ViewHolder(view) {
                         .into(bg)
             }
 
-            if (image.width > image.height)
+            if (item.width > item.height)
                 image.animation = AnimationUtils.loadAnimation(context, R.anim.image_zoom_out)
             else
                 image.animation = AnimationUtils.loadAnimation(context, R.anim.image_zoom_in_out)

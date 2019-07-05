@@ -119,7 +119,7 @@ object ImageHandler {
      */
     fun setImageOnVerticalCols(view: ImageView, url: String) {
         Glide.with(view.context)
-                .load("$url&fm=webp&h=720&q=85")
+                .load("$url&fm=webp&h=720&q=95")
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transition(GenericTransitionOptions.with(R.anim.fade_in_animation))
                 .into(view)
@@ -135,7 +135,7 @@ object ImageHandler {
     fun getBitmapImageFullscreen(context: Context, url: String, callback: (Bitmap?) -> Unit) {
         Glide.with(context)
                 .asBitmap()
-                .load("$url&fm=webp&h=720&q=85")
+                .load("$url&fm=webp&h=720&q=95")
                 .listener(object : RequestListener<Bitmap> {
 
                     override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {

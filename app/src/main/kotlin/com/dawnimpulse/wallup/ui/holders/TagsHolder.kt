@@ -18,6 +18,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.ui.activities.TagActivity
 import com.dawnimpulse.wallup.ui.objects.TagObject
+import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.openActivity
 import com.dawnimpulse.wallup.utils.functions.toJson
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
@@ -45,7 +46,7 @@ class TagsHolder(view: View) : RecyclerView.ViewHolder(view) {
         ImageHandler.setImageOnTag(image, data.image)
 
         // name
-        tag.text = data.tag
+        tag.text = F.capWord(data.tag)
 
         // click handling
         layout.setOnClickListener {

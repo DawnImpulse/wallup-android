@@ -15,6 +15,7 @@
 package com.dawnimpulse.wallup.ui.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -25,9 +26,11 @@ import com.dawnimpulse.wallup.ui.interfaces.OnLoadMoreListener
 import com.dawnimpulse.wallup.ui.models.WallupViewModel
 import com.dawnimpulse.wallup.ui.objects.ImageObject
 import com.dawnimpulse.wallup.ui.objects.TagObject
-import com.dawnimpulse.wallup.utils.functions.loge
-import com.dawnimpulse.wallup.utils.functions.toast
+import com.dawnimpulse.wallup.utils.functions.*
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import com.dawnimpulse.wallup.utils.reusables.Config
+import com.dawnimpulse.wallup.utils.reusables.FAIL_LOAD_MORE
+import com.dawnimpulse.wallup.utils.reusables.LOAD_MORE
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_tags.*
 
@@ -40,7 +43,7 @@ import kotlinx.android.synthetic.main.activity_tags.*
  * @note Created on 2019-06-30 by Saksham
  * @note Updates :
  */
-class TagActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
+class TagActivity : AppCompatActivity(), View.OnClickListener, OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
     private lateinit var model: WallupViewModel
     private lateinit var tag: TagObject
     private lateinit var adapter: RandomImagesAdapter
@@ -58,8 +61,32 @@ class TagActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayout.
 
         setDetails()
         tagsSwipe.setOnRefreshListener(this)
+        tagsLoad.setOnClickListener(this)
+        Config.disposableRandomActivity.add(RxBus.subscribe { events(it) })
     }
 
+    /**
+     * clear disposable
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        Config.disposableRandomActivity.clear()
+    }
+
+    /**
+     * on click
+     */
+    override fun onClick(v: View?) {
+        v?.let {
+            when (it.id) {
+                tagsLoad.id -> {
+                    tagsLoad.gone()
+                    tagsProgress.show()
+                    fetch(listener)
+                }
+            }
+        }
+    }
 
     /**
      * get more items
@@ -76,6 +103,14 @@ class TagActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayout.
     }
 
     /**
+     * strings events
+     */
+    private fun events(event: String) {
+        if (event == LOAD_MORE)
+            fetch(listenerPaginated)
+    }
+
+    /**
      * fetch images
      */
     private fun fetch(callback: (Any?, List<ImageObject>?) -> Unit) {
@@ -87,6 +122,7 @@ class TagActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayout.
      */
     private fun setDetails() {
         ImageHandler.setImageOnVerticalCols(tagsImage, tag.image)
+        tagsName.text = F.capWord(tag.tag)
         fetch(listener)
     }
 
@@ -97,19 +133,24 @@ class TagActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayout.
         override fun invoke(e: Any?, r: List<ImageObject>?) {
 
             tagsSwipe.isRefreshing = false
+            tagsProgress.gone()
 
             e?.let {
                 loge(it)
                 toast("failed to fetch images")
+                tagsLoad.show()
             }
             r?.let {
                 items = it.toMutableList()
-                items.add(null)
+                if (items.size == 30)
+                    items.add(null)
 
                 tagsRecycler.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
                 adapter = RandomImagesAdapter(items, tagsRecycler)
                 tagsRecycler.adapter = adapter
-                adapter.setLoadMore(this@TagActivity)
+
+                if (items.size == 30)
+                    adapter.setLoadMore(this@TagActivity)
             }
         }
 
@@ -128,6 +169,7 @@ class TagActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefreshLayout.
             e?.let {
                 loge(it)
                 toast("failed to fetch images")
+                RxBus.accept(FAIL_LOAD_MORE)
             }
             r?.let {
 

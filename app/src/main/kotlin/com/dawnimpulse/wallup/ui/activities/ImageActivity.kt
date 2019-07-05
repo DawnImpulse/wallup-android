@@ -47,6 +47,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
         previewImageDownload.setOnClickListener(this)
         previewImageWallpaper.setOnClickListener(this)
         previewImageInfo.setOnClickListener(this)
+        previewImage.setOnClickListener(this)
 
         GlobalScope.launch {
             Thread.sleep(1500)
@@ -112,7 +113,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
                 }
 
                 // info
-                previewImageInfo.id -> showInfo()
+                previewImage.id, previewImageInfo.id -> showInfo()
 
                 else -> {
                 }

@@ -25,9 +25,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:background="@color/black">
 
         <RelativeLayout
-            app:layout_scrollFlags="scroll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll">
 
             <ImageView
                 android:id="@+id/tagsImage"
@@ -41,6 +41,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:background="@drawable/bg_gradient" />
 
             <TextView
+                android:id="@+id/tagsName"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_alignParentBottom="true"
@@ -55,18 +56,50 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!--Recycler-->
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/tagsSwipe"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tagsRecycler"
+        <!--Recycler-->
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/tagsSwipe"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tagsRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <!--Progress-->
+        <ProgressBar
+            android:id="@+id/tagsProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp" />
+
+        <!--Load-->
+        <FrameLayout
+            android:id="@+id/tagsLoad"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/bg_circle_accent"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_refresh" />
+        </FrameLayout>
+
+    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -135,4 +135,18 @@ object F {
             FileUtils.deleteQuietly(context.cacheDir)
         }
     }
+
+    // capital letter word
+    fun capWord(string: String): String {
+        return if (string.isNotEmpty()) {
+            val result = StringBuilder(string.length)
+            val words = string.split("\\ ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            for (i in words.indices) {
+                if (words[i].isNotEmpty())
+                    result.append(Character.toUpperCase(words[i][0])).append(words[i].substring(1)).append(" ")
+            }
+            result.toString()
+        } else
+            string
+    }
 }

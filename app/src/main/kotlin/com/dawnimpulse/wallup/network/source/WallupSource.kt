@@ -85,7 +85,7 @@ interface WallupSource {
     fun sortedCollectionImages(
             @Path(CID) cid: String,
             @Query(PAGE) page: Int,
-            @Query(LIMIT) limit: Int = 2,
+            @Query(LIMIT) limit: Int = 10,
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<ImageList>
 
@@ -95,7 +95,7 @@ interface WallupSource {
     @GET("/v1/images/random/tagged/{tag}")
     fun randomTagImages(
             @Path(TAG) tag: String,
-            @Query(LIMIT) limit: Int = 2,
+            @Query(LIMIT) limit: Int = 30,
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<ImageList>
 }
