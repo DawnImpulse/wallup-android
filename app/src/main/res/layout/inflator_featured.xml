@@ -62,7 +62,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:letterSpacing="0.1"
-        android:text="FEATURED"
+        android:text="LATEST"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />

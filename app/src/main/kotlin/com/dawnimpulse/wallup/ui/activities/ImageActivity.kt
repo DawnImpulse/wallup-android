@@ -13,6 +13,7 @@ import com.dawnimpulse.wallup.utils.handlers.DownloadHandler
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.handlers.WallpaperHandler
 import com.dawnimpulse.wallup.utils.reusables.Config
+import com.dawnimpulse.wallup.utils.reusables.UTM
 import com.dawnimpulse.wallup.utils.reusables.WALLUP
 import com.google.gson.Gson
 import jp.wasabeef.blurry.Blurry
@@ -67,7 +68,7 @@ class ImageActivity : AppCompatActivity(), View.OnClickListener {
 
                 // image link
                 previewImageAuthorLink.id -> {
-                    F.startWeb(this, wallup.links.html)
+                    F.startWeb(this, wallup.links.html + UTM)
                 }
 
                 // download

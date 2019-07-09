@@ -29,7 +29,8 @@ import com.dawnimpulse.wallup.utils.functions.*
 import com.dawnimpulse.wallup.utils.reusables.Config
 import com.dawnimpulse.wallup.utils.reusables.FAIL_LOAD_MORE
 import com.dawnimpulse.wallup.utils.reusables.LOAD_MORE
-import kotlinx.android.synthetic.main.activity_general.*
+import com.dawnimpulse.wallup.utils.reusables.RANDOM
+import kotlinx.android.synthetic.main.activity_random_images.*
 
 /**
  * @info -
@@ -39,24 +40,30 @@ import kotlinx.android.synthetic.main.activity_general.*
  *
  * @note Created on 2019-06-29 by Saksham
  * @note Updates :
+ *  Saksham - 2019 07 09 - master - handling both sorted & random images
  */
 class RandomActivity : AppCompatActivity(), View.OnClickListener, OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
     private lateinit var adapter: RandomImagesAdapter
     private lateinit var items: MutableList<ImageObject?>
     private lateinit var model: WallupViewModel
+    private var page = 1
+    private var type = ""
 
     /**
      * on create
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_general)
+        setContentView(R.layout.activity_random_images)
 
         model = WallupViewModel(this)
-        generalSwipe.setOnRefreshListener(this)
-        fetch(listener)
+
+        fetch("", listener)
         Config.disposableRandomActivity.add(RxBus.subscribe { events(it) })
-        generalLoad.setOnClickListener(this)
+
+        randomSwipe.setOnRefreshListener(this)
+        randomShuffle.setOnClickListener(this)
+        randomLoad.setOnClickListener(this)
     }
 
     /**
@@ -74,10 +81,19 @@ class RandomActivity : AppCompatActivity(), View.OnClickListener, OnLoadMoreList
     override fun onClick(v: View?) {
         v?.let {
             when (v.id) {
-                generalLoad.id -> {
-                    generalLoad.gone()
-                    generalP.show()
-                    fetch(listener)
+                randomLoad.id -> {
+                    randomLoad.gone()
+                    randomP.show()
+                    fetch(type, listener)
+                }
+
+                randomShuffle.id -> {
+                    items.clear()
+                    adapter.notifyDataSetChanged()
+                    randomP.show()
+
+                    type = RANDOM
+                    fetch(RANDOM, listener)
                 }
             }
         }
@@ -87,21 +103,26 @@ class RandomActivity : AppCompatActivity(), View.OnClickListener, OnLoadMoreList
      * get more items
      */
     override fun onLoadMore() {
-        fetch(listenerPaginated)
+        fetch(type, listenerPaginated)
     }
 
     /**
      * refresh items
      */
     override fun onRefresh() {
-        fetch(listener)
+        page = 1
+        type = ""
+        fetch(type, listener)
     }
 
     /**
      * fetch images
      */
-    private fun fetch(callback: (Any?, List<ImageObject>?) -> Unit) {
-        model.getRandomImages(callback)
+    private fun fetch(type: String, callback: (Any?, List<ImageObject>?) -> Unit) {
+        when (type) {
+            RANDOM -> model.getRandomImages(callback)
+            else -> model.getSortedImages(page, callback)
+        }
     }
 
 
@@ -111,7 +132,7 @@ class RandomActivity : AppCompatActivity(), View.OnClickListener, OnLoadMoreList
     private fun events(event: String) {
         when (event) {
             LOAD_MORE -> {
-                fetch(listenerPaginated)
+                fetch(type, listenerPaginated)
             }
         }
     }
@@ -122,25 +143,27 @@ class RandomActivity : AppCompatActivity(), View.OnClickListener, OnLoadMoreList
     private var listener = object : (Any?, List<ImageObject>?) -> Unit {
         override fun invoke(e: Any?, r: List<ImageObject>?) {
 
-            generalSwipe.isRefreshing = false
-            generalP.gone()
+            randomSwipe.isRefreshing = false
+            randomP.gone()
 
             e?.let {
                 loge(it)
                 toast("failed to fetch images")
-                generalLoad.show()
+                randomLoad.show()
             }
             r?.let {
                 items = it.toMutableList()
                 items.add(null)
 
-                generalRecycler.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-                adapter = RandomImagesAdapter(items, generalRecycler)
-                generalRecycler.adapter = adapter
+                randomRecycler.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+                adapter = RandomImagesAdapter(items, randomRecycler)
+                randomRecycler.adapter = adapter
                 adapter.setLoadMore(this@RandomActivity)
+
+                if (type.isEmpty())
+                    page++
             }
         }
-
     }
 
 
@@ -171,7 +194,13 @@ class RandomActivity : AppCompatActivity(), View.OnClickListener, OnLoadMoreList
                 items.addAll(it)
                 items.add(null)
 
-                adapter.notifyItemRangeInserted(count, it.size + 1)
+                if (count < 30)
+                    adapter.setLoadMore(null)
+                else
+                    adapter.notifyItemRangeInserted(count, it.size + 1)
+
+                if (type.isEmpty())
+                    page++
             }
         }
 

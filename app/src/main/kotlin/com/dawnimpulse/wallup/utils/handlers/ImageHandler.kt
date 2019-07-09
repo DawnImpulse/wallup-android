@@ -119,7 +119,7 @@ object ImageHandler {
      */
     fun setImageOnVerticalCols(view: ImageView, url: String) {
         Glide.with(view.context)
-                .load("$url&fm=webp&h=720&q=95")
+                .load("$url&fm=webp&h=720&q=85")
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transition(GenericTransitionOptions.with(R.anim.fade_in_animation))
                 .into(view)

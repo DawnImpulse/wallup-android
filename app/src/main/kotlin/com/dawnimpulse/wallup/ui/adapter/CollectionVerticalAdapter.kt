@@ -76,7 +76,7 @@ class CollectionVerticalAdapter(
         context = parent.context
 
         return when (viewType) {
-            VIEW_INITIAL -> CollectionVerticalInitialHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_vertical_collection_init, parent, false))
+            VIEW_INITIAL -> CollectionVerticalInitialHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_collections_vertical_init, parent, false))
             VIEW_ITEM -> CollectionVerticalHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_image_fullscreen, parent, false))
             else -> LoadingFHolder(LayoutInflater.from(parent.context).inflate(R.layout.inflator_loading_full, parent, false))
         }

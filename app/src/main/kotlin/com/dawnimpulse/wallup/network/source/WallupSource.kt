@@ -42,8 +42,18 @@ interface WallupSource {
     /**
      * get random images
      */
-    @GET("/v1/images/random?limit=30")
+    @GET("wallup/v1/images/random?limit=30")
     fun randomImages(
+            @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
+    ): Call<ImageList>
+
+
+    /**
+     * get sorted images
+     */
+    @GET("wallup/v1/images/sorted?limit=30")
+    fun sortedImages(
+            @Query(PAGE) page: Int,
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<ImageList>
 
@@ -51,7 +61,7 @@ interface WallupSource {
     /**
      * get homescreen
      */
-    @GET("/v1/generic/homescreen")
+    @GET("wallup/v1/generic/homescreen")
     fun homescreen(
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY
     ): Call<HomescreenDetailsObject>
@@ -60,7 +70,7 @@ interface WallupSource {
     /**
      * get homescreen cols
      */
-    @GET("/v1/collections/random/homescreen")
+    @GET("wallup/v1/collections/random/homescreen")
     fun homescreenCols(
             @Header(X_API_KEY) apiKey: String = BuildConfig.WALLUP_API_KEY,
             @Query(ORIENTATION) orientation: String = ANY
@@ -69,7 +79,7 @@ interface WallupSource {
     /**
      * get sorted collections
      */
-    @GET("/v1/collections/sorted")
+    @GET("wallup/v1/collections/sorted")
     fun sortedCols(
             @Query(PAGE) page: Int,
             @Query(LIMIT) limit: Int = 8,
@@ -81,7 +91,7 @@ interface WallupSource {
     /**
      * get sorted collection images
      */
-    @GET("/v1/images/collection/sorted/{cid}")
+    @GET("wallup/v1/images/collection/sorted/{cid}")
     fun sortedCollectionImages(
             @Path(CID) cid: String,
             @Query(PAGE) page: Int,
@@ -92,7 +102,7 @@ interface WallupSource {
     /**
      * get random tag images
      */
-    @GET("/v1/images/random/tagged/{tag}")
+    @GET("wallup/v1/images/random/tagged/{tag}")
     fun randomTagImages(
             @Path(TAG) tag: String,
             @Query(LIMIT) limit: Int = 30,

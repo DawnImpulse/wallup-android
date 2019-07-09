@@ -25,6 +25,7 @@ package com.dawnimpulse.wallup.utils.reusables
  */
 const val UNSPLASH_URL = "https://api.unsplash.com"
 const val PEXELS_URL = "https://api.pexels.com"
+const val UTM = "?utm_source=wallup&utm_medium=referral"
 
 const val TYPE = "type"
 const val WALLUP = "wallup"
@@ -53,6 +54,7 @@ const val WALLPAPER_TIME = "wallpaperTime"
 const val WALLPAPER_WIFI = "wallpaperWifi"
 const val CRASHLYTICS = "crashlytics"
 const val ANALYTICS = "analytics"
+const val RANDOM = "random"
 
 const val FAIL_LOAD_MORE = "failLoadMore"
 const val FAIL_LOAD_MORE_V = "failLoadMoreV"

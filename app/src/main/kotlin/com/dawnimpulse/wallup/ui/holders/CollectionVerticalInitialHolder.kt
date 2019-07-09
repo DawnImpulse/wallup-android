@@ -24,7 +24,7 @@ import com.dawnimpulse.wallup.ui.objects.CollectionTransferObject
 import com.dawnimpulse.wallup.utils.functions.gone
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import jp.wasabeef.blurry.Blurry
-import kotlinx.android.synthetic.main.inflator_vertical_collection_init.view.*
+import kotlinx.android.synthetic.main.inflator_collections_vertical_init.view.*
 
 /**
  * @info -

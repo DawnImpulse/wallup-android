@@ -63,6 +63,34 @@ object WallupRepo {
 
 
     /**
+     * get sorted images
+     *
+     * @param page
+     * @param callback
+     */
+    fun getSortedImages(page: Int, callback: (Any?, List<ImageObject>?) -> Unit) {
+
+        val call = client.sortedImages(page)
+
+        call.enqueue(object : Callback<ImageList> {
+
+            // response
+            override fun onResponse(call: Call<ImageList>, response: Response<ImageList>) {
+                if (response.isSuccessful)
+                    callback(null, response.body()!!.details)
+                else
+                    callback(ErrorWallupUtil.parseError(response), null)
+            }
+
+            // on failure
+            override fun onFailure(call: Call<ImageList>, t: Throwable) {
+                callback(t.toString(), null)
+            }
+        })
+    }
+
+
+    /**
      * get homescreen
      *
      * @param callback

@@ -45,6 +45,17 @@ class WallupViewModel(private val activity: AppCompatActivity) {
 
 
     /**
+     * get sorted images
+     * @param callback
+     */
+    fun getSortedImages(page: Int, callback: (Any?, List<ImageObject>?) -> Unit) {
+        Lifecycle.onStart(activity) {
+            WallupRepo.getSortedImages(page, callback)
+        }
+    }
+
+
+    /**
      * get homescreen
      * @param callback
      */
