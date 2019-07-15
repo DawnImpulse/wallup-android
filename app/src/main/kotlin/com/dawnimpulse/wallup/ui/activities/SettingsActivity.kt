@@ -15,7 +15,6 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.putAny
 import com.dawnimpulse.wallup.utils.functions.remove
-import com.dawnimpulse.wallup.utils.functions.toast
 import com.dawnimpulse.wallup.utils.reusables.ANALYTICS
 import com.dawnimpulse.wallup.utils.reusables.AUTO_WALLPAPER
 import com.dawnimpulse.wallup.utils.reusables.CRASHLYTICS
@@ -58,9 +57,9 @@ class SettingsActivity : AppCompatActivity() {
             setPreferencesFromResource(R.xml.preferences, rootKey)
 
             // get preferences
-            wallStatus = findPreference("wallStatus")!!
-            wallInterval = findPreference("wallInterval")!!
-            wallWifi = findPreference("wallWifi")!!
+            //wallStatus = findPreference("wallStatus")!!
+            //wallInterval = findPreference("wallInterval")!!
+            //wallWifi = findPreference("wallWifi")!!
             crashlytics = findPreference("crashlytics")!!
             analytics = findPreference("analytics")!!
             cache = findPreference("cache")!!
@@ -73,7 +72,7 @@ class SettingsActivity : AppCompatActivity() {
             setCache()
 
             // setting time interval
-
+            /*
             val time = Prefs.getString("wallInterval", "1440")!!.toLong()
 
             // interval naming
@@ -91,7 +90,7 @@ class SettingsActivity : AppCompatActivity() {
 
             wallStatus.onPreferenceChangeListener = this
             wallInterval.onPreferenceChangeListener = this
-            wallWifi.onPreferenceChangeListener = this
+            wallWifi.onPreferenceChangeListener = this*/
 
         }
 
@@ -166,7 +165,6 @@ class SettingsActivity : AppCompatActivity() {
             val isWifi = Prefs.getBoolean("wallWifi", true)
 
 
-            context!!.toast(time.toString())
             val builder = Constraints.Builder()
                     .setRequiredNetworkType(if (isWifi) NetworkType.UNMETERED else NetworkType.CONNECTED)
                     .build()

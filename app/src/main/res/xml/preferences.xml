@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--Auto Wallpaper-->
+    <!--<PreferenceCategory
+        android:title="Auto Wallpaper"
+        app:iconSpaceReserved="false">
+
+        &lt;!&ndash;Info&ndash;&gt;
+        <Preference
+            android:icon="@drawable/vd_info_black"
+            android:selectable="false"
+            android:summary="Allows to change android homescreen with random wallpaper automatically after a user provided interval."
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false" />
+
+        &lt;!&ndash;Status&ndash;&gt;
+        <SwitchPreference
+            android:defaultValue="false"
+            android:disableDependentsState="false"
+            android:key="wallStatus"
+            android:summaryOff="Service turned off"
+            android:summaryOn="Service working"
+            android:title="Status"
+            app:iconSpaceReserved="true" />
+
+        &lt;!&ndash;Interval&ndash;&gt;
+        <ListPreference
+            android:defaultValue="1440"
+            android:dependency="wallStatus"
+            android:dialogTitle="Select duration"
+            android:entries="@array/wallpaper_interval"
+            android:entryValues="@array/wallpaper_interval_values"
+            android:key="wallInterval"
+            android:summary="Change every 24 hours (tap to change)"
+            android:title="Wallpaper change interval"
+            app:iconSpaceReserved="true" />
+
+        &lt;!&ndash;Wifi&ndash;&gt;
+        <SwitchPreference
+            android:defaultValue="true"
+            android:dependency="wallStatus"
+            android:key="wallWifi"
+            android:summaryOff="Will use any network type to cache images for Auto Wallpaper"
+            android:summaryOn="Will use only WiFi to cache images for Auto Wallpaper"
+            android:title="Only WiFi"
+            app:iconSpaceReserved="true" />
+
+        &lt;!&ndash;Storage&ndash;&gt;
+        &lt;!&ndash;<SwitchPreference
+            android:defaultValue="false"
+            android:dependency="wallStatus"
+            android:key="wallStorage"
+            android:summaryOff="Not saving any wallpapers to storage"
+            android:summaryOn="Saving wallpapers to device storage"
+            android:title="Save Wallpaper" />&ndash;&gt;
+
+        &lt;!&ndash;<intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="com.package.name.ActivityName"
+                android:targetPackage="com.package.name" />&ndash;&gt;
+
+    </PreferenceCategory>-->
+
+    <!--Settings-->
+    <PreferenceCategory
+        android:title="Settings"
+        app:iconSpaceReserved="false">
+
+        <!--Download Quality-->
+        <!--<ListPreference
+            android:entries="@array/download_quality"
+            android:entryValues="@array/download_quality_values"
+            android:icon="@drawable/vd_download_black"
+            android:key="download"
+            android:persistent="false"
+            android:summary="Current is Ultra HD"
+            android:title="Download Quality" />-->
+
+        <!--Cache-->
+        <Preference
+            android:icon="@drawable/vd_image_off"
+            android:selectable="true"
+            android:key="cache"
+            android:title="Cache Size"/>
+
+    </PreferenceCategory>
+
+    <!--Services-->
+    <PreferenceCategory
+        android:title="Services"
+        app:iconSpaceReserved="false">
+
+        <!--Crashlytics-->
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="crashlytics"
+            android:summary="@string/crashlytics"
+            android:title="Crashlytics" />
+
+        <!--Analytics-->
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="analytics"
+            android:summary="@string/analytics"
+            android:title="Analytics" />
+    </PreferenceCategory>
+
+    <!--License-->
+    <PreferenceCategory
+        android:title="License"
+        app:iconSpaceReserved="false">
+
+        <!--Info-->
+        <Preference
+            android:icon="@drawable/vd_lib"
+            android:key="terms"
+            android:selectable="false"
+            android:summary="Various libraries &amp; icons used in this application with their license &amp; source links"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false" />
+
+        <!--Libraries-->
+        <Preference
+            android:selectable="true"
+            android:summary="License for open source libraries used"
+            android:title="Libraries"
+            app:allowDividerAbove="false">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://wallup.sourcei.org/libraries" />
+        </Preference>
+
+        <!--Icons-->
+        <Preference
+            android:selectable="true"
+            android:summary="The application uses icons provided by open source community materialdesignicons.com"
+            android:title="Icons"
+            app:allowDividerAbove="false">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://materialdesignicons.com" />
+
+        </Preference>
+
+        <!--Cloudvry-->
+        <Preference
+            android:selectable="true"
+            android:summary="The application is powered by cloudvry.com . Cloudvry is cloud content delivery Platform as a Service aiming to reduce friction between development &amp; production. Visit cloudvry.com for more details."
+            android:title="Powered By"
+            app:allowDividerAbove="false">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://cloudvry.com" />
+
+        </Preference>
+
+    </PreferenceCategory>
+
+    <!--Developer-->
+    <PreferenceCategory
+        android:title="Developer"
+        app:iconSpaceReserved="false">
+
+        <!--Me-->
+        <Preference
+            android:icon="@drawable/vd_account"
+            android:summary="Hii, I'm Saksham a full stack engineer with expertise in nodejs, android and html/css. Love to contribute to open source and hope you leave a good feedback if you love this application. Thanks"
+            android:title="Saksham Khurana" />
+
+        <!--Github-->
+        <Preference
+            android:icon="@drawable/vd_github"
+            android:selectable="true"
+            android:summary="View my open sourced projects"
+            android:title="Github">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/dawnimpulse" />
+        </Preference>
+
+        <!--Twitter-->
+        <Preference
+            android:icon="@drawable/vd_twitter"
+            android:selectable="true"
+            android:summary="Follow me / Get in touch"
+            android:title="Twitter">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://twitter.com/dawnimpulse" />
+        </Preference>
+
+        <!--Play Store-->
+        <!--<Preference
+            android:icon="@drawable/vd_play"
+            android:selectable="true"
+            android:summary="View other apps"
+            android:title="Twitter">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="" />
+        </Preference>-->
+
+        <!--Rate on Play-->
+        <Preference
+            android:icon="@drawable/vd_star_face"
+            android:selectable="true"
+            android:title="Give the application a positive feedback on play store">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup" />
+        </Preference>
+
+    </PreferenceCategory>
+
+    <!--Help-->
+    <PreferenceCategory
+        android:title="Help"
+        app:iconSpaceReserved="false">
+
+        <!--Previous-->
+        <Preference
+            android:icon="@drawable/vd_previous"
+            android:selectable="true"
+            android:summary="Looking for Wallup's v1 , you can still install it &amp; keep both apps side-by-side. Tap here to visit apk download page."
+            android:title="Wallup v1"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://github.com/DawnImpulse/wallup-android-deprecated" />
+        </Preference>
+
+        <!--Privacy-->
+        <Preference
+            android:icon="@drawable/vd_privacy"
+            android:key="privacy"
+            android:selectable="true"
+            android:summary="Review our app privacy policy"
+            android:title="Privacy"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://wallup.sourcei.org/privacy" />
+        </Preference>
+
+        <!--Tnc-->
+        <Preference
+            android:icon="@drawable/vd_terms"
+            android:key="terms"
+            android:selectable="true"
+            android:summary="Terms for app usage"
+            android:title="Terms &amp; Conditions"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://wallup.sourcei.org/tnc" />
+        </Preference>
+
+        <!--Contact-->
+        <Preference
+            android:icon="@drawable/vd_agent"
+            android:key="contact"
+            android:selectable="true"
+            android:summary="For any issue / suggestion send us a mail on dawnimpulse@gmail.com"
+            android:title="Contact"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="mailto:dawnimpulse@gmail.com">
+                <extra
+                    android:name="android.intent.extra.TEXT"
+                    android:value="What can I help you with?" />
+                <extra
+                    android:name="android.intent.extra.SUBJECT"
+                    android:value="Bug/Feedback for WallUp" />
+            </intent>
+
+        </Preference>
+
+        <!--Version-->
+        <Preference
+            android:key="version"
+            android:selectable="false"
+            android:title="Application Version"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false" />
+    </PreferenceCategory>
+</PreferenceScreen>
