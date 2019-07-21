@@ -31,6 +31,8 @@ import com.dawnimpulse.wallup.utils.handlers.StorageHandler
 import com.google.common.util.concurrent.ListenableFuture
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.comparator.LastModifiedFileComparator
 import java.io.File
@@ -111,8 +113,6 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
         } else
         // get wallpaper for file from dir
             setWallpaper(callback)
-
-
     }
 
 
@@ -127,24 +127,26 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
 
         // file found
         if (file.exists()) {
-            val bitmap = BitmapFactory.decodeFile(file.path)
-            // check if bitmap is not null
-            if (bitmap != null) {
-                // set bitmap and increment lastWall
-                wallpaperManager.setBitmap(bitmap)
-                handler.post {
-                    appContext.toast("wallpaper changed")
+            GlobalScope.launch {
+                val bitmap = BitmapFactory.decodeFile(file.path)
+                // check if bitmap is not null
+                if (bitmap != null) {
+                    // set bitmap and increment lastWall
+                    wallpaperManager.setBitmap(bitmap)
+                    handler.post {
+                        appContext.toast("wallpaper changed")
+                    }
+
+                    // delete the file
+                    FileUtils.deleteQuietly(file)
+                    callback(true)
+
+                } else {
+                    // bitmap is null
+                    // delete the file
+                    FileUtils.deleteQuietly(file)
+                    callback(false)
                 }
-
-                // delete the file
-                FileUtils.deleteQuietly(file)
-                callback(true)
-
-            } else {
-                // bitmap is null
-                // delete the file
-                FileUtils.deleteQuietly(file)
-                callback(false)
             }
         } else {
             // file not found
@@ -157,7 +159,7 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
     //   fetch images from server
     // ----------------------------
     private fun imagesFetching(callback: (Boolean) -> Unit) {
-        WallupRepo.getRandomTagImges("homescreen", 10) { e, r ->
+        WallupRepo.getRandomTagImges("homescreen", 5) { e, r ->
             e?.let {
                 callback(false)
             }

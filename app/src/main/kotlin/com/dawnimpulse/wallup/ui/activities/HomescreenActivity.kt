@@ -113,6 +113,7 @@ class HomescreenActivity : AppCompatActivity(), OnLoadMoreListener, SwipeRefresh
         model.getHomescreen(homeListener)
     }
 
+
     /**
      * home listener
      */

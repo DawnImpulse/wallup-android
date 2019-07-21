@@ -40,4 +40,20 @@
         <!-- inactive track color switch-->
         <item name="android:colorForeground">@color/grey400</item>
     </style>
+
+
+    <!--Preference Theme-->
+    <style name="PrefsTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorBackground">@color/black</item>
+        <item name="android:listViewStyle">@style/PrefsTheme.ListViewPrefs</item>
+    </style>
+
+    <!--Preference , List Theme-->
+    <style name="PrefsTheme.ListViewPrefs" parent="Widget.AppCompat.ListView">
+        <item name="android:background">@color/black</item>
+    </style>
+
 </resources>

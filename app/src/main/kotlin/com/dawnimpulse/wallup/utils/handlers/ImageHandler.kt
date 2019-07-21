@@ -162,6 +162,7 @@ object ImageHandler {
         Glide.with(context)
                 .asBitmap()
                 .load("$url&fm=webp")
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .listener(object : RequestListener<Bitmap> {
 
                     override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {

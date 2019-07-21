@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--Auto Wallpaper-->
-    <!--<PreferenceCategory
+    <PreferenceCategory
         android:title="Auto Wallpaper"
         app:iconSpaceReserved="false">
 
-        &lt;!&ndash;Info&ndash;&gt;
+        <!--Info-->
         <Preference
-            android:icon="@drawable/vd_info_black"
+            android:icon="@drawable/vd_info"
             android:selectable="false"
             android:summary="Allows to change android homescreen with random wallpaper automatically after a user provided interval."
             app:allowDividerAbove="false"
             app:allowDividerBelow="false" />
 
-        &lt;!&ndash;Status&ndash;&gt;
+        <!--Status-->
         <SwitchPreference
             android:defaultValue="false"
             android:disableDependentsState="false"
@@ -25,7 +25,7 @@
             android:title="Status"
             app:iconSpaceReserved="true" />
 
-        &lt;!&ndash;Interval&ndash;&gt;
+        <!--Interval-->
         <ListPreference
             android:defaultValue="1440"
             android:dependency="wallStatus"
@@ -37,31 +37,51 @@
             android:title="Wallpaper change interval"
             app:iconSpaceReserved="true" />
 
-        &lt;!&ndash;Wifi&ndash;&gt;
+        <!--Wifi-->
         <SwitchPreference
             android:defaultValue="true"
             android:dependency="wallStatus"
             android:key="wallWifi"
-            android:summaryOff="Will use any network type to cache images for Auto Wallpaper"
-            android:summaryOn="Will use only WiFi to cache images for Auto Wallpaper"
+            android:summaryOff="Will use any network type to cache images &amp; set wallpaper"
+            android:summaryOn="Will use only WiFi to cache images &amp; set wallpaper (even changing wallpaper won't work)"
             android:title="Only WiFi"
             app:iconSpaceReserved="true" />
 
-        &lt;!&ndash;Storage&ndash;&gt;
-        &lt;!&ndash;<SwitchPreference
+        <!--OEM Setting-->
+        <Preference
+            android:dependency="wallStatus"
+            android:summary="Tap to provide 'Auto Start' Permission. Also provide `No Restrictions` in Battery Saver settings in any. If you still face any issue kindly contact me dawnimplse@gmail.com"
+            android:title="For OEMs Restricting Background Work e.g Xiaomi etc">
+
+            <intent
+                android:action="android.settings.APPLICATION_DETAILS_SETTINGS"
+                android:data="package:com.dawnimpulse.wallup" />
+        </Preference>
+
+        <!--<Preference
+
+            android:summary="Tap to provide `No Restriction / Don't Optimise` in battery optimisation">
+            <intent
+                android:action="android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS"
+                android:data="package:com.dawnimpulse.wallup" />
+
+        </Preference>-->
+
+        <!--Storage-->
+        <!--<SwitchPreference
             android:defaultValue="false"
             android:dependency="wallStatus"
             android:key="wallStorage"
             android:summaryOff="Not saving any wallpapers to storage"
             android:summaryOn="Saving wallpapers to device storage"
-            android:title="Save Wallpaper" />&ndash;&gt;
+            android:title="Save Wallpaper" />-->
 
-        &lt;!&ndash;<intent
+        <!--<intent
                 android:action="android.intent.action.VIEW"
                 android:targetClass="com.package.name.ActivityName"
-                android:targetPackage="com.package.name" />&ndash;&gt;
+                android:targetPackage="com.package.name" />-->
 
-    </PreferenceCategory>-->
+    </PreferenceCategory>
 
     <!--Settings-->
     <PreferenceCategory
@@ -81,9 +101,9 @@
         <!--Cache-->
         <Preference
             android:icon="@drawable/vd_image_off"
-            android:selectable="true"
             android:key="cache"
-            android:title="Cache Size"/>
+            android:selectable="true"
+            android:title="Cache Size" />
 
     </PreferenceCategory>
 
@@ -288,7 +308,7 @@
                     android:value="What can I help you with?" />
                 <extra
                     android:name="android.intent.extra.SUBJECT"
-                    android:value="Bug/Feedback for WallUp" />
+                    android:value="Bug/Feedback for WallUp v2.1.0" />
             </intent>
 
         </Preference>

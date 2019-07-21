@@ -32,7 +32,7 @@ object ErrorWallupUtil {
         val error: ErrorWallupObject
 
         try {
-            error = converter.convert(response.errorBody()!!)
+            error = converter.convert(response.errorBody()!!)!!
         } catch (e: Exception) {
             return ErrorWallupObject()
         }
