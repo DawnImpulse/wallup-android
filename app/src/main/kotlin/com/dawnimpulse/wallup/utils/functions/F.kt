@@ -40,6 +40,7 @@ import java.util.concurrent.TimeUnit
  * @note Created on 2019-06-10 by Saksham
  *
  * @note Updates :
+ * Saksham - 2019 08 18 - master - random color
  */
 object F {
 
@@ -148,5 +149,17 @@ object F {
             result.toString()
         } else
             string
+    }
+
+    /**
+     * Generating random color
+     */
+    fun randomColor(): String {
+        val chars = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
+        var color = "#"
+        for (i in 1..6) {
+            color += chars[Math.floor(Math.random() * chars.size).toInt()]
+        }
+        return color
     }
 }

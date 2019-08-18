@@ -89,6 +89,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--Wallpaper activity-->
+        <activity
+            android:name=".ui.activities.WallpaperActivity"
+            android:theme="@style/AppTheme.Fullscreen"/>
     </application>
 
 </manifest>

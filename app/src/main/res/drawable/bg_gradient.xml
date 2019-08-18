@@ -12,12 +12,12 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
+android:shape="rectangle">
 
-    <gradient
-        android:angle="90"
-        android:centerColor="@android:color/transparent"
-        android:endColor="@android:color/transparent"
-        android:startColor="@color/black" />
+<gradient
+    android:angle="90"
+    android:centerColor="@android:color/transparent"
+    android:endColor="@android:color/transparent"
+    android:startColor="@color/black" />
 
 </shape>

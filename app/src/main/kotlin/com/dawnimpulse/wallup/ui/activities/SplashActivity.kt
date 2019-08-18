@@ -41,7 +41,7 @@ class SplashActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             delay(2000)
-            openActivity(HomescreenActivity::class.java)
+            openActivity(WallpaperActivity::class.java)
             finish()
         }
     }
