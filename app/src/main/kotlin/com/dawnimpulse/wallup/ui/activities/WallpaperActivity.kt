@@ -15,11 +15,16 @@
 package com.dawnimpulse.wallup.ui.activities
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.toColorInt
 import co.revely.gradient.RevelyGradient
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.functions.F
+import com.dawnimpulse.wallup.utils.functions.gone
+import com.dawnimpulse.wallup.utils.functions.show
+import com.dawnimpulse.wallup.utils.functions.toast
+import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import kotlinx.android.synthetic.main.activity_wallpaper.*
 
 /**
@@ -31,7 +36,8 @@ import kotlinx.android.synthetic.main.activity_wallpaper.*
  * @note Created on 2019-08-18 by Saksham
  * @note Updates :
  */
-class WallpaperActivity : AppCompatActivity(){
+class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
+    var refreshing = false
 
     // on create
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,16 +45,51 @@ class WallpaperActivity : AppCompatActivity(){
         setContentView(R.layout.activity_wallpaper)
 
         fabGradient()
+        refresh.setOnClickListener(this)
+    }
+
+    // fab click handling
+    override fun onClick(v: View) {
+        when (v.id) {
+            refresh.id -> {
+                if (!refreshing) {
+                    refreshing = true
+                    mask.show()
+                    progress.show()
+                    getImage()
+                } else
+                    toast("In Progress")
+            }
+        }
     }
 
     /**
      * random gradient for fab
      */
-    private fun fabGradient(){
+    private fun fabGradient() {
         RevelyGradient
                 .linear()
                 .colors(intArrayOf(F.randomColor().toColorInt(), F.randomColor().toColorInt()))
                 .onBackgroundOf(fabLayout)
+    }
+
+    /**
+     * get new image
+     */
+    private fun getImage() {
+
+        ImageHandler.getBitmapWallpaper(this, "https://source.unsplash.com/random") {
+            runOnUiThread {
+                if (it != null)
+                    bgWallpaper.setImageBitmap(it)
+                else
+                    toast("failed to fetch image")
+
+                mask.gone()
+                progress.gone()
+                refreshing = false
+            }
+        }
     }
 
 }

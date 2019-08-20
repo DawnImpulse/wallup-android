@@ -24,8 +24,12 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.dawnimpulse.wallup.R
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 /**
@@ -159,23 +163,21 @@ object ImageHandler {
      * @param url
      */
     fun getBitmapWallpaper(context: Context, url: String, callback: (Bitmap?) -> Unit) {
-        Glide.with(context)
-                .asBitmap()
-                .load("$url&fm=webp")
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .listener(object : RequestListener<Bitmap> {
+        GlobalScope.launch {
 
-                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        callback(resource)
-                        return true
-                    }
+            delay(1500)
+            var future = Glide.with(context)
+                    .asBitmap()
+                    .load(url)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .apply(RequestOptions.skipMemoryCacheOf(true))
+                    .submit()
 
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
-                        callback(null)
-                        return true
-                    }
+            var bitmap = future.get()
 
-                })
-                .submit()
+            callback(bitmap)
+
+            Glide.with(context).clear(future)
+        }
     }
 }
