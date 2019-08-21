@@ -13,7 +13,6 @@ import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.putAny
 import com.dawnimpulse.wallup.utils.functions.remove
 import com.dawnimpulse.wallup.utils.functions.toast
@@ -22,7 +21,6 @@ import com.dawnimpulse.wallup.utils.reusables.AUTO_WALLPAPER
 import com.dawnimpulse.wallup.utils.reusables.CRASHLYTICS
 import com.dawnimpulse.wallup.utils.reusables.Prefs
 import com.dawnimpulse.wallup.workers.AutoWallpaper
-import org.apache.commons.io.FileUtils
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -44,14 +42,14 @@ class SettingsActivity : AppCompatActivity() {
     /**
      * attaching preferences
      */
-    class MySettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+    class MySettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
 
         private lateinit var wallStatus: SwitchPreference
         private lateinit var wallInterval: ListPreference
         private lateinit var wallWifi: SwitchPreference
         private lateinit var crashlytics: SwitchPreference
         private lateinit var analytics: SwitchPreference
-        private lateinit var cache: Preference
+        private lateinit var wallChange: SwitchPreference
 
         /**
          * set preference layout
@@ -65,14 +63,10 @@ class SettingsActivity : AppCompatActivity() {
             wallWifi = findPreference("wallWifi")!!
             crashlytics = findPreference("crashlytics")!!
             analytics = findPreference("analytics")!!
-            cache = findPreference("cache")!!
+            wallChange= findPreference("wallChange")!!
 
             // setting application version
             findPreference<Preference>("version")!!.summary = "v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
-
-            // setting cache
-            cache.onPreferenceClickListener = this
-            setCache()
 
             // setting time interval
             val time = Prefs.getString("wallInterval", "1440")!!.toLong()
@@ -115,7 +109,7 @@ class SettingsActivity : AppCompatActivity() {
 
                         WorkManager.getInstance(context!!).cancelWorkById(UUID.fromString(Prefs.getString(AUTO_WALLPAPER, "")))
                         Prefs.remove(AUTO_WALLPAPER)
-                        FileUtils.deleteDirectory(context!!.filesDir)
+                        //FileUtils.deleteDirectory(context!!.filesDir)
                     }
                 }
 
@@ -136,19 +130,6 @@ class SettingsActivity : AppCompatActivity() {
                 analytics -> Prefs.putAny(ANALYTICS, newValue as Boolean)
             }
 
-            return true
-        }
-
-        /**
-         * preference click
-         */
-        override fun onPreferenceClick(preference: Preference?): Boolean {
-            when (preference) {
-                cache -> {
-                    F.deleteCache(context!!)
-                    cache.summary = "0 MB"
-                }
-            }
             return true
         }
 
@@ -196,15 +177,6 @@ class SettingsActivity : AppCompatActivity() {
             wallInterval.summary = "Change every $timing (tap to change)"
 
             context!!.toast("please wait few minutes for wallpapers to cache on device")
-        }
-
-        /**
-         * set cache
-         */
-        private fun setCache() {
-            F.appCache(context!!) {
-                cache.summary = "$it (tap to clean cache)"
-            }
         }
     }
 }

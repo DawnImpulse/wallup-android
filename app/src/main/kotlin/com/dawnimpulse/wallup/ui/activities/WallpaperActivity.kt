@@ -20,11 +20,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.toColorInt
 import co.revely.gradient.RevelyGradient
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.utils.functions.F
-import com.dawnimpulse.wallup.utils.functions.gone
-import com.dawnimpulse.wallup.utils.functions.show
-import com.dawnimpulse.wallup.utils.functions.toast
+import com.dawnimpulse.wallup.utils.functions.*
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import com.dawnimpulse.wallup.utils.handlers.WallpaperHandler
+import com.dawnimpulse.wallup.utils.reusables.Prefs
+import com.dawnimpulse.wallup.utils.reusables.WALL_CHANGE
 import kotlinx.android.synthetic.main.activity_wallpaper.*
 
 /**
@@ -46,11 +46,13 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
 
         fabGradient()
         refresh.setOnClickListener(this)
+        settings.setOnClickListener(this)
     }
 
     // fab click handling
     override fun onClick(v: View) {
         when (v.id) {
+
             refresh.id -> {
                 if (!refreshing) {
                     refreshing = true
@@ -59,6 +61,10 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
                     getImage()
                 } else
                     toast("In Progress")
+            }
+
+            settings.id -> {
+                openActivity(SettingsActivity::class.java)
             }
         }
     }
@@ -80,9 +86,12 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
 
         ImageHandler.getBitmapWallpaper(this, "https://source.unsplash.com/random") {
             runOnUiThread {
-                if (it != null)
+                if (it != null) {
                     bgWallpaper.setImageBitmap(it)
-                else
+                    // change wallpaper if allowed
+                    if (Prefs.contains(WALL_CHANGE))
+                        WallpaperHandler.setWallpaper(this, it)
+                } else
                     toast("failed to fetch image")
 
                 mask.gone()

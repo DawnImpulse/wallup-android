@@ -88,22 +88,14 @@
         android:title="Settings"
         app:iconSpaceReserved="false">
 
-        <!--Download Quality-->
-        <!--<ListPreference
-            android:entries="@array/download_quality"
-            android:entryValues="@array/download_quality_values"
-            android:icon="@drawable/vd_download_black"
-            android:key="download"
-            android:persistent="false"
-            android:summary="Current is Ultra HD"
-            android:title="Download Quality" />-->
-
-        <!--Cache-->
-        <Preference
-            android:icon="@drawable/vd_image_off"
-            android:key="cache"
-            android:selectable="true"
-            android:title="Cache Size" />
+        <!--Change-->
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="wallChange"
+            android:summaryOff="Wish to change the homescreen wallpaper as you tap on refresh button in preview screen ?"
+            android:summaryOn="Changing homescreen wallpaper as you tap on refresh button in preview screen. Tap to turn off this feature."
+            android:title="Change image during view ?"
+            app:iconSpaceReserved="true" />
 
     </PreferenceCategory>
 

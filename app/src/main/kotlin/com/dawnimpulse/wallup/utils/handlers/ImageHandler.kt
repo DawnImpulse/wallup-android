@@ -24,7 +24,6 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.dawnimpulse.wallup.R
 import kotlinx.coroutines.GlobalScope
@@ -170,7 +169,7 @@ object ImageHandler {
                     .asBitmap()
                     .load(url)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .apply(RequestOptions.skipMemoryCacheOf(true))
+                    .skipMemoryCache(true)
                     .submit()
 
             var bitmap = future.get()

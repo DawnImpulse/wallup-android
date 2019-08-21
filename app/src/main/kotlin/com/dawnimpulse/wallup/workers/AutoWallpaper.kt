@@ -22,14 +22,12 @@ import android.os.Looper
 import androidx.concurrent.futures.CallbackToFutureAdapter
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
-import com.dawnimpulse.wallup.network.repo.WallupRepo
-import com.dawnimpulse.wallup.ui.objects.ImageObject
+import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.logd
 import com.dawnimpulse.wallup.utils.functions.toast
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.handlers.StorageHandler
 import com.google.common.util.concurrent.ListenableFuture
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -46,6 +44,7 @@ import java.util.*
  *
  * @note Created on 2019-06-14 by Saksham
  * @note Updates :
+ *  Saksham - 2019 08 21 - master - caching for unsplash
  */
 class AutoWallpaper(private val appContext: Context, workerParams: WorkerParameters) : ListenableWorker(appContext, workerParams) {
     private lateinit var wallpaperManager: WallpaperManager
@@ -89,24 +88,19 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
             // if images available in cache
             if (files.isNotEmpty()) {
                 setWallpaper(callback)
-                imagesFetching {
+                wallpaperCaching(5) {
                     // do nothing for either case since wallpaper is set
                 }
             } else {
                 // no images available in cache, get some & then set wallpaper
-                imagesFetching {
-                    if (it) {
-                        // after images are fetched
-                        val files = appContext.filesDir.listFiles()
+                wallpaperCaching(3) {
+                    // after images are fetched
+                    val files = appContext.filesDir.listFiles()
 
-                        // if wallpapers are cached
-                        if (files.isNotEmpty())
-                            setWallpaper(callback)
-                        else
-                            callback(false)
-
-                    } else
-                    // issue with image fetching
+                    // if wallpapers are cached
+                    if (files.isNotEmpty())
+                        setWallpaper(callback)
+                    else
                         callback(false)
                 }
             }
@@ -156,50 +150,23 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
     }
 
     // ----------------------------
-    //   fetch images from server
-    // ----------------------------
-    private fun imagesFetching(callback: (Boolean) -> Unit) {
-        WallupRepo.getRandomTagImges("homescreen", 5) { e, r ->
-            e?.let {
-                callback(false)
-            }
-            r?.let {
-                wallpaperCaching(it) {
-                    callback(true)
-                }
-            }
-        }
-    }
-
-    // ----------------------------
     //   save images to internal
     // ----------------------------
-    private fun wallpaperCaching(images: List<ImageObject>, callback: () -> Unit) {
-
-        // image observable
-        fun image(wall: ImageObject): Observable<Boolean> {
-            return Observable.create { em ->
-                ImageHandler.getBitmapWallpaper(appContext, wall.links.url) {
-                    // store in files dir
-                    it?.let {
-                        // get recent files
-                        val file = File(appContext.filesDir, "${wall.iid}.webp")
-                        StorageHandler.storeBitmapInFile(it, file)
-                        logd("image ${wall.iid} cached")
-                    }
-                    em.onComplete()
-                }
+    private fun wallpaperCaching(count: Int, callback: () -> Unit) {
+        logd("here")
+        ImageHandler.getBitmapWallpaper(appContext, "https://source.unsplash.com/random") {
+            // store in files dir
+            it?.let {
+                // get recent files
+                val file = File(appContext.filesDir, "${F.shortid()}.jpg")
+                StorageHandler.storeBitmapInFile(it, file)
+                logd("image ${F.shortid()} cached")
             }
-        }
 
-        compositeDisposable.add(
-                Observable.fromIterable(images)
-                        .flatMap { image(it) }
-                        .toList()
-                        .subscribe { it ->
-                            logd("all images cached")
-                            callback()
-                        }
-        )
+            if (count - 1 != 0)
+                wallpaperCaching(count - 1, callback)
+            else
+                callback()
+        }
     }
 }

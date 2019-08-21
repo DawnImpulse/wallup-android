@@ -31,6 +31,7 @@ import kotlinx.coroutines.launch
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.util.concurrent.TimeUnit
+import kotlin.random.Random
 
 
 /**
@@ -41,6 +42,7 @@ import java.util.concurrent.TimeUnit
  *
  * @note Updates :
  * Saksham - 2019 08 18 - master - random color
+ * Saksham - 2019 08 20 - master - generate shortid
  */
 object F {
 
@@ -122,7 +124,7 @@ object F {
                 (context as Activity).runOnUiThread {
                     callback(FileUtils.byteCountToDisplaySize(size))
                 }
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 (context as Activity).runOnUiThread {
                     callback("- MB")
                 }
@@ -161,5 +163,14 @@ object F {
             color += chars[Math.floor(Math.random() * chars.size).toInt()]
         }
         return color
+    }
+
+    // generate shortid
+    fun shortid(): String {
+        val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+        return (1..10)
+                .map { Random.nextInt(0, charPool.size) }
+                .map(charPool::get)
+                .joinToString("")
     }
 }
