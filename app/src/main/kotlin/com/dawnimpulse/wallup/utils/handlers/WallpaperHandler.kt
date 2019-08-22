@@ -17,10 +17,8 @@ package com.dawnimpulse.wallup.utils.handlers
 import android.app.WallpaperManager
 import android.content.Context
 import android.graphics.Bitmap
-import com.dawnimpulse.wallup.utils.functions.F
-import com.dawnimpulse.wallup.utils.functions.getMime
-import com.dawnimpulse.wallup.utils.functions.toContentUri
-import com.dawnimpulse.wallup.utils.functions.toast
+import androidx.appcompat.app.AppCompatActivity
+import com.dawnimpulse.wallup.utils.functions.*
 
 /**
  * @info -
@@ -47,18 +45,26 @@ object WallpaperHandler {
     fun askToSetWallpaper(context: Context, file: String) {
         // get content uri
         val uri = file.toContentUri(context)
+        logd(file.toFile().name)
 
         // check uri if it is image or not
         val mime = uri.getMime(context)
+        logd(mime ?: "null")
         if (mime != null && mime.contains("image")) {
 
             // get wallpaper intent
             val wallpaperManager = WallpaperManager.getInstance(context)
-            context.startActivity(wallpaperManager.getCropAndSetWallpaperIntent(uri))
+            (context as AppCompatActivity).runOnUiThread {
+                logd(uri.getMime(context)!!)
+                context.startActivity(wallpaperManager.getCropAndSetWallpaperIntent(uri))
+            }
 
         } else
-            // issue with storage
-            context.toast("Issue with getting image from storage!!")
+        // issue with storage
+            (context as AppCompatActivity).runOnUiThread {
+                context.toast("Issue with getting image from storage!!")
+            }
+
     }
 
     // get cropped bitmap

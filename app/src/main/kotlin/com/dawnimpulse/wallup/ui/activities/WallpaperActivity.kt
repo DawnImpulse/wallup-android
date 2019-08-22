@@ -14,6 +14,8 @@
  **/
 package com.dawnimpulse.wallup.ui.activities
 
+import android.graphics.Bitmap
+import android.media.MediaScannerConnection
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -22,10 +24,16 @@ import co.revely.gradient.RevelyGradient
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.functions.*
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
+import com.dawnimpulse.wallup.utils.handlers.StorageHandler
 import com.dawnimpulse.wallup.utils.handlers.WallpaperHandler
+import com.dawnimpulse.wallup.utils.reusables.Config
 import com.dawnimpulse.wallup.utils.reusables.Prefs
 import com.dawnimpulse.wallup.utils.reusables.WALL_CHANGE
 import kotlinx.android.synthetic.main.activity_wallpaper.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.sourcei.android.permissions.Permissions
+import java.io.File
 
 /**
  * @info -
@@ -37,6 +45,7 @@ import kotlinx.android.synthetic.main.activity_wallpaper.*
  * @note Updates :
  */
 class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
+    private var bitmap: Bitmap? = null
     var refreshing = false
 
     // on create
@@ -47,6 +56,9 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
         fabGradient()
         refresh.setOnClickListener(this)
         settings.setOnClickListener(this)
+        setWallpaper.setOnClickListener(this)
+        download.setOnClickListener(this)
+
     }
 
     // fab click handling
@@ -55,6 +67,7 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
 
             refresh.id -> {
                 if (!refreshing) {
+                    bitmap = null
                     refreshing = true
                     mask.show()
                     progress.show()
@@ -65,6 +78,61 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
 
             settings.id -> {
                 openActivity(SettingsActivity::class.java)
+            }
+
+            setWallpaper.id -> {
+
+                // check permissions
+                Permissions.askWriteExternalStoragePermission(this) { e, r ->
+                    e?.let {
+                        toast("kindly provide storage permissions")
+                    }
+                    r?.let {
+                        F.mkdir()
+                        if (bitmap != null) {
+                            toast("please wait")
+                            GlobalScope.launch {
+                                val file = File(Config.DEFAULT_DOWNLOAD_PATH, "${F.shortid()}.jpg")
+                                StorageHandler.storeBitmapInFile(bitmap!!, file)
+                                WallpaperHandler.setWallpaper(this@WallpaperActivity, bitmap!!)
+                                // make available for media scanner
+                                MediaScannerConnection.scanFile(this@WallpaperActivity, arrayOf(file.toString()), arrayOf("image/jpeg"), null)
+
+                                runOnUiThread {
+                                    toast("wallpaper applied successfully")
+                                }
+
+                            }
+                        } else
+                            toast("kindly wait for wallpaper to load")
+                    }
+                }
+            }
+
+            download.id -> {
+                Permissions.askWriteExternalStoragePermission(this) { e, r ->
+                    e?.let {
+                        toast("kindly provide storage permissions")
+                    }
+                    r?.let {
+                        F.mkdir()
+                        if (bitmap != null) {
+                            toast("please wait")
+                            GlobalScope.launch {
+                                val file = File(Config.DEFAULT_DOWNLOAD_PATH, "${F.shortid()}.jpg")
+                                StorageHandler.storeBitmapInFile(bitmap!!, file)
+
+                                // make available for media scanner
+                                MediaScannerConnection.scanFile(this@WallpaperActivity, arrayOf(file.toString()), arrayOf("image/jpeg"), null)
+
+                                runOnUiThread {
+                                    toast("image saved successfully")
+                                }
+                            }
+                        } else
+                            toast("kindly wait for wallpaper to load")
+                    }
+                }
             }
         }
     }
@@ -87,6 +155,7 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
         ImageHandler.getBitmapWallpaper(this, "https://source.unsplash.com/random") {
             runOnUiThread {
                 if (it != null) {
+                    bitmap = it
                     bgWallpaper.setImageBitmap(it)
                     // change wallpaper if allowed
                     if (Prefs.contains(WALL_CHANGE))

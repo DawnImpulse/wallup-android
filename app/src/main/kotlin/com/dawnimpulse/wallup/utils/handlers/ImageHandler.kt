@@ -172,9 +172,11 @@ object ImageHandler {
                     .skipMemoryCache(true)
                     .submit()
 
-            var bitmap = future.get()
-
-            callback(bitmap)
+            try {
+                callback(future.get())
+            } catch (e: Exception) {
+                callback(null)
+            }
 
             Glide.with(context).clear(future)
         }
