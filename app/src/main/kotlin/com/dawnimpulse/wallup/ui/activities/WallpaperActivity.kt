@@ -152,11 +152,15 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
      */
     private fun getImage() {
 
-        ImageHandler.getBitmapWallpaper(this, "https://source.unsplash.com/random") {
+        ImageHandler.getBitmapWallpaper(this, "https://source.unsplash.com/random?${Prefs.getString("search", "")}") {
             runOnUiThread {
                 if (it != null) {
                     bitmap = it
                     bgWallpaper.setImageBitmap(it)
+
+                    // save bitmap in temp directory
+                    //val file = File.createTempFile("homescreen","")
+
                     // change wallpaper if allowed
                     if (Prefs.contains(WALL_CHANGE))
                         WallpaperHandler.setWallpaper(this, it)

@@ -3,10 +3,7 @@ package com.dawnimpulse.wallup.ui.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreference
+import androidx.preference.*
 import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
@@ -50,6 +47,7 @@ class SettingsActivity : AppCompatActivity() {
         private lateinit var crashlytics: SwitchPreference
         private lateinit var analytics: SwitchPreference
         private lateinit var wallChange: SwitchPreference
+        private lateinit var search: EditTextPreference
 
         /**
          * set preference layout
@@ -63,7 +61,8 @@ class SettingsActivity : AppCompatActivity() {
             wallWifi = findPreference("wallWifi")!!
             crashlytics = findPreference("crashlytics")!!
             analytics = findPreference("analytics")!!
-            wallChange= findPreference("wallChange")!!
+            wallChange = findPreference("wallChange")!!
+            search = findPreference("search")!!
 
             // setting application version
             findPreference<Preference>("version")!!.summary = "v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
@@ -84,10 +83,15 @@ class SettingsActivity : AppCompatActivity() {
                 else -> "7 days"
             }
             wallInterval.summary = "Change every $timing (tap to change)"
+            if (Prefs.getString("search", "").isEmpty())
+                search.title = "(no search term, will show random images)"
+            else
+                search.title = Prefs.getString("search", "")
 
             wallStatus.onPreferenceChangeListener = this
             wallInterval.onPreferenceChangeListener = this
             wallWifi.onPreferenceChangeListener = this
+            search.onPreferenceChangeListener = this
 
         }
 
@@ -119,15 +123,26 @@ class SettingsActivity : AppCompatActivity() {
                     setWallpaper()
                 }
 
-                //wifi
+                // wifi
                 wallWifi -> {
                     Prefs.putAny("wallWifi", newValue as Boolean)
                     setWallpaper()
                 }
 
+                // crashlytics
                 crashlytics -> Prefs.putAny(CRASHLYTICS, newValue as Boolean)
 
+                // analytics
                 analytics -> Prefs.putAny(ANALYTICS, newValue as Boolean)
+
+                // search
+                search -> {
+                    if (newValue.toString().isEmpty())
+                        search.title = "(no search term, will show random images)"
+                    else
+                        search.title = newValue.toString()
+                }
+
             }
 
             return true

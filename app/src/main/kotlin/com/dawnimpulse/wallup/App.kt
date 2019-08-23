@@ -17,6 +17,7 @@ package com.dawnimpulse.wallup
 import android.app.Application
 import android.preference.PreferenceManager
 import com.crashlytics.android.Crashlytics
+import com.dawnimpulse.wallup.utils.functions.putAny
 import com.dawnimpulse.wallup.utils.reusables.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.gson.Gson
@@ -42,6 +43,9 @@ class App : Application() {
         Config.editorialImages = Gson().fromJson(Prefs.getString(EDITORIAL_IMAGES, "[]"), Array<String>::class.java).asList().toMutableList()
 
         analytics()
+
+        if(!Prefs.contains("search"))
+            Prefs.putAny("search","nature,landscape")
     }
 
     // enabling crashlytics in release builds

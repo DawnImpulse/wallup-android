@@ -94,8 +94,21 @@
             android:key="wallChange"
             android:summaryOff="Wish to change the homescreen wallpaper as you tap on refresh button in preview screen ?"
             android:summaryOn="Changing homescreen wallpaper as you tap on refresh button in preview screen. Tap to turn off this feature."
-            android:title="Change image during view ?"
+            android:title="Change image during view"
             app:iconSpaceReserved="true" />
+
+    </PreferenceCategory>
+
+    <!--Search-->
+    <PreferenceCategory
+        android:summary=""
+        android:title="Filter images (enter search terms separated by , )"
+        app:iconSpaceReserved="false">
+
+        <EditTextPreference
+            android:defaultValue="nature,landscape"
+            android:title="Search Terms"
+            android:key="search" />
 
     </PreferenceCategory>
 
