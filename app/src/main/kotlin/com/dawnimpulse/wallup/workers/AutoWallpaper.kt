@@ -127,6 +127,10 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                 if (bitmap != null) {
                     // set bitmap and increment lastWall
                     wallpaperManager.setBitmap(bitmap)
+
+                    // save bitmap as cache file
+                    StorageHandler.storeBitmapInFile(bitmap, File(appContext.cacheDir, "homescreen.jpg"))
+
                     handler.post {
                         appContext.toast("wallpaper changed")
                     }
@@ -153,7 +157,6 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
     //   save images to internal
     // ----------------------------
     private fun wallpaperCaching(count: Int, callback: () -> Unit) {
-        logd("here")
         ImageHandler.getBitmapWallpaper(appContext, "https://source.unsplash.com/random") {
             // store in files dir
             it?.let {

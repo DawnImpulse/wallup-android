@@ -53,12 +53,17 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallpaper)
 
+        // fab gradient
         fabGradient()
+
+        // check for temp image & apply
+        if (File(cacheDir, "homescreen.jpg").exists())
+            bgWallpaper.setImageBitmap(StorageHandler.getBitmapFromFile(File(cacheDir, "homescreen.jpg")))
+
         refresh.setOnClickListener(this)
         settings.setOnClickListener(this)
         setWallpaper.setOnClickListener(this)
         download.setOnClickListener(this)
-
     }
 
     // fab click handling
@@ -159,7 +164,7 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
                     bgWallpaper.setImageBitmap(it)
 
                     // save bitmap in temp directory
-                    //val file = File.createTempFile("homescreen","")
+                    StorageHandler.storeBitmapInFile(it, File(cacheDir, "homescreen.jpg"))
 
                     // change wallpaper if allowed
                     if (Prefs.contains(WALL_CHANGE))

@@ -15,10 +15,9 @@
 package com.dawnimpulse.wallup.utils.handlers
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import java.io.File
 import java.io.FileOutputStream
-
-
 
 
 /**
@@ -46,5 +45,13 @@ object StorageHandler {
             e.printStackTrace()
         }
 
+    }
+
+    // -------------------------
+    //   get bitmap from file
+    // -------------------------
+    fun getBitmapFromFile(file: File): Bitmap {
+        val bmOptions = BitmapFactory.Options()
+        return BitmapFactory.decodeFile(file.absolutePath, bmOptions)
     }
 }
