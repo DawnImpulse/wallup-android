@@ -27,7 +27,6 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.dawnimpulse.wallup.R
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -164,7 +163,6 @@ object ImageHandler {
     fun getBitmapWallpaper(context: Context, url: String, callback: (Bitmap?) -> Unit) {
         GlobalScope.launch {
 
-            delay(1500)
             var future = Glide.with(context)
                     .asBitmap()
                     .load(url)
@@ -178,7 +176,7 @@ object ImageHandler {
                 callback(null)
             }
 
-            Glide.with(context).clear(future)
+            //Glide.with(context).clear(future)
         }
     }
 }

@@ -26,8 +26,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <!--Fab-->
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="196dp"
-        android:layout_height="40dp"
+        android:layout_width="220dp"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"

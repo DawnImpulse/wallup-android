@@ -59,6 +59,14 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
         // check for temp image & apply
         if (File(cacheDir, "homescreen.jpg").exists())
             bgWallpaper.setImageBitmap(StorageHandler.getBitmapFromFile(File(cacheDir, "homescreen.jpg")))
+        else {
+            // if no temp image then auto load image
+            bitmap = null
+            refreshing = true
+            mask.show()
+            progress.show()
+            getImage()
+        }
 
         refresh.setOnClickListener(this)
         settings.setOnClickListener(this)
@@ -157,7 +165,7 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
      */
     private fun getImage() {
 
-        ImageHandler.getBitmapWallpaper(this, "https://source.unsplash.com/random?${Prefs.getString("search", "")}") {
+        ImageHandler.getBitmapWallpaper(this, "https://source.unsplash.com/random/1440x3040/?${Prefs.getString("search", "")}") {
             runOnUiThread {
                 if (it != null) {
                     bitmap = it

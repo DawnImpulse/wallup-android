@@ -27,8 +27,10 @@ import com.dawnimpulse.wallup.utils.functions.logd
 import com.dawnimpulse.wallup.utils.functions.toast
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.handlers.StorageHandler
+import com.dawnimpulse.wallup.utils.reusables.Prefs
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.comparator.LastModifiedFileComparator
@@ -154,19 +156,22 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
     //   save images to internal
     // ----------------------------
     private fun wallpaperCaching(count: Int, callback: () -> Unit) {
-        ImageHandler.getBitmapWallpaper(appContext, "https://source.unsplash.com/random") {
-            // store in files dir
-            it?.let {
-                // get recent files
-                val file = File(appContext.filesDir, "${F.shortid()}.jpg")
-                StorageHandler.storeBitmapInFile(it, file)
-                logd("image ${F.shortid()} cached")
-            }
+        GlobalScope.launch {
+            delay(3000)
+            ImageHandler.getBitmapWallpaper(appContext, "https://source.unsplash.com/random/1440x3040/?${Prefs.getString("search", "")}") {
+                // store in files dir
+                it?.let {
+                    // get recent files
+                    val file = File(appContext.filesDir, "${F.shortid()}.jpg")
+                    StorageHandler.storeBitmapInFile(it, file)
+                    logd("image ${F.shortid()} cached")
+                }
 
-            if (count - 1 != 0)
-                wallpaperCaching(count - 1, callback)
-            else
-                callback()
+                if (count - 1 != 0)
+                    wallpaperCaching(count - 1, callback)
+                else
+                    callback()
+            }
         }
     }
 }
