@@ -167,7 +167,7 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
                     StorageHandler.storeBitmapInFile(it, File(cacheDir, "homescreen.jpg"))
 
                     // change wallpaper if allowed
-                    if (Prefs.contains(WALL_CHANGE))
+                    if (Prefs.getBoolean(WALL_CHANGE, false))
                         WallpaperHandler.setWallpaper(this, it)
                 } else
                     toast("failed to fetch image")

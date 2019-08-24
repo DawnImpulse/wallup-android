@@ -27,21 +27,6 @@
     </style>
 
 
-    <!--DialogHandler theme-->
-    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <!--buttons color-->
-        <item name="colorAccent">@color/colorAccent</item>
-        <!--name and message color-->
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <!--dialog background-->
-        <item name="android:windowBackground">@drawable/bg_dialog</item>
-        <!-- inactive thumb color switch-->
-        <item name="colorSwitchThumbNormal">@color/white</item>
-        <!-- inactive track color switch-->
-        <item name="android:colorForeground">@color/grey400</item>
-    </style>
-
-
     <!--Preference Theme-->
     <style name="PrefsTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>

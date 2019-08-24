@@ -32,7 +32,6 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import com.dawnimpulse.wallup.BuildConfig
-import com.google.gson.Gson
 import org.json.JSONObject
 import java.io.File
 import java.math.BigInteger
@@ -226,11 +225,6 @@ fun SharedPreferences.putAny(name: String, any: Any) {
 
 fun SharedPreferences.remove(name:String){
     edit().remove(name).apply()
-}
-
-// to json
-fun toJson(data: Any): String {
-    return Gson().toJson(data)
 }
 
 // log messages

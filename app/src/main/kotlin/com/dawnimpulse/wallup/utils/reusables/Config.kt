@@ -17,8 +17,6 @@ package com.dawnimpulse.wallup.utils.reusables
 import android.content.SharedPreferences
 import android.os.Environment
 import com.dawnimpulse.wallup.BuildConfig
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 
 /**
  * @info -
@@ -32,13 +30,6 @@ import io.reactivex.disposables.Disposable
 object Config {
     const val WALLUP_URL = BuildConfig.WALLUP_URL
     val DEFAULT_DOWNLOAD_PATH = "${Environment.getExternalStorageDirectory().path}/WallUp"
-
-    val disposableCollectionsActivity by lazy { CompositeDisposable() }
-    val disposableHomescreenActivity by lazy { CompositeDisposable() }
-    val disposableRandomActivity by lazy { CompositeDisposable() }
-
-    val disposableWallupCollectionsViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
-    val disposableCollectionViewHolder: MutableMap<Int, Disposable> by lazy { mutableMapOf<Int, Disposable>() }
 
     var homeImages = mutableListOf<String>()
     var editorialImages = mutableListOf<String>()

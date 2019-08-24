@@ -18,9 +18,10 @@ import android.app.Application
 import android.preference.PreferenceManager
 import com.crashlytics.android.Crashlytics
 import com.dawnimpulse.wallup.utils.functions.putAny
-import com.dawnimpulse.wallup.utils.reusables.*
+import com.dawnimpulse.wallup.utils.reusables.ANALYTICS
+import com.dawnimpulse.wallup.utils.reusables.CRASHLYTICS
+import com.dawnimpulse.wallup.utils.reusables.Prefs
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.gson.Gson
 import io.fabric.sdk.android.Fabric
 
 /**
@@ -39,8 +40,6 @@ class App : Application() {
         super.onCreate()
 
         Prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        Config.homeImages = Gson().fromJson(Prefs.getString(HOME_IMAGES, "[]"), Array<String>::class.java).asList().toMutableList()
-        Config.editorialImages = Gson().fromJson(Prefs.getString(EDITORIAL_IMAGES, "[]"), Array<String>::class.java).asList().toMutableList()
 
         analytics()
 

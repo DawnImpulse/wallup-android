@@ -16,21 +16,14 @@ package com.dawnimpulse.wallup.utils.functions
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Point
 import android.net.Uri
 import android.os.Environment
 import android.view.WindowManager
 import com.dawnimpulse.wallup.utils.reusables.Config
-import com.google.gson.Gson
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.apache.commons.io.FileUtils
-import java.io.File
-import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 
@@ -63,11 +56,6 @@ object F {
         return (px / density).toInt()
     }
 
-    //convert to json
-    fun toJson(any: Any): String {
-        return Gson().toJson(any)
-    }
-
     // get display height
     fun displayDimensions(context: Context): Point {
         val point = Point()
@@ -77,43 +65,12 @@ object F {
         return point
     }
 
-    // get height based on screen width
-    fun getDynamicHeight(context: Context, screenWidth: Int, screenHeight: Int, width: Int, height: Int): Int {
-        val h = ((screenWidth - dpToPx(16, context)) * height) / width
-
-        return if (h > (screenHeight - dpToPx(48, context)))
-            screenHeight - dpToPx(48, context)
-        else
-            h
-    }
-
-    // if contains query add & otherwise ?
-    fun addQuery(url: String): String {
-        return if (url.contains("?"))
-            "$url&"
-        else
-            "$url?"
-    }
-
-    // add auto change listener
-    // used for scrolling images
-    fun publishInterval(): Observable<Int> {
-        return Observable.interval(10, TimeUnit.MILLISECONDS)
-                .subscribeOn(Schedulers.io())
-                .map { it.toInt() }
-    }
-
     //make dir
     fun mkdir() {
         if (Environment.getExternalStorageDirectory().exists()) {
             if (!Config.DEFAULT_DOWNLOAD_PATH.toFile().exists())
                 Config.DEFAULT_DOWNLOAD_PATH.toFile().mkdir()
         }
-    }
-
-    // get file
-    fun fileToBitmap(file: File): Bitmap {
-        return BitmapFactory.decodeFile(file.getAbsolutePath())
     }
 
     //calculate app cache
@@ -153,9 +110,8 @@ object F {
             string
     }
 
-    /**
-     * Generating random color
-     */
+
+    // Generating random color
     fun randomColor(): String {
         val chars = listOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
         var color = "#"

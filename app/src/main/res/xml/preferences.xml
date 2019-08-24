@@ -171,16 +171,16 @@
 
         </Preference>
 
-        <!--Cloudvry-->
+        <!--Unsplash-->
         <Preference
             android:selectable="true"
-            android:summary="The application is powered by cloudvry.com . Cloudvry is cloud content delivery Platform as a Service aiming to reduce friction between development &amp; production. Visit cloudvry.com for more details."
+            android:summary="The application is powered by Unsplash. Visit the great community of Unsplash to get over 1 Million+ image from a lot of wonderful photographers who made their public."
             android:title="Powered By"
             app:allowDividerAbove="false">
 
             <intent
                 android:action="android.intent.action.VIEW"
-                android:data="https://cloudvry.com" />
+                android:data="https://unsplash.com" />
 
         </Preference>
 
@@ -194,7 +194,7 @@
         <!--Me-->
         <Preference
             android:icon="@drawable/vd_account"
-            android:summary="Hii, I'm Saksham a full stack engineer with expertise in nodejs, android and html/css. Love to contribute to open source and hope you leave a good feedback if you love this application. Thanks"
+            android:summary="Hii, I'm Saksham a Full Stack &amp; DevOps engineer + Graphics Designer with expertise in Nodejs, Android, Server Operations &amp; designing mockups. Love to contribute to open source and hope you leave a good feedback if you love this application. Thanks"
             android:title="Saksham Khurana" />
 
         <!--Github-->
@@ -270,7 +270,7 @@
             android:icon="@drawable/vd_privacy"
             android:key="privacy"
             android:selectable="true"
-            android:summary="Review our app privacy policy"
+            android:summary="Review the app privacy policy"
             android:title="Privacy"
             app:allowDividerAbove="false"
             app:allowDividerBelow="false">

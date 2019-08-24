@@ -28,7 +28,6 @@ import com.dawnimpulse.wallup.utils.functions.toast
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.handlers.StorageHandler
 import com.google.common.util.concurrent.ListenableFuture
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.apache.commons.io.FileUtils
@@ -49,7 +48,6 @@ import java.util.*
 class AutoWallpaper(private val appContext: Context, workerParams: WorkerParameters) : ListenableWorker(appContext, workerParams) {
     private lateinit var wallpaperManager: WallpaperManager
     private lateinit var handler: Handler
-    private var compositeDisposable = CompositeDisposable()
 
     // ----------------
     //   start work
@@ -72,7 +70,6 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
     // ----------------
     override fun onStopped() {
         super.onStopped()
-        compositeDisposable.clear()
     }
 
 
