@@ -1,18 +1,28 @@
-![](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%201.jpg?alt=media&token=7d917b2b-edb5-4e4e-9ef3-627495997db3)
-![](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%202.jpg?alt=media&token=11299306-e2f2-422c-bf7d-4065fbfd2944)
-![](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%206.jpg?alt=media&token=50bbb4a7-ca9d-4fa0-876e-6350d2f6c4f4)
-[![play-store](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv1.0.0%2FWeb%201920%20%E2%80%93%207.jpg?alt=media&token=51873ed9-2af2-408e-ae32-bf7a666d9bcf)](https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup)
+[![play-store](https://wallup.sourcei.org/assets/meta-bg.png)](https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup)
 
-#### v1 Deprecation Notice
-Kindly note that the v1 is now completely deprecated and unsplash login feature will be removed from the future releases. If you wish to use the previous app kindly visit [this repository
-](https://github.com/dawnimpulse/wallup-android-deprecated.git). You will be able to download and use the previous version alongside the new version (package name is changed for previous one).
+#### Information
+WallUp a completely free application with no Ads at all, helps you to access over a million+ brilliant images directly from Unsplash right on your homescreen in form of wonderful wallpapers. Get access to high quality wallpapers from great community of Unsplash.
+
+#### Major Release
+- v1
+The first version of this application focused on being Unsplash client by providing you direct access to your profile on Unsplash and also allow you manage your likes & collections. [Download Here](https://github.com/dawnimpulse/wallup-android-deprecated)
+- v2
+The second major version was more curated images from variety of sources and feature 'Auto Wallpaper'. [Download Here](https://github.com/DawnImpulse/wallup-android/releases/tag/v2.1.0)
+- v3
+The current version features all images from Unsplash with 'One Tap' & 'Auto Wallpaper' features.
+
+> Note: You can keep version along with either v2 or v3
 
 #### Listing
 
 - [Google Play Store](https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup)
+- Direct
+ 	- [version 3 (latest)](https://github.com/DawnImpulse/wallup-android/releases/tag/v3.0.0)
+ 	- [version 2](https://github.com/DawnImpulse/wallup-android/releases/tag/v2.1.0)
+	- [version 1](https://github.com/dawnimpulse/wallup-android-deprecated)
 
 
-#### Information
+#### Contribution
 I would be very happy if you provide issues/suggestions as well as contribute to this project.
 
 > Pull requests are always welcomed (kindly sign commits with GPG keys. **THANKS**)
