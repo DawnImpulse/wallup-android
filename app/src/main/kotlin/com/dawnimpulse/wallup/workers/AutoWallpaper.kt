@@ -22,6 +22,7 @@ import android.os.Looper
 import androidx.concurrent.futures.CallbackToFutureAdapter
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
+import com.crashlytics.android.Crashlytics
 import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.logd
 import com.dawnimpulse.wallup.utils.functions.toast
@@ -32,7 +33,6 @@ import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.apache.commons.io.FileUtils
 import org.apache.commons.io.comparator.LastModifiedFileComparator
 import java.io.File
 import java.util.*
@@ -41,11 +41,12 @@ import java.util.*
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @note Last Branch Update - develop
  *
  * @note Created on 2019-06-14 by Saksham
  * @note Updates :
  *  Saksham - 2019 08 21 - master - caching for unsplash
+ *  Saksham - 2019 09 01 - develop - used normal file.delete with try/catch
  */
 class AutoWallpaper(private val appContext: Context, workerParams: WorkerParameters) : ListenableWorker(appContext, workerParams) {
     private lateinit var wallpaperManager: WallpaperManager
@@ -135,13 +136,24 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                     }
 
                     // delete the file
-                    FileUtils.deleteQuietly(file)
+                    try {
+                        file.delete()
+                    } catch (e: Exception) {
+                        Crashlytics.logException(e)
+                        e.printStackTrace()
+                    }
                     callback(true)
 
                 } else {
                     // bitmap is null
+
                     // delete the file
-                    FileUtils.deleteQuietly(file)
+                    try {
+                        file.delete()
+                    } catch (e: Exception) {
+                        Crashlytics.logException(e)
+                        e.printStackTrace()
+                    }
                     callback(false)
                 }
             }

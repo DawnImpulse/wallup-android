@@ -43,6 +43,7 @@ import java.io.File
  *
  * @note Created on 2019-08-18 by Saksham
  * @note Updates :
+ *  Saksham - 2019 09 01 - develop - bug fix : assign image to bitmap variable on app open
  */
 class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
     private var bitmap: Bitmap? = null
@@ -57,9 +58,10 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
         fabGradient()
 
         // check for temp image & apply
-        if (File(cacheDir, "homescreen.jpg").exists())
-            bgWallpaper.setImageBitmap(StorageHandler.getBitmapFromFile(File(cacheDir, "homescreen.jpg")))
-        else {
+        if (File(cacheDir, "homescreen.jpg").exists()) {
+            bitmap = StorageHandler.getBitmapFromFile(File(cacheDir, "homescreen.jpg"))
+            bgWallpaper.setImageBitmap(bitmap)
+        } else {
             // if no temp image then auto load image
             bitmap = null
             refreshing = true

@@ -83,7 +83,7 @@ class SettingsActivity : AppCompatActivity() {
                 else -> "7 days"
             }
             wallInterval.summary = "Change every $timing (tap to change)"
-            if (Prefs.getString("search", "").isEmpty())
+            if (Prefs.getString("search", "")!!.isEmpty())
                 search.title = "(no search term, will show random images)"
             else
                 search.title = Prefs.getString("search", "")

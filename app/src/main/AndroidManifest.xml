@@ -48,38 +48,13 @@
             android:value="false" />
 
 
-        <!--Homescreen-->
-        <activity
-            android:name=".ui.activities.HomescreenActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
-
         <!--Settings-->
         <activity
             android:name=".ui.activities.SettingsActivity"
             android:label="Settings"
             android:theme="@style/PrefsTheme" />
 
-        <!--Image Screen-->
-        <activity
-            android:name=".ui.activities.ImageActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
-
-        <!--Random Images-->
-        <activity
-            android:name=".ui.activities.RandomActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
-
-        <!--Vertical collection activity-->
-        <activity
-            android:name=".ui.activities.CollectionVerticalActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
-
-        <!--Tags activity-->
-        <activity
-            android:name=".ui.activities.TagActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
-
-        <!--Fullscreen activity-->
+        <!--Splash activity-->
         <activity
             android:name=".ui.activities.SplashActivity"
             android:theme="@style/AppTheme.Fullscreen">
@@ -93,7 +68,7 @@
         <!--Wallpaper activity-->
         <activity
             android:name=".ui.activities.WallpaperActivity"
-            android:theme="@style/AppTheme.Fullscreen"/>
+            android:theme="@style/AppTheme.Fullscreen" />
     </application>
 
 </manifest>
