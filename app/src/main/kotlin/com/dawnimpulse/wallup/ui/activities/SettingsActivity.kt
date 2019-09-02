@@ -8,6 +8,7 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import com.crashlytics.android.Crashlytics
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.functions.putAny
@@ -21,6 +22,15 @@ import com.dawnimpulse.wallup.workers.AutoWallpaper
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+/**
+ * @author Saksham
+ *
+ * @note Last Branch Update - develop
+ * @note Created on 2019-07 by Saksham
+ *
+ * @note Updates :
+ *  Saksham - 2019 09 02 - develop - clear cache on search term change + cache options
+ */
 class SettingsActivity : AppCompatActivity() {
 
     /**
@@ -137,6 +147,18 @@ class SettingsActivity : AppCompatActivity() {
 
                 // search
                 search -> {
+                    context!!.toast("will start showing new wallpapers on next refresh")
+
+                    // clear cached images
+                    val files = context!!.filesDir.listFiles().filter { it.name.contains(".jpg") }.toTypedArray()
+                    try {
+                        files.forEach { it.delete() }
+                    } catch (e: Exception) {
+                        Crashlytics.logException(e)
+                        e.printStackTrace()
+                    }
+
+                    // change title
                     if (newValue.toString().isEmpty())
                         search.title = "(no search term, will show random images)"
                     else
