@@ -29,16 +29,13 @@
     </string-array>
 
     <!--Download Quality-->
-    <string-array name="download_quality">
-        <item>Full HD</item>
-        <item>Ultra HD</item>
-        <item>Original</item>
+    <string-array name="cached_number">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>25</item>
+        <item>50</item>
     </string-array>
 
-    <!--Download Quality Values-->
-    <string-array name="download_quality_values">
-        <item>1080</item>
-        <item>2160</item>
-        <item>0</item>
-    </string-array>
+
 </resources>

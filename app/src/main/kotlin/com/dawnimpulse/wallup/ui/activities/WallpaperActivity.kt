@@ -94,7 +94,7 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             settings.id -> {
-                openActivity(CacheActivity::class.java)
+                openActivity(SettingsActivity::class.java)
             }
 
             setWallpaper.id -> {

@@ -13,47 +13,38 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.utils.functions
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.graphics.Point
-import android.net.Uri
 import android.os.Environment
 import android.view.WindowManager
+import com.crashlytics.android.Crashlytics
+import com.dawnimpulse.wallup.utils.reusables.CACHED
 import com.dawnimpulse.wallup.utils.reusables.Config
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.apache.commons.io.FileUtils
+import org.apache.commons.io.comparator.LastModifiedFileComparator
+import java.io.File
+import java.util.*
 import kotlin.random.Random
 
 
 /**
  * @author Saksham
  *
- * @note Last Branch Update - recent
+ * @note Last Branch Update - develop
  * @note Created on 2019-06-10 by Saksham
  *
  * @note Updates :
  * Saksham - 2019 08 18 - master - random color
  * Saksham - 2019 08 20 - master - generate shortid
+ * Saksham - 2019 09 02 - develop - delete cached + dynamic height
  */
 object F {
-
-    // start intent
-    fun startWeb(context: Context, string: String) {
-        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(string)))
-    }
 
     // convert dp - px
     fun dpToPx(dp: Int, context: Context): Int {
         val density = context.resources.displayMetrics.density
         return (dp * density).toInt()
-    }
-
-    // convert px - dp
-    fun pxToDp(px: Int, context: Context): Int {
-        val density = context.resources.displayMetrics.density
-        return (px / density).toInt()
     }
 
     // get display height
@@ -73,43 +64,6 @@ object F {
         }
     }
 
-    //calculate app cache
-    fun appCache(context: Context, callback: (String) -> Unit) {
-        GlobalScope.launch {
-            try {
-                val size = FileUtils.sizeOfDirectory(context.cacheDir)
-                (context as Activity).runOnUiThread {
-                    callback(FileUtils.byteCountToDisplaySize(size))
-                }
-            } catch (e: Exception) {
-                (context as Activity).runOnUiThread {
-                    callback("- MB")
-                }
-            }
-        }
-    }
-
-    //delete app cache
-    fun deleteCache(context: Context) {
-        GlobalScope.launch {
-            FileUtils.deleteQuietly(context.cacheDir)
-        }
-    }
-
-    // capital letter word
-    fun capWord(string: String): String {
-        return if (string.isNotEmpty()) {
-            val result = StringBuilder(string.length)
-            val words = string.split("\\ ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            for (i in words.indices) {
-                if (words[i].isNotEmpty())
-                    result.append(Character.toUpperCase(words[i][0])).append(words[i].substring(1)).append(" ")
-            }
-            result.toString()
-        } else
-            string
-    }
-
     // get height based on screen width
     fun getDynamicHeight(context: Context, screenWidth: Int, screenHeight: Int, width: Int, height: Int): Int {
         val h = ((screenWidth - dpToPx(16, context)) * height) / width
@@ -119,7 +73,6 @@ object F {
         else
             h
     }
-
 
     // Generating random color
     fun randomColor(): String {
@@ -138,5 +91,40 @@ object F {
                 .map { Random.nextInt(0, charPool.size) }
                 .map(charPool::get)
                 .joinToString("")
+    }
+
+    // delete extra cached images
+    fun deleteCached(context: Context, amount: Int) {
+
+        GlobalScope.launch {
+            // files dir
+            val file = File(context.filesDir, CACHED)
+
+            // check count of cached images
+            if (file.listFiles().size > amount) {
+                val files = file.listFiles().filter { it.name.contains(".jpg") }.toTypedArray()
+                Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_COMPARATOR)
+
+                // number of images to delete
+                val deleteCount = files.size - amount
+
+                // delete files
+                files.forEachIndexed { index, file ->
+
+                    if (index < deleteCount) {
+
+                        // deleting file
+                        try {
+                            file.delete()
+                        } catch (e: Exception) {
+                            Crashlytics.logException(e)
+                            e.printStackTrace()
+                        }
+                    }
+                }
+
+                logd("deleted $deleteCount cached images")
+            }
+        }
     }
 }

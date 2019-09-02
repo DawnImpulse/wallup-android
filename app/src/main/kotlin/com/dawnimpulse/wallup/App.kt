@@ -18,10 +18,7 @@ import android.app.Application
 import android.preference.PreferenceManager
 import com.crashlytics.android.Crashlytics
 import com.dawnimpulse.wallup.utils.functions.putAny
-import com.dawnimpulse.wallup.utils.reusables.ANALYTICS
-import com.dawnimpulse.wallup.utils.reusables.CACHED
-import com.dawnimpulse.wallup.utils.reusables.CRASHLYTICS
-import com.dawnimpulse.wallup.utils.reusables.Prefs
+import com.dawnimpulse.wallup.utils.reusables.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.fabric.sdk.android.Fabric
 import java.io.File
@@ -47,9 +44,13 @@ class App : Application() {
         // set analytics
         analytics()
 
-        // check search terms
+        // default search terms
         if (!Prefs.contains("search"))
             Prefs.putAny("search", "nature,landscape")
+
+        // default cache images
+        if (!Prefs.contains(CACHE_NUMBER))
+            Prefs.putAny(CACHE_NUMBER, "25")
 
         // make cached dir
         if (!File(filesDir, CACHED).exists())

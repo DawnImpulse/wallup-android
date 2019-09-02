@@ -97,6 +97,21 @@
             android:title="Change image during view"
             app:iconSpaceReserved="true" />
 
+        <!--Clear All Cache-->
+
+        <!--Cache Limit-->
+        <ListPreference
+            android:defaultValue="25"
+            android:dialogTitle="Select amount of images to store in cache"
+            android:entries="@array/cached_number"
+            android:entryValues="@array/cached_number"
+            android:key="cacheNumber"
+            android:summary="Caching upto 25 images"
+            android:title="No of cached images"
+            app:iconSpaceReserved="true" />
+
+        <!--View Cached Images-->
+
     </PreferenceCategory>
 
     <!--Search-->

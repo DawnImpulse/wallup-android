@@ -11,13 +11,11 @@ import androidx.work.WorkManager
 import com.crashlytics.android.Crashlytics
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.putAny
 import com.dawnimpulse.wallup.utils.functions.remove
 import com.dawnimpulse.wallup.utils.functions.toast
-import com.dawnimpulse.wallup.utils.reusables.ANALYTICS
-import com.dawnimpulse.wallup.utils.reusables.AUTO_WALLPAPER
-import com.dawnimpulse.wallup.utils.reusables.CRASHLYTICS
-import com.dawnimpulse.wallup.utils.reusables.Prefs
+import com.dawnimpulse.wallup.utils.reusables.*
 import com.dawnimpulse.wallup.workers.AutoWallpaper
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -58,6 +56,7 @@ class SettingsActivity : AppCompatActivity() {
         private lateinit var analytics: SwitchPreference
         private lateinit var wallChange: SwitchPreference
         private lateinit var search: EditTextPreference
+        private lateinit var cacheNumber: ListPreference
 
         /**
          * set preference layout
@@ -73,6 +72,7 @@ class SettingsActivity : AppCompatActivity() {
             analytics = findPreference("analytics")!!
             wallChange = findPreference("wallChange")!!
             search = findPreference("search")!!
+            cacheNumber = findPreference(CACHE_NUMBER)!!
 
             // setting application version
             findPreference<Preference>("version")!!.summary = "v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
@@ -92,16 +92,24 @@ class SettingsActivity : AppCompatActivity() {
                 4320.toLong() -> "3 days"
                 else -> "7 days"
             }
+
             wallInterval.summary = "Change every $timing (tap to change)"
+
+            // search text
             if (Prefs.getString("search", "")!!.isEmpty())
                 search.title = "(no search term, will show random images)"
             else
                 search.title = Prefs.getString("search", "")
 
+            // cached number of images
+            cacheNumber.summary = "Caching upto ${Prefs.getString(CACHE_NUMBER, "25")} images"
+
+            // listeners
             wallStatus.onPreferenceChangeListener = this
             wallInterval.onPreferenceChangeListener = this
             wallWifi.onPreferenceChangeListener = this
             search.onPreferenceChangeListener = this
+            cacheNumber.onPreferenceChangeListener = this
 
         }
 
@@ -163,6 +171,13 @@ class SettingsActivity : AppCompatActivity() {
                         search.title = "(no search term, will show random images)"
                     else
                         search.title = newValue.toString()
+                }
+
+                // cache number
+                cacheNumber -> {
+                    val amount = (newValue as String).toInt()
+                    F.deleteCached(context!!,amount)
+                    cacheNumber.summary = "Caching upto $amount images"
                 }
 
             }
