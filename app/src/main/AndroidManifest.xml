@@ -69,6 +69,11 @@
         <activity
             android:name=".ui.activities.WallpaperActivity"
             android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--Cache Activity-->
+        <activity
+            android:name=".ui.activities.CacheActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
     </application>
 
 </manifest>

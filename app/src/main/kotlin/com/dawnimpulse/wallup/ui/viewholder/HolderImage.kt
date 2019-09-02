@@ -16,7 +16,9 @@ package com.dawnimpulse.wallup.ui.viewholder
 
 import android.graphics.BitmapFactory
 import android.view.View
+import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.utils.functions.F
 import kotlinx.android.synthetic.main.inflator_image.view.*
 import java.io.File
 
@@ -31,6 +33,7 @@ import java.io.File
  */
 class HolderImage(view: View) : RecyclerView.ViewHolder(view) {
     private val image = view.inflatorImage
+    private val layout = view.imageLayout
     private val context = view.context
 
     // get bitmap from file & display
@@ -38,7 +41,20 @@ class HolderImage(view: View) : RecyclerView.ViewHolder(view) {
         val bitmap = BitmapFactory.decodeFile(file.path)
 
         bitmap?.let {
+
+            // calculating dynamic height
+            val point = F.displayDimensions(context)
+            val width = point.x / 2
+            val height = F.getDynamicHeight(context, point.x / 2, point.y, bitmap.width, bitmap.height)
+
+            // change layout parameters based on image
+            layout.layoutParams = FrameLayout.LayoutParams(width - F.dpToPx(4, context), height)
+            image.layoutParams = FrameLayout.LayoutParams(width - F.dpToPx(8, context), height)
+
+            // set bitmap
             image.setImageBitmap(it)
+
+            // handle image click
             image.setOnClickListener {
 
             }

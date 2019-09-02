@@ -57,6 +57,7 @@ const val ANALYTICS = "analytics"
 const val RANDOM = "random"
 const val AUTO_WALLPAPER_FEATURE = "autoWallpaperFeature"
 const val WALL_CHANGE = "wallChange"
+const val CACHED = "cached"
 
 const val FAIL_LOAD_MORE = "failLoadMore"
 const val FAIL_LOAD_MORE_V = "failLoadMoreV"

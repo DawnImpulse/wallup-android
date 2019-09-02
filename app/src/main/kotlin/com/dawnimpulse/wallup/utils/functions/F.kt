@@ -110,6 +110,16 @@ object F {
             string
     }
 
+    // get height based on screen width
+    fun getDynamicHeight(context: Context, screenWidth: Int, screenHeight: Int, width: Int, height: Int): Int {
+        val h = ((screenWidth - dpToPx(16, context)) * height) / width
+
+        return if (h > (screenHeight - dpToPx(48, context)))
+            screenHeight - dpToPx(48, context)
+        else
+            h
+    }
+
 
     // Generating random color
     fun randomColor(): String {

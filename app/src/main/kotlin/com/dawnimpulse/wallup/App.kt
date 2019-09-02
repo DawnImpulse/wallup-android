@@ -19,19 +19,22 @@ import android.preference.PreferenceManager
 import com.crashlytics.android.Crashlytics
 import com.dawnimpulse.wallup.utils.functions.putAny
 import com.dawnimpulse.wallup.utils.reusables.ANALYTICS
+import com.dawnimpulse.wallup.utils.reusables.CACHED
 import com.dawnimpulse.wallup.utils.reusables.CRASHLYTICS
 import com.dawnimpulse.wallup.utils.reusables.Prefs
 import com.google.firebase.analytics.FirebaseAnalytics
 import io.fabric.sdk.android.Fabric
+import java.io.File
 
 /**
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @note Last Branch Update - develop
  *
  * @note Created on 2019-06-10 by Saksham
  * @note Updates :
+ *  Saksham - 2019 09 02 - develop -
  */
 class App : Application() {
 
@@ -41,10 +44,16 @@ class App : Application() {
 
         Prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
+        // set analytics
         analytics()
 
-        if(!Prefs.contains("search"))
-            Prefs.putAny("search","nature,landscape")
+        // check search terms
+        if (!Prefs.contains("search"))
+            Prefs.putAny("search", "nature,landscape")
+
+        // make cached dir
+        if (!File(filesDir, CACHED).exists())
+            File(filesDir, CACHED).mkdir()
     }
 
     // enabling crashlytics in release builds

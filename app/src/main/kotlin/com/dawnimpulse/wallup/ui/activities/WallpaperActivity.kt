@@ -26,6 +26,7 @@ import com.dawnimpulse.wallup.utils.functions.*
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.handlers.StorageHandler
 import com.dawnimpulse.wallup.utils.handlers.WallpaperHandler
+import com.dawnimpulse.wallup.utils.reusables.CACHED
 import com.dawnimpulse.wallup.utils.reusables.Config
 import com.dawnimpulse.wallup.utils.reusables.Prefs
 import com.dawnimpulse.wallup.utils.reusables.WALL_CHANGE
@@ -39,11 +40,12 @@ import java.io.File
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @note Last Branch Update - develop
  *
  * @note Created on 2019-08-18 by Saksham
  * @note Updates :
  *  Saksham - 2019 09 01 - develop - bug fix : assign image to bitmap variable on app open
+ *  Saksham - 2019 09 02 - develop - save bitmap in cache dir
  */
 class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
     private var bitmap: Bitmap? = null
@@ -92,7 +94,7 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             settings.id -> {
-                openActivity(SettingsActivity::class.java)
+                openActivity(CacheActivity::class.java)
             }
 
             setWallpaper.id -> {
@@ -175,6 +177,10 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
 
                     // save bitmap in temp directory
                     StorageHandler.storeBitmapInFile(it, File(cacheDir, "homescreen.jpg"))
+
+                    // save bitmap in cached directory
+                    val cached = File(filesDir, CACHED)
+                    StorageHandler.storeBitmapInFile(it, File(cached, "${F.shortid()}.jpg"))
 
                     // change wallpaper if allowed
                     if (Prefs.getBoolean(WALL_CHANGE, false))
