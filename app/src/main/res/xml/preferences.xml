@@ -140,7 +140,6 @@
         <!--Info-->
         <Preference
             android:icon="@drawable/vd_lib"
-            android:key="terms"
             android:selectable="false"
             android:summary="Various libraries &amp; icons used in this application with their license &amp; source links"
             app:allowDividerAbove="false"

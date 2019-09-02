@@ -4,11 +4,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.dawnimpulse.wallup"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode version_code
         versionName version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -27,8 +27,8 @@ android {
             buildConfigField "String", "WALLUP_URL", "\"${WALLUP_RELEASE_URL}\""
             buildConfigField "String", "WALLUP_API_KEY", "\"${WALLUP_API_KEY_RELEASE}\""
 
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

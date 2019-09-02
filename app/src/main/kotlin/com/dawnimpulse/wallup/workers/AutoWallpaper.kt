@@ -68,19 +68,11 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
         }
     }
 
-    // ----------------
-    //   stop work
-    // ----------------
-    override fun onStopped() {
-        super.onStopped()
-    }
-
-
     // -----------------------------
     //   wallpaper change handling
     // -----------------------------
     private fun wallpaperChange(callback: (Boolean) -> Unit) {
-        val files = appContext.filesDir.listFiles()
+        val files = appContext.filesDir.listFiles().filter { it.name.contains(".jpg") }.toTypedArray()
         Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_COMPARATOR)
 
         // if < 3 wallpaper available in cache then get more
@@ -93,7 +85,7 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                 }
             } else {
                 // no images available in cache, get some & then set wallpaper
-                wallpaperCaching(3) {
+                wallpaperCaching(1) {
                     // after images are fetched
                     val files = appContext.filesDir.listFiles()
 
@@ -114,7 +106,7 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
     //   set wallpaper
     // -------------------
     private fun setWallpaper(callback: (Boolean) -> Unit) {
-        val files = appContext.filesDir.listFiles()
+        val files = appContext.filesDir.listFiles().filter { it.name.contains(".jpg") }.toTypedArray()
         Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_COMPARATOR)
 
         val file = files[0]
@@ -132,7 +124,8 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                     StorageHandler.storeBitmapInFile(bitmap, File(appContext.cacheDir, "homescreen.jpg"))
 
                     handler.post {
-                        appContext.toast("wallpaper changed")
+                        if (Prefs.getString("wallInterval", "1440")!!.toLong() > 30.toLong())
+                            appContext.toast("wallpaper changed")
                     }
 
                     // delete the file
@@ -146,7 +139,6 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
 
                 } else {
                     // bitmap is null
-
                     // delete the file
                     try {
                         file.delete()
