@@ -97,8 +97,6 @@
             android:title="Change image during view"
             app:iconSpaceReserved="true" />
 
-        <!--Clear All Cache-->
-
         <!--Cache Limit-->
         <ListPreference
             android:defaultValue="25"
@@ -110,20 +108,38 @@
             android:title="No of cached images"
             app:iconSpaceReserved="true" />
 
-        <!--View Cached Images-->
+        <!--Clear All Cache-->
+        <Preference
+            android:key="deleteCache"
+            android:title="Clear All Cache"
+            app:summary="Delete all cached images ?" />
 
     </PreferenceCategory>
 
-    <!--Search-->
+    <!--Images-->
     <PreferenceCategory
         android:summary=""
-        android:title="Filter images (enter search terms separated by , )"
+        android:title="Images"
         app:iconSpaceReserved="false">
 
+        <!--Filter Images-->
         <EditTextPreference
             android:defaultValue="nature,landscape"
-            android:title="Search Terms"
-            android:key="search" />
+            android:key="search"
+            android:title="Filter images (enter search terms separated by ,comma)"
+            app:summary="Search Terms" />
+
+        <!--View Cached Images-->
+        <Preference
+            android:selectable="true"
+            android:summary="Check all the recent cached images from homescreen &amp; Auto Wallpaper"
+            android:title="Cached Images">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetClass="com.dawnimpulse.wallup.ui.activities.CacheActivity"
+                android:targetPackage="com.dawnimpulse.wallup" />
+        </Preference>
 
     </PreferenceCategory>
 

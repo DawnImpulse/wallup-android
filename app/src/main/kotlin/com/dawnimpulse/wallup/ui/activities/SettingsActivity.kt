@@ -1,5 +1,6 @@
 package com.dawnimpulse.wallup.ui.activities
 
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -15,6 +16,7 @@ import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.putAny
 import com.dawnimpulse.wallup.utils.functions.remove
 import com.dawnimpulse.wallup.utils.functions.toast
+import com.dawnimpulse.wallup.utils.handlers.DialogHandler
 import com.dawnimpulse.wallup.utils.reusables.*
 import com.dawnimpulse.wallup.workers.AutoWallpaper
 import java.util.*
@@ -57,6 +59,7 @@ class SettingsActivity : AppCompatActivity() {
         private lateinit var wallChange: SwitchPreference
         private lateinit var search: EditTextPreference
         private lateinit var cacheNumber: ListPreference
+        private lateinit var cacheClear: Preference
 
         /**
          * set preference layout
@@ -73,6 +76,7 @@ class SettingsActivity : AppCompatActivity() {
             wallChange = findPreference("wallChange")!!
             search = findPreference("search")!!
             cacheNumber = findPreference(CACHE_NUMBER)!!
+            cacheClear = findPreference(DELETE_CACHE)!!
 
             // setting application version
             findPreference<Preference>("version")!!.summary = "v${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})"
@@ -97,9 +101,9 @@ class SettingsActivity : AppCompatActivity() {
 
             // search text
             if (Prefs.getString("search", "")!!.isEmpty())
-                search.title = "(no search term, will show random images)"
+                search.summary = "(no search term, will show random images)"
             else
-                search.title = Prefs.getString("search", "")
+                search.summary = Prefs.getString("search", "")
 
             // cached number of images
             cacheNumber.summary = "Caching upto ${Prefs.getString(CACHE_NUMBER, "25")} images"
@@ -110,6 +114,15 @@ class SettingsActivity : AppCompatActivity() {
             wallWifi.onPreferenceChangeListener = this
             search.onPreferenceChangeListener = this
             cacheNumber.onPreferenceChangeListener = this
+
+            // clear cache listener
+            cacheClear.setOnPreferenceClickListener {
+                DialogHandler.simpleOk(context!!, "Clear cache", "Wish to clear all images in cache ?", DialogInterface.OnClickListener { _, _ ->
+                    F.deleteAllCached(context!!)
+                    context!!.toast("cleared cache")
+                })
+                true
+            }
 
         }
 
@@ -168,15 +181,15 @@ class SettingsActivity : AppCompatActivity() {
 
                     // change title
                     if (newValue.toString().isEmpty())
-                        search.title = "(no search term, will show random images)"
+                        search.summary = "(no search term, will show random images)"
                     else
-                        search.title = newValue.toString()
+                        search.summary = newValue.toString()
                 }
 
                 // cache number
                 cacheNumber -> {
                     val amount = (newValue as String).toInt()
-                    F.deleteCached(context!!,amount)
+                    F.deleteCached(context!!, amount)
                     cacheNumber.summary = "Caching upto $amount images"
                 }
 

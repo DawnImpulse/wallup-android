@@ -26,10 +26,7 @@ import com.dawnimpulse.wallup.utils.functions.*
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.handlers.StorageHandler
 import com.dawnimpulse.wallup.utils.handlers.WallpaperHandler
-import com.dawnimpulse.wallup.utils.reusables.CACHED
-import com.dawnimpulse.wallup.utils.reusables.Config
-import com.dawnimpulse.wallup.utils.reusables.Prefs
-import com.dawnimpulse.wallup.utils.reusables.WALL_CHANGE
+import com.dawnimpulse.wallup.utils.reusables.*
 import kotlinx.android.synthetic.main.activity_wallpaper.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -181,6 +178,9 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
                     // save bitmap in cached directory
                     val cached = File(filesDir, CACHED)
                     StorageHandler.storeBitmapInFile(it, File(cached, "${F.shortid()}.jpg"))
+
+                    // if extra images in cached then delete them
+                    F.deleteCached(this, Prefs.getString(CACHE_NUMBER, "25")!!.toInt())
 
                     // change wallpaper if allowed
                     if (Prefs.getBoolean(WALL_CHANGE, false))

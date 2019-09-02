@@ -127,4 +127,26 @@ object F {
             }
         }
     }
+
+
+    // delete all cached images
+    fun deleteAllCached(context: Context) {
+
+        GlobalScope.launch {
+            // files dir
+            try {
+                File(context.filesDir, CACHED).listFiles().forEach { it.delete() }
+                context.filesDir.listFiles().forEach {
+                    // only delete files (images)
+                    if(!it.isDirectory)
+                    it.delete()
+                }
+            } catch (e: Exception) {
+                Crashlytics.logException(e)
+                e.printStackTrace()
+            } finally {
+                logd("all cached images removed")
+            }
+        }
+    }
 }

@@ -28,6 +28,8 @@ import com.dawnimpulse.wallup.utils.functions.logd
 import com.dawnimpulse.wallup.utils.functions.toast
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.handlers.StorageHandler
+import com.dawnimpulse.wallup.utils.reusables.CACHED
+import com.dawnimpulse.wallup.utils.reusables.CACHE_NUMBER
 import com.dawnimpulse.wallup.utils.reusables.Prefs
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.GlobalScope
@@ -85,9 +87,9 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                 }
             } else {
                 // no images available in cache, get some & then set wallpaper
-                wallpaperCaching(1) {
+                wallpaperCaching(2) {
                     // after images are fetched
-                    val files = appContext.filesDir.listFiles()
+                    val files = appContext.filesDir.listFiles().filter { it.name.contains(".jpg") }
 
                     // if wallpapers are cached
                     if (files.isNotEmpty())
@@ -120,8 +122,15 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                     // set bitmap and increment lastWall
                     wallpaperManager.setBitmap(bitmap)
 
-                    // save bitmap as cache file
+                    // save bitmap for homescreen cache
                     StorageHandler.storeBitmapInFile(bitmap, File(appContext.cacheDir, "homescreen.jpg"))
+
+                    // save bitmap in cached directory
+                    val cached = File(appContext.filesDir, CACHED)
+                    StorageHandler.storeBitmapInFile(bitmap, File(cached, "${F.shortid()}.jpg"))
+
+                    // if extra images in cached then delete them
+                    F.deleteCached(appContext, Prefs.getString(CACHE_NUMBER, "25")!!.toInt())
 
                     handler.post {
                         if (Prefs.getString("wallInterval", "1440")!!.toLong() > 30.toLong())

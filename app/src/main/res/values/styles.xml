@@ -41,4 +41,18 @@
         <item name="android:background">@color/black</item>
     </style>
 
+    <!--DialogHandler theme-->
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!--buttons color-->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--title and message color-->
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <!--dialog background-->
+        <item name="android:windowBackground">@drawable/bg_dialog</item>
+        <!-- inactive thumb color switch-->
+        <item name="colorSwitchThumbNormal">@color/white</item>
+        <!-- inactive track color switch-->
+        <item name="android:colorForeground">@color/grey400</item>
+    </style>
+
 </resources>
