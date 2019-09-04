@@ -16,6 +16,7 @@ package com.dawnimpulse.wallup.utils.handlers
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import com.crashlytics.android.Crashlytics
 import java.io.File
 import java.io.FileOutputStream
 
@@ -24,10 +25,11 @@ import java.io.FileOutputStream
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - master
+ * @note Last Branch Update - develop
  *
  * @note Created on 2019-06-15 by Saksham
  * @note Updates :
+ *  Saksham - 2019 09 04 - develop - store bitmap with callback
  */
 object StorageHandler {
 
@@ -42,9 +44,27 @@ object StorageHandler {
             fOut.flush()
             fOut.close()
         } catch (e: Exception) {
+            Crashlytics.logException(e)
             e.printStackTrace()
         }
+    }
 
+    // ------------------------------
+    //   store bitmap with callback
+    // ------------------------------
+    fun storeBitmapWithCallback(bitmap: Bitmap, file: File, callback: (Boolean) -> Unit) {
+
+        try {
+            val fOut = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 95, fOut)
+            fOut.flush()
+            fOut.close()
+            callback(true)
+        } catch (e: Exception) {
+            Crashlytics.logException(e)
+            e.printStackTrace()
+            callback(false)
+        }
     }
 
     // -------------------------

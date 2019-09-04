@@ -16,7 +16,6 @@ package com.dawnimpulse.wallup.utils.reusables
 
 import android.content.SharedPreferences
 import android.os.Environment
-import com.dawnimpulse.wallup.BuildConfig
 
 /**
  * @info -
@@ -28,11 +27,7 @@ import com.dawnimpulse.wallup.BuildConfig
  * @note Updates :
  */
 object Config {
-    const val WALLUP_URL = BuildConfig.WALLUP_URL
     val DEFAULT_DOWNLOAD_PATH = "${Environment.getExternalStorageDirectory().path}/WallUp"
-
-    var homeImages = mutableListOf<String>()
-    var editorialImages = mutableListOf<String>()
 }
 
 lateinit var Prefs: SharedPreferences

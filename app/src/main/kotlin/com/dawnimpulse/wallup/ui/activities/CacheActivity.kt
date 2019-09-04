@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.adapter.AdapterImage
+import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.gone
 import com.dawnimpulse.wallup.utils.reusables.CACHED
 import kotlinx.android.synthetic.main.activity_cache.*
@@ -35,6 +36,7 @@ import java.util.*
  *
  * @note Created on 2019-09-02 by Saksham
  * @note Updates :
+ *  Saksham - 2019 09 04 - develop - remove duplicates
  */
 class CacheActivity : AppCompatActivity() {
 
@@ -43,7 +45,9 @@ class CacheActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cache)
 
-        val files = File(filesDir, CACHED).listFiles().filter { it.name.contains(".jpg") }.toTypedArray()
+        F.removeDuplicates(filesDir.listFiles().toList())
+
+        val files = File(filesDir, CACHED).listFiles().filter { it.name.contains(".jpg") }.distinctBy { F.calculateMD5(it) }.toTypedArray()
         Arrays.sort(files, LastModifiedFileComparator.LASTMODIFIED_REVERSE)
 
         if (files.isNotEmpty()) {

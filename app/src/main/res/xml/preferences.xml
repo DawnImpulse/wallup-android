@@ -120,7 +120,7 @@
         <Preference
             android:selectable="true"
             android:summary="Check all the recent cached images from homescreen &amp; Auto Wallpaper"
-            android:title="Cached Images">
+            android:title="Recent Cached Images">
 
             <intent
                 android:action="android.intent.action.VIEW"

@@ -241,7 +241,7 @@ class SettingsActivity : AppCompatActivity() {
             }
             wallInterval.summary = "Change every $timing (tap to change)"
 
-            context!!.toast("please wait few minutes for wallpapers to cache on device")
+            context!!.toast("please wait few minutes for wallpapers to download on device")
         }
     }
 }

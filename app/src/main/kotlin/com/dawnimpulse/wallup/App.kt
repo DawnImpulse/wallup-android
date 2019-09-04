@@ -17,6 +17,7 @@ package com.dawnimpulse.wallup
 import android.app.Application
 import android.preference.PreferenceManager
 import com.crashlytics.android.Crashlytics
+import com.dawnimpulse.wallup.utils.functions.F
 import com.dawnimpulse.wallup.utils.functions.putAny
 import com.dawnimpulse.wallup.utils.reusables.*
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -55,6 +56,8 @@ class App : Application() {
         // make cached dir
         if (!File(filesDir, CACHED).exists())
             File(filesDir, CACHED).mkdir()
+
+        F.removeDuplicates(filesDir.listFiles().toList())
     }
 
     // enabling crashlytics in release builds

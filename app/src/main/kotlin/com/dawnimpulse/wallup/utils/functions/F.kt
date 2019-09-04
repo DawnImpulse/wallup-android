@@ -13,6 +13,7 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.utils.functions
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Point
@@ -25,6 +26,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.apache.commons.io.comparator.LastModifiedFileComparator
 import java.io.File
+import java.security.MessageDigest
 import java.util.*
 import kotlin.random.Random
 
@@ -152,7 +154,7 @@ object F {
     }
 
     // verify two bitmaps
-    fun compareBitmaps(context: Context, b1: Bitmap?, b2: Bitmap?, callback: (Boolean) -> Unit) {
+    fun compareBitmaps(b1: Bitmap?, b2: Bitmap?, callback: (Boolean) -> Unit) {
 
         if (b1 == null || b2 == null) {
             callback(false)
@@ -166,5 +168,87 @@ object F {
                     callback(false)
                 }
             }
+    }
+
+    // verify file size for wallpaper
+    fun verifyFileWallpaper(file: File, files: List<File>, callback: (Boolean) -> Unit) {
+
+        var deleted = false
+
+        GlobalScope.launch {
+            for (f in files) {
+
+                // check cache directory as well
+                if (f.isDirectory) {
+                    for (ff in f.listFiles()) {
+                        if (file.exists() && ff.exists()) {
+                            val fic = calculateMD5(file)
+                            val ffc = calculateMD5(ff)
+
+                            if (fic != null && ffc != null && fic == ffc && file.name != ff.name) {
+                                file.delete()
+                                deleted = true
+                                break
+                            }
+                        }
+                    }
+                } else {
+
+                    if (file.exists() && f.exists()) {
+                        val fic = calculateMD5(file)
+                        val fc = calculateMD5(f)
+
+                        if (fic != null && fc != null && fic == fc && file.name != f.name) {
+                            file.delete()
+                            deleted = true
+                            break
+                        }
+                    }
+                }
+            }
+            callback(deleted)
+        }
+
+
+    }
+
+    // remove duplicates
+    fun removeDuplicates(files: List<File>) {
+        GlobalScope.launch {
+            try {
+                for (f in files) {
+                    if (f.isDirectory) {
+                        for (ff in f.listFiles())
+                            verifyFileWallpaper(ff, f.listFiles().toList()) {}
+                    } else
+                        verifyFileWallpaper(f, files) {}
+                }
+            } catch (e: Exception) {
+                Crashlytics.logException(e)
+                e.printStackTrace()
+            }
+        }
+    }
+
+    // md5 of a file
+    @SuppressLint("DefaultLocale")
+    fun calculateMD5(file: File): String? {
+        try {
+            val md = MessageDigest.getInstance("MD5")
+            md.update(file.readBytes())
+            val digest = md.digest()
+
+            // Create Hex String
+            val hexString = StringBuilder()
+            for (aMessageDigest in digest) {
+                var h = Integer.toHexString(0xFF and aMessageDigest.toInt())
+                while (h.length < 2)
+                    h = "0$h"
+                hexString.append(h)
+            }
+            return hexString.toString().toUpperCase()
+        } catch (e: Exception) {
+            return null
+        }
     }
 }

@@ -168,7 +168,7 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
         ImageHandler.getBitmapWallpaper(this, "https://source.unsplash.com/random/1440x3040/?${Prefs.getString("search", "")}") {
             runOnUiThread {
                 if (it != null) {
-                    F.compareBitmaps(this, it, bitmap) { com ->
+                    F.compareBitmaps(it, bitmap) { com ->
                         runOnUiThread {
                             if (com)
                                 getImage() // get image again if received the same one

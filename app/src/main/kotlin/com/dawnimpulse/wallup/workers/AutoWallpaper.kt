@@ -16,7 +16,6 @@ package com.dawnimpulse.wallup.workers
 
 import android.app.WallpaperManager
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Handler
 import android.os.Looper
@@ -55,13 +54,16 @@ import java.util.*
 class AutoWallpaper(private val appContext: Context, workerParams: WorkerParameters) : ListenableWorker(appContext, workerParams) {
     private lateinit var wallpaperManager: WallpaperManager
     private lateinit var handler: Handler
-    private var bitmap: Bitmap? = null
 
     // ----------------
     //   start work
     // ----------------
     override fun startWork(): ListenableFuture<Result> {
         return CallbackToFutureAdapter.getFuture { completer ->
+
+            // remove duplicates
+            F.removeDuplicates(appContext.filesDir.listFiles().toList())
+
             wallpaperManager = WallpaperManager.getInstance(appContext)
             handler = Handler(Looper.getMainLooper())
             wallpaperChange {
@@ -173,26 +175,37 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
     // ----------------------------
     private fun wallpaperCaching(count: Int, callback: () -> Unit) {
         GlobalScope.launch {
+
+            /*// delay of 3s if there is some images present in wallpaper cache
+            if (!appContext.filesDir.listFiles().none { it.name.contains(".jpg") })
+                delay(3000)*/
+
             ImageHandler.getBitmapWallpaper(appContext, "https://source.unsplash.com/random/1440x3040/?${Prefs.getString("search", "")}") {
                 // store in files dir
                 it?.let {
-                    F.compareBitmaps(appContext, it, bitmap) { comp ->
-                        if (comp)
-                            wallpaperCaching(count, callback) // cache image again in case of duplicate
-                        else {
-                            // get recent files
-                            bitmap = it
-                            val file = File(appContext.filesDir, "${F.shortid()}.jpg")
-                            StorageHandler.storeBitmapInFile(it, file)
-                            logd("image ${F.shortid()} cached")
-                        }
+
+                    // get recent files
+                    val file = File(appContext.filesDir, "${F.shortid()}.jpg")
+                    StorageHandler.storeBitmapWithCallback(it, file) {
+                        if (it) {
+                            F.verifyFileWallpaper(file, appContext.filesDir.listFiles().toList()) {
+                                logd(appContext.filesDir.listFiles().filter { it.name.contains(".jpg") }.size)
+                                if (it)
+                                    wallpaperCaching(count, callback) // if similar image already present (deleted in fn itself)
+                                else {
+                                    logd("image ${F.shortid()} cached")
+
+                                    // recursive call
+                                    if (count - 1 != 0)
+                                        wallpaperCaching(count - 1, callback)
+                                    else
+                                        callback()
+                                }
+                            }
+                        } else
+                            wallpaperCaching(count, callback)
                     }
                 }
-
-                if (count - 1 != 0)
-                    wallpaperCaching(count - 1, callback)
-                else
-                    callback()
             }
         }
     }
