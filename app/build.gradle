@@ -27,7 +27,8 @@ android {
             buildConfigField "String", "WALLUP_URL", "\"${WALLUP_RELEASE_URL}\""
             buildConfigField "String", "WALLUP_API_KEY", "\"${WALLUP_API_KEY_RELEASE}\""
 
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
 
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

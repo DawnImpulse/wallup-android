@@ -47,6 +47,16 @@
             android:title="Only WiFi"
             app:iconSpaceReserved="true" />
 
+        <!--Change toast-->
+        <SwitchPreference
+            android:defaultValue="true"
+            android:dependency="wallStatus"
+            android:key="showToast"
+            android:summaryOff="Not showing toast on Auto wallpaper change"
+            android:summaryOn="Showing toast whenever Auto wallpaper changes"
+            android:title="Show Toast"
+            app:iconSpaceReserved="true" />
+
         <!--OEM Setting-->
         <Preference
             android:dependency="wallStatus"
@@ -57,29 +67,6 @@
                 android:action="android.settings.APPLICATION_DETAILS_SETTINGS"
                 android:data="package:com.dawnimpulse.wallup" />
         </Preference>
-
-        <!--<Preference
-
-            android:summary="Tap to provide `No Restriction / Don't Optimise` in battery optimisation">
-            <intent
-                android:action="android.settings.IGNORE_BATTERY_OPTIMIZATION_SETTINGS"
-                android:data="package:com.dawnimpulse.wallup" />
-
-        </Preference>-->
-
-        <!--Storage-->
-        <!--<SwitchPreference
-            android:defaultValue="false"
-            android:dependency="wallStatus"
-            android:key="wallStorage"
-            android:summaryOff="Not saving any wallpapers to storage"
-            android:summaryOn="Saving wallpapers to device storage"
-            android:title="Save Wallpaper" />-->
-
-        <!--<intent
-                android:action="android.intent.action.VIEW"
-                android:targetClass="com.package.name.ActivityName"
-                android:targetPackage="com.package.name" />-->
 
     </PreferenceCategory>
 
@@ -343,7 +330,7 @@
                     android:value="What can I help you with?" />
                 <extra
                     android:name="android.intent.extra.SUBJECT"
-                    android:value="Bug/Feedback for WallUp v2.1.0" />
+                    android:value="Bug/Feedback for WallUp v3" />
             </intent>
 
         </Preference>

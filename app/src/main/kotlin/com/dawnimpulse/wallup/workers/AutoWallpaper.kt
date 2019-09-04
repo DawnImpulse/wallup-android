@@ -16,6 +16,7 @@ package com.dawnimpulse.wallup.workers
 
 import android.app.WallpaperManager
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Handler
 import android.os.Looper
@@ -31,9 +32,9 @@ import com.dawnimpulse.wallup.utils.handlers.StorageHandler
 import com.dawnimpulse.wallup.utils.reusables.CACHED
 import com.dawnimpulse.wallup.utils.reusables.CACHE_NUMBER
 import com.dawnimpulse.wallup.utils.reusables.Prefs
+import com.dawnimpulse.wallup.utils.reusables.SHOW_TOAST
 import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.apache.commons.io.comparator.LastModifiedFileComparator
 import java.io.File
@@ -49,10 +50,12 @@ import java.util.*
  * @note Updates :
  *  Saksham - 2019 08 21 - master - caching for unsplash
  *  Saksham - 2019 09 01 - develop - used normal file.delete with try/catch
+ *  Saksham - 2019 09 04 - develop - duplicate image handling
  */
 class AutoWallpaper(private val appContext: Context, workerParams: WorkerParameters) : ListenableWorker(appContext, workerParams) {
     private lateinit var wallpaperManager: WallpaperManager
     private lateinit var handler: Handler
+    private var bitmap: Bitmap? = null
 
     // ----------------
     //   start work
@@ -133,7 +136,7 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
                     F.deleteCached(appContext, Prefs.getString(CACHE_NUMBER, "25")!!.toInt())
 
                     handler.post {
-                        if (Prefs.getString("wallInterval", "1440")!!.toLong() > 30.toLong())
+                        if (Prefs.getBoolean(SHOW_TOAST, true))
                             appContext.toast("wallpaper changed")
                     }
 
@@ -170,14 +173,20 @@ class AutoWallpaper(private val appContext: Context, workerParams: WorkerParamet
     // ----------------------------
     private fun wallpaperCaching(count: Int, callback: () -> Unit) {
         GlobalScope.launch {
-            delay(3000)
             ImageHandler.getBitmapWallpaper(appContext, "https://source.unsplash.com/random/1440x3040/?${Prefs.getString("search", "")}") {
                 // store in files dir
                 it?.let {
-                    // get recent files
-                    val file = File(appContext.filesDir, "${F.shortid()}.jpg")
-                    StorageHandler.storeBitmapInFile(it, file)
-                    logd("image ${F.shortid()} cached")
+                    F.compareBitmaps(appContext, it, bitmap) { comp ->
+                        if (comp)
+                            wallpaperCaching(count, callback) // cache image again in case of duplicate
+                        else {
+                            // get recent files
+                            bitmap = it
+                            val file = File(appContext.filesDir, "${F.shortid()}.jpg")
+                            StorageHandler.storeBitmapInFile(it, file)
+                            logd("image ${F.shortid()} cached")
+                        }
+                    }
                 }
 
                 if (count - 1 != 0)

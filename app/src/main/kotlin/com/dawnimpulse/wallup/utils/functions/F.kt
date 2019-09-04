@@ -14,6 +14,7 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.utils.functions
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Point
 import android.os.Environment
 import android.view.WindowManager
@@ -38,6 +39,7 @@ import kotlin.random.Random
  * Saksham - 2019 08 18 - master - random color
  * Saksham - 2019 08 20 - master - generate shortid
  * Saksham - 2019 09 02 - develop - delete cached + dynamic height
+ * Saksham - 2019 09 04 - develop - compare 2 bitmaps
  */
 object F {
 
@@ -128,7 +130,6 @@ object F {
         }
     }
 
-
     // delete all cached images
     fun deleteAllCached(context: Context) {
 
@@ -138,8 +139,8 @@ object F {
                 File(context.filesDir, CACHED).listFiles().forEach { it.delete() }
                 context.filesDir.listFiles().forEach {
                     // only delete files (images)
-                    if(!it.isDirectory)
-                    it.delete()
+                    if (!it.isDirectory)
+                        it.delete()
                 }
             } catch (e: Exception) {
                 Crashlytics.logException(e)
@@ -148,5 +149,22 @@ object F {
                 logd("all cached images removed")
             }
         }
+    }
+
+    // verify two bitmaps
+    fun compareBitmaps(context: Context, b1: Bitmap?, b2: Bitmap?, callback: (Boolean) -> Unit) {
+
+        if (b1 == null || b2 == null) {
+            callback(false)
+        } else
+            GlobalScope.launch {
+                try {
+                    callback(b1.sameAs(b2)) // callback with compare
+                } catch (e: Exception) {
+                    Crashlytics.logException(e)
+                    e.printStackTrace()
+                    callback(false)
+                }
+            }
     }
 }

@@ -60,6 +60,7 @@ const val WALL_CHANGE = "wallChange"
 const val CACHED = "cached"
 const val CACHE_NUMBER = "cacheNumber"
 const val DELETE_CACHE = "deleteCache"
+const val SHOW_TOAST = "showToast"
 
 const val FAIL_LOAD_MORE = "failLoadMore"
 const val FAIL_LOAD_MORE_V = "failLoadMoreV"

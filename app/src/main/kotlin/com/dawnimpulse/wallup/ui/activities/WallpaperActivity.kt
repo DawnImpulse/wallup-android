@@ -43,6 +43,7 @@ import java.io.File
  * @note Updates :
  *  Saksham - 2019 09 01 - develop - bug fix : assign image to bitmap variable on app open
  *  Saksham - 2019 09 02 - develop - save bitmap in cache dir
+ *  Saksham - 2019 09 04 - develop - duplicate bitmap handling
  */
 class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
     private var bitmap: Bitmap? = null
@@ -62,7 +63,6 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
             bgWallpaper.setImageBitmap(bitmap)
         } else {
             // if no temp image then auto load image
-            bitmap = null
             refreshing = true
             mask.show()
             progress.show()
@@ -81,7 +81,6 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
 
             refresh.id -> {
                 if (!refreshing) {
-                    bitmap = null
                     refreshing = true
                     mask.show()
                     progress.show()
@@ -103,7 +102,7 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
                     }
                     r?.let {
                         F.mkdir()
-                        if (bitmap != null) {
+                        if (!refreshing && bitmap != null) {
                             toast("please wait")
                             GlobalScope.launch {
                                 val file = File(Config.DEFAULT_DOWNLOAD_PATH, "${F.shortid()}.jpg")
@@ -130,7 +129,7 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
                     }
                     r?.let {
                         F.mkdir()
-                        if (bitmap != null) {
+                        if (!refreshing && bitmap != null) {
                             toast("please wait")
                             GlobalScope.launch {
                                 val file = File(Config.DEFAULT_DOWNLOAD_PATH, "${F.shortid()}.jpg")
@@ -169,28 +168,40 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
         ImageHandler.getBitmapWallpaper(this, "https://source.unsplash.com/random/1440x3040/?${Prefs.getString("search", "")}") {
             runOnUiThread {
                 if (it != null) {
-                    bitmap = it
-                    bgWallpaper.setImageBitmap(it)
+                    F.compareBitmaps(this, it, bitmap) { com ->
+                        runOnUiThread {
+                            if (com)
+                                getImage() // get image again if received the same one
+                            else {
+                                bitmap = it
+                                bgWallpaper.setImageBitmap(it)
 
-                    // save bitmap in temp directory
-                    StorageHandler.storeBitmapInFile(it, File(cacheDir, "homescreen.jpg"))
+                                // save bitmap in temp directory
+                                StorageHandler.storeBitmapInFile(it, File(cacheDir, "homescreen.jpg"))
 
-                    // save bitmap in cached directory
-                    val cached = File(filesDir, CACHED)
-                    StorageHandler.storeBitmapInFile(it, File(cached, "${F.shortid()}.jpg"))
+                                // save bitmap in cached directory
+                                val cached = File(filesDir, CACHED)
+                                StorageHandler.storeBitmapInFile(it, File(cached, "${F.shortid()}.jpg"))
 
-                    // if extra images in cached then delete them
-                    F.deleteCached(this, Prefs.getString(CACHE_NUMBER, "25")!!.toInt())
+                                // if extra images in cached then delete them
+                                F.deleteCached(this, Prefs.getString(CACHE_NUMBER, "25")!!.toInt())
 
-                    // change wallpaper if allowed
-                    if (Prefs.getBoolean(WALL_CHANGE, false))
-                        WallpaperHandler.setWallpaper(this, it)
-                } else
+                                // change wallpaper if allowed
+                                if (Prefs.getBoolean(WALL_CHANGE, false))
+                                    WallpaperHandler.setWallpaper(this, it)
+
+                                mask.gone()
+                                progress.gone()
+                                refreshing = false
+                            }
+                        }
+                    }
+                } else { // if bitmap is null
                     toast("failed to fetch image")
-
-                mask.gone()
-                progress.gone()
-                refreshing = false
+                    mask.gone()
+                    progress.gone()
+                    refreshing = false
+                }
             }
         }
     }
