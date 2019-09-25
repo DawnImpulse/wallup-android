@@ -26,9 +26,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <!--Gradients-->
     <FrameLayout
-        android:background="@drawable/bg_gradient"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="500dp"
+        android:background="@drawable/bg_gradient" />
 
     <!--Actions-->
     <RelativeLayout
@@ -123,5 +124,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_gravity="center"
         android:indeterminate="true"
         android:visibility="gone" />
+
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_launcher" />
 
 </RelativeLayout>

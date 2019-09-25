@@ -32,7 +32,7 @@ import java.io.File
  *
  * @note Created on 2019-06-10 by Saksham
  * @note Updates :
- *  Saksham - 2019 09 02 - develop -
+ *  Saksham - 2019 09 25 - develop - firebase messaging init
  */
 class App : Application() {
 
