@@ -19,10 +19,9 @@ import android.media.MediaScannerConnection
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.toColorInt
-import co.revely.gradient.RevelyGradient
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.functions.*
+import com.dawnimpulse.wallup.utils.handlers.DialogHandler
 import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.handlers.StorageHandler
 import com.dawnimpulse.wallup.utils.handlers.WallpaperHandler
@@ -37,13 +36,14 @@ import java.io.File
  * @info -
  *
  * @author - Saksham
- * @note Last Branch Update - develop
+ * @note Last Branch Update - master
  *
  * @note Created on 2019-08-18 by Saksham
  * @note Updates :
  *  Saksham - 2019 09 01 - develop - bug fix : assign image to bitmap variable on app open
  *  Saksham - 2019 09 02 - develop - save bitmap in cache dir
  *  Saksham - 2019 09 04 - develop - duplicate bitmap handling
+ *  Saksham - 2019 09 25 - master - rate us dialog
  */
 class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
     private var bitmap: Bitmap? = null
@@ -53,9 +53,6 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wallpaper)
-
-        // fab gradient
-        fabGradient()
 
         // check for temp image & apply
         if (File(cacheDir, "homescreen.jpg").exists()) {
@@ -73,6 +70,14 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
         settings.setOnClickListener(this)
         setWallpaper.setOnClickListener(this)
         download.setOnClickListener(this)
+
+        // rate us dialog
+        if (!Prefs.contains(RATE))
+            DialogHandler.rateUs(this) {
+                Prefs.putAny(RATE, true)
+                F.startWeb(this, Config.PLAY_STORE)
+                DialogHandler.dismiss()
+            }
     }
 
     // fab click handling
@@ -148,16 +153,6 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
-    }
-
-    /**
-     * random gradient for fab
-     */
-    private fun fabGradient() {
-        RevelyGradient
-                .linear()
-                .colors(intArrayOf(F.randomColor().toColorInt(), F.randomColor().toColorInt()))
-                .onBackgroundOf(fabLayout)
     }
 
     /**

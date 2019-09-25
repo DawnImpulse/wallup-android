@@ -16,6 +16,7 @@ package com.dawnimpulse.wallup.utils.handlers
 
 import android.content.Context
 import android.content.DialogInterface
+import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import com.dawnimpulse.wallup.R
 
@@ -27,6 +28,8 @@ import com.dawnimpulse.wallup.R
  *
  * @note Created on 2019-09-02 by Saksham
  * @note Updates :
+ *  Saksham - 2019 09 25 - master - rate dialog
+ *
  */
 object DialogHandler {
     private lateinit var alertDialog: AlertDialog
@@ -47,8 +50,25 @@ object DialogHandler {
         alertDialog.show()
     }
 
+    // rate us dialog
+    fun rateUs(context: Context, callback: () -> Unit) {
+        val builder = AlertDialog.Builder(context, R.style.MyDialogTheme)
+
+        builder.setPositiveButton("RATE NOW") { dialog, _ ->
+            callback()
+        }
+
+        builder.setNegativeButton("LATER") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alertDialog = builder.create()
+        alertDialog.setView(LayoutInflater.from(context).inflate(R.layout.inflator_rate, null))
+        alertDialog.show()
+    }
+
     // dismiss
-    private fun dismiss() {
+    fun dismiss() {
         alertDialog.dismiss()
     }
 }

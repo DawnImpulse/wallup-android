@@ -24,19 +24,18 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
-    <!--Fab-->
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="220dp"
+    <!--Gradients-->
+    <FrameLayout
+        android:background="@drawable/bg_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--Actions-->
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="18dp">
-
-        <FrameLayout
-            android:id="@+id/fabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        android:layout_centerHorizontal="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,8 +50,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_weight="1">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/vd_settings_outline" />
             </FrameLayout>
@@ -66,8 +65,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/refreshIcon"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/vd_refresh" />
             </FrameLayout>
@@ -80,8 +79,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_weight="1">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/vd_wallpaper" />
             </FrameLayout>
@@ -94,15 +93,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
                 android:layout_weight="1">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     app:srcCompat="@drawable/vd_download" />
             </FrameLayout>
 
         </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
 
     <!--Mask-->
     <FrameLayout

@@ -15,8 +15,10 @@ package com.dawnimpulse.wallup.utils.functions
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Point
+import android.net.Uri
 import android.os.Environment
 import android.view.WindowManager
 import com.crashlytics.android.Crashlytics
@@ -34,7 +36,7 @@ import kotlin.random.Random
 /**
  * @author Saksham
  *
- * @note Last Branch Update - develop
+ * @note Last Branch Update - master
  * @note Created on 2019-06-10 by Saksham
  *
  * @note Updates :
@@ -42,8 +44,14 @@ import kotlin.random.Random
  * Saksham - 2019 08 20 - master - generate shortid
  * Saksham - 2019 09 02 - develop - delete cached + dynamic height
  * Saksham - 2019 09 04 - develop - compare 2 bitmaps
+ * Saksham - 2019 09 25 - master - start web
  */
 object F {
+
+    // start intent
+    fun startWeb(context: Context, string: String) {
+        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(string)))
+    }
 
     // convert dp - px
     fun dpToPx(dp: Int, context: Context): Int {
