@@ -26,6 +26,7 @@ import com.dawnimpulse.wallup.utils.handlers.ImageHandler
 import com.dawnimpulse.wallup.utils.handlers.StorageHandler
 import com.dawnimpulse.wallup.utils.handlers.WallpaperHandler
 import com.dawnimpulse.wallup.utils.reusables.*
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_wallpaper.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -44,6 +45,7 @@ import java.io.File
  *  Saksham - 2019 09 02 - develop - save bitmap in cache dir
  *  Saksham - 2019 09 04 - develop - duplicate bitmap handling
  *  Saksham - 2019 09 25 - master - rate us dialog
+ *  Saksham - 2019 09 26 - master - log event
  */
 class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
     private var bitmap: Bitmap? = null
@@ -77,6 +79,13 @@ class WallpaperActivity : AppCompatActivity(), View.OnClickListener {
                 Prefs.putAny(RATE, true)
                 F.startWeb(this, Config.PLAY_STORE)
                 DialogHandler.dismiss()
+
+                // event logging
+                val bundle = Bundle()
+                bundle.putString(FirebaseAnalytics.Param.ITEM_ID, RATE)
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, RATE)
+                bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, DIALOG)
+                FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
             }
     }
 

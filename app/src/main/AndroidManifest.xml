@@ -13,7 +13,7 @@
     <application
         android:name=".App"
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="Wallup"
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
@@ -68,6 +68,11 @@
         <!--Cache Activity-->
         <activity
             android:name=".ui.activities.CacheActivity"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--Image-->
+        <activity
+            android:name=".ui.activities.ImageActivity"
             android:theme="@style/AppTheme.Fullscreen" />
     </application>
 

@@ -17,7 +17,7 @@ The current version features all images from Unsplash with 'One Tap' & 'Auto Wal
 
 - [Google Play Store](https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup)
 - Direct
- 	- [version 3 (latest)](https://github.com/DawnImpulse/wallup-android/releases/tag/v3.0.0)
+ 	- [version 3 (latest)](https://github.com/DawnImpulse/wallup-android/releases/)
  	- [version 2](https://github.com/DawnImpulse/wallup-android/releases/tag/v2.1.0)
 	- [version 1](https://github.com/dawnimpulse/wallup-android-deprecated)
 

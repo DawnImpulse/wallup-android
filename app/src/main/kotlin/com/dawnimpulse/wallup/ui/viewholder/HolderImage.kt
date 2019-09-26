@@ -18,7 +18,10 @@ import android.graphics.BitmapFactory
 import android.view.View
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.ui.activities.ImageActivity
 import com.dawnimpulse.wallup.utils.functions.F
+import com.dawnimpulse.wallup.utils.functions.openActivity
+import com.dawnimpulse.wallup.utils.reusables.IMAGE
 import kotlinx.android.synthetic.main.inflator_image.view.*
 import java.io.File
 
@@ -56,7 +59,9 @@ class HolderImage(view: View) : RecyclerView.ViewHolder(view) {
 
             // handle image click
             image.setOnClickListener {
-
+                context.openActivity(ImageActivity::class.java){
+                    putString(IMAGE, file.path)
+                }
             }
         }
     }

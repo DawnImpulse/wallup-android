@@ -19,6 +19,9 @@ import android.content.DialogInterface
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.utils.functions.putAny
+import com.dawnimpulse.wallup.utils.reusables.Prefs
+import com.dawnimpulse.wallup.utils.reusables.RATE
 
 /**
  * @info -
@@ -59,6 +62,11 @@ object DialogHandler {
         }
 
         builder.setNegativeButton("LATER") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        builder.setNeutralButton("NEVER") { dialog, _ ->
+            Prefs.putAny(RATE,false)
             dialog.dismiss()
         }
 
