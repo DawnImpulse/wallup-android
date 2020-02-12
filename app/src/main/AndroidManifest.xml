@@ -11,14 +11,11 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".App"
         android:allowBackup="false"
-        android:icon="@drawable/ic_launcher"
         android:label="Wallup"
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute,MissingApplicationIcon">
 
         <!-- File provider for Android 7+ -->
@@ -47,33 +44,6 @@
             android:name="google_analytics_adid_collection_enabled"
             android:value="false" />
 
-
-        <!--Settings-->
-        <activity
-            android:name=".ui.activities.SettingsActivity"
-            android:label="Settings"
-            android:theme="@style/PrefsTheme" />
-
-        <!--Wallpaper activity-->
-        <activity
-            android:name=".ui.activities.WallpaperActivity"
-            android:theme="@style/AppTheme.Fullscreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <!--Cache Activity-->
-        <activity
-            android:name=".ui.activities.CacheActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
-
-        <!--Image-->
-        <activity
-            android:name=".ui.activities.ImageActivity"
-            android:theme="@style/AppTheme.Fullscreen" />
     </application>
 
 </manifest>

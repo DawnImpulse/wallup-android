@@ -1,0 +1,14 @@
+*.iml
+.gradle
+bash.exe.stackdump
+gradle.properties
+/local.properties
+/.idea
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+/app/google-services.json
+/app/src/main/res/xml/file_provider_path.xml
+/app/src/main/res/xml/network_security_config.xml
+/app/release/*

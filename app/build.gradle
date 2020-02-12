@@ -20,23 +20,9 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "WALLUP_URL", "\"${WALLUP_DEBUG_URL}\""
-            buildConfigField "String", "WALLUP_API_KEY", "\"${WALLUP_API_KEY_DEBUG}\""
-
-            minifyEnabled true
-            shrinkResources true
-
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         release {
-            buildConfigField "String", "WALLUP_URL", "\"${WALLUP_RELEASE_URL}\""
-            buildConfigField "String", "WALLUP_API_KEY", "\"${WALLUP_API_KEY_RELEASE}\""
-
-            minifyEnabled true
-            shrinkResources true
-
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -62,24 +48,17 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //--------------- Support Libraries ---------------------
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation "androidx.work:work-runtime-ktx:2.2.0"
-    implementation "androidx.concurrent:concurrent-futures:1.0.0-rc01"
-    implementation "androidx.preference:preference:1.1.0"
+    implementation 'androidx.core:core-ktx:1.2.0'
 
-    implementation "com.google.android.material:material:1.0.0"
-    api 'com.google.guava:guava:28.1-android'
+    implementation "com.google.android.material:material:1.1.0"
 
     //--------------- Firebase Libraries --------------------
-    implementation 'com.google.firebase:firebase-core:17.2.0'
-    implementation 'com.google.firebase:firebase-inappmessaging-display:19.0.0'
+    implementation 'com.google.firebase:firebase-core:17.2.2'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
 
     //--------------- 3rd Party Libraries -------------------
     implementation 'com.github.bumptech.glide:glide:4.9.0' // image loading
-    implementation 'commons-io:commons-io:2.6' // apache commons io
     implementation 'org.sourcei.android:permissions:1.0.1' //permissions
-    implementation 'co.revely:gradient:1.0.1' // gradient
 
     //------------------ Additional -------------------------
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-RC'
