@@ -26,3 +26,7 @@ package com.dawnimpulse.wallup.pojo
 data class ImagePojo(
         val link: String
 )
+
+data class RouteImageList(
+        val details: List<ImagePojo>
+)

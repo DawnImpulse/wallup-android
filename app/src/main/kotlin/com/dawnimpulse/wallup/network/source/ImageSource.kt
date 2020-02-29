@@ -14,7 +14,7 @@
  **/
 package com.dawnimpulse.wallup.network.source
 
-import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.pojo.RouteImageList
 import com.dawnimpulse.wallup.utils.reusables.LIMIT
 import retrofit2.Call
 import retrofit2.http.GET
@@ -34,5 +34,5 @@ interface ImageSource {
     @GET("/images/random")
     fun random(
             @Query(LIMIT) limit: Number
-    ): Call<List<ImagePojo>>
+    ): Call<RouteImageList>
 }
