@@ -16,10 +16,15 @@ package com.dawnimpulse.wallup.network.controller
 
 import com.dawnimpulse.wallup.network.source.ImageSource
 import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.pojo.RouteImageList
+import com.dawnimpulse.wallup.utils.handlers.ErrorHandler
 import com.dawnimpulse.wallup.utils.reusables.RetroApiClient
+import com.google.gson.Gson
+import org.sourcei.android.permissions.utils.Config.callback
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
@@ -42,18 +47,18 @@ object ImageCtrl {
      */
     suspend fun random(limit: Number = 30) = suspendCoroutine<List<ImagePojo>> { continuation ->
         val call = client.random(limit)
-        call.enqueue(object : Callback<ListQuotes> {
-            override fun onResponse(call: Call<ListQuotes>, response: Response<ListQuotes>) {
-                if (response.isSuccessful) {
-                    continuation.resumeWith(response.body()!!.details)
-                } else
-                    continuation.resumeWithException()
-                    //callback(ErrorHandler.parseError(response), null)
+        call.enqueue(object : Callback<RouteImageList> {
+            override fun onResponse(call: Call<RouteImageList>, response: Response<RouteImageList>) {
+                if (response.isSuccessful)
+                    continuation.resume(response.body()!!.details)
+                else
+                    continuation.resumeWithException(Exception(Gson().toJson(ErrorHandler.parseError(response))))
             }
 
             // on failure
-            override fun onFailure(call: Call<ListQuotes>, t: Throwable) {
+            override fun onFailure(call: Call<RouteImageList>, t: Throwable) {
                 continuation.resumeWithException(t)
+                callback(t.toString(), null)
             }
         })
     }
