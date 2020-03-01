@@ -13,15 +13,20 @@ Wallup is now going to be redesigned from ground up. This time providing tons of
 
 #### Previous Releases
 - **v1.0.2**
-The first version of this application focused on being Unsplash client by providing you direct access to your profile on Unsplash and also allow you manage your likes & collections.
-	- [Source Code & Download]([https://github.com/dawnimpulse/wallup-android-deprecated](https://github.com/dawnimpulse/wallup-android-deprecated))
+	- [Source Code & Download](https://github.com/dawnimpulse/wallup-android-deprecated)
+
+The first version of this application focused on being Unsplash client by providing you direct access to your profile on Unsplash and also allow you manage your likes & collections. 
+	
 - **v2.1.0**
-The second major version was more curated images from variety of sources and feature 'Auto Wallpaper'.
 	- [Download Here](https://github.com/DawnImpulse/wallup-android/releases/tag/v2.1.0)
 	- [Source Code](https://github.com/DawnImpulse/wallup-android/tree/v2.1.0)
+
+The second major version was more curated images from variety of sources and feature 'Auto Wallpaper'. 
+	
 - **v3.2.0**
-The third & current on play store features all images from Unsplash with 'One Tap' & 'Auto Wallpaper' features.
 	- [Source Code](https://github.com/DawnImpulse/wallup-android/tree/v3.2.0)
+
+The third & current on play store features all images from Unsplash with 'One Tap' & 'Auto Wallpaper' features. 
 
 > Note: You can keep version 1 along with all future releases (v2, v3 & so on)
 
