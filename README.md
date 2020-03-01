@@ -12,14 +12,18 @@ Wallup is now going to be redesigned from ground up. This time providing tons of
 - Free to download/share high quality wallpapers
 
 #### Previous Releases
-- v1
-The first version of this application focused on being Unsplash client by providing you direct access to your profile on Unsplash and also allow you manage your likes & collections. [Download Here](https://github.com/dawnimpulse/wallup-android-deprecated)
-- v2
-The second major version was more curated images from variety of sources and feature 'Auto Wallpaper'. [Download Here](https://github.com/DawnImpulse/wallup-android/releases/tag/v2.1.0)
-- v3
-The current version features all images from Unsplash with 'One Tap' & 'Auto Wallpaper' features. 
+- **v1.0.2**
+The first version of this application focused on being Unsplash client by providing you direct access to your profile on Unsplash and also allow you manage your likes & collections.
+	- [Source Code & Download]([https://github.com/dawnimpulse/wallup-android-deprecated](https://github.com/dawnimpulse/wallup-android-deprecated))
+- **v2.1.0**
+The second major version was more curated images from variety of sources and feature 'Auto Wallpaper'.
+	- [Download Here](https://github.com/DawnImpulse/wallup-android/releases/tag/v2.1.0)
+	- [Source Code](https://github.com/DawnImpulse/wallup-android/tree/v2.1.0)
+- **v3.2.0**
+The third & current on play store features all images from Unsplash with 'One Tap' & 'Auto Wallpaper' features.
+	- [Source Code](https://github.com/DawnImpulse/wallup-android/tree/v3.2.0)
 
-> Note: You can keep version 1 along with either v2 or v3
+> Note: You can keep version 1 along with all future releases (v2, v3 & so on)
 
 #### Listing
 
@@ -35,7 +39,7 @@ I would be very happy if you provide issues/suggestions as well as contribute to
 
 > Pull requests are always welcomed (kindly sign commits with GPG keys. **THANKS**)
 #### Contact
--  Twitter -  [@dawnimpulse](https://twitter.com/dawnimpulse)
+-   Twitter -  [@dawnimpulse](https://twitter.com/dawnimpulse)
 -  Email - [dawnimpulse@gmail.com](mailto:dawnimpulse@gmail.com)
 
 #### License
