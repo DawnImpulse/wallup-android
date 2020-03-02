@@ -15,8 +15,8 @@
 package com.dawnimpulse.wallup.ui.models
 
 import androidx.appcompat.app.AppCompatActivity
-import com.dawnimpulse.wallup.network.controller.ImageCtrl
-import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.network.controller.CtrlImage
+import com.dawnimpulse.wallup.pojo.PojoImage
 import com.dawnimpulse.wallup.utils.reusables.Lifecycle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -37,15 +37,15 @@ class ModelImage(private val activity: AppCompatActivity) {
      *
      * @param callback
      */
-    fun getRandomQuote(limit: Number, callback: (Any?, List<ImagePojo>?) -> Unit) {
+    fun getRandomQuote(limit: Number, callback: (Any?, List<PojoImage>?) -> Unit) {
         Lifecycle.onStart(activity) {
 
-            var images: List<ImagePojo>? = null
+            var images: List<PojoImage>? = null
             var error: java.lang.Exception? = null
 
             GlobalScope.launch {
                 try {
-                    images = ImageCtrl.random(limit)
+                    images = CtrlImage.random(limit)
                 } catch (e: Exception) {
                     error = e
                 } finally {

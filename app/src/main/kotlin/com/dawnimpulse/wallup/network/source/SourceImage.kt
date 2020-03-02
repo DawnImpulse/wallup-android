@@ -12,34 +12,27 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils.handlers
+package com.dawnimpulse.wallup.network.source
 
-import com.dawnimpulse.wallup.pojo.PojoError
-import com.dawnimpulse.wallup.utils.reusables.RetroApiClient
-import retrofit2.Response
+import com.dawnimpulse.wallup.pojo.RouteImageList
+import com.dawnimpulse.wallup.utils.reusables.LIMIT
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
- * @info - error handler for retrofit
+ * @info - various routes for images
  *
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-08-20 by Saksham
+ * @note Created on 2020-02-29 by Saksham
  * @note Updates :
  */
-object ErrorHandler {
+interface SourceImage {
 
-    fun parseError(response: Response<*>): PojoError {
-        val converter = RetroApiClient.getClient()
-            .responseBodyConverter<PojoError>(PojoError::class.java, arrayOfNulls<Annotation>(0))
-        val error: PojoError
-
-        try {
-            error = converter.convert(response.errorBody()!!)!!
-        } catch (e: Exception) {
-            return PojoError()
-        }
-
-        return error
-    }
+    @GET("/images/random")
+    fun random(
+            @Query(LIMIT) limit: Number
+    ): Call<RouteImageList>
 }

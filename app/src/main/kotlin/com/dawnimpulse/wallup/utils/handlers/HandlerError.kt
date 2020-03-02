@@ -12,21 +12,34 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.pojo
+package com.dawnimpulse.wallup.utils.handlers
+
+import com.dawnimpulse.wallup.pojo.PojoError
+import com.dawnimpulse.wallup.utils.reusables.RetroApiClient
+import retrofit2.Response
 
 /**
- * @info -
+ * @info - error handler for retrofit
  *
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2020-02-29 by Saksham
+ * @note Created on 2019-08-20 by Saksham
  * @note Updates :
  */
-data class ImagePojo(
-        val link: String
-)
+object HandlerError {
 
-data class RouteImageList(
-        val details: List<ImagePojo>
-)
+    fun parseError(response: Response<*>): PojoError {
+        val converter = RetroApiClient.getClient()
+            .responseBodyConverter<PojoError>(PojoError::class.java, arrayOfNulls<Annotation>(0))
+        val error: PojoError
+
+        try {
+            error = converter.convert(response.errorBody()!!)!!
+        } catch (e: Exception) {
+            return PojoError()
+        }
+
+        return error
+    }
+}

@@ -12,16 +12,10 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.network.source
-
-import com.dawnimpulse.wallup.pojo.RouteImageList
-import com.dawnimpulse.wallup.utils.reusables.LIMIT
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Query
+package com.dawnimpulse.wallup.pojo
 
 /**
- * @info - various routes for images
+ * @info -
  *
  * @author - Saksham
  * @note Last Branch Update - master
@@ -29,10 +23,10 @@ import retrofit2.http.Query
  * @note Created on 2020-02-29 by Saksham
  * @note Updates :
  */
-interface ImageSource {
+data class PojoImage(
+        val link: String
+)
 
-    @GET("/images/random")
-    fun random(
-            @Query(LIMIT) limit: Number
-    ): Call<RouteImageList>
-}
+data class RouteImageList(
+        val details: List<PojoImage>
+)

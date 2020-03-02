@@ -14,10 +14,10 @@
  **/
 package com.dawnimpulse.wallup.network.controller
 
-import com.dawnimpulse.wallup.network.source.ImageSource
-import com.dawnimpulse.wallup.pojo.ImagePojo
+import com.dawnimpulse.wallup.network.source.SourceImage
+import com.dawnimpulse.wallup.pojo.PojoImage
 import com.dawnimpulse.wallup.pojo.RouteImageList
-import com.dawnimpulse.wallup.utils.handlers.ErrorHandler
+import com.dawnimpulse.wallup.utils.handlers.HandlerError
 import com.dawnimpulse.wallup.utils.reusables.RetroApiClient
 import com.google.gson.Gson
 import org.sourcei.android.permissions.utils.Config.callback
@@ -37,22 +37,22 @@ import kotlin.coroutines.suspendCoroutine
  * @note Created on 2020-02-29 by Saksham
  * @note Updates :
  */
-object ImageCtrl {
-    val client = RetroApiClient.getClient().create(ImageSource::class.java)
+object CtrlImage {
+    val client = RetroApiClient.getClient().create(SourceImage::class.java)
 
     /**
      * random function
      *
      * @param limit
      */
-    suspend fun random(limit: Number = 30) = suspendCoroutine<List<ImagePojo>> { continuation ->
+    suspend fun random(limit: Number = 30) = suspendCoroutine<List<PojoImage>> { continuation ->
         val call = client.random(limit)
         call.enqueue(object : Callback<RouteImageList> {
             override fun onResponse(call: Call<RouteImageList>, response: Response<RouteImageList>) {
                 if (response.isSuccessful)
                     continuation.resume(response.body()!!.details)
                 else
-                    continuation.resumeWithException(Exception(Gson().toJson(ErrorHandler.parseError(response))))
+                    continuation.resumeWithException(Exception(Gson().toJson(HandlerError.parseError(response))))
             }
 
             // on failure
