@@ -33,13 +33,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
             tools:src="@tools:sample/backgrounds/scenic[1]" />
 
         <FrameLayout
-            android:id="@+id/holder_random_image_like_frame"
+            android:id="@+id/holder_random_image_like_layout"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="right">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/holder_random_image_like_image"
+                android:id="@+id/holder_random_image_like_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
