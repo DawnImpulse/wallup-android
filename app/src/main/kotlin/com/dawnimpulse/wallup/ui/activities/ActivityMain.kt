@@ -21,6 +21,7 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.fragments.FragmentRandom
 import com.dawnimpulse.wallup.utils.reusables.RANDOM
 import com.dawnimpulse.wallup.utils.reusables.ViewPagerAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * @info - application home-screen
@@ -36,13 +37,15 @@ class ActivityMain : AppCompatActivity() {
     private lateinit var pagerAdapter: ViewPagerAdapter
 
     /**
-     * on create (default_
+     * on create (default)
      *
      * @param savedInstanceState
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setupViewPager(activity_main_viewpager)
     }
 
     /**
