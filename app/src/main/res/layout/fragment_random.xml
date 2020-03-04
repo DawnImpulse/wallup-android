@@ -11,11 +11,49 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!--Recycler-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_random_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 
-</FrameLayout>
+    <!--Loading Animation-->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/fragment_random_anim"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <!--Error Layout-->
+    <LinearLayout
+        android:id="@+id/fragment_random_error_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/fragment_random_error_image"
+            android:layout_width="256dp"
+            android:layout_height="256dp"
+            app:srcCompat="@drawable/vd_error_1" />
+
+        <TextView
+            android:id="@+id/fragment_random_error_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:text="Some Error" />
+    </LinearLayout>
+</RelativeLayout>
