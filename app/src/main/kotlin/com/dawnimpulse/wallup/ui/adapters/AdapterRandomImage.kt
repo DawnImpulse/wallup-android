@@ -12,7 +12,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.ui.adapter
+package com.dawnimpulse.wallup.ui.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

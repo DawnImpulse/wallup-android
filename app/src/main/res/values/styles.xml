@@ -12,10 +12,12 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <resources>
-    <color name="colorPrimary">#ffea00</color>
-    <color name="colorPrimaryDark">#c7b800</color>
-    <color name="colorAccent">#ffea00</color>
-
-    <color name="white">#ffffff</color>
-    <color name="black">#000000</color>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:preferenceCategoryStyle">@style/TextAppearance.AppCompat.Body1</item>
+    </style>
 </resources>

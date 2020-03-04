@@ -11,11 +11,11 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
-<resources>
-    <color name="colorPrimary">#ffea00</color>
-    <color name="colorPrimaryDark">#c7b800</color>
-    <color name="colorAccent">#ffea00</color>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <color name="white">#ffffff</color>
-    <color name="black">#000000</color>
-</resources>
+
+
+</FrameLayout>

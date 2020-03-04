@@ -44,6 +44,15 @@
             android:name="google_analytics_adid_collection_enabled"
             android:value="false" />
 
+        <activity android:name=".ui.activities.ActivityMain"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
