@@ -16,7 +16,11 @@ package com.dawnimpulse.wallup.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.ui.fragments.FragmentRandom
+import com.dawnimpulse.wallup.utils.reusables.RANDOM
+import com.dawnimpulse.wallup.utils.reusables.ViewPagerAdapter
 
 /**
  * @info - application home-screen
@@ -28,8 +32,30 @@ import com.dawnimpulse.wallup.R
  * @note Updates :
  */
 class ActivityMain : AppCompatActivity() {
+    private lateinit var randomFragment: FragmentRandom
+    private lateinit var pagerAdapter: ViewPagerAdapter
+
+    /**
+     * on create (default_
+     *
+     * @param savedInstanceState
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    /**
+     * setting up our viewpager
+     *
+     * @param viewPager
+     */
+    private fun setupViewPager(viewPager: ViewPager) {
+
+        pagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        randomFragment = FragmentRandom()
+
+        pagerAdapter.addFragment(randomFragment, RANDOM)
+        viewPager.adapter = pagerAdapter
     }
 }
