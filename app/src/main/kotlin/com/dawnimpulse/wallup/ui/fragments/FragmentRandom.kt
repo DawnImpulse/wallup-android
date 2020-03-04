@@ -14,6 +14,13 @@
  **/
 package com.dawnimpulse.wallup.ui.fragments
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.dawnimpulse.wallup.R
+
 /**
  * @info - random fragment
  *
@@ -23,6 +30,27 @@ package com.dawnimpulse.wallup.ui.fragments
  * @note Created on 2020-03-04 by Saksham
  * @note Updates :
  */
-class FragmentRandom{
+class FragmentRandom : Fragment() {
 
+    /**
+     * on create view (default)
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     */
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_random, container, false)
+    }
+
+    /**
+     * on view created (default)
+     *
+     * @param view
+     * @param savedInstanceState
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
 }
