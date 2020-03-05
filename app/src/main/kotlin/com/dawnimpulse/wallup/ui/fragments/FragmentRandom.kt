@@ -18,8 +18,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.pojo.PojoImage
+import com.dawnimpulse.wallup.ui.adapters.AdapterRandomImage
+import com.dawnimpulse.wallup.ui.models.ModelImage
+import kotlinx.android.synthetic.main.fragment_random.*
 
 /**
  * @info - random fragment
@@ -31,6 +37,8 @@ import com.dawnimpulse.wallup.R
  * @note Updates :
  */
 class FragmentRandom : Fragment() {
+    private lateinit var modelImage: ModelImage
+    private lateinit var adapterRandomImage: AdapterRandomImage
 
     /**
      * on create view (default)
@@ -41,6 +49,8 @@ class FragmentRandom : Fragment() {
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        modelImage = ModelImage(this.activity as AppCompatActivity)
         return inflater.inflate(R.layout.fragment_random, container, false)
     }
 
@@ -52,5 +62,23 @@ class FragmentRandom : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        modelImage.getRandomQuote(30, callback)
     }
+
+    /**
+     * after images are loaded
+     */
+    private val callback = object : (Any?, List<PojoImage>?) -> Unit {
+        override fun invoke(error: Any?, images: List<PojoImage>?) {
+            error?.let {
+
+            }
+            images?.let {
+                adapterRandomImage = AdapterRandomImage(it)
+                fragment_random_recycler.layoutManager = LinearLayoutManager(context)
+                fragment_random_recycler.adapter = adapterRandomImage
+            }
+        }
+    }
+
 }
