@@ -16,7 +16,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/holder_random_image_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="240dp"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView

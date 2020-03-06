@@ -25,6 +25,8 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.pojo.PojoImage
 import com.dawnimpulse.wallup.ui.adapters.AdapterRandomImage
 import com.dawnimpulse.wallup.ui.models.ModelImage
+import com.dawnimpulse.wallup.utils.reusables.hide
+import com.dawnimpulse.wallup.utils.reusables.show
 import kotlinx.android.synthetic.main.fragment_random.*
 
 /**
@@ -70,13 +72,18 @@ class FragmentRandom : Fragment() {
      */
     private val callback = object : (Any?, List<PojoImage>?) -> Unit {
         override fun invoke(error: Any?, images: List<PojoImage>?) {
-            error?.let {
 
+            fragment_random_anim.pauseAnimation()
+            fragment_random_anim.hide()
+
+            error?.let {
+                fragment_random_error_layout.show()
             }
             images?.let {
                 adapterRandomImage = AdapterRandomImage(it)
                 fragment_random_recycler.layoutManager = LinearLayoutManager(context)
                 fragment_random_recycler.adapter = adapterRandomImage
+                fragment_random_recycler.show()
             }
         }
     }

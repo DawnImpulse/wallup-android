@@ -46,17 +46,17 @@ object CtrlImage {
      * @param limit
      */
     suspend fun random(limit: Number = 30) = suspendCoroutine<List<PojoImage>> { continuation ->
-        val call = client.random(limit)
-        call.enqueue(object : Callback<RouteImageList> {
-            override fun onResponse(call: Call<RouteImageList>, response: Response<RouteImageList>) {
+        val call = client.random()
+        call.enqueue(object : Callback<List<PojoImage>> {
+            override fun onResponse(call: Call<List<PojoImage>>, response: Response<List<PojoImage>>) {
                 if (response.isSuccessful)
-                    continuation.resume(response.body()!!.details)
+                    continuation.resume(response.body()!!)
                 else
                     continuation.resumeWithException(Exception(Gson().toJson(HandlerError.parseError(response))))
             }
 
             // on failure
-            override fun onFailure(call: Call<RouteImageList>, t: Throwable) {
+            override fun onFailure(call: Call<List<PojoImage>>, t: Throwable) {
                 continuation.resumeWithException(t)
                 callback(t.toString(), null)
             }

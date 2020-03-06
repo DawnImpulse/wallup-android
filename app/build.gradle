@@ -20,6 +20,7 @@ android {
     }
     buildTypes {
         debug {
+            buildConfigField "String", "WALLUP_API_URL", "\"${WALLUP_DEBUG_API_URL}\""
         }
 
         release {

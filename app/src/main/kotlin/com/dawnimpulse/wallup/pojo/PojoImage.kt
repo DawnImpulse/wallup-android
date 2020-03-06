@@ -14,6 +14,8 @@
  **/
 package com.dawnimpulse.wallup.pojo
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * @info -
  *
@@ -24,9 +26,14 @@ package com.dawnimpulse.wallup.pojo
  * @note Updates :
  */
 data class PojoImage(
-        val link: String
+        @SerializedName("link") val link: PojoImageLink
+)
+
+data class PojoImageLink(
+        @SerializedName("id") val id: String,
+        @SerializedName("path") val path: String
 )
 
 data class RouteImageList(
-        val details: List<PojoImage>
+        @SerializedName("details") val details: List<PojoImage>
 )

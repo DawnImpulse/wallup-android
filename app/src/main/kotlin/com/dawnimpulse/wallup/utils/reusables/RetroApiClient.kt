@@ -13,6 +13,7 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.utils.reusables
 
+import com.dawnimpulse.wallup.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -30,7 +31,7 @@ object RetroApiClient {
     fun getClient(): Retrofit {
         if (retrofit == null) {
             retrofit = Retrofit.Builder()
-                    //.baseUrl(BuildConfig.API_URL)
+                    .baseUrl(BuildConfig.WALLUP_API_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
         }

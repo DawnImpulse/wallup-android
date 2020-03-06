@@ -12,23 +12,31 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.network.source
+package com.dawnimpulse.wallup.utils.reusables
 
-import com.dawnimpulse.wallup.pojo.PojoImage
-import retrofit2.Call
-import retrofit2.http.GET
+import android.view.View
 
 /**
- * @info - various routes for images
+ * @info -
  *
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2020-02-29 by Saksham
+ * @note Created on 2020-03-06 by Saksham
  * @note Updates :
  */
-interface SourceImage {
 
-    @GET("/images")
-    fun random(): Call<List<PojoImage>>
+// gone view
+fun View.gone() {
+    visibility = View.GONE
+}
+
+// hide view
+fun View.hide() {
+    visibility = View.INVISIBLE
+}
+
+// gone view
+fun View.show() {
+    visibility = View.VISIBLE
 }
