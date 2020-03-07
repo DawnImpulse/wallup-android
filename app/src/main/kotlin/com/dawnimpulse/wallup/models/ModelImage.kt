@@ -12,14 +12,18 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.ui.models
+package com.dawnimpulse.wallup.models
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.dawnimpulse.wallup.network.controller.CtrlImage
 import com.dawnimpulse.wallup.objects.ObjectImage
-import com.dawnimpulse.wallup.utils.reusables.Lifecycle
+import com.dawnimpulse.wallup.utils.reusables.Resource
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.sourcei.android.permissions.utils.Config.callback
 
 /**
  * @info - bridge between ui & controller
@@ -30,31 +34,38 @@ import kotlinx.coroutines.launch
  * @note Created on 2020-03-02 by Saksham
  * @note Updates :
  */
-class ModelImage(private val activity: AppCompatActivity) {
+class ModelImage(private val activity: AppCompatActivity, limit: Number = 30) : ViewModel() {
+    private val randomImages = mutableListOf<ObjectImage>()
+    private val mutableRandomImages = MutableLiveData<Resource<List<ObjectImage>>>()
+
+    init {
+        getRandomImages(limit)
+    }
+
 
     /**
      * get random images
      *
-     * @param callback
+     * @return callback
      */
-    fun getRandomQuote(limit: Number, callback: (Any?, List<ObjectImage>?) -> Unit) {
-        Lifecycle.onStart(activity) {
+    fun getRandomQuote(): LiveData<Resource<List<ObjectImage>>> {
+        return mutableRandomImages
+    }
 
-            var images: List<ObjectImage>? = null
-            var error: java.lang.Exception? = null
-
-            GlobalScope.launch {
-                try {
-                    images = CtrlImage.random(limit)
-                } catch (e: Exception) {
-                    error = e
-                } finally {
-                    activity.runOnUiThread {
-                        if (images == null)
-                            callback(error, null)
-                        else
-                            callback(null, images)
-                    }
+    /**
+     * get random images
+     */
+    private fun getRandomImages(limit: Number) {
+        var resource = Resource.success(randomImages)
+        GlobalScope.launch {
+            try {
+                randomImages.addAll(CtrlImage.random(limit))
+                resource = Resource.success(randomImages)
+            } catch (e: Exception) {
+                resource = Resource.error(e.toString(), randomImages)
+            } finally {
+                activity.runOnUiThread {
+                    mutableRandomImages.postValue(resource)
                 }
             }
         }

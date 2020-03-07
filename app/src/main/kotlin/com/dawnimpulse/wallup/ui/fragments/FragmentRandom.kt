@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.ui.adapters.AdapterRandomImage
-import com.dawnimpulse.wallup.ui.models.ModelImage
+import com.dawnimpulse.wallup.models.ModelImage
 import com.dawnimpulse.wallup.utils.reusables.hide
 import com.dawnimpulse.wallup.utils.reusables.show
 import kotlinx.android.synthetic.main.fragment_random.*
