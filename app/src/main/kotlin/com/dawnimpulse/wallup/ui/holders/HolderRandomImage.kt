@@ -17,7 +17,7 @@ package com.dawnimpulse.wallup.ui.holders
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.BuildConfig
-import com.dawnimpulse.wallup.pojo.PojoImage
+import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerImage
 import kotlinx.android.synthetic.main.holder_random_image.view.*
 
@@ -36,8 +36,8 @@ class HolderRandomImage(view: View) : RecyclerView.ViewHolder(view) {
     private val likeLayout = view.holder_random_image_like_layout
     private val likeIcon = view.holder_random_image_like_icon
 
-    fun bind(pojoImage: PojoImage) {
-        val link = pojoImage.link
+    fun bind(objectImage: ObjectImage) {
+        val link = objectImage.link
         HandlerImage.setImageInRecycler(image, "${BuildConfig.WALLUP_API_URL}/${link.path}/${link.id}")
     }
 }

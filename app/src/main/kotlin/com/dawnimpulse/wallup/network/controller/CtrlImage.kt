@@ -15,8 +15,7 @@
 package com.dawnimpulse.wallup.network.controller
 
 import com.dawnimpulse.wallup.network.source.SourceImage
-import com.dawnimpulse.wallup.pojo.PojoImage
-import com.dawnimpulse.wallup.pojo.RouteImageList
+import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerError
 import com.dawnimpulse.wallup.utils.reusables.RetroApiClient
 import com.google.gson.Gson
@@ -45,10 +44,10 @@ object CtrlImage {
      *
      * @param limit
      */
-    suspend fun random(limit: Number = 30) = suspendCoroutine<List<PojoImage>> { continuation ->
+    suspend fun random(limit: Number = 30) = suspendCoroutine<List<ObjectImage>> { continuation ->
         val call = client.random()
-        call.enqueue(object : Callback<List<PojoImage>> {
-            override fun onResponse(call: Call<List<PojoImage>>, response: Response<List<PojoImage>>) {
+        call.enqueue(object : Callback<List<ObjectImage>> {
+            override fun onResponse(call: Call<List<ObjectImage>>, response: Response<List<ObjectImage>>) {
                 if (response.isSuccessful)
                     continuation.resume(response.body()!!)
                 else
@@ -56,7 +55,7 @@ object CtrlImage {
             }
 
             // on failure
-            override fun onFailure(call: Call<List<PojoImage>>, t: Throwable) {
+            override fun onFailure(call: Call<List<ObjectImage>>, t: Throwable) {
                 continuation.resumeWithException(t)
                 callback(t.toString(), null)
             }

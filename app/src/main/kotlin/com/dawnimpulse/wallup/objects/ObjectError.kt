@@ -12,12 +12,12 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.pojo
+package com.dawnimpulse.wallup.objects
 
 import com.google.gson.annotations.SerializedName
 
 /**
- * @info - error pojo
+ * @info - error object
  *
  * @author - Saksham
  * @note Last Branch Update - master
@@ -25,7 +25,7 @@ import com.google.gson.annotations.SerializedName
  * @note Created on 2020-02-29 by Saksham
  * @note Updates :
  */
-data class PojoError(
+data class ObjectError(
         @SerializedName("success") val success: Boolean = false,
         @SerializedName("errorCode") val errorCode: Int = 0,
         @SerializedName("errorType") val errorType: String = "",

@@ -22,7 +22,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.pojo.PojoImage
+import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.ui.adapters.AdapterRandomImage
 import com.dawnimpulse.wallup.ui.models.ModelImage
 import com.dawnimpulse.wallup.utils.reusables.hide
@@ -70,8 +70,8 @@ class FragmentRandom : Fragment() {
     /**
      * after images are loaded
      */
-    private val callback = object : (Any?, List<PojoImage>?) -> Unit {
-        override fun invoke(error: Any?, images: List<PojoImage>?) {
+    private val callback = object : (Any?, List<ObjectImage>?) -> Unit {
+        override fun invoke(error: Any?, images: List<ObjectImage>?) {
 
             fragment_random_anim.pauseAnimation()
             fragment_random_anim.hide()

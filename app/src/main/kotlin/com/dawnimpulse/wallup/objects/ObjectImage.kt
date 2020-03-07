@@ -12,7 +12,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.pojo
+package com.dawnimpulse.wallup.objects
 
 import com.google.gson.annotations.SerializedName
 
@@ -25,15 +25,15 @@ import com.google.gson.annotations.SerializedName
  * @note Created on 2020-02-29 by Saksham
  * @note Updates :
  */
-data class PojoImage(
-        @SerializedName("link") val link: PojoImageLink
+data class ObjectImage(
+        @SerializedName("link") val link: ObjectImageLink
 )
 
-data class PojoImageLink(
+data class ObjectImageLink(
         @SerializedName("id") val id: String,
         @SerializedName("path") val path: String
 )
 
-data class RouteImageList(
-        @SerializedName("details") val details: List<PojoImage>
+data class RouteObjectImage(
+        @SerializedName("details") val details: List<ObjectImage>
 )

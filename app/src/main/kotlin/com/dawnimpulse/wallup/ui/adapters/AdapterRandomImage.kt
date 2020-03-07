@@ -19,7 +19,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.pojo.PojoImage
+import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.ui.holders.HolderRandomImage
 
 /**
@@ -31,7 +31,7 @@ import com.dawnimpulse.wallup.ui.holders.HolderRandomImage
  * @note Created on 2020-03-03 by Saksham
  * @note Updates :
  */
-class AdapterRandomImage(private val items: List<PojoImage>) : RecyclerView.Adapter<HolderRandomImage>() {
+class AdapterRandomImage(private val items: List<ObjectImage>) : RecyclerView.Adapter<HolderRandomImage>() {
     private lateinit var context: Context
 
     /**

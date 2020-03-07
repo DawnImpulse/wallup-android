@@ -14,7 +14,7 @@
  **/
 package com.dawnimpulse.wallup.network.source
 
-import com.dawnimpulse.wallup.pojo.PojoImage
+import com.dawnimpulse.wallup.objects.ObjectImage
 import retrofit2.Call
 import retrofit2.http.GET
 
@@ -30,5 +30,5 @@ import retrofit2.http.GET
 interface SourceImage {
 
     @GET("/images")
-    fun random(): Call<List<PojoImage>>
+    fun random(): Call<List<ObjectImage>>
 }

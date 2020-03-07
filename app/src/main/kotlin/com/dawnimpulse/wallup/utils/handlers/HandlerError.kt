@@ -14,7 +14,7 @@
  **/
 package com.dawnimpulse.wallup.utils.handlers
 
-import com.dawnimpulse.wallup.pojo.PojoError
+import com.dawnimpulse.wallup.objects.ObjectError
 import com.dawnimpulse.wallup.utils.reusables.RetroApiClient
 import retrofit2.Response
 
@@ -29,15 +29,15 @@ import retrofit2.Response
  */
 object HandlerError {
 
-    fun parseError(response: Response<*>): PojoError {
+    fun parseError(response: Response<*>): ObjectError {
         val converter = RetroApiClient.getClient()
-            .responseBodyConverter<PojoError>(PojoError::class.java, arrayOfNulls<Annotation>(0))
-        val error: PojoError
+            .responseBodyConverter<ObjectError>(ObjectError::class.java, arrayOfNulls<Annotation>(0))
+        val error: ObjectError
 
         try {
             error = converter.convert(response.errorBody()!!)!!
         } catch (e: Exception) {
-            return PojoError()
+            return ObjectError()
         }
 
         return error
