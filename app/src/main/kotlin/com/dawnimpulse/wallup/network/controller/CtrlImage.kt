@@ -19,7 +19,6 @@ import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerError
 import com.dawnimpulse.wallup.utils.reusables.RetroApiClient
 import com.google.gson.Gson
-import org.sourcei.android.permissions.utils.Config.callback
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -57,7 +56,6 @@ object CtrlImage {
             // on failure
             override fun onFailure(call: Call<List<ObjectImage>>, t: Throwable) {
                 continuation.resumeWithException(t)
-                callback(t.toString(), null)
             }
         })
     }

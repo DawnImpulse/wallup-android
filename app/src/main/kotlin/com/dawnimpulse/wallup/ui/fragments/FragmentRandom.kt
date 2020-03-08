@@ -18,13 +18,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.models.ModelImage
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.ui.adapters.AdapterRandomImage
-import com.dawnimpulse.wallup.models.ModelImage
+import com.dawnimpulse.wallup.utils.reusables.Status
 import com.dawnimpulse.wallup.utils.reusables.hide
 import com.dawnimpulse.wallup.utils.reusables.show
 import kotlinx.android.synthetic.main.fragment_random.*
@@ -39,7 +41,7 @@ import kotlinx.android.synthetic.main.fragment_random.*
  * @note Updates :
  */
 class FragmentRandom : Fragment() {
-    private lateinit var modelImage: ModelImage
+    private val modelImage: ModelImage by activityViewModels()
     private lateinit var adapterRandomImage: AdapterRandomImage
 
     /**
@@ -51,8 +53,6 @@ class FragmentRandom : Fragment() {
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
-        modelImage = ModelImage(this.activity as AppCompatActivity)
         return inflater.inflate(R.layout.fragment_random, container, false)
     }
 
@@ -64,28 +64,33 @@ class FragmentRandom : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        modelImage.getRandomQuote(30, callback)
+        modelImage.getRandomImages().observe(viewLifecycleOwner, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    bindRecycler(it.data!!)
+                }
+                Status.ERROR -> {
+                    fragment_random_anim.pauseAnimation()
+                    fragment_random_anim.hide()
+                    fragment_random_error_layout.show()
+                }
+            }
+        })
     }
 
     /**
      * after images are loaded
+     * bind them to recycler
+     *
+     * @param images
      */
-    private val callback = object : (Any?, List<ObjectImage>?) -> Unit {
-        override fun invoke(error: Any?, images: List<ObjectImage>?) {
-
-            fragment_random_anim.pauseAnimation()
-            fragment_random_anim.hide()
-
-            error?.let {
-                fragment_random_error_layout.show()
-            }
-            images?.let {
-                adapterRandomImage = AdapterRandomImage(it)
-                fragment_random_recycler.layoutManager = LinearLayoutManager(context)
-                fragment_random_recycler.adapter = adapterRandomImage
-                fragment_random_recycler.show()
-            }
-        }
+    private fun bindRecycler(images: List<ObjectImage>) {
+        adapterRandomImage = AdapterRandomImage(images)
+        fragment_random_recycler.layoutManager = LinearLayoutManager(context)
+        fragment_random_recycler.adapter = adapterRandomImage
+        fragment_random_recycler.show()
+        fragment_random_anim.pauseAnimation()
+        fragment_random_anim.hide()
     }
 
 }

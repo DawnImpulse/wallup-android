@@ -14,6 +14,7 @@
  **/
 package com.dawnimpulse.wallup.models
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -62,6 +63,7 @@ class ModelImage(limit: Number = 30) : ViewModel() {
                 randomImages.addAll(CtrlImage.random(limit))
                 Resource.success(randomImages)
             } catch (e: Exception) {
+                Log.d("something", "error")
                 Resource.error(e.toString(), randomImages)
             } finally {
                 mutableRandomImages.postValue(resource)
