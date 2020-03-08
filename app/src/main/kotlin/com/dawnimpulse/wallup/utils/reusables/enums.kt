@@ -28,3 +28,7 @@ enum class Status {
     ERROR,
     LOADING
 }
+
+enum class Errors {
+    RANDOM_IMAGES_ERROR
+}

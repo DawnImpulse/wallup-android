@@ -14,14 +14,13 @@
  **/
 package com.dawnimpulse.wallup.models
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dawnimpulse.wallup.network.controller.CtrlImage
 import com.dawnimpulse.wallup.objects.ObjectImage
-import com.dawnimpulse.wallup.utils.reusables.Resource
+import com.dawnimpulse.wallup.utils.reusables.Errors
 import kotlinx.coroutines.launch
 
 /**
@@ -35,7 +34,8 @@ import kotlinx.coroutines.launch
  */
 class ModelImage(limit: Number = 30) : ViewModel() {
     private val randomImages = mutableListOf<ObjectImage>()
-    private val mutableRandomImages = MutableLiveData<Resource<List<ObjectImage>>>()
+    private val mutableRandomImages = MutableLiveData<List<ObjectImage>>()
+    private val errorHandler = MutableLiveData<Map<Errors, Any>>()
 
     init {
         fetchRandomImages(limit)
@@ -45,10 +45,17 @@ class ModelImage(limit: Number = 30) : ViewModel() {
     /**
      * get random images
      *
-     * @return callback
      */
-    fun getRandomImages(): LiveData<Resource<List<ObjectImage>>> {
+    fun getRandomImages(): LiveData<List<ObjectImage>> {
         return mutableRandomImages
+    }
+
+    /**
+     * handling errors
+     *
+     */
+    fun errors(): LiveData<Map<Errors, Any>> {
+        return errorHandler
     }
 
     /**
@@ -57,16 +64,12 @@ class ModelImage(limit: Number = 30) : ViewModel() {
      * @param limit
      */
     private fun fetchRandomImages(limit: Number) {
-        var resource = Resource.success(randomImages)
         viewModelScope.launch {
-            resource = try {
+            try {
                 randomImages.addAll(CtrlImage.random(limit))
-                Resource.success(randomImages)
+                mutableRandomImages.postValue(randomImages)
             } catch (e: Exception) {
-                Log.d("something", "error")
-                Resource.error(e.toString(), randomImages)
-            } finally {
-                mutableRandomImages.postValue(resource)
+                errorHandler.postValue(mapOf(Errors.RANDOM_IMAGES_ERROR to e.toString()))
             }
         }
     }

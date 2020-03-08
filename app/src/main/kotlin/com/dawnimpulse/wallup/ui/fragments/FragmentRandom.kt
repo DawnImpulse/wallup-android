@@ -26,7 +26,6 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.ModelImage
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.ui.adapters.AdapterRandomImage
-import com.dawnimpulse.wallup.utils.reusables.Status
 import com.dawnimpulse.wallup.utils.reusables.hide
 import com.dawnimpulse.wallup.utils.reusables.show
 import kotlinx.android.synthetic.main.fragment_random.*
@@ -65,16 +64,12 @@ class FragmentRandom : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         modelImage.getRandomImages().observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    bindRecycler(it.data!!)
-                }
-                Status.ERROR -> {
-                    fragment_random_anim.pauseAnimation()
-                    fragment_random_anim.hide()
-                    fragment_random_error_layout.show()
-                }
-            }
+            bindRecycler(it)
+        })
+        modelImage.errors().observe(viewLifecycleOwner, Observer {
+            fragment_random_anim.pauseAnimation()
+            fragment_random_anim.hide()
+            fragment_random_error_layout.show()
         })
     }
 
