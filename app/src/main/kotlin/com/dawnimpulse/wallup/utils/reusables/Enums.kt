@@ -29,6 +29,6 @@ enum class Status {
     LOADING
 }
 
-enum class Errors {
-    RANDOM_IMAGES_ERROR
+enum class Issues {
+    RANDOM_IMAGES_NETWORK_FAIL
 }

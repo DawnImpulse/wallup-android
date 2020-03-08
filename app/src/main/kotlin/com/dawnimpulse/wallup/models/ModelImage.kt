@@ -20,7 +20,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dawnimpulse.wallup.network.controller.CtrlImage
 import com.dawnimpulse.wallup.objects.ObjectImage
-import com.dawnimpulse.wallup.utils.reusables.Errors
+import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
+import com.dawnimpulse.wallup.utils.reusables.Issues
 import kotlinx.coroutines.launch
 
 /**
@@ -35,7 +36,7 @@ import kotlinx.coroutines.launch
 class ModelImage(limit: Number = 30) : ViewModel() {
     private val randomImages = mutableListOf<ObjectImage>()
     private val mutableRandomImages = MutableLiveData<List<ObjectImage>>()
-    private val errorHandler = MutableLiveData<Map<Errors, Any>>()
+    private val errorHandler = MutableLiveData<HandlerIssue>()
 
     init {
         fetchRandomImages(limit)
@@ -54,7 +55,7 @@ class ModelImage(limit: Number = 30) : ViewModel() {
      * handling errors
      *
      */
-    fun errors(): LiveData<Map<Errors, Any>> {
+    fun errors(): LiveData<HandlerIssue> {
         return errorHandler
     }
 
@@ -69,7 +70,7 @@ class ModelImage(limit: Number = 30) : ViewModel() {
                 randomImages.addAll(CtrlImage.random(limit))
                 mutableRandomImages.postValue(randomImages)
             } catch (e: Exception) {
-                errorHandler.postValue(mapOf(Errors.RANDOM_IMAGES_ERROR to e.toString()))
+                errorHandler.postValue(HandlerIssue(Issues.RANDOM_IMAGES_NETWORK_FAIL, e.toString(), e))
             }
         }
     }
