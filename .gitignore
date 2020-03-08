@@ -1,7 +1,6 @@
 *.iml
 .gradle
 bash.exe.stackdump
-gradle.properties
 /local.properties
 /.idea
 .DS_Store

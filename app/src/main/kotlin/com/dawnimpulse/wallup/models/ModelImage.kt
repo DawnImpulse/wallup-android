@@ -14,16 +14,14 @@
  **/
 package com.dawnimpulse.wallup.models
 
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dawnimpulse.wallup.network.controller.CtrlImage
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.utils.reusables.Resource
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.sourcei.android.permissions.utils.Config.callback
 
 /**
  * @info - bridge between ui & controller
@@ -34,12 +32,12 @@ import org.sourcei.android.permissions.utils.Config.callback
  * @note Created on 2020-03-02 by Saksham
  * @note Updates :
  */
-class ModelImage(private val activity: AppCompatActivity, limit: Number = 30) : ViewModel() {
+class ModelImage(limit: Number = 30) : ViewModel() {
     private val randomImages = mutableListOf<ObjectImage>()
     private val mutableRandomImages = MutableLiveData<Resource<List<ObjectImage>>>()
 
     init {
-        getRandomImages(limit)
+        fetchRandomImages(limit)
     }
 
 
@@ -48,25 +46,25 @@ class ModelImage(private val activity: AppCompatActivity, limit: Number = 30) : 
      *
      * @return callback
      */
-    fun getRandomQuote(): LiveData<Resource<List<ObjectImage>>> {
+    fun getRandomImages(): LiveData<Resource<List<ObjectImage>>> {
         return mutableRandomImages
     }
 
     /**
      * get random images
+     *
+     * @param limit
      */
-    private fun getRandomImages(limit: Number) {
+    private fun fetchRandomImages(limit: Number) {
         var resource = Resource.success(randomImages)
-        GlobalScope.launch {
-            try {
+        viewModelScope.launch {
+            resource = try {
                 randomImages.addAll(CtrlImage.random(limit))
-                resource = Resource.success(randomImages)
+                Resource.success(randomImages)
             } catch (e: Exception) {
-                resource = Resource.error(e.toString(), randomImages)
+                Resource.error(e.toString(), randomImages)
             } finally {
-                activity.runOnUiThread {
-                    mutableRandomImages.postValue(resource)
-                }
+                mutableRandomImages.postValue(resource)
             }
         }
     }
