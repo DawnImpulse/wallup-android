@@ -23,5 +23,5 @@ package com.dawnimpulse.wallup.utils.reusables
  * @note Created on 2020-02-29 by Saksham
  * @note Updates :
  */
-const val LIMIT = "limit"
+const val LIMIT = "_limit"
 const val RANDOM = "random"

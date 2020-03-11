@@ -43,8 +43,8 @@ object CtrlImage {
      *
      * @param limit
      */
-    suspend fun random(limit: Number = 30) = suspendCoroutine<List<ObjectImage>> { continuation ->
-        val call = client.random()
+    suspend fun random(limit: Number) = suspendCoroutine<List<ObjectImage>> { continuation ->
+        val call = client.random(limit)
         call.enqueue(object : Callback<List<ObjectImage>> {
             override fun onResponse(call: Call<List<ObjectImage>>, response: Response<List<ObjectImage>>) {
                 if (response.isSuccessful)
