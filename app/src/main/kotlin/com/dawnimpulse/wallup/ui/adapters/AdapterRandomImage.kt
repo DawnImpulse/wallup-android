@@ -31,7 +31,10 @@ import com.dawnimpulse.wallup.ui.holders.HolderRandomImage
  * @note Created on 2020-03-03 by Saksham
  * @note Updates :
  */
-class AdapterRandomImage(private val items: List<ObjectImage>) : RecyclerView.Adapter<HolderRandomImage>() {
+class AdapterRandomImage(
+        private val items: List<ObjectImage>,
+        recyclerView: RecyclerView) : CustomAdapter<HolderRandomImage>(6, recyclerView) {
+
     private lateinit var context: Context
 
     /**

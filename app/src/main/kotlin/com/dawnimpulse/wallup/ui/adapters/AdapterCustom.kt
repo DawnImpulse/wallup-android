@@ -28,7 +28,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  * @note Created on 2020-03-12 by Saksham
  * @note Updates :
  */
-open class CustomAdapter(val visibleThreshold: Int, recyclerView: RecyclerView) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+open class CustomAdapter <T : RecyclerView.ViewHolder> (val visibleThreshold: Int, recyclerView: RecyclerView) : RecyclerView.Adapter<T>() {
     var isLoading = false
 
     private var lastVisibleItem: Int = 0
@@ -72,7 +72,7 @@ open class CustomAdapter(val visibleThreshold: Int, recyclerView: RecyclerView) 
         })
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): T {
         TODO("Not yet implemented")
     }
 
@@ -80,7 +80,7 @@ open class CustomAdapter(val visibleThreshold: Int, recyclerView: RecyclerView) 
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: T, position: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
