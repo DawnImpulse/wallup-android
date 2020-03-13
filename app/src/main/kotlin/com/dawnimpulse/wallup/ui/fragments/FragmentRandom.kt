@@ -26,9 +26,11 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.ModelImage
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.ui.adapters.AdapterRandomImage
+import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
 import com.dawnimpulse.wallup.utils.reusables.hide
 import com.dawnimpulse.wallup.utils.reusables.show
 import kotlinx.android.synthetic.main.fragment_random.*
+import kotlin.reflect.typeOf
 
 /**
  * @info - random fragment
@@ -63,14 +65,8 @@ class FragmentRandom : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        modelImage.getRandomImages().observe(viewLifecycleOwner, Observer {
-            bindRecycler(it)
-        })
-        modelImage.errors().observe(viewLifecycleOwner, Observer {
-            fragment_random_anim.pauseAnimation()
-            fragment_random_anim.hide()
-            fragment_random_error_layout.show()
-        })
+        modelImage.getRandomImages().observe(viewLifecycleOwner, imageObserver)
+        modelImage.errors().observe(viewLifecycleOwner, issueObserver)
     }
 
     /**
@@ -80,12 +76,29 @@ class FragmentRandom : Fragment() {
      * @param images
      */
     private fun bindRecycler(images: List<ObjectImage>) {
-        adapterRandomImage = AdapterRandomImage(images)
+        adapterRandomImage = AdapterRandomImage(images, fragment_random_recycler)
         fragment_random_recycler.layoutManager = LinearLayoutManager(context)
         fragment_random_recycler.adapter = adapterRandomImage
         fragment_random_recycler.show()
         fragment_random_anim.pauseAnimation()
         fragment_random_anim.hide()
+    }
+
+
+    /**
+     * image observer
+     */
+    private var imageObserver = Observer<List<ObjectImage>> {
+        bindRecycler(it)
+    }
+
+    /**
+     * issue observer
+     */
+    private var issueObserver = Observer<HandlerIssue> {
+        fragment_random_anim.pauseAnimation()
+        fragment_random_anim.hide()
+        fragment_random_error_layout.show()
     }
 
 }
