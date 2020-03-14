@@ -22,6 +22,8 @@ import com.dawnimpulse.wallup.network.controller.CtrlImage
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
 import com.dawnimpulse.wallup.utils.reusables.Issues
+import com.dawnimpulse.wallup.utils.reusables.logd
+import com.dawnimpulse.wallup.utils.reusables.loge
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -34,9 +36,9 @@ import kotlinx.coroutines.launch
  * @note Created on 2020-03-02 by Saksham
  * @note Updates :
  */
-class ModelImage(limit: Number = 30) : ViewModel() {
-    private val randomImages = mutableListOf<ObjectImage>()
-    private val mutableRandomImages = MutableLiveData<List<ObjectImage>>()
+class ModelImage(private val limit: Number = 30) : ViewModel() {
+    private val randomImages = mutableListOf<ObjectImage?>()
+    private val mutableRandomImages = MutableLiveData<List<ObjectImage?>>()
     private val errorHandler = MutableLiveData<HandlerIssue>()
 
     init {
@@ -47,9 +49,18 @@ class ModelImage(limit: Number = 30) : ViewModel() {
     /**
      * get random images
      *
+     * @return LiveData<List<ObjectImage?>>
      */
-    fun getRandomImages(): LiveData<List<ObjectImage>> {
+    fun getRandomImages(): LiveData<List<ObjectImage?>> {
         return mutableRandomImages
+    }
+
+    /**
+     * load more random images
+     */
+    fun loadMoreRandomImages() {
+        randomImages.add(null)
+        fetchRandomImages(limit)
     }
 
     /**
@@ -69,9 +80,14 @@ class ModelImage(limit: Number = 30) : ViewModel() {
         viewModelScope.launch {
             delay(1500)
             try {
+                // removing null if exists
+                if (randomImages.isNotEmpty() && randomImages[randomImages.size - 1] == null)
+                    randomImages.removeAt(randomImages.size - 1)
+                // adding images in randomImages array
                 randomImages.addAll(CtrlImage.random(limit))
                 mutableRandomImages.postValue(randomImages)
             } catch (e: Exception) {
+                loge(e)
                 errorHandler.postValue(HandlerIssue(Issues.RANDOM_IMAGES_NETWORK_FAIL, e.toString(), e))
             }
         }

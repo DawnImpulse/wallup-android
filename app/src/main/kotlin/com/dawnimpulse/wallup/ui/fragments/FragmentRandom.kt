@@ -31,7 +31,6 @@ import com.dawnimpulse.wallup.utils.reusables.hide
 import com.dawnimpulse.wallup.utils.reusables.show
 import com.dawnimpulse.wallup.utils.reusables.toast
 import kotlinx.android.synthetic.main.fragment_random.*
-import kotlin.reflect.typeOf
 
 /**
  * @info - random fragment
@@ -71,28 +70,9 @@ class FragmentRandom : Fragment() {
     }
 
     /**
-     * after images are loaded
-     * bind them to recycler
-     *
-     * @param images
-     */
-    private fun bindRecycler(images: List<ObjectImage>) {
-        adapterRandomImage = AdapterRandomImage(images, fragment_random_recycler)
-        adapterRandomImage.onLoading().observe(viewLifecycleOwner, loadingObserver)
-
-        fragment_random_recycler.layoutManager = LinearLayoutManager(context)
-        fragment_random_recycler.adapter = adapterRandomImage
-        fragment_random_recycler.show()
-
-        fragment_random_anim.pauseAnimation()
-        fragment_random_anim.hide()
-    }
-
-
-    /**
      * image observer
      */
-    private var imageObserver = Observer<List<ObjectImage>> {
+    private var imageObserver = Observer<List<ObjectImage?>> {
         bindRecycler(it)
     }
 
@@ -109,7 +89,34 @@ class FragmentRandom : Fragment() {
      * loading observer
      */
     private var loadingObserver = Observer<Void> {
-        toast("hello")
+        modelImage.loadMoreRandomImages()
+    }
+
+    /**
+     * after images are loaded
+     * bind them to recycler
+     *
+     * @param images
+     */
+    private fun bindRecycler(images: List<ObjectImage?>) {
+        // case when we receive images for first time
+        if (!::adapterRandomImage.isInitialized){
+            adapterRandomImage = AdapterRandomImage(images, fragment_random_recycler)
+            adapterRandomImage.onLoading().observe(viewLifecycleOwner, loadingObserver)
+
+            fragment_random_recycler.layoutManager = LinearLayoutManager(context)
+            fragment_random_recycler.adapter = adapterRandomImage
+            fragment_random_recycler.show()
+
+            fragment_random_anim.pauseAnimation()
+            fragment_random_anim.hide()
+        }else {
+            // case when more images are loaded
+            // inner case if images are loading
+            if (images[images.size - 1] != null)
+                adapterRandomImage.onLoaded()
+            adapterRandomImage.notifyDataSetChanged()
+        }
     }
 
 }
