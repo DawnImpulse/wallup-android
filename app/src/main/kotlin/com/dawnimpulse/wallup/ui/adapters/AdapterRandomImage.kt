@@ -20,6 +20,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.ui.holders.HolderLoading
 import com.dawnimpulse.wallup.ui.holders.HolderRandomImage
 
 /**
@@ -32,10 +33,12 @@ import com.dawnimpulse.wallup.ui.holders.HolderRandomImage
  * @note Updates :
  */
 class AdapterRandomImage(
-        private val items: List<ObjectImage>,
-        recyclerView: RecyclerView) : CustomAdapter<HolderRandomImage>(6, recyclerView) {
+        private val objectImageList: List<ObjectImage?>,
+        recyclerView: RecyclerView) : CustomAdapter<RecyclerView.ViewHolder>(6, recyclerView) {
 
     private lateinit var context: Context
+    private val VIEW_ITEM = 0
+    private val VIEW_LOADING = 1
 
     /**
      * (default) get items in adapter
@@ -43,19 +46,32 @@ class AdapterRandomImage(
      * @return Int
      */
     override fun getItemCount(): Int {
-        return items.size
+        return objectImageList.size
     }
 
     /**
-     * (default) create view holder for random image
+     * get type of item
+     *
+     * @param position
+     * @param Int - view type
+     */
+    override fun getItemViewType(position: Int): Int {
+        return if (objectImageList[position] == null) VIEW_LOADING else VIEW_ITEM
+    }
+
+    /**
+     * (default) create view holder for random image / loading
      *
      * @param parent
      * @param viewType
-     * @return HolderRandomImage
+     * @return RecyclerView.ViewHolder
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderRandomImage {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
-        return HolderRandomImage(LayoutInflater.from(context).inflate(R.layout.holder_random_image, parent, false))
+        return if (viewType == VIEW_ITEM)
+            HolderRandomImage(LayoutInflater.from(context).inflate(R.layout.holder_random_image, parent, false))
+        else
+            HolderLoading(LayoutInflater.from(context).inflate(R.layout.holder_loading_horizontal, parent, false))
     }
 
     /**
@@ -64,8 +80,9 @@ class AdapterRandomImage(
      * @param holder
      * @param position
      */
-    override fun onBindViewHolder(holder: HolderRandomImage, position: Int) {
-        holder.bind(items[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is HolderRandomImage)
+            holder.bind(objectImageList[position]!!)
     }
 
 }
