@@ -14,7 +14,12 @@
  **/
 package com.dawnimpulse.wallup.utils.reusables
 
+import android.content.Context
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.dawnimpulse.wallup.BuildConfig
 
 /**
  * @info -
@@ -39,4 +44,37 @@ fun View.hide() {
 // gone view
 fun View.show() {
     visibility = View.VISIBLE
+}
+
+// fragment toast
+fun Fragment.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(activity, message, length).show()
+}
+
+// fragment debug toast
+fun Fragment.toastd(message: String, length: Int = Toast.LENGTH_SHORT) {
+    if (BuildConfig.DEBUG)
+        Toast.makeText(activity, message, length).show()
+}
+
+// toast
+fun Context.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, length).show()
+}
+
+// debug toast
+fun Context.toastd(message: String, length: Int = Toast.LENGTH_SHORT) {
+    if (BuildConfig.DEBUG)
+        Toast.makeText(this, message, length).show()
+}
+
+// log messages
+fun logd(message: Any) {
+    if (BuildConfig.DEBUG)
+        Log.d("wallup", "${Exception().stackTrace[1].className.replace("${BuildConfig.APPLICATION_ID}.", "")} :: $message")
+}
+
+fun loge(message: Any) {
+    if (BuildConfig.DEBUG)
+        Log.e("wallup", "${Exception().stackTrace[1].className.replace("${BuildConfig.APPLICATION_ID}.", "")} :: $message")
 }

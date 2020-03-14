@@ -22,6 +22,7 @@ import com.dawnimpulse.wallup.network.controller.CtrlImage
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
 import com.dawnimpulse.wallup.utils.reusables.Issues
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -66,6 +67,7 @@ class ModelImage(limit: Number = 30) : ViewModel() {
      */
     private fun fetchRandomImages(limit: Number) {
         viewModelScope.launch {
+            delay(1500)
             try {
                 randomImages.addAll(CtrlImage.random(limit))
                 mutableRandomImages.postValue(randomImages)

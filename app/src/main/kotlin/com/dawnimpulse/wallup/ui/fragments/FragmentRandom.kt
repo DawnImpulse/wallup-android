@@ -29,6 +29,7 @@ import com.dawnimpulse.wallup.ui.adapters.AdapterRandomImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
 import com.dawnimpulse.wallup.utils.reusables.hide
 import com.dawnimpulse.wallup.utils.reusables.show
+import com.dawnimpulse.wallup.utils.reusables.toast
 import kotlinx.android.synthetic.main.fragment_random.*
 import kotlin.reflect.typeOf
 
@@ -77,9 +78,12 @@ class FragmentRandom : Fragment() {
      */
     private fun bindRecycler(images: List<ObjectImage>) {
         adapterRandomImage = AdapterRandomImage(images, fragment_random_recycler)
+        adapterRandomImage.onLoading().observe(viewLifecycleOwner, loadingObserver)
+
         fragment_random_recycler.layoutManager = LinearLayoutManager(context)
         fragment_random_recycler.adapter = adapterRandomImage
         fragment_random_recycler.show()
+
         fragment_random_anim.pauseAnimation()
         fragment_random_anim.hide()
     }
@@ -99,6 +103,13 @@ class FragmentRandom : Fragment() {
         fragment_random_anim.pauseAnimation()
         fragment_random_anim.hide()
         fragment_random_error_layout.show()
+    }
+
+    /**
+     * loading observer
+     */
+    private var loadingObserver = Observer<Void> {
+        toast("hello")
     }
 
 }
