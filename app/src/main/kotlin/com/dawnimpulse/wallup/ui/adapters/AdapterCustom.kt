@@ -15,6 +15,9 @@
 package com.dawnimpulse.wallup.ui.adapters
 
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -28,8 +31,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  * @note Created on 2020-03-12 by Saksham
  * @note Updates :
  */
-open class CustomAdapter <T : RecyclerView.ViewHolder> (val visibleThreshold: Int, recyclerView: RecyclerView) : RecyclerView.Adapter<T>() {
+open class CustomAdapter<T : RecyclerView.ViewHolder>(val visibleThreshold: Int, recyclerView: RecyclerView) : RecyclerView.Adapter<T>() {
     var isLoading = false
+    val liveData = MutableLiveData<Void>()
 
     private var lastVisibleItem: Int = 0
     private var totalItemCount: Int = 0
@@ -65,27 +69,55 @@ open class CustomAdapter <T : RecyclerView.ViewHolder> (val visibleThreshold: In
 
                     if (totalItemCount <= lastVisibleItem + visibleThreshold) {
                         isLoading = true
-                        onLoading()
+                        liveData.postValue(null)
                     }
                 }
             }
         })
     }
 
+    /**
+     * handling inside extending class
+     *
+     * @param parent
+     * @param viewType
+     * @return T
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): T {
         TODO("Not yet implemented")
     }
 
+    /**
+     * handling inside extending class
+     *
+     * @return Int
+     */
     override fun getItemCount(): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    /**
+     * handling inside extending class
+     *
+     * @param holder
+     * @param position
+     */
     override fun onBindViewHolder(holder: T, position: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    open fun onLoading() {}
+    /**
+     * when its time to load new data
+     *
+     * @return LiveData<Void>
+     */
+    open fun onLoading(): LiveData<Void> {
+        return liveData
+    }
 
+    /**
+     * data is loaded , set variable false
+     */
     open fun onLoaded() {
         isLoading = false
     }
