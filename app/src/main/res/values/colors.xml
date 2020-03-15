@@ -12,10 +12,12 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <resources>
-    <color name="colorPrimary">#546e7a</color>
-    <color name="colorPrimaryDark">#29434e</color>
-    <color name="colorAccent">#40c4ff</color>
+    <color name="colorPrimary">#343434</color>
+    <color name="colorPrimaryDark">#0d0d0d</color>
+    <color name="colorAccent">#009688</color>
 
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+
+    <color name="greyish">#F2F2F2</color>
 </resources>

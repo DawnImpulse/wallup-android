@@ -12,13 +12,44 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_height="96dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:background="@color/white">
 
-    <ProgressBar
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true" />
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="@color/greyish"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="32dp"
+                android:letterSpacing="0.05"
+                android:text="Loading"
+                android:textColor="@color/colorAccent"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ProgressBar
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="32dp"
+                android:indeterminate="true" />
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
 </FrameLayout>
