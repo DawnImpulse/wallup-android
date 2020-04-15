@@ -40,7 +40,7 @@ object HandlerImage{
         Glide.with(view.context)
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .transition(GenericTransitionOptions.with(R.anim.fade_in_anim))
+                .transition(GenericTransitionOptions.with(R.anim.fade_in))
                 .into(view)
                 .clearOnDetach()
     }

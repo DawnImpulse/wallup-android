@@ -15,7 +15,10 @@
 package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.R
+import kotlinx.android.synthetic.main.holder_loading_staggered.view.*
 
 /**
  * @info - loading holder for horizontal progress
@@ -26,4 +29,11 @@ import androidx.recyclerview.widget.RecyclerView
  * @note Created on 2020-03-14 by Saksham
  * @note Updates :
  */
-class HolderLoading(view: View) : RecyclerView.ViewHolder(view)
+class HolderLoading(view: View) : RecyclerView.ViewHolder(view) {
+    private val text = view.holder_loading_center_staggered_text
+    private val context = view.context;
+
+    fun bind(){
+        text.startAnimation(AnimationUtils.loadAnimation(context, R.anim.fade_in_out))
+    }
+}

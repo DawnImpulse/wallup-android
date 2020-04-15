@@ -71,7 +71,7 @@ class AdapterRandomImage(
         return if (viewType == VIEW_ITEM)
             HolderRandomImage(LayoutInflater.from(context).inflate(R.layout.holder_random_image, parent, false))
         else
-            HolderLoading(LayoutInflater.from(context).inflate(R.layout.holder_loading_horizontal, parent, false))
+            HolderLoading(LayoutInflater.from(context).inflate(R.layout.holder_loading_staggered, parent, false))
     }
 
     /**
@@ -83,6 +83,8 @@ class AdapterRandomImage(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is HolderRandomImage)
             holder.bind(objectImageList[position]!!)
+        else if (holder is HolderLoading)
+            holder.bind()
     }
 
 }
