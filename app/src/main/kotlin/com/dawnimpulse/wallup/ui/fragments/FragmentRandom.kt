@@ -22,6 +22,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.ModelImage
 import com.dawnimpulse.wallup.objects.ObjectImage
@@ -104,7 +106,7 @@ class FragmentRandom : Fragment() {
             adapterRandomImage = AdapterRandomImage(images, fragment_random_recycler)
             adapterRandomImage.onLoading().observe(viewLifecycleOwner, loadingObserver)
 
-            fragment_random_recycler.layoutManager = LinearLayoutManager(context)
+            fragment_random_recycler.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
             fragment_random_recycler.adapter = adapterRandomImage
             fragment_random_recycler.show()
 
