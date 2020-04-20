@@ -21,6 +21,7 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "WALLUP_API_URL", "\"${WALLUP_DEBUG_API_URL}\""
+            buildConfigField "String", "UNSPLASH_ACCESS_KEY", "\"${UNSPLASH_ACCESS_KEY}\""
         }
 
         release {
@@ -52,12 +53,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.fragment:fragment-ktx:1.2.2"
+    implementation "androidx.fragment:fragment-ktx:1.2.4"
 
     implementation "com.google.android.material:material:1.1.0"
 
     //--------------- Firebase Libraries --------------------
-    implementation 'com.google.firebase:firebase-core:17.2.3' // core
+    implementation 'com.google.firebase:firebase-core:17.3.0' // core
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1' // crashlytics
     implementation 'com.google.firebase:firebase-database:19.2.1' // realtime database
 

@@ -25,3 +25,4 @@ package com.dawnimpulse.wallup.utils.reusables
  */
 const val LIMIT = "_limit"
 const val RANDOM = "random"
+const val AUTHORIZATION = "Authorization"
