@@ -18,10 +18,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.ui.holders.HolderLoading
 import com.dawnimpulse.wallup.ui.holders.HolderRandomImage
+
 
 /**
  * @info -
@@ -71,7 +73,7 @@ class AdapterRandomImage(
         return if (viewType == VIEW_ITEM)
             HolderRandomImage(LayoutInflater.from(context).inflate(R.layout.holder_random_image, parent, false))
         else
-            HolderLoading(LayoutInflater.from(context).inflate(R.layout.holder_loading_staggered, parent, false))
+            HolderLoading(LayoutInflater.from(context).inflate(R.layout.holder_loading_horizontal, parent, false))
     }
 
     /**
@@ -81,10 +83,13 @@ class AdapterRandomImage(
      * @param position
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        // if showing image
         if (holder is HolderRandomImage)
             holder.bind(objectImageList[position]!!)
-        else if (holder is HolderLoading)
-            holder.bind()
+        // if showing loading view
+        else if (holder is HolderLoading){
+            (holder.itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true
+        }
     }
 
 }
