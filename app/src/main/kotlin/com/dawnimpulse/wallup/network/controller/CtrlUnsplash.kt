@@ -19,6 +19,7 @@ import com.dawnimpulse.wallup.network.source.SourceUnsplash
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerError
+import com.dawnimpulse.wallup.utils.handlers.HandlerUnsplashError
 import com.dawnimpulse.wallup.utils.reusables.RetroApiClient
 import com.google.gson.Gson
 import retrofit2.Call
@@ -51,7 +52,7 @@ object CtrlUnsplash{
                 if (response.isSuccessful)
                     continuation.resume(response.body()!!)
                 else
-                    continuation.resumeWithException(Exception(Gson().toJson(HandlerError.parseError(response))))
+                    continuation.resumeWithException(Exception(Gson().toJson(HandlerUnsplashError.parseError(response))))
             }
 
             // on failure
@@ -60,18 +61,4 @@ object CtrlUnsplash{
             }
         })
     }
-
-        /*call.enqueue(object : Callback<List<org.sourcei.wallup.deprecated.pojo.ImagePojo>> {
-
-            override fun onResponse(call: Call<List<org.sourcei.wallup.deprecated.pojo.ImagePojo>>?, response: Response<List<org.sourcei.wallup.deprecated.pojo.ImagePojo>>) {
-                if (response.isSuccessful)
-                    callback(null, response.body())
-                else
-                    callback(org.sourcei.wallup.deprecated.utils.ErrorUtils.parseError(response), null)
-            }
-
-            override fun onFailure(call: Call<List<org.sourcei.wallup.deprecated.pojo.ImagePojo>>?, t: Throwable?) {
-                t?.toString()?.let { callback(t.toString(), null) }
-            }
-        })*/
 }
