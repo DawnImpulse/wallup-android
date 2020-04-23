@@ -19,6 +19,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerImage
 import com.dawnimpulse.wallup.utils.reusables.F
 import kotlinx.android.synthetic.main.holder_random_image.view.*
@@ -40,7 +41,7 @@ class HolderRandomImage(view: View) : RecyclerView.ViewHolder(view) {
 
     private val context = view.context;
 
-    fun bind(objectImage: ObjectImage) {
+    fun bind(objectImage: ObjectUnsplashImage) {
 
         // set random image height
         val point = F.displayDimensions(context)
@@ -48,7 +49,8 @@ class HolderRandomImage(view: View) : RecyclerView.ViewHolder(view) {
         val height = F.dpToPx((180..260).random(), context)
         layout.layoutParams = ViewGroup.LayoutParams(width, height)
 
-        val link = objectImage.link
-        HandlerImage.setImageInRecycler(image, "${BuildConfig.WALLUP_API_URL}/${link.path}/${link.id}")
+        val link = objectImage.urls!!.small
+        //HandlerImage.setImageInRecycler(image, "${BuildConfig.WALLUP_API_URL}/${link.path}/${link.id}")
+        HandlerImage.setImageInRecycler(image, link)
     }
 }

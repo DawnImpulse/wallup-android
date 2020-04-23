@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.ui.holders.HolderLoading
 import com.dawnimpulse.wallup.ui.holders.HolderRandomImage
 
@@ -35,7 +36,7 @@ import com.dawnimpulse.wallup.ui.holders.HolderRandomImage
  * @note Updates :
  */
 class AdapterRandomImage(
-        private val objectImageList: List<ObjectImage?>,
+        private val objectImageList: List<ObjectUnsplashImage?>,
         recyclerView: RecyclerView) : CustomAdapter<RecyclerView.ViewHolder>(6, recyclerView) {
 
     private lateinit var context: Context
@@ -87,9 +88,8 @@ class AdapterRandomImage(
         if (holder is HolderRandomImage)
             holder.bind(objectImageList[position]!!)
         // if showing loading view
-        else if (holder is HolderLoading){
+        else if (holder is HolderLoading)
             (holder.itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true
-        }
     }
 
 }

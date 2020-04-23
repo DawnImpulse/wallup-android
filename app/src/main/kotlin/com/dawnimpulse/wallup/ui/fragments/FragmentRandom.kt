@@ -26,7 +26,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.ModelImage
+import com.dawnimpulse.wallup.models.ModelUnsplash
 import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.ui.adapters.AdapterRandomImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
 import com.dawnimpulse.wallup.utils.reusables.hide
@@ -44,7 +46,7 @@ import kotlinx.android.synthetic.main.fragment_random.*
  * @note Updates :
  */
 class FragmentRandom : Fragment() {
-    private val modelImage: ModelImage by activityViewModels()
+    private val modelUnsplash: ModelUnsplash by activityViewModels()
     private lateinit var adapterRandomImage: AdapterRandomImage
 
     /**
@@ -67,14 +69,14 @@ class FragmentRandom : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        modelImage.getRandomImages().observe(viewLifecycleOwner, imageObserver)
-        modelImage.errors().observe(viewLifecycleOwner, issueObserver)
+        modelUnsplash.getRandomImages().observe(viewLifecycleOwner, imageObserver)
+        modelUnsplash.errors().observe(viewLifecycleOwner, issueObserver)
     }
 
     /**
      * image observer
      */
-    private var imageObserver = Observer<List<ObjectImage?>> {
+    private var imageObserver = Observer<List<ObjectUnsplashImage?>> {
         bindRecycler(it)
     }
 
@@ -91,7 +93,7 @@ class FragmentRandom : Fragment() {
      * loading observer
      */
     private var loadingObserver = Observer<Void> {
-        modelImage.loadMoreRandomImages()
+        modelUnsplash.loadMoreRandomImages()
     }
 
     /**
@@ -100,7 +102,7 @@ class FragmentRandom : Fragment() {
      *
      * @param images
      */
-    private fun bindRecycler(images: List<ObjectImage?>) {
+    private fun bindRecycler(images: List<ObjectUnsplashImage?>) {
         // case when we receive images for first time
         if (!::adapterRandomImage.isInitialized){
             adapterRandomImage = AdapterRandomImage(images, fragment_random_recycler)

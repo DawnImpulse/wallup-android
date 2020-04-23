@@ -14,11 +14,8 @@
  **/
 package com.dawnimpulse.wallup.network.controller
 
-import com.dawnimpulse.wallup.network.source.SourceImage
 import com.dawnimpulse.wallup.network.source.SourceUnsplash
-import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
-import com.dawnimpulse.wallup.utils.handlers.HandlerError
 import com.dawnimpulse.wallup.utils.handlers.HandlerUnsplashError
 import com.dawnimpulse.wallup.utils.reusables.RetroApiClient
 import com.google.gson.Gson
