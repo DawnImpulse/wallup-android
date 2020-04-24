@@ -16,6 +16,7 @@ package com.dawnimpulse.wallup.ui.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.fragments.FragmentRandom
@@ -46,6 +47,7 @@ class ActivityMain : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupViewPager(activity_main_viewpager)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }
 
     /**

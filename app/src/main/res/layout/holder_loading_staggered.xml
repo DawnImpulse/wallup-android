@@ -23,7 +23,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        app:cardBackgroundColor="@color/greyish"
+        app:cardBackgroundColor="@color/colorSecondary"
         app:cardCornerRadius="16dp"
         app:cardElevation="0dp">
 
