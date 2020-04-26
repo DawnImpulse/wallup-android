@@ -16,8 +16,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:layout_width="match_parent"
     android:layout_height="96dp"
     android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
-    android:background="@color/white">
+    android:layout_marginBottom="8dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

@@ -60,7 +60,6 @@ class ModelUnsplash(private val limit: Number = 30) : ViewModel() {
      * load more random images
      */
     fun loadMoreRandomImages() {
-        randomImages.add(null)
         fetchRandomImages(limit)
     }
 
@@ -79,13 +78,13 @@ class ModelUnsplash(private val limit: Number = 30) : ViewModel() {
      */
     private fun fetchRandomImages(limit: Number) {
         viewModelScope.launch {
-            delay(1000)
             try {
                 // removing null if exists
                 if (randomImages.isNotEmpty() && randomImages[randomImages.size - 1] == null)
                     randomImages.removeAt(randomImages.size - 1)
                 // adding images in randomImages array
                 randomImages.addAll(CtrlUnsplash.randomImages())
+                randomImages.add(null)
                 mutableRandomImages.postValue(randomImages)
             } catch (e: Exception) {
                 loge(e)

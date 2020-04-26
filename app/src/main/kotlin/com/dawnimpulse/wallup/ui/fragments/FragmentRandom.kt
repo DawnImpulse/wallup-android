@@ -104,7 +104,7 @@ class FragmentRandom : Fragment() {
      */
     private fun bindRecycler(images: List<ObjectUnsplashImage?>) {
         // case when we receive images for first time
-        if (!::adapterRandomImage.isInitialized){
+        if (!::adapterRandomImage.isInitialized) {
             adapterRandomImage = AdapterRandomImage(images, fragment_random_recycler)
             adapterRandomImage.onLoading().observe(viewLifecycleOwner, loadingObserver)
 
@@ -114,11 +114,8 @@ class FragmentRandom : Fragment() {
 
             fragment_random_anim.pauseAnimation()
             fragment_random_anim.hide()
-        }else {
-            // case when more images are loaded
-            // inner case if images are loading
-            if (images[images.size - 1] != null)
-                adapterRandomImage.onLoaded()
+        } else {
+            adapterRandomImage.onLoaded()
             adapterRandomImage.notifyDataSetChanged()
         }
     }
