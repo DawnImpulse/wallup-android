@@ -19,7 +19,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.ui.fragments.FragmentHome
 import com.dawnimpulse.wallup.ui.fragments.FragmentRandom
+import com.dawnimpulse.wallup.utils.reusables.HOME
 import com.dawnimpulse.wallup.utils.reusables.RANDOM
 import com.dawnimpulse.wallup.utils.reusables.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,6 +37,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  */
 class ActivityMain : AppCompatActivity() {
     private lateinit var randomFragment: FragmentRandom
+    private lateinit var homeFragment: FragmentHome
     private lateinit var pagerAdapter: ViewPagerAdapter
 
     /**
@@ -47,7 +50,7 @@ class ActivityMain : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupViewPager(activity_main_viewpager)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     /**
@@ -58,8 +61,10 @@ class ActivityMain : AppCompatActivity() {
     private fun setupViewPager(viewPager: ViewPager) {
 
         pagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        homeFragment = FragmentHome()
         randomFragment = FragmentRandom()
 
+        pagerAdapter.addFragment(homeFragment, HOME)
         pagerAdapter.addFragment(randomFragment, RANDOM)
         viewPager.adapter = pagerAdapter
     }

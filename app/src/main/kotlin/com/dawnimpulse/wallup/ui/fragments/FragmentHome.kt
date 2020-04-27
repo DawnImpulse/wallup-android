@@ -26,6 +26,8 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.ModelHome
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.ui.adapters.AdapterHome
+import com.dawnimpulse.wallup.utils.reusables.logd
+import com.dawnimpulse.wallup.utils.reusables.toast
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -61,6 +63,7 @@ class FragmentHome : Fragment() {
      * home observer
      */
     private var homeObserver = Observer<List<Any>> {
+        toast("here")
         bindRecycler(it)
     }
 

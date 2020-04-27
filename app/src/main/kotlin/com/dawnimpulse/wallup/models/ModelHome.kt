@@ -42,6 +42,7 @@ class ModelHome() : ViewModel() {
 
     init {
         homeList.add(ObjectHomeHeader())
+        liveList.postValue(homeList)
     }
 
 

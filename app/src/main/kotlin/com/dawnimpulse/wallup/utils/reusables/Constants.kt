@@ -27,6 +27,7 @@ const val UNSPLASH_URL = "https://api.unsplash.com/"
 
 const val LIMIT = "_limit"
 const val RANDOM = "random"
+const val HOME = "home"
 const val AUTHORIZATION = "Authorization"
 const val COUNT ="count"
 
