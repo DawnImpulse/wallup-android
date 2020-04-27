@@ -12,22 +12,16 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils.reusables
+package com.dawnimpulse.wallup.objects
 
 /**
- * @info -
+ * @info - internal object
  *
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2020-02-29 by Saksham
+ * @note Created on 2020-04-27 by Saksham
  * @note Updates :
  */
-const val UNSPLASH_URL = "https://api.unsplash.com/"
 
-const val LIMIT = "_limit"
-const val RANDOM = "random"
-const val AUTHORIZATION = "Authorization"
-const val COUNT ="count"
-
-const val TYPE_HOME_HEADER = 1
+class ObjectHomeHeader
