@@ -18,8 +18,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.objects.ObjectScrollingImage
+import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.ui.holders.HolderHomeHeader
+import com.dawnimpulse.wallup.ui.holders.HolderScrollingImage
 import com.dawnimpulse.wallup.utils.reusables.TYPE_HOME_HEADER
+import com.dawnimpulse.wallup.utils.reusables.TYPE_SCROLLING_IMAGE
 
 /**
  * @info -
@@ -42,6 +46,7 @@ class AdapterHome(private val list: List<Any>) : RecyclerView.Adapter<RecyclerVi
      */
     override fun getItemViewType(position: Int): Int = when (position) {
         0 -> TYPE_HOME_HEADER
+        1 -> TYPE_SCROLLING_IMAGE
         else -> 10
     }
 
@@ -51,14 +56,17 @@ class AdapterHome(private val list: List<Any>) : RecyclerView.Adapter<RecyclerVi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             when (viewType) {
                 TYPE_HOME_HEADER -> HolderHomeHeader(LayoutInflater.from(parent.context).inflate(R.layout.adapter_home_header, parent, false))
+                TYPE_SCROLLING_IMAGE -> HolderScrollingImage(LayoutInflater.from(parent.context).inflate(R.layout.adapter_scrolling_image, parent, false))
                 else -> HolderHomeHeader(LayoutInflater.from(parent.context).inflate(R.layout.adapter_home_header, parent, false))
             }
 
     /**
      * bind view holder
      */
+    @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
+        if (holder is HolderScrollingImage)
+            holder.bind(list[position] as List<ObjectUnsplashImage>)
     }
 
 }

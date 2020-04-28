@@ -25,3 +25,4 @@ package com.dawnimpulse.wallup.objects
  */
 
 class ObjectHomeHeader
+class ObjectScrollingImage(val images: List<ObjectUnsplashImage>)
