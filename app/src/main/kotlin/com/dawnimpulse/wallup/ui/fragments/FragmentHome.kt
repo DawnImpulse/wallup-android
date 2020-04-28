@@ -63,7 +63,6 @@ class FragmentHome : Fragment() {
      * home observer
      */
     private var homeObserver = Observer<List<Any>> {
-        toast("here")
         bindRecycler(it)
     }
 
@@ -75,6 +74,7 @@ class FragmentHome : Fragment() {
             adapter = AdapterHome(list)
             fragment_home_recycler.layoutManager = LinearLayoutManager(context)
             fragment_home_recycler.adapter = adapter
-        }
+        }else
+            adapter.notifyDataSetChanged()
     }
 }

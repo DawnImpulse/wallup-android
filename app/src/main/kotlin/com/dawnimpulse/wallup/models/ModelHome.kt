@@ -43,6 +43,7 @@ class ModelHome() : ViewModel() {
     init {
         homeList.add(ObjectHomeHeader())
         liveList.postValue(homeList)
+        fetchLatestImages()
     }
 
 
@@ -61,5 +62,16 @@ class ModelHome() : ViewModel() {
      */
     fun errors(): LiveData<HandlerIssue> {
         return errorHandler
+    }
+
+    /**
+     * fetch latest unsplash images
+     */
+    fun fetchLatestImages(){
+        viewModelScope.launch {
+            val images = CtrlUnsplash.latestImages(1)
+            homeList.add(images)
+            liveList.postValue(homeList)
+        }
     }
 }

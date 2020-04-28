@@ -40,10 +40,29 @@ object CtrlUnsplash{
 
     /**
      * get random images
-     *
      */
     suspend fun randomImages()  = suspendCoroutine<List<ObjectUnsplashImage>> { continuation ->
         val call = client.randomImages()
+        call.enqueue(object : Callback<List<ObjectUnsplashImage>> {
+            override fun onResponse(call: Call<List<ObjectUnsplashImage>>, response: Response<List<ObjectUnsplashImage>>) {
+                if (response.isSuccessful)
+                    continuation.resume(response.body()!!)
+                else
+                    continuation.resumeWithException(Exception(Gson().toJson(HandlerUnsplashError.parseError(response))))
+            }
+
+            // on failure
+            override fun onFailure(call: Call<List<ObjectUnsplashImage>>, t: Throwable) {
+                continuation.resumeWithException(t)
+            }
+        })
+    }
+
+    /**
+     * get latest images
+     */
+    suspend fun latestImages(page:Int)  = suspendCoroutine<List<ObjectUnsplashImage>> { continuation ->
+        val call = client.latestImages(page)
         call.enqueue(object : Callback<List<ObjectUnsplashImage>> {
             override fun onResponse(call: Call<List<ObjectUnsplashImage>>, response: Response<List<ObjectUnsplashImage>>) {
                 if (response.isSuccessful)

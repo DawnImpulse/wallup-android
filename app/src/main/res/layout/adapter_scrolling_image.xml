@@ -31,6 +31,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:clipToPadding="false"
-        android:paddingLeft="24dp" />
+        android:paddingLeft="16dp" />
 
 </LinearLayout>
