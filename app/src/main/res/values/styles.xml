@@ -18,8 +18,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/WorkSansTextViewStyle</item>
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <!--<item name="android:preferenceCategoryStyle">@style/TextAppearance.AppCompat.Body1</item>-->
+    </style>
+
+    <!--worksans text view-->
+    <style name="WorkSansTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/worksans</item>
     </style>
 </resources>
