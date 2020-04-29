@@ -12,7 +12,11 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils.reusables
+package com.dawnimpulse.wallup.ui.holders
+
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.adapter_scrolling_collection.view.*
 
 /**
  * @info -
@@ -20,19 +24,16 @@ package com.dawnimpulse.wallup.utils.reusables
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2020-02-29 by Saksham
+ * @note Created on 2020-04-29 by Saksham
  * @note Updates :
  */
-const val UNSPLASH_URL = "https://api.unsplash.com/"
+class HolderScrollingCollection (view: View): RecyclerView.ViewHolder(view){
+    private val recycler = view.adapter_scrolling_collection_recycler
 
-const val LIMIT = "_limit"
-const val RANDOM = "random"
-const val HOME = "home"
-const val AUTHORIZATION = "Authorization"
-const val COUNT ="count"
-const val PER_PAGE = "per_page"
-const val PAGE = "page"
+    /**
+     * bind collections to recycler
+     */
+    fun bind(){
 
-const val TYPE_HOME_HEADER = 1
-const val TYPE_SCROLLING_IMAGE = 2
-const val TYPE_SCROLLING_COLLECTION = 3
+    }
+}
