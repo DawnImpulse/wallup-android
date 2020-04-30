@@ -26,8 +26,7 @@ import com.google.gson.annotations.SerializedName
  * @note Updates :
  */
 data class ObjectError(
-        @SerializedName("success") val success: Boolean = false,
-        @SerializedName("errorCode") val errorCode: Int = 0,
-        @SerializedName("errorType") val errorType: String = "",
-        @SerializedName("errorMessage") val errorMessage: String = ""
+        @SerializedName("statusCode") val statusCode: Int = 0,
+        @SerializedName("error") val error: String = "",
+        @SerializedName("message") val message: String = ""
 )

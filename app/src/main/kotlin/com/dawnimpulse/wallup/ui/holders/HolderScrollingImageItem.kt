@@ -18,6 +18,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerImage
+import com.dawnimpulse.wallup.utils.reusables.setImage
 import kotlinx.android.synthetic.main.inflate_scrolling_image.view.*
 
 /**
@@ -37,6 +38,6 @@ class HolderScrollingImageItem(view: View) : RecyclerView.ViewHolder(view) {
      * bind image to layout
      */
     fun bind(objectImage: ObjectUnsplashImage) {
-        HandlerImage.setImageInRecycler(image, objectImage.urls!!.small)
+        objectImage.urls!!.small.setImage(image)
     }
 }

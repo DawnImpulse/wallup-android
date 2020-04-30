@@ -21,6 +21,7 @@ import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerError
 import com.dawnimpulse.wallup.utils.handlers.HandlerUnsplashError
 import com.dawnimpulse.wallup.utils.reusables.RetroApiClient
+import com.dawnimpulse.wallup.utils.reusables.loge
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback

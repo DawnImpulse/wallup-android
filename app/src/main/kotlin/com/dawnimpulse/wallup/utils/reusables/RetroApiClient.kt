@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object RetroApiClient {
     private var retrofit: Retrofit? = null
-    private val unsplashRetrofit: Retrofit? = null
+    private var unsplashRetrofit: Retrofit? = null
 
     /**
      * get client for wallup backend
@@ -50,12 +50,12 @@ object RetroApiClient {
      * @return Retrofit
      */
     fun getUnsplashClient(): Retrofit {
-        if (retrofit == null) {
-            retrofit = Retrofit.Builder()
+        if (unsplashRetrofit == null) {
+            unsplashRetrofit = Retrofit.Builder()
                     .baseUrl(UNSPLASH_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
         }
-        return retrofit!!
+        return unsplashRetrofit!!
     }
 }

@@ -15,7 +15,10 @@
 package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.objects.ObjectCollection
+import com.dawnimpulse.wallup.ui.adapters.AdapterScrollingCollection
 import kotlinx.android.synthetic.main.adapter_scrolling_collection.view.*
 
 /**
@@ -27,13 +30,19 @@ import kotlinx.android.synthetic.main.adapter_scrolling_collection.view.*
  * @note Created on 2020-04-29 by Saksham
  * @note Updates :
  */
-class HolderScrollingCollection (view: View): RecyclerView.ViewHolder(view){
+class HolderScrollingCollection(view: View) : RecyclerView.ViewHolder(view) {
     private val recycler = view.adapter_scrolling_collection_recycler
+    private lateinit var adapter: AdapterScrollingCollection
+    private var context = view.context
 
     /**
      * bind collections to recycler
      */
-    fun bind(){
-
+    fun bind(collections: List<ObjectCollection>) {
+        if (!::adapter.isInitialized) {
+            adapter = AdapterScrollingCollection(collections)
+            recycler.layoutManager = LinearLayoutManager(context)
+            recycler.adapter = adapter
+        }
     }
 }

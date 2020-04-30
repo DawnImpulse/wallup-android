@@ -12,36 +12,36 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils.handlers
+package com.dawnimpulse.wallup.ui.holders
 
-import android.widget.ImageView
-import com.bumptech.glide.GenericTransitionOptions
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.dawnimpulse.wallup.R
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.objects.ObjectCollection
+import com.dawnimpulse.wallup.utils.handlers.HandlerImage
+import com.dawnimpulse.wallup.utils.reusables.setImage
+import kotlinx.android.synthetic.main.inflate_scrolling_collection.view.*
 
 /**
- * @info -
+ * @info - scrolling collection item
  *
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2020-03-06 by Saksham
+ * @note Created on 2020-04-30 by Saksham
  * @note Updates :
  */
-object HandlerImage{
+class HolderScrollingCollectionItem(view: View): RecyclerView.ViewHolder(view){
+    private val image = view.inflate_scrolling_collection_image
+    private val name = view.inflate_scrolling_collection_name
+    private val context = view.context
 
     /**
-     * Image in a recycler layout
-     * @param view
-     * @param url
+     * bind collection item to view
+     *
+     * @param collection
      */
-    fun fetchAndSetImage(view: ImageView, url: String) {
-        Glide.with(view.context)
-                .load(url)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .transition(GenericTransitionOptions.with(R.anim.fade_in))
-                .into(view)
-                .clearOnDetach()
+    fun bind(collection: ObjectCollection){
+        name.text = collection.name
+        collection.cover.setImage(image)
     }
 }

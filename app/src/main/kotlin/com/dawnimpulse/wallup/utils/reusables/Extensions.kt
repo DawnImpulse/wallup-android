@@ -17,9 +17,11 @@ package com.dawnimpulse.wallup.utils.reusables
 import android.content.Context
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.dawnimpulse.wallup.BuildConfig
+import com.dawnimpulse.wallup.utils.handlers.HandlerImage
 
 /**
  * @info -
@@ -31,41 +33,62 @@ import com.dawnimpulse.wallup.BuildConfig
  * @note Updates :
  */
 
-// gone view
+/**
+ * view gone
+ */
 fun View.gone() {
     visibility = View.GONE
 }
 
-// hide view
+/**
+ * view hide
+ */
 fun View.hide() {
     visibility = View.INVISIBLE
 }
 
-// gone view
+/**
+ * view show
+ */
 fun View.show() {
     visibility = View.VISIBLE
 }
 
-// fragment toast
+/**
+ * toast on fragment
+ */
 fun Fragment.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(activity, message, length).show()
 }
 
-// fragment debug toast
+/**
+ * debug toast on fragment
+ */
 fun Fragment.toastd(message: String, length: Int = Toast.LENGTH_SHORT) {
     if (BuildConfig.DEBUG)
         Toast.makeText(activity, message, length).show()
 }
 
-// toast
+/**
+ * toast
+ */
 fun Context.toast(message: String, length: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, message, length).show()
 }
 
-// debug toast
+/**
+ * debug toast
+ */
 fun Context.toastd(message: String, length: Int = Toast.LENGTH_SHORT) {
     if (BuildConfig.DEBUG)
         Toast.makeText(this, message, length).show()
+}
+
+/**
+ * set the string to image
+ */
+fun String.setImage(view: ImageView) {
+    HandlerImage.fetchAndSetImage(view, this)
 }
 
 // log messages

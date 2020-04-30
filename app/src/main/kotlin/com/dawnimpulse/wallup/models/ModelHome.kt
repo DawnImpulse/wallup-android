@@ -24,8 +24,10 @@ import com.dawnimpulse.wallup.objects.ObjectHomeHeader
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
 import com.dawnimpulse.wallup.utils.reusables.Issues
+import com.dawnimpulse.wallup.utils.reusables.logd
 import com.dawnimpulse.wallup.utils.reusables.loge
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 /**
  * @info - bridge between ui & controller
@@ -68,13 +70,17 @@ class ModelHome() : ViewModel() {
     /**
      * fetch latest unsplash images & wallup collections
      */
-    fun fetchLatestContent() {
+    private fun fetchLatestContent() {
         viewModelScope.launch {
-            val images = CtrlUnsplash.latestImages(1)
-            val collections = CtrlCollection.latestCollections()
-            homeList.add(images)
-            homeList.add(collections)
-            liveList.postValue(homeList)
+            try {
+                val images = CtrlUnsplash.latestImages(1)
+                val collections = CtrlCollection.latestCollections()
+                homeList.add(images)
+                homeList.add(collections)
+                liveList.postValue(homeList)
+            }catch (e: Exception){
+                loge(e)
+            }
         }
     }
 }

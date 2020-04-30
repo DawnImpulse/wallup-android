@@ -17,8 +17,6 @@ package com.dawnimpulse.wallup.ui.holders
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.BuildConfig
-import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerImage
 import com.dawnimpulse.wallup.utils.reusables.F
@@ -51,6 +49,6 @@ class HolderRandomImage(view: View) : RecyclerView.ViewHolder(view) {
 
         val link = objectImage.urls!!.small
         //HandlerImage.setImageInRecycler(image, "${BuildConfig.WALLUP_API_URL}/${link.path}/${link.id}")
-        HandlerImage.setImageInRecycler(image, link)
+        HandlerImage.fetchAndSetImage(image, link)
     }
 }

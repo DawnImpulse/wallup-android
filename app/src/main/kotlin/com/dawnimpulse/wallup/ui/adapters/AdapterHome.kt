@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.objects.ObjectCollection
 import com.dawnimpulse.wallup.objects.ObjectScrollingImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.ui.holders.HolderHomeHeader
@@ -69,10 +70,10 @@ class AdapterHome(private val list: List<Any>) : RecyclerView.Adapter<RecyclerVi
      */
     @Suppress("UNCHECKED_CAST")
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is HolderScrollingImage)
-            holder.bind(list[position] as List<ObjectUnsplashImage>)
-        else if (holder is HolderScrollingCollection)
-            holder.bind()
+        when(holder){
+            is HolderScrollingImage -> holder.bind(list[position] as List<ObjectUnsplashImage>)
+            is HolderScrollingCollection -> holder.bind(list[position] as List<ObjectCollection>)
+        }
     }
 
 }
