@@ -18,6 +18,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dawnimpulse.wallup.network.controller.CtrlCollection
 import com.dawnimpulse.wallup.network.controller.CtrlUnsplash
 import com.dawnimpulse.wallup.objects.ObjectHomeHeader
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
@@ -43,7 +44,7 @@ class ModelHome() : ViewModel() {
     init {
         homeList.add(ObjectHomeHeader())
         liveList.postValue(homeList)
-        fetchLatestImages()
+        fetchLatestContent()
     }
 
 
@@ -65,12 +66,14 @@ class ModelHome() : ViewModel() {
     }
 
     /**
-     * fetch latest unsplash images
+     * fetch latest unsplash images & wallup collections
      */
-    fun fetchLatestImages(){
+    fun fetchLatestContent() {
         viewModelScope.launch {
             val images = CtrlUnsplash.latestImages(1)
+            val collections = CtrlCollection.latestCollections()
             homeList.add(images)
+            homeList.add(collections)
             liveList.postValue(homeList)
         }
     }
