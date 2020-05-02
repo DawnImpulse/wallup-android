@@ -26,6 +26,7 @@ import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
 import com.dawnimpulse.wallup.utils.reusables.Issues
 import com.dawnimpulse.wallup.utils.reusables.logd
 import com.dawnimpulse.wallup.utils.reusables.loge
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -73,12 +74,12 @@ class ModelHome() : ViewModel() {
     private fun fetchLatestContent() {
         viewModelScope.launch {
             try {
-                val images = CtrlUnsplash.latestImages(1)
-                val collections = CtrlCollection.latestCollections()
-                homeList.add(images)
-                homeList.add(collections)
+                val collections = async { CtrlCollection.latestCollections() }
+                val images = async { CtrlUnsplash.latestImages(1) }
+                homeList.add(images.await())
+                homeList.add(collections.await())
                 liveList.postValue(homeList)
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 loge(e)
             }
         }

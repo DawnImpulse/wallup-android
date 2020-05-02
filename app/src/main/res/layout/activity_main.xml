@@ -18,12 +18,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:background="@color/colorPrimary"
     android:orientation="vertical">
 
+    <!--Navigation-->
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/activity_main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!--Navigation-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"

@@ -91,6 +91,13 @@ fun String.setImage(view: ImageView) {
     HandlerImage.fetchAndSetImage(view, this)
 }
 
+/**
+ * fetch and set image on view using Glide
+ */
+fun ImageView.fetchAndSetImage(url: String) {
+    HandlerImage.fetchAndSetImage(this, url)
+}
+
 // log messages
 fun logd(message: Any) {
     if (BuildConfig.DEBUG)
