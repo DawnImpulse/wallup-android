@@ -18,12 +18,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.objects.ObjectCategory
 import com.dawnimpulse.wallup.objects.ObjectCollection
 import com.dawnimpulse.wallup.objects.ObjectScrollingImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
+import com.dawnimpulse.wallup.ui.holders.HolderCategory
 import com.dawnimpulse.wallup.ui.holders.HolderHomeHeader
 import com.dawnimpulse.wallup.ui.holders.HolderScrollingCollection
 import com.dawnimpulse.wallup.ui.holders.HolderScrollingImage
+import com.dawnimpulse.wallup.utils.reusables.TYPE_CATEGORY
 import com.dawnimpulse.wallup.utils.reusables.TYPE_HOME_HEADER
 import com.dawnimpulse.wallup.utils.reusables.TYPE_SCROLLING_COLLECTION
 import com.dawnimpulse.wallup.utils.reusables.TYPE_SCROLLING_IMAGE
@@ -51,7 +54,7 @@ class AdapterHome(private val list: List<Any>) : RecyclerView.Adapter<RecyclerVi
         0 -> TYPE_HOME_HEADER
         1 -> TYPE_SCROLLING_IMAGE
         2 -> TYPE_SCROLLING_COLLECTION
-        else -> 10
+        else -> TYPE_CATEGORY
     }
 
     /**
@@ -62,6 +65,7 @@ class AdapterHome(private val list: List<Any>) : RecyclerView.Adapter<RecyclerVi
                 TYPE_HOME_HEADER -> HolderHomeHeader(LayoutInflater.from(parent.context).inflate(R.layout.adapter_home_header, parent, false))
                 TYPE_SCROLLING_IMAGE -> HolderScrollingImage(LayoutInflater.from(parent.context).inflate(R.layout.adapter_scrolling_image, parent, false))
                 TYPE_SCROLLING_COLLECTION -> HolderScrollingCollection(LayoutInflater.from(parent.context).inflate(R.layout.adapter_scrolling_collection, parent, false))
+                TYPE_CATEGORY -> HolderCategory(LayoutInflater.from(parent.context).inflate(R.layout.adapter_category, parent, false))
                 else -> HolderHomeHeader(LayoutInflater.from(parent.context).inflate(R.layout.adapter_home_header, parent, false))
             }
 
@@ -73,6 +77,7 @@ class AdapterHome(private val list: List<Any>) : RecyclerView.Adapter<RecyclerVi
         when(holder){
             is HolderScrollingImage -> holder.bind(list[position] as List<ObjectUnsplashImage>)
             is HolderScrollingCollection -> holder.bind(list[position] as List<ObjectCollection>)
+            is HolderCategory -> holder.bind(list[position] as ObjectCategory, position)
         }
     }
 

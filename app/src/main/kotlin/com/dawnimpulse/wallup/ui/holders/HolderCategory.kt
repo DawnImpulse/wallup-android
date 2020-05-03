@@ -18,6 +18,8 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.objects.ObjectCategory
 import com.dawnimpulse.wallup.utils.reusables.fetchAndSetImage
+import com.dawnimpulse.wallup.utils.reusables.gone
+import com.dawnimpulse.wallup.utils.reusables.show
 import kotlinx.android.synthetic.main.adapter_category.view.*
 
 /**
@@ -32,11 +34,13 @@ import kotlinx.android.synthetic.main.adapter_category.view.*
 class HolderCategory(view: View) : RecyclerView.ViewHolder(view) {
     private val image = view.adapter_category_image
     private val name = view.adapter_category_name
+    private val catName = view.adapter_category_parent_name
 
     /**
      * bind category to view
      */
-    fun bind(category: ObjectCategory) {
+    fun bind(category: ObjectCategory, position: Int) {
+        if (position == 3) catName.show() else catName.gone()
         name.text = category.name
         image.fetchAndSetImage(category.cover)
     }

@@ -12,28 +12,27 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils.reusables
+package com.dawnimpulse.wallup.network.source
+
+import com.dawnimpulse.wallup.objects.ObjectCollection
+import com.dawnimpulse.wallup.objects.ObjectHomescreen
+import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.utils.reusables.LIMIT
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
- * @info -
+ * @info - various routes for images
  *
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2020-02-29 by Saksham
+ * @note Created on 2020-05-03 by Saksham
  * @note Updates :
  */
-const val UNSPLASH_URL = "https://api.unsplash.com/"
+interface SourceHomescreen {
 
-const val LIMIT = "_limit"
-const val RANDOM = "random"
-const val HOME = "home"
-const val AUTHORIZATION = "Authorization"
-const val COUNT ="count"
-const val PER_PAGE = "per_page"
-const val PAGE = "page"
-
-const val TYPE_HOME_HEADER = 1
-const val TYPE_SCROLLING_IMAGE = 2
-const val TYPE_SCROLLING_COLLECTION = 3
-const val TYPE_CATEGORY = 4
+    @GET("/images/homescreen")
+    fun homescreen(): Call<ObjectHomescreen>
+}

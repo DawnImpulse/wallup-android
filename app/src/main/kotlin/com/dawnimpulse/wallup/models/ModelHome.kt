@@ -19,6 +19,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dawnimpulse.wallup.network.controller.CtrlCollection
+import com.dawnimpulse.wallup.network.controller.CtrlHome
 import com.dawnimpulse.wallup.network.controller.CtrlUnsplash
 import com.dawnimpulse.wallup.objects.ObjectHomeHeader
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
@@ -74,10 +75,20 @@ class ModelHome() : ViewModel() {
     private fun fetchLatestContent() {
         viewModelScope.launch {
             try {
-                val collections = async { CtrlCollection.latestCollections() }
+                // declare deferred objects
+                val home = async { CtrlHome.homescreen() }
                 val images = async { CtrlUnsplash.latestImages(1) }
-                homeList.add(images.await())
-                homeList.add(collections.await())
+
+                // await result
+                val unsplash = images.await()
+                val homescreen = home.await()
+
+                // add to home list
+                homeList.add(unsplash)
+                homeList.add(homescreen.collections)
+                homescreen.category.forEach {
+                    homeList.add(it)
+                }
                 liveList.postValue(homeList)
             } catch (e: Exception) {
                 loge(e)
