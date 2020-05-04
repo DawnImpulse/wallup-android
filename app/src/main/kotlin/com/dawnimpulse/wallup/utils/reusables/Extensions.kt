@@ -85,6 +85,15 @@ fun Context.toastd(message: String, length: Int = Toast.LENGTH_SHORT) {
 }
 
 /**
+ * convert dp to px
+ *
+ * @param value
+ */
+fun Context.dpToPx(value:Int): Int{
+    return F.dpToPx(value, this)
+}
+
+/**
  * set the string to image
  */
 fun String.setImage(view: ImageView) {

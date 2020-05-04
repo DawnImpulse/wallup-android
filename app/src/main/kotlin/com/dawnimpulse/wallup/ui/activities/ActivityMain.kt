@@ -14,17 +14,20 @@
  **/
 package com.dawnimpulse.wallup.ui.activities
 
+import android.content.res.ColorStateList
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.fragments.FragmentHome
 import com.dawnimpulse.wallup.ui.fragments.FragmentRandom
-import com.dawnimpulse.wallup.utils.reusables.HOME
-import com.dawnimpulse.wallup.utils.reusables.RANDOM
-import com.dawnimpulse.wallup.utils.reusables.ViewPagerAdapter
+import com.dawnimpulse.wallup.utils.reusables.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.inflate_nav.view.*
 
 /**
  * @info - application home-screen
@@ -35,7 +38,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  * @note Created on 2020-03-04 by Saksham
  * @note Updates :
  */
-class ActivityMain : AppCompatActivity() {
+class ActivityMain : AppCompatActivity(R.layout.activity_main) {
     private lateinit var randomFragment: FragmentRandom
     private lateinit var homeFragment: FragmentHome
     private lateinit var pagerAdapter: ViewPagerAdapter
@@ -47,10 +50,46 @@ class ActivityMain : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
+        setupNavigation()
         setupViewPager(activity_main_viewpager)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+    }
+
+    /**
+     * setup navigation
+     */
+    private fun setupNavigation() {
+        val logos = listOf(R.drawable.vd_home, R.drawable.vd_random, R.drawable.vd_like_1)
+        for (i in 0..2) {
+            val item = LayoutInflater.from(this).inflate(R.layout.inflate_nav, navigation, false)
+            item.inflate_nav_logo.setImageDrawable(ContextCompat.getDrawable(this, logos[i]))
+            if (i!=0){
+                val params = item.inflate_nav_logo.layoutParams
+                val dimen = dpToPx(30)
+                params.height = dimen
+                params.width = dimen
+            }
+            item.setOnClickListener {
+                selectNavigation(i)
+            }
+            navigation.addView(item)
+        }
+        selectNavigation(0)
+    }
+
+    /**
+     * select navigation item
+     *
+     * @param pos
+     */
+    private fun selectNavigation(pos: Int) {
+        activity_main_viewpager.currentItem = pos
+        val items = (0..2).toMutableList()
+        items.removeAt(pos)
+        ImageViewCompat.setImageTintList(navigation.getChildAt(pos).inflate_nav_logo, ColorStateList.valueOf(Colors.ACCENT));
+        for (i in items){
+            ImageViewCompat.setImageTintList(navigation.getChildAt(i).inflate_nav_logo, ColorStateList.valueOf(Colors.WHITE));
+        }
     }
 
     /**
