@@ -31,6 +31,7 @@ import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.ui.adapters.AdapterRandomImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
+import com.dawnimpulse.wallup.utils.reusables.Live
 import com.dawnimpulse.wallup.utils.reusables.hide
 import com.dawnimpulse.wallup.utils.reusables.show
 import com.dawnimpulse.wallup.utils.reusables.toast
@@ -47,6 +48,7 @@ import kotlinx.android.synthetic.main.fragment_random.*
  */
 class FragmentRandom : Fragment() {
     private val modelUnsplash: ModelUnsplash by activityViewModels()
+    private val selected = Live(true)
     private lateinit var adapterRandomImage: AdapterRandomImage
 
     /**
@@ -105,7 +107,7 @@ class FragmentRandom : Fragment() {
     private fun bindRecycler(images: List<ObjectUnsplashImage?>) {
         // case when we receive images for first time
         if (!::adapterRandomImage.isInitialized) {
-            adapterRandomImage = AdapterRandomImage(images, fragment_random_recycler)
+            adapterRandomImage = AdapterRandomImage(images, selected, fragment_random_recycler)
             adapterRandomImage.onLoading().observe(viewLifecycleOwner, loadingObserver)
 
             fragment_random_recycler.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)

@@ -14,23 +14,26 @@
  **/
 package com.dawnimpulse.wallup.utils.reusables
 
-import android.content.Context
-import androidx.core.content.ContextCompat
-import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.ui.App
+import kotlin.properties.Delegates
 
 /**
- * @info -
+ * @info - a live observable variable
  *
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2020-05-04 by Saksham
+ * @note Created on 2020-05-05 by Saksham
  * @note Updates :
  */
-object Colors {
-    val ACCENT = ContextCompat.getColor(App.context, R.color.colorAccent)
-    val WHITE = ContextCompat.getColor(App.context, R.color.white)
-    val PRIMARY = ContextCompat.getColor(App.context, R.color.colorPrimary)
-    val TEXT_PRIMARY = ContextCompat.getColor(App.context, R.color.colorTextPrimary)
+class Live<T>(private val value1: T) {
+    private lateinit var change: (T) -> Unit
+
+    var value: T by Delegates.observable(value1) { _, _, new ->
+        if (::change.isInitialized)
+            change(new)
+    }
+
+    fun onChange(change: (T) -> Unit) {
+        this.change = change
+    }
 }
