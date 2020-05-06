@@ -38,7 +38,7 @@ import com.dawnimpulse.wallup.utils.reusables.Live
  * @note Updates :
  */
 class AdapterRandomImage(
-        private val objectImageList: List<ObjectUnsplashImage?>,
+        private val objectImageList: List<Any?>,
         private val selected: Live<Boolean>,
         recyclerView: RecyclerView) : CustomAdapter<RecyclerView.ViewHolder>(6, recyclerView) {
 
@@ -52,7 +52,7 @@ class AdapterRandomImage(
      *
      * @return Int
      */
-    override fun getItemCount(): Int = objectImageList.size
+    override fun getItemCount(): Int = objectImageList.size + 1
 
     /**
      * get type of item
@@ -91,7 +91,12 @@ class AdapterRandomImage(
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HolderRandomImage -> holder.bind(objectImageList[position]!!)
+            is HolderRandomImage ->{
+                if (objectImageList[position]!! is ObjectUnsplashImage)
+                    holder.bindUnsplash(objectImageList[position]!! as ObjectUnsplashImage)
+                else
+                    holder.bindImage(objectImageList[position]!! as ObjectImage)
+            }
             is HolderNavRandom -> {
                 holder.bind(selected)
                 (holder.itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true

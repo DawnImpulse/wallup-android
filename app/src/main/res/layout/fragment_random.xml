@@ -24,6 +24,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_height="match_parent"
         android:visibility="gone" />
 
+    <!--Recycler-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_random_recycler_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
     <!--Loading Animation-->
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/fragment_random_anim"
