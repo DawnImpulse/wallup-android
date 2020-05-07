@@ -11,17 +11,32 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            app:layout_scrollFlags="scroll">
+
+            <include layout="@layout/adapter_nav_random" />
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <!--Recycler-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_random_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="64dp"
         android:visibility="gone" />
 
     <!--Recycler-->
@@ -29,6 +44,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:id="@+id/fragment_random_recycler_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="64dp"
         android:visibility="gone" />
 
     <!--Loading Animation-->
@@ -64,4 +81,4 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_marginTop="8dp"
             android:text="Some Error" />
     </LinearLayout>
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

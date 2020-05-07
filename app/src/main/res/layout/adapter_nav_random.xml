@@ -19,7 +19,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <!--back-->
     <FrameLayout
-        android:id="@+id/adapter_nav_random_appbar_back"
+        android:id="@+id/inflate_nav_random_appbar_back"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_centerVertical="true"
@@ -38,11 +38,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true">
+        android:layout_centerVertical="true"
+        android:layout_marginRight="24dp">
 
         <!--wallup-->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/adapter_nav_random_wallup_card"
+            android:id="@+id/inflate_nav_random_wallup_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/colorPrimary"
@@ -52,7 +53,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             app:strokeWidth="1dp">
 
             <TextView
-                android:id="@+id/adapter_nav_random_wallup_text"
+                android:id="@+id/inflate_nav_random_wallup_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -67,11 +68,10 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         <!--unsplash-->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/adapter_nav_random_unsplash_card"
+            android:id="@+id/inflate_nav_random_unsplash_card"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="24dp"
             app:cardBackgroundColor="@color/colorTextPrimary"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp"
@@ -79,7 +79,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             app:strokeWidth="1dp">
 
             <TextView
-                android:id="@+id/adapter_nav_random_unsplash_text"
+                android:id="@+id/inflate_nav_random_unsplash_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"

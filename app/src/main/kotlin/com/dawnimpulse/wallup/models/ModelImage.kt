@@ -84,6 +84,7 @@ class ModelImage(private val limit: Number = 30) : ViewModel() {
                     randomImages.removeAt(randomImages.size - 1)
                 // adding images in randomImages array
                 randomImages.addAll(CtrlImage.random(limit))
+                randomImages.add(null)
                 mutableRandomImages.postValue(randomImages)
             } catch (e: Exception) {
                 loge(e)

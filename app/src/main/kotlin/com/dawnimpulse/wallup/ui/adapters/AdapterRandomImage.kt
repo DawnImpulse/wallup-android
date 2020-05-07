@@ -23,7 +23,6 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.ui.holders.HolderLoading
-import com.dawnimpulse.wallup.ui.holders.HolderNavRandom
 import com.dawnimpulse.wallup.ui.holders.HolderRandomImage
 import com.dawnimpulse.wallup.utils.reusables.Live
 
@@ -39,31 +38,27 @@ import com.dawnimpulse.wallup.utils.reusables.Live
  */
 class AdapterRandomImage(
         private val objectImageList: List<Any?>,
-        private val selected: Live<Boolean>,
         recyclerView: RecyclerView) : CustomAdapter<RecyclerView.ViewHolder>(6, recyclerView) {
 
     private lateinit var context: Context
     private val VIEW_ITEM = 0
     private val VIEW_LOADING = 1
-    private val VIEW_APPBAR = 2
 
     /**
      * (default) get items in adapter
      *
      * @return Int
      */
-    override fun getItemCount(): Int = objectImageList.size + 1
+    override fun getItemCount(): Int = objectImageList.size
 
     /**
      * get type of item
      *
      * @param position
-     * @param Int - view type
      */
     override fun getItemViewType(position: Int): Int =
             when {
-                position == 0 -> VIEW_APPBAR
-                objectImageList[position + 1] == null -> VIEW_LOADING
+                objectImageList[position] == null -> VIEW_LOADING
                 else -> VIEW_ITEM
             }
 
@@ -77,7 +72,6 @@ class AdapterRandomImage(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
         return when (viewType) {
-            VIEW_APPBAR -> HolderNavRandom(LayoutInflater.from(context).inflate(R.layout.adapter_nav_random, parent, false))
             VIEW_ITEM -> HolderRandomImage(LayoutInflater.from(context).inflate(R.layout.holder_random_image, parent, false))
             else -> HolderLoading(LayoutInflater.from(context).inflate(R.layout.holder_loading_horizontal, parent, false))
         }
@@ -96,10 +90,6 @@ class AdapterRandomImage(
                     holder.bindUnsplash(objectImageList[position]!! as ObjectUnsplashImage)
                 else
                     holder.bindImage(objectImageList[position]!! as ObjectImage)
-            }
-            is HolderNavRandom -> {
-                holder.bind(selected)
-                (holder.itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true
             }
             else -> (holder.itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams).isFullSpan = true
         }

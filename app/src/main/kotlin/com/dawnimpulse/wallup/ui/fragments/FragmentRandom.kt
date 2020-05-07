@@ -32,6 +32,7 @@ import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.ui.adapters.AdapterRandomImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
 import com.dawnimpulse.wallup.utils.reusables.*
+import kotlinx.android.synthetic.main.adapter_nav_random.*
 import kotlinx.android.synthetic.main.fragment_random.*
 
 /**
@@ -43,10 +44,9 @@ import kotlinx.android.synthetic.main.fragment_random.*
  * @note Created on 2020-03-04 by Saksham
  * @note Updates :
  */
-class FragmentRandom : Fragment(R.layout.fragment_random) {
+class FragmentRandom : Fragment(R.layout.fragment_random), View.OnClickListener {
     private val modelUnsplash: ModelUnsplash by activityViewModels()
     private val modelImage: ModelImage by activityViewModels()
-    private val selected = Live(true)
     private lateinit var adapterRandomImageUnsplash: AdapterRandomImage
     private lateinit var adapterRandomImage: AdapterRandomImage
 
@@ -61,15 +61,9 @@ class FragmentRandom : Fragment(R.layout.fragment_random) {
         modelUnsplash.getRandomImages().observe(viewLifecycleOwner, unsplashObserver)
         modelImage.getRandomImages().observe(viewLifecycleOwner, imageObserver)
         modelUnsplash.errors().observe(viewLifecycleOwner, issueObserver)
-        selected.onChange {
-            if (it) {
-                fragment_random_recycler.show()
-                fragment_random_recycler_2.gone()
-            } else {
-                fragment_random_recycler.gone()
-                fragment_random_recycler_2.show()
-            }
-        }
+
+        inflate_nav_random_wallup_card.setOnClickListener(this)
+        inflate_nav_random_unsplash_card.setOnClickListener(this)
     }
 
     /**
@@ -104,13 +98,13 @@ class FragmentRandom : Fragment(R.layout.fragment_random) {
     private fun bindRecyclerUnsplash(images: List<ObjectUnsplashImage?>) {
         // case when we receive images for first time
         if (!::adapterRandomImageUnsplash.isInitialized) {
-            adapterRandomImageUnsplash = AdapterRandomImage(images, selected, fragment_random_recycler)
+            adapterRandomImageUnsplash = AdapterRandomImage(images, fragment_random_recycler)
             adapterRandomImageUnsplash.onLoading().observe(viewLifecycleOwner, Observer {
                 modelUnsplash.loadMoreRandomImages()
             })
 
             fragment_random_recycler.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
-            fragment_random_recycler.adapter = adapterRandomImage
+            fragment_random_recycler.adapter = adapterRandomImageUnsplash
             fragment_random_recycler.show()
 
             fragment_random_anim.pauseAnimation()
@@ -130,20 +124,45 @@ class FragmentRandom : Fragment(R.layout.fragment_random) {
     private fun bindRecycler(images: List<ObjectImage?>) {
         // case when we receive images for first time
         if (!::adapterRandomImage.isInitialized) {
-            adapterRandomImage = AdapterRandomImage(images, selected, fragment_random_recycler_2)
+            adapterRandomImage = AdapterRandomImage(images, fragment_random_recycler_2)
             adapterRandomImage.onLoading().observe(viewLifecycleOwner, Observer {
                 modelImage.loadMoreRandomImages()
             })
 
             fragment_random_recycler_2.layoutManager = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
             fragment_random_recycler_2.adapter = adapterRandomImage
-            fragment_random_recycler_2.show()
 
             fragment_random_anim.pauseAnimation()
             fragment_random_anim.hide()
         } else {
             adapterRandomImage.onLoaded()
             adapterRandomImage.notifyDataSetChanged()
+        }
+    }
+
+    /**
+     * on click listener handling
+     */
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.inflate_nav_random_wallup_card -> {
+                inflate_nav_random_wallup_card.setCardBackgroundColor(Colors.TEXT_PRIMARY)
+                inflate_nav_random_unsplash_card.setCardBackgroundColor(Colors.PRIMARY)
+                inflate_nav_random_wallup_text.setTextColor(Colors.PRIMARY)
+                inflate_nav_random_unsplash_text.setTextColor(Colors.TEXT_PRIMARY)
+
+                fragment_random_recycler.gone()
+                fragment_random_recycler_2.show()
+            }
+            R.id.inflate_nav_random_unsplash_card -> {
+                inflate_nav_random_wallup_card.setCardBackgroundColor(Colors.PRIMARY)
+                inflate_nav_random_unsplash_card.setCardBackgroundColor(Colors.TEXT_PRIMARY)
+                inflate_nav_random_wallup_text.setTextColor(Colors.TEXT_PRIMARY)
+                inflate_nav_random_unsplash_text.setTextColor(Colors.PRIMARY)
+
+                fragment_random_recycler.show()
+                fragment_random_recycler_2.gone()
+            }
         }
     }
 
