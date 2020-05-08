@@ -23,6 +23,7 @@ import com.dawnimpulse.wallup.network.controller.CtrlUnsplash
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
+import com.dawnimpulse.wallup.utils.reusables.F
 import com.dawnimpulse.wallup.utils.reusables.Issues
 import com.dawnimpulse.wallup.utils.reusables.loge
 import kotlinx.coroutines.delay
@@ -83,7 +84,13 @@ class ModelUnsplash(private val limit: Number = 30) : ViewModel() {
                 if (randomImages.isNotEmpty() && randomImages[randomImages.size - 1] == null)
                     randomImages.removeAt(randomImages.size - 1)
                 // adding images in randomImages array
-                randomImages.addAll(CtrlUnsplash.randomImages())
+                val images = CtrlUnsplash.randomImages()
+                images.forEach {
+                    val widthHeight = F.getWidthHeightRandom()
+                    it.iWidth = widthHeight.first
+                    it.iHeight = widthHeight.second
+                    randomImages.add(it)
+                }
                 randomImages.add(null)
                 mutableRandomImages.postValue(randomImages)
             } catch (e: Exception) {

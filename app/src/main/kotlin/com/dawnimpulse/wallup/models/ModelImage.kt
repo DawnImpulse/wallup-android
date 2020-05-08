@@ -21,6 +21,7 @@ import androidx.lifecycle.viewModelScope
 import com.dawnimpulse.wallup.network.controller.CtrlImage
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
+import com.dawnimpulse.wallup.utils.reusables.F
 import com.dawnimpulse.wallup.utils.reusables.Issues
 import com.dawnimpulse.wallup.utils.reusables.loge
 import kotlinx.coroutines.delay
@@ -83,7 +84,13 @@ class ModelImage(private val limit: Number = 30) : ViewModel() {
                 if (randomImages.isNotEmpty() && randomImages[randomImages.size - 1] == null)
                     randomImages.removeAt(randomImages.size - 1)
                 // adding images in randomImages array
-                randomImages.addAll(CtrlImage.random(limit))
+                val images = CtrlImage.random(limit)
+                images.forEach {
+                    val widthHeight = F.getWidthHeightRandom()
+                    it.width = widthHeight.first
+                    it.height = widthHeight.second
+                    randomImages.add(it)
+                }
                 randomImages.add(null)
                 mutableRandomImages.postValue(randomImages)
             } catch (e: Exception) {

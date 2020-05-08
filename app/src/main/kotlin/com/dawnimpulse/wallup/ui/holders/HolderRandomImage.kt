@@ -46,10 +46,7 @@ class HolderRandomImage(view: View) : RecyclerView.ViewHolder(view) {
     fun bindUnsplash(objectImage: ObjectUnsplashImage) {
 
         // set random image height
-        val point = F.displayDimensions(context)
-        val width = point.x / 2 - F.dpToPx(8, context)
-        val height = F.dpToPx((180..260).random(), context)
-        layout.layoutParams = ViewGroup.LayoutParams(width, height)
+        layout.layoutParams = ViewGroup.LayoutParams(objectImage.iWidth, objectImage.iHeight)
 
         val link = objectImage.urls!!.small
         //HandlerImage.setImageInRecycler(image, "${BuildConfig.WALLUP_API_URL}/${link.path}/${link.id}")
@@ -62,10 +59,7 @@ class HolderRandomImage(view: View) : RecyclerView.ViewHolder(view) {
     fun bindImage(objectImage: ObjectImage) {
 
         // set random image height
-        val point = F.displayDimensions(context)
-        val width = point.x / 2 - F.dpToPx(8, context)
-        val height = F.dpToPx((180..260).random(), context)
-        layout.layoutParams = ViewGroup.LayoutParams(width, height)
+        layout.layoutParams = ViewGroup.LayoutParams(objectImage.width, objectImage.height)
 
         val link = objectImage.link.path
         //HandlerImage.setImageInRecycler(image, "${BuildConfig.WALLUP_API_URL}/${link.path}/${link.id}")

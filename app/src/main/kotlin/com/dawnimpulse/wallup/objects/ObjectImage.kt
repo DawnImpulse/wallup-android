@@ -26,7 +26,9 @@ import com.google.gson.annotations.SerializedName
  * @note Updates :
  */
 data class ObjectImage(
-        @SerializedName("link") val link: ObjectImageLink
+        @SerializedName("link") val link: ObjectImageLink,
+        var width: Int, // internal
+        var height: Int // internal
 )
 
 data class ObjectImageLink(

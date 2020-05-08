@@ -17,6 +17,7 @@ package com.dawnimpulse.wallup.utils.reusables
 import android.content.Context
 import android.graphics.Point
 import android.view.WindowManager
+import com.dawnimpulse.wallup.ui.App
 
 /**
  * @info - various utility functions
@@ -43,5 +44,16 @@ object F {
     fun dpToPx(dp: Int, context: Context): Int {
         val density = context.resources.displayMetrics.density
         return (dp * density).toInt()
+    }
+
+    /**
+     * get width & height for random image
+     */
+    fun getWidthHeightRandom(): Pair<Int, Int> {
+        val point = displayDimensions(App.context)
+        val width = point.x / 2 - dpToPx(8, App.context)
+        val height = dpToPx((180..260).random(), App.context)
+
+        return Pair(width, height)
     }
 }

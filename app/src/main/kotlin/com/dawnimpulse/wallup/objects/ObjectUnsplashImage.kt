@@ -38,7 +38,9 @@ data class ObjectUnsplashImage(
         @SerializedName("timestamp") val timestamp: Int = 0,
         @SerializedName("views") val views: Int = 0,
         @SerializedName("downloads") val downloads: Int = 0,
-        @SerializedName("exif") val exif: Exif? = null
+        @SerializedName("exif") val exif: Exif? = null,
+        var iWidth:Int, //internal
+        var iHeight:Int
 )
 
 data class Urls(
