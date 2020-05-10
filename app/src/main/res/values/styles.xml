@@ -28,4 +28,9 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <style name="WorkSansTextViewStyle" parent="android:Widget.TextView">
         <item name="android:fontFamily">@font/worksans</item>
     </style>
+
+    <!--fullscreen-->
+    <style name="AppTheme.Fullscreen" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
 </resources>

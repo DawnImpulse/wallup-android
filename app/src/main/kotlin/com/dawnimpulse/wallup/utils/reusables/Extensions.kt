@@ -15,13 +15,20 @@
 package com.dawnimpulse.wallup.utils.reusables
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.palette.graphics.Palette
 import com.dawnimpulse.wallup.BuildConfig
+import com.dawnimpulse.wallup.ui.App
+import com.dawnimpulse.wallup.utils.handlers.HandlerColor
 import com.dawnimpulse.wallup.utils.handlers.HandlerImage
+import com.google.gson.Gson
 
 /**
  * @info -
@@ -89,8 +96,29 @@ fun Context.toastd(message: String, length: Int = Toast.LENGTH_SHORT) {
  *
  * @param value
  */
-fun Context.dpToPx(value:Int): Int{
+fun Context.dpToPx(value: Int): Int {
     return F.dpToPx(value, this)
+}
+
+/**
+ * open activity
+ */
+fun <T> Context.openActivity(it: Class<T>) {
+    startActivity(Intent(this, it))
+}
+
+/**
+ * start activity with params
+ */
+fun <T> Context.openActivity(it: Class<T>, bundle: Bundle.() -> Unit = {}) {
+    var intent = Intent(this, it)
+    intent.putExtras(Bundle().apply(bundle))
+    startActivity(intent)
+}
+
+// int color to hexa string
+fun Int.toHexa(): String {
+    return String.format("#%06X", 0xFFFFFF and this)
 }
 
 /**
@@ -105,6 +133,31 @@ fun String.setImage(view: ImageView) {
  */
 fun ImageView.fetchAndSetImage(url: String) {
     HandlerImage.fetchAndSetImage(this, url)
+}
+
+/**
+ * bitmap get palette
+ */
+fun Bitmap.getPalette(): Palette {
+    return Palette.from(this).generate()
+}
+
+/**
+ * get non dark color
+ */
+fun Palette.getNonDarkColor(): Int {
+    return HandlerColor.getNonDarkColor(this, App.context)
+}
+
+fun Palette.vibrant(): Int {
+    return HandlerColor.getVibrant(this)
+}
+
+/**
+ * convert any object to json
+ */
+fun Any.toJson(): String {
+    return Gson().toJson(this)
 }
 
 // log messages

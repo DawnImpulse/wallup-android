@@ -53,6 +53,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.fragment:fragment-ktx:1.2.4"
+    implementation "androidx.palette:palette:1.0.0"
 
     implementation "com.google.android.material:material:1.1.0"
 

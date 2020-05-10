@@ -31,7 +31,7 @@ data class ObjectUnsplashImage(
         @SerializedName("width") val width: Int = 0,
         @SerializedName("height") val height: Int = 0,
         @SerializedName("color") val color: String? = "",
-        @SerializedName("urls") val urls: Urls? = null,
+        @SerializedName("urls") val urls: Urls,
         @SerializedName("links") val links: Links? = null,
         @SerializedName("likes") var likes: Int = 0,
         @SerializedName("key") val key: String = "",

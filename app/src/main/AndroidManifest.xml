@@ -11,9 +11,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
+        android:name=".ui.App"
         android:allowBackup="false"
         android:label="Wallup"
-        android:name=".ui.App"
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
@@ -45,7 +45,9 @@
             android:name="google_analytics_adid_collection_enabled"
             android:value="false" />
 
-        <activity android:name=".ui.activities.ActivityMain"
+        <!--main-->
+        <activity
+            android:name=".ui.activities.ActivityMain"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,6 +55,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--fullscreen-->
+        <activity
+            android:name=".ui.activities.ActivityUnsplashImage"
+            android:theme="@style/AppTheme.Fullscreen" />
 
     </application>
 

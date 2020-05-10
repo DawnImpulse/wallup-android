@@ -12,15 +12,18 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.ui.holders
+package com.dawnimpulse.wallup.ui.activities
 
-import android.view.View
-import androidx.recyclerview.widget.RecyclerView
+import android.content.res.ColorStateList
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.toColorInt
+import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
-import com.dawnimpulse.wallup.ui.activities.ActivityUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerImage
 import com.dawnimpulse.wallup.utils.reusables.*
-import kotlinx.android.synthetic.main.inflate_scrolling_image.view.*
+import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_image.*
 
 /**
  * @info -
@@ -28,23 +31,27 @@ import kotlinx.android.synthetic.main.inflate_scrolling_image.view.*
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2020-04-28 by Saksham
+ * @note Created on 2020-05-10 by Saksham
  * @note Updates :
  */
-class HolderScrollingImageItem(view: View) : RecyclerView.ViewHolder(view) {
-    private val image = view.inflate_scrolling_image_main
-    private val like = view.inflate_scrolling_image_like
-    private val context = view.context
+class ActivityUnsplashImage : AppCompatActivity(R.layout.activity_image) {
+    private lateinit var unsplashImage: ObjectUnsplashImage
 
     /**
-     * bind image to layout
+     * on create
      */
-    fun bind(objectImage: ObjectUnsplashImage) {
-        image.fetchAndSetImage(objectImage.urls.small)
-        image.setOnClickListener {
-            context.openActivity(ActivityUnsplashImage::class.java){
-                putString(IMAGE, objectImage.toJson())
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        unsplashImage = Gson().fromJson(intent.extras!!.getString(IMAGE, ""), ObjectUnsplashImage::class.java)
+        HandlerImage.fetchImageBitmap(this, unsplashImage.urls.small) {
+            it?.let {
+                activity_image_image.setImageBitmap(it)
+                val color = it.getPalette().vibrant()
+                activity_image_back_layout.backgroundTintList = ColorStateList.valueOf(color)
+                activity_image_set_wallpaper.setCardBackgroundColor(color)
             }
         }
+
     }
 }

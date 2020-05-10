@@ -14,10 +14,18 @@
  **/
 package com.dawnimpulse.wallup.utils.handlers
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.os.Handler
+import android.os.Looper
 import android.widget.ImageView
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.dawnimpulse.wallup.R
 
 /**
@@ -43,5 +51,34 @@ object HandlerImage{
                 .transition(GenericTransitionOptions.with(R.anim.fade_in))
                 .into(view)
                 .clearOnDetach()
+    }
+
+    /**
+     * get bitmap for fullscreen image
+     * @param context
+     * @param url
+     */
+    fun fetchImageBitmap(context: Context, url: String, callback: (Bitmap?) -> Unit) {
+        Glide.with(context)
+                .asBitmap()
+                .load(url)
+                .listener(object : RequestListener<Bitmap> {
+                    // on resource ready
+                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        Handler(Looper.getMainLooper()).post {
+                            callback(resource)
+                        }
+                        return true
+                    }
+
+                    // some error
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                        Handler(Looper.getMainLooper()).post {
+                            callback(null)
+                        }
+                        return true
+                    }
+                })
+                .submit()
     }
 }

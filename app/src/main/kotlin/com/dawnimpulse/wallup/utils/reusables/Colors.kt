@@ -31,6 +31,7 @@ import com.dawnimpulse.wallup.ui.App
 object Colors {
     val ACCENT = ContextCompat.getColor(App.context, R.color.colorAccent)
     val WHITE = ContextCompat.getColor(App.context, R.color.white)
+    val BLACK = ContextCompat.getColor(App.context, R.color.black)
     val PRIMARY = ContextCompat.getColor(App.context, R.color.colorPrimary)
     val TEXT_PRIMARY = ContextCompat.getColor(App.context, R.color.colorTextPrimary)
 }
