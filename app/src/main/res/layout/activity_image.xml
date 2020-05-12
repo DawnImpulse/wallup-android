@@ -43,6 +43,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/activity_image_back_drawable"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
@@ -57,6 +58,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/activity_image_info_drawable"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
@@ -99,6 +101,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             app:cardCornerRadius="16dp">
 
             <TextView
+                android:id="@+id/activity_image_set_wallpaper_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

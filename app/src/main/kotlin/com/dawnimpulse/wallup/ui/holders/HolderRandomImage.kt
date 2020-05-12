@@ -19,8 +19,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
+import com.dawnimpulse.wallup.ui.activities.ActivityUnsplashImage
+import com.dawnimpulse.wallup.ui.activities.ActivityWallupImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerImage
 import com.dawnimpulse.wallup.utils.reusables.F
+import com.dawnimpulse.wallup.utils.reusables.IMAGE
+import com.dawnimpulse.wallup.utils.reusables.openActivity
+import com.dawnimpulse.wallup.utils.reusables.toJson
 import kotlinx.android.synthetic.main.holder_random_image.view.*
 
 /**
@@ -48,9 +53,13 @@ class HolderRandomImage(view: View) : RecyclerView.ViewHolder(view) {
         // set random image height
         layout.layoutParams = ViewGroup.LayoutParams(objectImage.iWidth, objectImage.iHeight)
 
-        val link = objectImage.urls!!.small
-        //HandlerImage.setImageInRecycler(image, "${BuildConfig.WALLUP_API_URL}/${link.path}/${link.id}")
+        val link = objectImage.urls.small
         HandlerImage.fetchAndSetImage(image, link)
+        layout.setOnClickListener {
+            context.openActivity(ActivityUnsplashImage::class.java){
+                putString(IMAGE, objectImage.toJson())
+            }
+        }
     }
 
     /**
@@ -64,5 +73,10 @@ class HolderRandomImage(view: View) : RecyclerView.ViewHolder(view) {
         val link = objectImage.link.path
         //HandlerImage.setImageInRecycler(image, "${BuildConfig.WALLUP_API_URL}/${link.path}/${link.id}")
         HandlerImage.fetchAndSetImage(image, link)
+        layout.setOnClickListener {
+            context.openActivity(ActivityWallupImage::class.java){
+                putString(IMAGE, objectImage.toJson())
+            }
+        }
     }
 }

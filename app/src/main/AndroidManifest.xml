@@ -56,9 +56,14 @@
             </intent-filter>
         </activity>
 
-        <!--fullscreen-->
+        <!--unsplash image-->
         <activity
             android:name=".ui.activities.ActivityUnsplashImage"
+            android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--wallup image-->
+        <activity
+            android:name=".ui.activities.ActivityWallupImage"
             android:theme="@style/AppTheme.Fullscreen" />
 
     </application>

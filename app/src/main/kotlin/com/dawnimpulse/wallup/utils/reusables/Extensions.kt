@@ -21,6 +21,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.palette.graphics.Palette
@@ -136,6 +137,13 @@ fun ImageView.fetchAndSetImage(url: String) {
 }
 
 /**
+ * set text color
+ */
+fun TextView.color(color:Int){
+    this.setTextColor(color)
+}
+
+/**
  * bitmap get palette
  */
 fun Bitmap.getPalette(): Palette {
@@ -149,6 +157,9 @@ fun Palette.getNonDarkColor(): Int {
     return HandlerColor.getNonDarkColor(this, App.context)
 }
 
+/**
+ * get vibrant color from palette
+ */
 fun Palette.vibrant(): Int {
     return HandlerColor.getVibrant(this)
 }

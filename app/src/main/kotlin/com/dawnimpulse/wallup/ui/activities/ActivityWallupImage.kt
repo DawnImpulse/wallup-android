@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.toColorInt
 import androidx.core.widget.ImageViewCompat
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerColor
 import com.dawnimpulse.wallup.utils.handlers.HandlerImage
@@ -27,17 +28,8 @@ import com.dawnimpulse.wallup.utils.reusables.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
 
-/**
- * @info -
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-05-10 by Saksham
- * @note Updates :
- */
-class ActivityUnsplashImage : AppCompatActivity(R.layout.activity_image) {
-    private lateinit var unsplashImage: ObjectUnsplashImage
+class ActivityWallupImage : AppCompatActivity(R.layout.activity_image) {
+    private lateinit var wallupImage: ObjectImage
 
     /**
      * on create
@@ -45,9 +37,8 @@ class ActivityUnsplashImage : AppCompatActivity(R.layout.activity_image) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        unsplashImage = Gson().fromJson(intent.extras!!.getString(IMAGE, ""), ObjectUnsplashImage::class.java)
-        activity_image_info.gone() // not showing info button for unsplash
-        HandlerImage.fetchImageBitmap(this, unsplashImage.urls.small) {
+        wallupImage = Gson().fromJson(intent.extras!!.getString(IMAGE, ""), ObjectImage::class.java)
+        HandlerImage.fetchImageBitmap(this, wallupImage.link.path) {
             it?.let {
                 activity_image_image.setImageBitmap(it)
                 val color = it.getPalette().vibrant()
@@ -57,6 +48,7 @@ class ActivityUnsplashImage : AppCompatActivity(R.layout.activity_image) {
                 activity_image_set_wallpaper.setCardBackgroundColor(color)
 
                 ImageViewCompat.setImageTintList(activity_image_back_drawable, ColorStateList.valueOf(contrast))
+                ImageViewCompat.setImageTintList(activity_image_info_drawable, ColorStateList.valueOf(contrast))
                 activity_image_set_wallpaper_text.color(contrast)
             }
         }
