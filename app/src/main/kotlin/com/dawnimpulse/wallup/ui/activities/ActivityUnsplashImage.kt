@@ -14,6 +14,7 @@
  **/
 package com.dawnimpulse.wallup.ui.activities
 
+import android.app.Dialog
 import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import androidx.core.widget.ImageViewCompat
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerColor
+import com.dawnimpulse.wallup.utils.handlers.HandlerDialog
 import com.dawnimpulse.wallup.utils.handlers.HandlerImage
 import com.dawnimpulse.wallup.utils.reusables.*
 import com.google.gson.Gson
@@ -38,6 +40,7 @@ import kotlinx.android.synthetic.main.activity_image.*
  */
 class ActivityUnsplashImage : AppCompatActivity(R.layout.activity_image) {
     private lateinit var unsplashImage: ObjectUnsplashImage
+    private var dismissed = true
 
     /**
      * on create
@@ -45,10 +48,21 @@ class ActivityUnsplashImage : AppCompatActivity(R.layout.activity_image) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // start loading
+        HandlerDialog.loading(this){
+            if (dismissed){
+                HandlerDialog.dismiss()
+                finish()
+            }
+        }
+
+        // fetch image
         unsplashImage = Gson().fromJson(intent.extras!!.getString(IMAGE, ""), ObjectUnsplashImage::class.java)
         activity_image_info.gone() // not showing info button for unsplash
-        HandlerImage.fetchImageBitmap(this, unsplashImage.urls.small) {
+        HandlerImage.fetchImageBitmap(this, unsplashImage.urls.raw + HEIGHT_1080 + FM_WEBP) {
             it?.let {
+                dismissed = false
+                HandlerDialog.dismiss()
                 activity_image_image.setImageBitmap(it)
                 val color = it.getPalette().vibrant()
                 val contrast = HandlerColor.getContrastColor(color)
