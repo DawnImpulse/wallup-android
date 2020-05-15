@@ -19,7 +19,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:orientation="vertical">
 
     <!--image-->
-    <ImageView
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/activity_image_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
