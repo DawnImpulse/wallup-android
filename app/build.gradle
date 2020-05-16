@@ -56,11 +56,12 @@ dependencies {
     implementation "androidx.palette:palette:1.0.0"
 
     implementation "com.google.android.material:material:1.1.0"
+    implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
     //--------------- Firebase Libraries --------------------
-    implementation 'com.google.firebase:firebase-core:17.3.0' // core
+    implementation 'com.google.firebase:firebase-core:17.4.1' // core
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1' // crashlytics
-    implementation 'com.google.firebase:firebase-database:19.2.1' // realtime database
+    implementation 'com.google.firebase:firebase-database:19.3.0' // realtime database
 
     //--------------- 3rd Party Libraries -------------------
     implementation 'com.github.bumptech.glide:glide:4.11.0' // image loading

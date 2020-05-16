@@ -9,11 +9,11 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/dialog_loading_animation"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:layout_gravity="center"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="loading_1_light.json"
+        app:lottie_fileName="loading_2_light.json"
         app:lottie_loop="true" />
 
 </androidx.cardview.widget.CardView>
