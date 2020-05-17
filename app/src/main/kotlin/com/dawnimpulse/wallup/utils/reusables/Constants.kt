@@ -34,6 +34,7 @@ const val PER_PAGE = "per_page"
 const val PAGE = "page"
 const val ID = "id"
 const val IMAGE = "image"
+const val AUTH = "auth"
 
 const val TYPE_HOME_HEADER = 1
 const val TYPE_SCROLLING_IMAGE = 2

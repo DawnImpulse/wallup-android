@@ -33,4 +33,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <style name="AppTheme.Fullscreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <!--transparent-->
+    <style name="AppTheme.Fullscreen.Transparent" parent="AppTheme.Fullscreen">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

@@ -66,6 +66,9 @@
             android:name=".ui.activities.ActivityWallupImage"
             android:theme="@style/AppTheme.Fullscreen" />
 
+        <activity
+            android:name=".auth.AuthGoogle"
+            android:theme="@style/AppTheme.Fullscreen.Transparent" />
     </application>
 
 </manifest>

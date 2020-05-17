@@ -4,7 +4,9 @@ import android.content.Intent
 import android.content.IntentSender
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.handlers.HandlerDialog
+import com.dawnimpulse.wallup.utils.reusables.AUTH
 import com.dawnimpulse.wallup.utils.reusables.logd
 import com.dawnimpulse.wallup.utils.reusables.loge
 import com.dawnimpulse.wallup.utils.reusables.toast
@@ -12,11 +14,14 @@ import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 class AuthGoogle : AppCompatActivity() {
     private lateinit var oneTapClient: SignInClient
     private lateinit var signInRequest: BeginSignInRequest
     private lateinit var signUpRequest: BeginSignInRequest
+    private lateinit var auth: FirebaseAuth
     private val REQ_ONE_TAP = 101
 
     /**
@@ -27,12 +32,13 @@ class AuthGoogle : AppCompatActivity() {
 
         HandlerDialog.loading(this)
         oneTapInit()
-        /*if (intent.extras!!.getBoolean(AUTH, true))
+        auth = FirebaseAuth.getInstance()
+        if (intent.extras!!.getBoolean(AUTH, true))
             login()
         else {
             oneTapClient.signOut()
             finish()
-        }*/
+        }
     }
 
     /**
@@ -59,7 +65,8 @@ class AuthGoogle : AppCompatActivity() {
                             // Got an ID token from Google. Use it to authenticate
                             // with your backend.
                             toast("Got ID token.")
-                            finish()
+                            firebaseAuthGoogle(idToken)
+                            //finish()
                         }
                         else -> {
                             // Shouldn't happen.
@@ -82,7 +89,7 @@ class AuthGoogle : AppCompatActivity() {
                 .setGoogleIdTokenRequestOptions(
                         BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                                 .setSupported(true)
-                                //.setServerClientId(getString(R.string.google_web_client_id))
+                                .setServerClientId(getString(R.string.google_web_client_id))
                                 .setFilterByAuthorizedAccounts(true)
                                 .build()
                 )
@@ -91,8 +98,7 @@ class AuthGoogle : AppCompatActivity() {
                 .setGoogleIdTokenRequestOptions(
                         BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                                 .setSupported(true)
-                                //.setServerClientId(getString(R.string.google_web_client_id))
-                                // Show all accounts on the device.
+                                .setServerClientId(getString(R.string.google_web_client_id))
                                 .setFilterByAuthorizedAccounts(false)
                                 .build())
                 .build()
@@ -140,6 +146,32 @@ class AuthGoogle : AppCompatActivity() {
                 .addOnFailureListener(this) { e ->
                     // No Google Accounts found. Just continue presenting the signed-out UI.
                     loge(e.localizedMessage)
+                }
+    }
+
+    /**
+     * firebase auth google
+     * @param token
+     */
+    private fun firebaseAuthGoogle(token: String){
+        val credential = GoogleAuthProvider.getCredential(token, null)
+        auth.signInWithCredential(credential)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        logd("signInWithCredential:success")
+                        val user = auth.currentUser
+                        if (user != null) {
+                            user.displayName?.let { toast(it) }
+                        }
+                        finish()
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        logd("signInWithCredential:failure , " + task.exception)
+                        toast("authentication failed")
+                    }
+
+                    // ...
                 }
     }
 
