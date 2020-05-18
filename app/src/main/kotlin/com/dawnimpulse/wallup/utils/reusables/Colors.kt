@@ -19,19 +19,11 @@ import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.App
 
-/**
- * @info -
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-05-04 by Saksham
- * @note Updates :
- */
 object Colors {
     val ACCENT = ContextCompat.getColor(App.context, R.color.colorAccent)
     val WHITE = ContextCompat.getColor(App.context, R.color.white)
     val BLACK = ContextCompat.getColor(App.context, R.color.black)
     val PRIMARY = ContextCompat.getColor(App.context, R.color.colorPrimary)
     val TEXT_PRIMARY = ContextCompat.getColor(App.context, R.color.colorTextPrimary)
+    val RED = ContextCompat.getColor(App.context, R.color.red)
 }

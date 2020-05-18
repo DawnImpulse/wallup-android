@@ -13,7 +13,7 @@
         android:layout_height="96dp"
         android:layout_gravity="center"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="loading_2_light.json"
+        app:lottie_rawRes="@raw/loading_2"
         app:lottie_loop="true" />
 
 </androidx.cardview.widget.CardView>

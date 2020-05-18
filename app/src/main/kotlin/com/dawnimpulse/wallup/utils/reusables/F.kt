@@ -17,6 +17,7 @@ package com.dawnimpulse.wallup.utils.reusables
 import android.content.Context
 import android.graphics.Point
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatDelegate
 import com.dawnimpulse.wallup.ui.App
 
 /**
@@ -55,5 +56,21 @@ object F {
         val height = dpToPx((180..260).random(), App.context)
 
         return Pair(width, height)
+    }
+
+    /**
+     * night mode settings
+     */
+    fun nightMode(): Int {
+        if (Prefs.contains(NIGHT_MODE_SYSTEM))
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        else {
+            if (Prefs.getBoolean(NIGHT_MODE, false))
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
+        return AppCompatDelegate.getDefaultNightMode()
     }
 }

@@ -16,8 +16,11 @@ package com.dawnimpulse.wallup.utils.reusables
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -40,6 +43,31 @@ import com.google.gson.Gson
  * @note Created on 2020-03-06 by Saksham
  * @note Updates :
  */
+
+lateinit var Prefs: SharedPreferences
+
+/**
+ * run on main looper
+ */
+fun onMain(fn: ()->Unit){
+    Handler(Looper.getMainLooper()).post(fn)
+}
+
+// add entry in shared preference
+fun SharedPreferences.putAny(name: String, any: Any) {
+    when (any) {
+        is String -> edit().putString(name, any).apply()
+        is Int -> edit().putInt(name, any).apply()
+        is Boolean -> edit().putBoolean(name,any).apply()
+
+        // also accepts Float, Long & StringSet
+    }
+}
+
+// remove entry from shared preference
+fun SharedPreferences.remove(name:String){
+    edit().remove(name).apply()
+}
 
 /**
  * view gone

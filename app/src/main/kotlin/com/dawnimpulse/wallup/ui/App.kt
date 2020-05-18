@@ -15,6 +15,8 @@
 package com.dawnimpulse.wallup.ui
 
 import android.app.Application
+import androidx.preference.PreferenceManager
+import com.dawnimpulse.wallup.utils.reusables.Prefs
 
 /**
  * @info -
@@ -33,5 +35,7 @@ class App() : Application() {
 
     init {
         context = this
+
+        Prefs = PreferenceManager.getDefaultSharedPreferences(this)
     }
 }
