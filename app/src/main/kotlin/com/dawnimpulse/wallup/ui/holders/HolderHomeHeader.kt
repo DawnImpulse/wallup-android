@@ -15,30 +15,22 @@
 package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.auth.AuthGoogle
+import com.dawnimpulse.wallup.ui.sheets.SheetUser
 import com.dawnimpulse.wallup.utils.reusables.AUTH
 import com.dawnimpulse.wallup.utils.reusables.openActivity
 import kotlinx.android.synthetic.main.adapter_home_header.view.*
 
-/**
- * @info -
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-04-27 by Saksham
- * @note Updates :
- */
 class HolderHomeHeader(view: View) : RecyclerView.ViewHolder(view) {
     private val user = view.activity_home_header_user
     private val context = view.context
+    private var sheetUser: SheetUser = SheetUser()
 
     init {
         user.setOnClickListener {
-            context.openActivity(AuthGoogle::class.java){
-                putBoolean(AUTH, true)
-            }
+            sheetUser.show((context as AppCompatActivity).supportFragmentManager, sheetUser.tag)
         }
     }
 }

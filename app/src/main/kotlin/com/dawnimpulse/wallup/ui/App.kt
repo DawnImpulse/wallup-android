@@ -18,15 +18,6 @@ import android.app.Application
 import androidx.preference.PreferenceManager
 import com.dawnimpulse.wallup.utils.reusables.Prefs
 
-/**
- * @info -
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-05-04 by Saksham
- * @note Updates :
- */
 class App() : Application() {
 
     companion object {
@@ -35,6 +26,10 @@ class App() : Application() {
 
     init {
         context = this
+    }
+
+    override fun onCreate() {
+        super.onCreate()
 
         Prefs = PreferenceManager.getDefaultSharedPreferences(this)
     }

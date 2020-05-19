@@ -56,7 +56,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_gravity="center"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading01" />
+        app:lottie_rawRes="@raw/loading_2" />
 
     <!--Error Layout-->
     <LinearLayout

@@ -117,6 +117,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:id="@+id/activity_main_download"
             android:layout_width="64dp"
             android:layout_height="64dp"
+            app:cardBackgroundColor="@color/white"
             android:layout_marginLeft="16dp"
             app:cardCornerRadius="16dp">
 

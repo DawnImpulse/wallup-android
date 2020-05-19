@@ -15,8 +15,10 @@
 package com.dawnimpulse.wallup.ui.activities
 
 import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
@@ -52,7 +54,21 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
         setupNavigation()
         setupViewPager(activity_main_viewpager)
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        F.nightMode()
+    }
+
+    /**
+     * on resume
+     */
+    override fun onResume() {
+        super.onResume()
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+            window.decorView.systemUiVisibility = 0
+        else
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
     }
 
     /**
@@ -63,7 +79,7 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main) {
         for (i in 0..2) {
             val item = LayoutInflater.from(this).inflate(R.layout.inflate_nav, navigation, false)
             item.inflate_nav_logo.setImageDrawable(ContextCompat.getDrawable(this, logos[i]))
-            if (i!=0){
+            if (i != 0) {
                 val params = item.inflate_nav_logo.layoutParams
                 val dimen = dpToPx(30)
                 params.height = dimen
@@ -87,7 +103,7 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main) {
         val items = (0..2).toMutableList()
         items.removeAt(pos)
         ImageViewCompat.setImageTintList(navigation.getChildAt(pos).inflate_nav_logo, ColorStateList.valueOf(Colors.ACCENT));
-        for (i in items){
+        for (i in items) {
             ImageViewCompat.setImageTintList(navigation.getChildAt(i).inflate_nav_logo, ColorStateList.valueOf(Colors.WHITE));
         }
     }

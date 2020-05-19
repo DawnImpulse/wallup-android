@@ -16,8 +16,11 @@ package com.dawnimpulse.wallup.ui.activities
 
 import android.app.Dialog
 import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.graphics.toColorInt
 import androidx.core.widget.ImageViewCompat
 import com.dawnimpulse.wallup.R
