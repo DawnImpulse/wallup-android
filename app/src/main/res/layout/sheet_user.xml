@@ -100,6 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_marginTop="48dp"
+        android:foreground="?attr/selectableItemBackground"
         app:cardBackgroundColor="@color/colorTextPrimary"
         app:cardCornerRadius="24dp"
         app:cardElevation="0dp">

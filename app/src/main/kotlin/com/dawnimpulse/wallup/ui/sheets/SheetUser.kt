@@ -106,7 +106,7 @@ class SheetUser : BottomSheetDialogFragment(), View.OnClickListener {
      */
     @SuppressLint("SetTextI18n")
     private fun removeUser() {
-        sheet_user_login.setCardBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorAccent))
+        sheet_user_login.setCardBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorTextPrimary))
         sheet_user_login_text.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
         sheet_user_login_text.text = "LOGIN"
         sheet_user_name.text = "YOUR NAME"

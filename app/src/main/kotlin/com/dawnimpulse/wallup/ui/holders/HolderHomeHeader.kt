@@ -17,10 +17,7 @@ package com.dawnimpulse.wallup.ui.holders
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.auth.AuthGoogle
 import com.dawnimpulse.wallup.ui.sheets.SheetUser
-import com.dawnimpulse.wallup.utils.reusables.AUTH
-import com.dawnimpulse.wallup.utils.reusables.openActivity
 import kotlinx.android.synthetic.main.adapter_home_header.view.*
 
 class HolderHomeHeader(view: View) : RecyclerView.ViewHolder(view) {
