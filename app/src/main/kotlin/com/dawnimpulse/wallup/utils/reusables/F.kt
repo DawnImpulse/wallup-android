@@ -19,9 +19,13 @@ import android.content.Intent
 import android.graphics.Point
 import android.net.Uri
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.ui.App
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import org.apache.commons.io.FileUtils
 
 /**
  * @info - various utility functions
@@ -90,5 +94,26 @@ object F {
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "HowComma Feedback  v${BuildConfig.VERSION_NAME}")
         emailIntent.putExtra(Intent.EXTRA_TEXT, text)
         context.startActivity(Intent.createChooser(emailIntent, "Send mail using..."))
+    }
+
+    /**
+     * application cache
+     */
+    fun appCache(scope: CoroutineScope, context: Context, callback: (String) -> Unit) {
+        scope.launch {
+            val size = FileUtils.sizeOfDirectory(context.cacheDir)
+            (context as AppCompatActivity).runOnUiThread {
+                callback(FileUtils.byteCountToDisplaySize(size))
+            }
+        }
+    }
+
+    /**
+     * delete app cache
+     */
+    fun deleteCache(scope: CoroutineScope, context: Context) {
+        scope.launch {
+            FileUtils.deleteQuietly(context.cacheDir)
+        }
     }
 }

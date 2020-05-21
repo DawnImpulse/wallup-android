@@ -10,8 +10,11 @@ import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.utils.reusables.*
 import kotlinx.android.synthetic.main.activity_info.*
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 
 class ActivityInfo : AppCompatActivity(R.layout.activity_info), View.OnClickListener {
+    private val scope = MainScope()
 
     /**
      * on create
@@ -19,6 +22,11 @@ class ActivityInfo : AppCompatActivity(R.layout.activity_info), View.OnClickList
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // get app cache
+        F.appCache(scope, this){
+            activity_info_clear_text.text = "$it • TAP TO CLEAN"
+        }
 
         activity_info_version.text = "v${BuildConfig.VERSION_NAME}"
         activity_info_github.setOnClickListener(this)
@@ -34,9 +42,18 @@ class ActivityInfo : AppCompatActivity(R.layout.activity_info), View.OnClickList
         activity_info_clear.setOnClickListener(this)
         activity_info_clear.setOnLongClickListener {
             StyleToast.success("CLEARED CACHE")
+            F.deleteCache(scope, this)
             activity_info_clear_text.text = "0MB • TAP TO CLEAN"
             true
         }
+    }
+
+    /**
+     * on destroy
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.cancel()
     }
 
     /**
