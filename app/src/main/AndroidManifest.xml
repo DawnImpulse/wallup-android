@@ -56,6 +56,10 @@
             </intent-filter>
         </activity>
 
+        <!-- info -->
+        <activity android:name=".ui.activities.ActivityInfo"
+            android:theme="@style/AppTheme"/>
+
         <!--unsplash image-->
         <activity
             android:name=".ui.activities.ActivityUnsplashImage"

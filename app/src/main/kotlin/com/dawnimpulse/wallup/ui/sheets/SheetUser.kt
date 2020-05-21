@@ -9,13 +9,14 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.auth.AuthGoogle
+import com.dawnimpulse.wallup.ui.activities.ActivityInfo
 import com.dawnimpulse.wallup.utils.reusables.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.sheet_user.*
 
 
-class SheetUser : BottomSheetDialogFragment() {
+class SheetUser : BottomSheetDialogFragment(), View.OnClickListener {
     private lateinit var firebaseAuth: FirebaseAuth
 
     /**
@@ -34,23 +35,9 @@ class SheetUser : BottomSheetDialogFragment() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         // night mode
-        sheet_user_night.setOnClickListener {
-            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-                Prefs.putAny(NIGHT_MODE, false)
-                F.nightMode()
-            }else{
-                Prefs.putAny(NIGHT_MODE, true)
-                F.nightMode()
-            }
-        }
-        sheet_user_login.setOnClickListener {
-            if (firebaseAuth.currentUser != null)
-                toast("Long press to logout")
-            else
-                requireContext().openActivity(AuthGoogle::class.java) {
-                    putBoolean(AUTH, true)
-                }
-        }
+        sheet_user_night.setOnClickListener(this)
+        sheet_user_login.setOnClickListener(this)
+        sheet_user_info.setOnClickListener(this)
         sheet_user_login.setOnLongClickListener {
             if (firebaseAuth.currentUser != null)
                 requireContext().openActivity(AuthGoogle::class.java) {
@@ -71,6 +58,35 @@ class SheetUser : BottomSheetDialogFragment() {
             setUser()
         else
             removeUser()
+    }
+
+    /**
+     * on click listener
+     */
+    override fun onClick(v: View?) {
+        v?.let {
+            when(it.id){
+                sheet_user_night.id -> {
+                    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+                        Prefs.putAny(NIGHT_MODE, false)
+                        F.nightMode()
+                    }else{
+                        Prefs.putAny(NIGHT_MODE, true)
+                        F.nightMode()
+                    }
+                }
+                sheet_user_login.id -> {
+                    if (firebaseAuth.currentUser != null)
+                        toast("Long press to logout")
+                    else
+                        requireContext().openActivity(AuthGoogle::class.java) {
+                            putBoolean(AUTH, true)
+                        }
+                }
+                sheet_user_info.id -> requireContext().openActivity(ActivityInfo::class.java)
+                else -> {}
+            }
+        }
     }
 
     /**

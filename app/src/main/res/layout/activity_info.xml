@@ -55,7 +55,7 @@
             android:fontFamily="@font/nunitosans_extra_bold"
             android:textColor="@color/colorTextPrimary"
             android:textSize="24dp"
-            android:letterSpacing="0.2"
+            android:letterSpacing="0.1"
             android:textStyle="bold" />
 
         <!--version-->
@@ -70,24 +70,24 @@
             android:textSize="16sp" />
 
         <!--social-->
-        <!--<LinearLayout
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
             android:orientation="horizontal">
 
-            &lt;!&ndash;fb&ndash;&gt;
+            <!--fb-->
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/activity_info_fb"
+                android:id="@+id/activity_info_github"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="4dp"
-                app:srcCompat="@drawable/vd_facebook"
-                app:tint="@color/colorAccent" />
+                app:srcCompat="@drawable/vd_github"
+                app:tint="@color/colorTextPrimary" />
 
-            &lt;!&ndash;instagram&ndash;&gt;
+            <!--instagram-->
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/activity_info_insta"
                 android:layout_width="36dp"
@@ -96,20 +96,21 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="4dp"
                 app:srcCompat="@drawable/vd_instagram"
-                app:tint="@color/colorAccent" />
+                app:tint="@color/colorTextPrimary" />
 
-            &lt;!&ndash;twitter&ndash;&gt;
+            <!--dribbble-->
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/activity_info_twitter"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:id="@+id/activity_info_dribbble"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="30dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="4dp"
-                app:srcCompat="@drawable/vd_twitter"
-                app:tint="@color/colorAccent" />
+                app:srcCompat="@drawable/vd_dribbble"
+                app:tint="@color/colorTextPrimary" />
 
-            &lt;!&ndash;google&ndash;&gt;
+            <!--google-->
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/activity_info_google"
                 android:layout_width="36dp"
@@ -118,9 +119,9 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="4dp"
                 app:srcCompat="@drawable/vd_google_play"
-                app:tint="@color/colorAccent" />
+                app:tint="@color/colorTextPrimary" />
 
-        </LinearLayout>-->
+        </LinearLayout>
 
         <!--action-->
         <LinearLayout
@@ -153,11 +154,12 @@
                         app:srcCompat="@drawable/vd_email" />
 
                     <TextView
+                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="EMAIL US"
-                        android:textColor="@color/colorAccent"
+                        android:textColor="@color/colorTextPrimary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -165,7 +167,7 @@
 
             <!--chat-->
             <androidx.cardview.widget.CardView
-                android:id="@+id/activity_info_chat"
+                android:id="@+id/activity_info_twitter"
                 android:layout_width="144dp"
                 android:layout_height="144dp"
                 android:layout_marginLeft="24dp"
@@ -186,14 +188,16 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_gravity="center"
-                        app:srcCompat="@drawable/vd_chat" />
+                        app:tint="#1DA1F2"
+                        app:srcCompat="@drawable/vd_twitter" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="CHAT"
-                        android:textColor="@color/colorAccent"
+                        android:text="TWEET"
+                        android:layout_gravity="center"
+                        android:textColor="@color/colorTextPrimary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -204,7 +208,7 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_margin="36dp"
-            android:background="@color/colorTextTertiary" />
+            android:background="@color/colorTextSecondary" />
 
         <!--icon credits-->
         <androidx.cardview.widget.CardView
@@ -236,7 +240,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="24dp"
                     android:text="ICON's CREDITS"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorTextPrimary"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -273,7 +277,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="24dp"
                     android:text="LIBRARIES USED"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorTextPrimary"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -310,7 +314,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="24dp"
                     android:text="PRIVACY POLICY"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorTextPrimary"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -347,7 +351,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="24dp"
                     android:text="TERMS OF USE"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorTextPrimary"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -357,7 +361,7 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_margin="36dp"
-            android:background="@color/colorTextTertiary" />
+            android:background="@color/colorTextSecondary" />
 
         <!--clear cache-->
         <androidx.cardview.widget.CardView
@@ -383,7 +387,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:text="TERMS OF USE"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/colorTextPrimary"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 

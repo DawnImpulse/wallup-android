@@ -15,9 +15,12 @@
 package com.dawnimpulse.wallup.utils.reusables
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Point
+import android.net.Uri
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDelegate
+import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.ui.App
 
 /**
@@ -72,5 +75,20 @@ object F {
         }
 
         return AppCompatDelegate.getDefaultNightMode()
+    }
+
+    /**
+     * send mail
+     */
+    fun sendMail(context: Context) {
+        val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"))
+        val text = "SDK INT : ${android.os.Build.VERSION.SDK_INT} \n" +
+                "MODEL : ${android.os.Build.MODEL} \n"
+
+        emailIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("dawnimpulse@gmail.com"))
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "HowComma Feedback  v${BuildConfig.VERSION_NAME}")
+        emailIntent.putExtra(Intent.EXTRA_TEXT, text)
+        context.startActivity(Intent.createChooser(emailIntent, "Send mail using..."))
     }
 }

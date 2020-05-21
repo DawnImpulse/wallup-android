@@ -26,6 +26,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.palette.graphics.Palette
 import com.dawnimpulse.wallup.BuildConfig
@@ -143,6 +144,13 @@ fun <T> Context.openActivity(it: Class<T>, bundle: Bundle.() -> Unit = {}) {
     var intent = Intent(this, it)
     intent.putExtras(Bundle().apply(bundle))
     startActivity(intent)
+}
+
+/**
+ * start web
+ */
+fun Context.startWeb(url: String) {
+    startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
 }
 
 // int color to hexa string
