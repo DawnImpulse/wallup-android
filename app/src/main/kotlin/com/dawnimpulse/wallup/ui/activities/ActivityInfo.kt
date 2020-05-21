@@ -31,6 +31,12 @@ class ActivityInfo : AppCompatActivity(R.layout.activity_info), View.OnClickList
         activity_info_library_credits.setOnClickListener(this)
         activity_info_privacy.setOnClickListener(this)
         activity_info_tnc.setOnClickListener(this)
+        activity_info_clear.setOnClickListener(this)
+        activity_info_clear.setOnLongClickListener {
+            StyleToast.success("CLEARED CACHE")
+            activity_info_clear_text.text = "0MB • TAP TO CLEAN"
+            true
+        }
     }
 
     /**
@@ -63,6 +69,7 @@ class ActivityInfo : AppCompatActivity(R.layout.activity_info), View.OnClickList
                 activity_info_library_credits.id -> startWeb(LIBRARY_CREDITS)
                 activity_info_privacy.id -> startWeb(PRIVACY)
                 activity_info_tnc.id -> startWeb(TNC)
+                activity_info_clear.id -> StyleToast.info("Long press to confirm cache deletion")
             }
         }
     }

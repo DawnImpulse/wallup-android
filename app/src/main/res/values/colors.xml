@@ -23,4 +23,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="red">#E55F63</color>
+    <color name="grey">#263238</color>
+    <color name="green">#649D66</color>
 </resources>

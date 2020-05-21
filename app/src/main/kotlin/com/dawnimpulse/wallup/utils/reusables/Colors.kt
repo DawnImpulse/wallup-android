@@ -14,7 +14,6 @@
  **/
 package com.dawnimpulse.wallup.utils.reusables
 
-import android.content.Context
 import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.App
@@ -26,4 +25,6 @@ object Colors {
     val PRIMARY = ContextCompat.getColor(App.context, R.color.colorPrimary)
     val TEXT_PRIMARY = ContextCompat.getColor(App.context, R.color.colorTextPrimary)
     val RED = ContextCompat.getColor(App.context, R.color.red)
+    val GREY = ContextCompat.getColor(App.context, R.color.grey)
+    val GREEN = ContextCompat.getColor(App.context, R.color.green)
 }
