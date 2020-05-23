@@ -46,8 +46,8 @@ class ToolbarBehaviour<V : View>(context: Context, attrs: AttributeSet) :
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
 
         if (dy >= 0)
-            child.translationY = max(child.translationY - dy, -child.height.toFloat())
+            child.translationY = (child.translationY - dy).coerceAtLeast(-child.height.toFloat())
         else
-            child.translationY = min(0f, child.translationY - dy)
+            child.translationY = 0f.coerceAtMost(child.translationY - dy)
     }
 }

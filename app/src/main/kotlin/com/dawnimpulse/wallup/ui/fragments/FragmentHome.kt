@@ -74,7 +74,8 @@ class FragmentHome : Fragment() {
             adapter = AdapterHome(list)
             fragment_home_recycler.layoutManager = LinearLayoutManager(context)
             fragment_home_recycler.adapter = adapter
-        }else
+        } else {
             adapter.notifyDataSetChanged()
+        }
     }
 }

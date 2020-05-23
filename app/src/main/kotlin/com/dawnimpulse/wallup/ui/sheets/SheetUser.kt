@@ -65,12 +65,12 @@ class SheetUser : BottomSheetDialogFragment(), View.OnClickListener {
      */
     override fun onClick(v: View?) {
         v?.let {
-            when(it.id){
+            when (it.id) {
                 sheet_user_night.id -> {
-                    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+                    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                         Prefs.putAny(NIGHT_MODE, false)
                         F.nightMode()
-                    }else{
+                    } else {
                         Prefs.putAny(NIGHT_MODE, true)
                         F.nightMode()
                     }
@@ -84,7 +84,8 @@ class SheetUser : BottomSheetDialogFragment(), View.OnClickListener {
                         }
                 }
                 sheet_user_info.id -> requireContext().openActivity(ActivityInfo::class.java)
-                else -> {}
+                else -> {
+                }
             }
         }
     }
