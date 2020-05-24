@@ -2,5 +2,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="google_web_client_id">202841545552-phlsapacp1d2cu13649p5adm2ocnhjov.apps.googleusercontent.com</string>
+    <string name="cache_deletion_message">Long press to confirm cache deletion</string>
 
 </resources>

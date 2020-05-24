@@ -40,7 +40,7 @@ import org.apache.commons.io.FileUtils
 object F {
 
     // get display height
-    fun displayDimensions(context: Context): Point {
+    private fun displayDimensions(context: Context): Point {
         val point = Point()
         val mWindowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = mWindowManager.defaultDisplay

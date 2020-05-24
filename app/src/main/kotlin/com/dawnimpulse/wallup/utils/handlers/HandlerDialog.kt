@@ -17,14 +17,16 @@ object HandlerDialog {
      */
     fun loading(activity: Activity) {
         dialog = Dialog(activity)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false)
-        dialog.setContentView(R.layout.dialog_loading)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dialog.setOnDismissListener {
-            dialog.dialog_loading_animation.pauseAnimation()
+        with(dialog) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            setCancelable(false)
+            setContentView(R.layout.dialog_loading)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            setOnDismissListener {
+                dialog_loading_animation.pauseAnimation()
+            }
+            show()
         }
-        dialog.show()
     }
 
     /**
@@ -32,15 +34,17 @@ object HandlerDialog {
      */
     fun loading(activity: Activity, dismiss: () -> Unit) {
         dialog = Dialog(activity)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(true)
-        dialog.setContentView(R.layout.dialog_loading)
-        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        dialog.setOnDismissListener {
-            dialog.dialog_loading_animation.pauseAnimation()
-            dismiss()
+        with(dialog) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            setCancelable(true)
+            setContentView(R.layout.dialog_loading)
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+            setOnDismissListener {
+                dialog_loading_animation.pauseAnimation()
+                dismiss()
+            }
+            show()
         }
-        dialog.show()
     }
 
     /**

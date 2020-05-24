@@ -41,8 +41,8 @@ class AdapterRandomImage(
         recyclerView: RecyclerView) : CustomAdapter<RecyclerView.ViewHolder>(6, recyclerView) {
 
     private lateinit var context: Context
-    private val VIEW_ITEM = 0
-    private val VIEW_LOADING = 1
+    private val viewItem = 0
+    private val viewLoading = 1
 
     /**
      * (default) get items in adapter
@@ -58,8 +58,8 @@ class AdapterRandomImage(
      */
     override fun getItemViewType(position: Int): Int =
             when {
-                objectImageList[position] == null -> VIEW_LOADING
-                else -> VIEW_ITEM
+                objectImageList[position] == null -> viewLoading
+                else -> viewItem
             }
 
     /**
@@ -72,7 +72,7 @@ class AdapterRandomImage(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
         return when (viewType) {
-            VIEW_ITEM -> HolderRandomImage(LayoutInflater.from(context).inflate(R.layout.holder_random_image, parent, false))
+            viewItem -> HolderRandomImage(LayoutInflater.from(context).inflate(R.layout.holder_random_image, parent, false))
             else -> HolderLoading(LayoutInflater.from(context).inflate(R.layout.holder_loading_horizontal, parent, false))
         }
     }

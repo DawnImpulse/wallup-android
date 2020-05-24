@@ -86,7 +86,7 @@ class ActivityInfo : AppCompatActivity(R.layout.activity_info), View.OnClickList
                 activity_info_library_credits.id -> startWeb(LIBRARY_CREDITS)
                 activity_info_privacy.id -> startWeb(PRIVACY)
                 activity_info_tnc.id -> startWeb(TNC)
-                activity_info_clear.id -> StyleToast.info("Long press to confirm cache deletion")
+                activity_info_clear.id -> StyleToast.info(getString(R.string.cache_deletion_message))
             }
         }
     }

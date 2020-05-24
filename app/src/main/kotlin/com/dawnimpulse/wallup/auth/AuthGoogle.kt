@@ -21,9 +21,9 @@ class AuthGoogle : AppCompatActivity() {
     private lateinit var signInRequest: BeginSignInRequest
     private lateinit var signUpRequest: BeginSignInRequest
     private lateinit var auth: FirebaseAuth
-    private var CANCEL = false
-    private var SIGNIN = false
-    private val REQ_ONE_TAP = 101
+    private var cancel = false
+    private var signIn = false
+    private val reqOneTap = 101
 
     /**
      * on create
@@ -59,7 +59,7 @@ class AuthGoogle : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            REQ_ONE_TAP -> {
+            reqOneTap -> {
                 try {
                     val credential = oneTapClient.getSignInCredentialFromIntent(data)
                     val idToken = credential.googleIdToken
@@ -80,13 +80,13 @@ class AuthGoogle : AppCompatActivity() {
                     if (e.statusCode == CommonStatusCodes.CANCELED) {
                         // if sign in is previously called (& this is signup)
                         // then close the prompt
-                        if (SIGNIN) {
+                        if (signIn) {
                             StyleToast.error("Issue while login (${ERROR_AUTH_GOOGLE_USER_FAIL}), please try again", Toast.LENGTH_LONG)
                             e.printStackTrace()
                             finish()
                             // else if show signup screen
                         } else {
-                            SIGNIN = true
+                            signIn = true
                             signUp()
                         }
                     } else {
@@ -103,10 +103,10 @@ class AuthGoogle : AppCompatActivity() {
      * back press
      */
     override fun onBackPressed() {
-        if (CANCEL) finish()
+        if (cancel) finish()
         else
             StyleToast.info("Kindly back press again to cancel")
-        CANCEL = true
+        cancel = true
     }
 
     /**
@@ -141,7 +141,7 @@ class AuthGoogle : AppCompatActivity() {
                 .addOnSuccessListener(this) { result ->
                     try {
                         startIntentSenderForResult(
-                                result.pendingIntent.intentSender, REQ_ONE_TAP,
+                                result.pendingIntent.intentSender, reqOneTap,
                                 null, 0, 0, 0, null
                         )
                     } catch (e: IntentSender.SendIntentException) {
@@ -164,7 +164,7 @@ class AuthGoogle : AppCompatActivity() {
                 .addOnSuccessListener(this) { result ->
                     try {
                         startIntentSenderForResult(
-                                result.pendingIntent.intentSender, REQ_ONE_TAP,
+                                result.pendingIntent.intentSender, reqOneTap,
                                 null, 0, 0, 0)
                     } catch (e: IntentSender.SendIntentException) {
                         StyleToast.error("Unable to login (${ERROR_AUTH_GOOGLE_ONE_TAP_SIGNUP_FAIL}), please try again", Toast.LENGTH_LONG)

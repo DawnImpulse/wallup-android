@@ -60,7 +60,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
     //--------------- Firebase Libraries --------------------
-    implementation 'com.google.firebase:firebase-core:17.4.1' // core
+    implementation 'com.google.firebase:firebase-core:17.4.2' // core
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1' // crashlytics
     implementation 'com.google.firebase:firebase-database:19.3.0' // realtime database
     implementation 'com.google.firebase:firebase-auth:19.3.1' // auth
@@ -68,16 +68,16 @@ dependencies {
     //--------------- 3rd Party Libraries -------------------
     implementation 'com.github.bumptech.glide:glide:4.11.0' // image loading
     implementation 'org.sourcei.android:permissions:1.0.1' //permissions
-    implementation 'com.squareup.retrofit2:retrofit:2.7.2' // retrofit
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1' // retrofit
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
     implementation 'com.airbnb.android:lottie:3.4.0' // lottie
     implementation 'com.jakewharton.rxrelay2:rxrelay:2.1.1' // rx relay
     implementation 'com.github.chrisbanes:PhotoView:2.3.0' // photo pan/zoom
     implementation 'com.muddzdev:styleabletoast:2.2.3' // toast
-    implementation 'commons-io:commons-io:2.4' // apache commons io
+    implementation 'commons-io:commons-io:2.6' // apache commons io
 
     //------------------ Additional -------------------------
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
