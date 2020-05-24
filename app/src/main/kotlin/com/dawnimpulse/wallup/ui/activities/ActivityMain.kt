@@ -14,22 +14,27 @@
  **/
 package com.dawnimpulse.wallup.ui.activities
 
-import android.content.res.ColorStateList
+import android.animation.AnimatorSet
+import android.animation.ValueAnimator
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.animation.doOnEnd
+import androidx.core.animation.doOnStart
 import androidx.core.content.ContextCompat
-import androidx.core.widget.ImageViewCompat
+import androidx.core.view.setPadding
 import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.fragments.FragmentHome
 import com.dawnimpulse.wallup.ui.fragments.FragmentRandom
 import com.dawnimpulse.wallup.utils.reusables.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.inflate_nav.view.*
+import kotlinx.android.synthetic.main.nav_item.view.*
+import kotlinx.android.synthetic.main.navigation.*
 
 /**
  * @info - application home-screen
@@ -44,6 +49,7 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main) {
     private lateinit var randomFragment: FragmentRandom
     private lateinit var homeFragment: FragmentHome
     private lateinit var pagerAdapter: ViewPagerAdapter
+    private var currentNav = -1
 
     /**
      * on create (default)
@@ -52,7 +58,7 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main) {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupNavigation()
+        setNavigation()
         setupViewPager(activity_main_viewpager)
         F.nightMode()
     }
@@ -72,39 +78,111 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main) {
     }
 
     /**
-     * setup navigation
+     * set navigation items
      */
-    private fun setupNavigation() {
-        val logos = listOf(R.drawable.vd_home, R.drawable.vd_random, R.drawable.vd_like_1)
-        for (i in 0..2) {
-            val item = LayoutInflater.from(this).inflate(R.layout.inflate_nav, navigation, false)
-            item.inflate_nav_logo.setImageDrawable(ContextCompat.getDrawable(this, logos[i]))
-            if (i != 0) {
-                val params = item.inflate_nav_logo.layoutParams
-                val dimen = dpToPx(30)
-                params.height = dimen
-                params.width = dimen
+    private fun setNavigation() {
+
+        // get list of icons & name
+        val icons = listOf(R.drawable.vd_home, R.drawable.vd_device, R.drawable.vd_random, R.drawable.vd_category)
+        val name = listOf("Home", "Device", "Random", "Category")
+
+        // run a loop and set items
+        for (i in 0..3) {
+            // get inflated view
+            val item = LayoutInflater.from(this).inflate(R.layout.nav_item, nav_layout, false)
+            // set icon
+            item.nav_item_icon.setImageDrawable(ContextCompat.getDrawable(this, icons[i]))
+            item.nav_item_text.text = name[i] // set name
+            // if first item then remove left margin
+            if (i == 0) {
+                val params = item.nav_item_container.layoutParams as ViewGroup.MarginLayoutParams
+                params.leftMargin = 0
             }
+            // add view to navigation
+            nav_layout.addView(item)
+            // enable click listener
             item.setOnClickListener {
-                selectNavigation(i)
+                if (currentNav != i)
+                    currentNavigation(i)
             }
-            navigation.addView(item)
         }
-        selectNavigation(0)
+
+        // set first item
+        currentNavigation(0)
     }
 
     /**
-     * select navigation item
+     * handle navigation
      *
      * @param pos
      */
-    private fun selectNavigation(pos: Int) {
+    private fun currentNavigation(pos: Int) {
         activity_main_viewpager.currentItem = pos
-        val items = (0..2).toMutableList()
-        items.removeAt(pos)
-        ImageViewCompat.setImageTintList(navigation.getChildAt(pos).inflate_nav_logo, ColorStateList.valueOf(Colors.ACCENT));
-        for (i in items) {
-            ImageViewCompat.setImageTintList(navigation.getChildAt(i).inflate_nav_logo, ColorStateList.valueOf(Colors.WHITE));
+        val current = nav_layout.getChildAt(pos) // get current view
+        val topBottom = dpToPx(10) // padding value
+        var prevItem = AnimatorSet() // create prev animator set
+        val currentName = current.nav_item_text.text // name of item
+
+        // current animation set
+        val newItem = AnimatorSet().apply {
+            // padding animation
+            play(ValueAnimator.ofInt(0, topBottom).apply {
+                // add listener to change padding gradually
+                addUpdateListener {
+                    val value = it.animatedValue as Int
+                    current.nav_item_container.setPadding(value + dpToPx(4), value, value + dpToPx(4), value)
+                }
+                // fading animation
+            }).with(ValueAnimator.ofInt(0, currentName.length).apply {
+                // add listener to change length gradually
+                addUpdateListener {
+                    current.nav_item_text.text = currentName.subSequence(0, it.animatedValue as Int)
+                }
+            })
+
+            doOnStart {
+                // on start show the text
+                current.nav_item_text.show()
+                current.nav_item_container.background = ContextCompat.getDrawable(this@ActivityMain,
+                        R.drawable.bg_nav_selected)
+            }
+        }
+
+        // work on the last item (if present)
+        if (currentNav != -1) {
+            val item = nav_layout.getChildAt(currentNav) // get prev item
+            val prevName = item.nav_item_text.text // get prev item name
+            prevItem = AnimatorSet().apply {
+                // shrink animation
+                play(ValueAnimator.ofInt(topBottom, 0).apply {
+                    // listener to gradually change
+                    addUpdateListener {
+                        val value = it.animatedValue as Int
+                        item.nav_item_container.setPadding(value)
+                    }
+                    // fadeout animation
+                }).with(ValueAnimator.ofInt(prevName.length, 0).apply {
+                    // listener to gradually change
+                    addUpdateListener {
+                        item.nav_item_text.text = prevName.subSequence(0, it.animatedValue as Int)
+                    }
+                })
+
+                doOnEnd {
+                    item.nav_item_text.gone() // remove text
+                    item.nav_item_container.background = null // remove bg
+                    item.nav_item_text.text = prevName // restore name
+                }
+            }
+        }
+
+        AnimatorSet().apply {
+            play(newItem).with(prevItem) // join animations
+            duration = 100 // set duration
+            start() // start animation set
+            doOnEnd {
+                currentNav = pos
+            }
         }
     }
 

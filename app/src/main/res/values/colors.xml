@@ -25,4 +25,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
     <color name="red">#E55F63</color>
     <color name="grey">#263238</color>
     <color name="green">#649D66</color>
+
+    <color name="light_highlight">#FCE850</color>
 </resources>
