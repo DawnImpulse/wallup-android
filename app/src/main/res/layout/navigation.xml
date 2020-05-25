@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="64dp"
     android:layout_gravity="bottom"
-    android:background="@color/colorSecondary"
-    app:elevation="-8dp">
+    android:background="@color/colorSecondary">
 
     <LinearLayout
         android:id="@+id/nav_layout"
