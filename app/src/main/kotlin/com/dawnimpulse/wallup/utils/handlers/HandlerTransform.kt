@@ -12,7 +12,7 @@ class HandlerTransform {
     private var height: Int? = null
     private var width: Int? = null
     private var format = WEBP
-    private var quality: Int = 85
+    private var quality: Int = 80
     private var blur: Int? = null
 
     constructor(url: String, view: ImageView) {

@@ -16,8 +16,6 @@ package com.dawnimpulse.wallup.utils.handlers
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.os.Handler
-import android.os.Looper
 import android.widget.ImageView
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
@@ -28,29 +26,20 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.dawnimpulse.wallup.R
 
-/**
- * @info -
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-03-06 by Saksham
- * @note Updates :
- */
 object HandlerImage{
 
     /**
-     * Image in a recycler layout
-     * @param view
+     * fetch and set image directly
+     *
      * @param url
+     * @param view
      */
-    fun fetchAndSetImage(view: ImageView, url: String) {
+    fun fetchAndSetImage(url: String, view: ImageView) {
         Glide.with(view.context)
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transition(GenericTransitionOptions.with(R.anim.fade_in))
                 .into(view)
-                .clearOnDetach()
     }
 
     /**
@@ -63,19 +52,13 @@ object HandlerImage{
                 .asBitmap()
                 .load(url)
                 .listener(object : RequestListener<Bitmap> {
-                    // on resource ready
-                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        Handler(Looper.getMainLooper()).post {
-                            callback(resource)
-                        }
+                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
+                        callback(null)
                         return true
                     }
 
-                    // some error
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean {
-                        Handler(Looper.getMainLooper()).post {
-                            callback(null)
-                        }
+                    override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                        callback(resource)
                         return true
                     }
                 })

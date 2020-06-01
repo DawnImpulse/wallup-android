@@ -32,7 +32,7 @@ import androidx.palette.graphics.Palette
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.ui.App
 import com.dawnimpulse.wallup.utils.handlers.HandlerColor
-import com.dawnimpulse.wallup.utils.handlers.HandlerImage
+import com.dawnimpulse.wallup.utils.handlers.HandlerTransform
 import com.google.gson.Gson
 
 /**
@@ -159,17 +159,17 @@ fun Int.toHexa(): String {
 }
 
 /**
- * set the string to image
+ * transform handler on string for image (fetch)
  */
-fun String.setImage(view: ImageView) {
-    HandlerImage.fetchAndSetImage(view, this)
+fun String.imageTransform(view: ImageView): HandlerTransform {
+    return HandlerTransform(this, view)
 }
 
 /**
- * fetch and set image on view using Glide
+ * transform handler on string for image (bitmap)
  */
-fun ImageView.fetchAndSetImage(url: String) {
-    HandlerImage.fetchAndSetImage(this, url)
+fun String.imageTransform(context: Context): HandlerTransform {
+    return HandlerTransform(this, context)
 }
 
 /**

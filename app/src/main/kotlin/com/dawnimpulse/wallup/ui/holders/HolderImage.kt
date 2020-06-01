@@ -17,17 +17,20 @@ package com.dawnimpulse.wallup.ui.holders
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.utils.reusables.imageTransform
 import kotlinx.android.synthetic.main.adapter_image.view.*
 
 class HolderImage(view: View): RecyclerView.ViewHolder(view){
     private val layout = view.adapter_image_layout
     private val image = view.adapter_image_image
-    private val context = view.context
 
     /**
      * bind data to view
      */
-    fun bind(image: ObjectImage){
-
+    fun bind(objImage: ObjectImage){
+        layout.layoutParams.height = objImage.height
+        objImage.link.imageTransform(image)
+                .height(480)
+                .apply()
     }
 }
