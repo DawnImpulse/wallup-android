@@ -16,15 +16,13 @@ package com.dawnimpulse.wallup.objects
 
 import com.google.gson.annotations.SerializedName
 
-/**
- * @info -
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-04-20 by Saksham
- * @note Updates :
- */
-data class ObjectUnsplashError(
-        @SerializedName("errors") val errors: List<String>? = null
+data class ObjectDevice(
+        @SerializedName("_id") val _id: String,
+        @SerializedName("did") val did: String,
+        @SerializedName("name") val name: String,
+        @SerializedName("cover") val cover: String,
+        @SerializedName("brand") val brand: ObjectBrand,
+        @SerializedName("available") val available: Boolean,
+        @SerializedName("createdAt") val createdAt: String,
+        @SerializedName("updatedAt") val updatedAt: String
 )

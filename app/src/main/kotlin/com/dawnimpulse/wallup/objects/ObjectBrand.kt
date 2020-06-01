@@ -16,16 +16,12 @@ package com.dawnimpulse.wallup.objects
 
 import com.google.gson.annotations.SerializedName
 
-/**
- * @info -
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-05-03 by Saksham
- * @note Updates :
- */
-data class ObjectHomescreen(
-        @SerializedName("collections") val collections: List<ObjectCollection>,
-        @SerializedName("category") val category: List<ObjectCategory>
+data class ObjectBrand(
+        @SerializedName("_id") val _id: String,
+        @SerializedName("name") val name: String,
+        @SerializedName("cover") val cover: String,
+        @SerializedName("logo") val logo: String,
+        @SerializedName("available") val available: Boolean,
+        @SerializedName("createdAt") val createdAt: String,
+        @SerializedName("updatedAt") val updatedAt: String
 )

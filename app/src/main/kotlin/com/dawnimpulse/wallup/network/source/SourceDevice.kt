@@ -14,24 +14,24 @@
  **/
 package com.dawnimpulse.wallup.network.source
 
-import com.dawnimpulse.wallup.objects.ObjectCollection
-import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.objects.ObjectDevice
+import com.dawnimpulse.wallup.utils.reusables.AVAILABLE
 import com.dawnimpulse.wallup.utils.reusables.LIMIT
+import com.dawnimpulse.wallup.utils.reusables.START
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-/**
- * @info - various routes for images
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-04-30 by Saksham
- * @note Updates :
- */
-interface SourceCollection {
+interface SourceDevice {
 
-    @GET("/collections")
-    fun latest(): Call<List<ObjectCollection>>
+    // -------------
+    //   LATEST
+    // -------------
+    @GET("/devices")
+    fun latest(
+            @Query(START) start: Number,
+            @Query(LIMIT) limit: Number,
+            @Query("_sort") sort: String = "createdAt:DESC",
+            @Query(AVAILABLE) available: Boolean = true
+    ): Call<List<ObjectDevice>>
 }
