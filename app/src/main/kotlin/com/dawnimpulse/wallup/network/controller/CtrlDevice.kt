@@ -51,4 +51,27 @@ object CtrlDevice {
             }
         })
     }
+
+    /**
+     * get alphabetic devices
+     *
+     * @param start
+     * @param limit
+     */
+    suspend fun all(start: Number, limit: Number) = suspendCoroutine<List<ObjectDevice>> { continuation ->
+        val call = client.all(start, limit)
+        call.enqueue(object : Callback<List<ObjectDevice>> {
+            override fun onResponse(call: Call<List<ObjectDevice>>, response: Response<List<ObjectDevice>>) {
+                if (response.isSuccessful)
+                    continuation.resume(response.body()!!)
+                else
+                    continuation.resumeWithException(Exception(Gson().toJson(HandlerError.parseError(response))))
+            }
+
+            // on failure
+            override fun onFailure(call: Call<List<ObjectDevice>>, t: Throwable) {
+                continuation.resumeWithException(t)
+            }
+        })
+    }
 }

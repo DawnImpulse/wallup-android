@@ -60,16 +60,16 @@
         <activity android:name=".ui.activities.ActivityInfo"
             android:theme="@style/AppTheme"/>
 
-        <!--unsplash image-->
-        <activity
-            android:name=".ui.activities.ActivityUnsplashImage"
-            android:theme="@style/AppTheme.Fullscreen" />
+        <!-- devices -->
+        <activity android:name=".ui.activities.ActivityDevices"
+            android:theme="@style/AppTheme"/>
 
         <!--wallup image-->
         <activity
             android:name=".ui.activities.ActivityWallupImage"
             android:theme="@style/AppTheme.Fullscreen" />
 
+        <!--auth-->
         <activity
             android:name=".auth.AuthGoogle"
             android:theme="@style/AppTheme.Fullscreen.Transparent" />

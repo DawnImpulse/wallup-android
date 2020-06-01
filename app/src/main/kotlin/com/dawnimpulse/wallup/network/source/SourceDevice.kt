@@ -34,4 +34,15 @@ interface SourceDevice {
             @Query("_sort") sort: String = "createdAt:DESC",
             @Query(AVAILABLE) available: Boolean = true
     ): Call<List<ObjectDevice>>
+
+    // -------------
+    //   ALPHABETIC
+    // -------------
+    @GET("/devices")
+    fun all(
+            @Query(START) start: Number,
+            @Query(LIMIT) limit: Number,
+            @Query("_sort") sort: String = "brand.name:DESC,createdAt:DESC",
+            @Query(AVAILABLE) available: Boolean = true
+    ): Call<List<ObjectDevice>>
 }

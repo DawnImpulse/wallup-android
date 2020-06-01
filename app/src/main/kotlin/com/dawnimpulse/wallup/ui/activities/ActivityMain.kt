@@ -37,7 +37,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_item.view.*
 import kotlinx.android.synthetic.main.navigation.*
 
-class ActivityMain : AppCompatActivity(R.layout.activity_main) {
+class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickListener {
     private lateinit var homeFragment: FragmentHome
     private lateinit var randomFragment: FragmentRandom
     private lateinit var latestDeviceFragment: FragmentLatestDevice
@@ -54,6 +54,8 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main) {
         setNavigation()
         setupViewPager(activity_main_viewpager)
         F.nightMode()
+
+        activity_main_appbar_device.setOnClickListener(this)
     }
 
     /**
@@ -68,6 +70,17 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
+    }
+
+    /**
+     * on click listener
+     */
+    override fun onClick(v: View?) {
+        v?.let {
+            when (it.id) {
+                activity_main_appbar_device.id -> openActivity(ActivityDevices::class.java)
+            }
+        }
     }
 
     /**
@@ -196,5 +209,26 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main) {
         pagerAdapter.addFragment(randomFragment, RANDOM)
         viewPager.adapter = pagerAdapter
         viewPager.offscreenPageLimit = 2
+
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+                //
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                //
+            }
+
+            override fun onPageSelected(position: Int) {
+                currentNavigation(position)
+                if (position == 1) {
+                    activity_main_appbar_device.show()
+                    activity_main_appbar_logo.gone()
+                } else {
+                    activity_main_appbar_device.gone()
+                    activity_main_appbar_logo.show()
+                }
+            }
+        })
     }
 }
