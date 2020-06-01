@@ -59,4 +59,27 @@ object CtrlImage {
             }
         })
     }
+
+    /**
+     * get latest images
+     *
+     * @param start
+     * @param limit
+     */
+    suspend fun latest(start: Number, limit: Number) = suspendCoroutine<List<ObjectImage>> { continuation ->
+        val call = client.latest(start, limit)
+        call.enqueue(object : Callback<List<ObjectImage>> {
+            override fun onResponse(call: Call<List<ObjectImage>>, response: Response<List<ObjectImage>>) {
+                if (response.isSuccessful)
+                    continuation.resume(response.body()!!)
+                else
+                    continuation.resumeWithException(Exception(Gson().toJson(HandlerError.parseError(response))))
+            }
+
+            // on failure
+            override fun onFailure(call: Call<List<ObjectImage>>, t: Throwable) {
+                continuation.resumeWithException(t)
+            }
+        })
+    }
 }

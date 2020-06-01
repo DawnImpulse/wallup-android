@@ -22,22 +22,35 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.dawnimpulse.wallup.BuildConfig
+import com.dawnimpulse.wallup.objects.ObjectError
+import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.ui.App
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.apache.commons.io.FileUtils
 
-/**
- * @info - various utility functions
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-04-15 by Saksham
- * @note Updates :
- */
-
 object F {
+
+    /**
+     * check exception type and convert to ObjectIssue
+     *
+     * @param e
+     * @param code
+     * @param more - if exception is in load more images
+     * @return ObjectIssue
+     */
+    fun handleException(e: Exception, code: Int, more:Boolean): ObjectIssue {
+        // handling error
+        return if (e.message != null) {
+            // checking for errors from server
+            val error = e.message!!.fromSafeJson(ObjectError::class.java)
+            if (error != null)
+                ObjectIssue(more, code, error.error, error.message, error)
+            else
+                ObjectIssue(more, code, TYPE_ERROR_LOADING, e.message!!, e)
+        } else
+            ObjectIssue(more, code, TYPE_ERROR_LOADING, "some internal error", e)
+    }
 
     // get display height
     private fun displayDimensions(context: Context): Point {
@@ -63,6 +76,13 @@ object F {
         val height = dpToPx((180..260).random(), App.context)
 
         return Pair(width, height)
+    }
+
+    /**
+     * get random height
+     */
+    fun getRandomHeight(): Int {
+        return (180..260).random()
     }
 
     /**

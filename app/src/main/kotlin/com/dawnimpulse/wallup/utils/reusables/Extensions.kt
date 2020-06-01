@@ -50,7 +50,7 @@ lateinit var Prefs: SharedPreferences
 /**
  * run on main looper
  */
-fun onMain(fn: ()->Unit){
+fun onMain(fn: () -> Unit) {
     Handler(Looper.getMainLooper()).post(fn)
 }
 
@@ -59,14 +59,14 @@ fun SharedPreferences.putAny(name: String, any: Any) {
     when (any) {
         is String -> edit().putString(name, any).apply()
         is Int -> edit().putInt(name, any).apply()
-        is Boolean -> edit().putBoolean(name,any).apply()
+        is Boolean -> edit().putBoolean(name, any).apply()
 
         // also accepts Float, Long & StringSet
     }
 }
 
 // remove entry from shared preference
-fun SharedPreferences.remove(name:String){
+fun SharedPreferences.remove(name: String) {
     edit().remove(name).apply()
 }
 
@@ -173,9 +173,20 @@ fun String.imageTransform(context: Context): HandlerTransform {
 }
 
 /**
+ * convert safely from json to class
+ */
+fun <T> String.fromSafeJson(classOfT: Class<T>): T? {
+    return try {
+        Gson().fromJson(this, classOfT)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
  * set text color
  */
-fun TextView.color(color:Int){
+fun TextView.color(color: Int) {
     this.setTextColor(color)
 }
 

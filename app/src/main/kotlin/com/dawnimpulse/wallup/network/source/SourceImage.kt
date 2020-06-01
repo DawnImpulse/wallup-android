@@ -15,7 +15,9 @@
 package com.dawnimpulse.wallup.network.source
 
 import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.utils.reusables.AVAILABLE
 import com.dawnimpulse.wallup.utils.reusables.LIMIT
+import com.dawnimpulse.wallup.utils.reusables.START
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -31,8 +33,22 @@ import retrofit2.http.Query
  */
 interface SourceImage {
 
+    //---------------
+    //    RANDOM
+    //---------------
     @GET("/images/random")
     fun random(
             @Query(LIMIT) limit: Number
+    ): Call<List<ObjectImage>>
+
+    //---------------
+    //    LATEST
+    //---------------
+    @GET("/images")
+    fun latest(
+            @Query(START) start: Number,
+            @Query(LIMIT) limit: Number,
+            @Query("_sort") sort: String = "createdAt:DESC",
+            @Query(AVAILABLE) available: Boolean = true
     ): Call<List<ObjectImage>>
 }

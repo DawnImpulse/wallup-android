@@ -16,15 +16,6 @@ package com.dawnimpulse.wallup.objects
 
 import com.google.gson.annotations.SerializedName
 
-/**
- * @info - error object
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-02-29 by Saksham
- * @note Updates :
- */
 data class ObjectError(
         @SerializedName("statusCode") val statusCode: Int = 0,
         @SerializedName("error") val error: String = "",

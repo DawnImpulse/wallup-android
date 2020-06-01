@@ -13,13 +13,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragment_home_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_home_recycler"
+        android:id="@+id/layout_general_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -28,7 +27,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <!--Loading Animation-->
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/fragment_random_anim"
+        android:id="@+id/layout_general_anim"
         android:layout_width="256dp"
         android:layout_height="256dp"
         android:layout_gravity="center"
@@ -38,7 +37,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <!--Error Layout-->
     <LinearLayout
-        android:id="@+id/fragment_random_error_layout"
+        android:id="@+id/layout_general_error_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -46,13 +45,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:visibility="gone">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/fragment_random_error_image"
+            android:id="@+id/layout_general_error_image"
             android:layout_width="256dp"
             android:layout_height="256dp"
             app:srcCompat="@drawable/vd_error_1" />
 
         <TextView
-            android:id="@+id/fragment_random_error_text"
+            android:id="@+id/layout_general_error_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

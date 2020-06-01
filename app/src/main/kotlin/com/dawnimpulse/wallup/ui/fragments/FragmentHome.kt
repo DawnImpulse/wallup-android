@@ -15,40 +15,19 @@
 package com.dawnimpulse.wallup.ui.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.ModelHome
-import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.ui.adapters.AdapterHome
-import com.dawnimpulse.wallup.utils.reusables.logd
-import com.dawnimpulse.wallup.utils.reusables.toast
 import kotlinx.android.synthetic.main.fragment_home.*
 
-/**
- * @info - main home fragment
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-04-27 by Saksham
- * @note Updates :
- */
-class FragmentHome : Fragment() {
+class FragmentHome : Fragment(R.layout.layout_general) {
     private val modelHome: ModelHome by activityViewModels()
     private lateinit var adapter: AdapterHome
-
-    /**
-     * on create view
-     */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
 
     /**
      * on view created

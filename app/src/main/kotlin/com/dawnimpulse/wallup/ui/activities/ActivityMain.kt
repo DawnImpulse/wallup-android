@@ -36,15 +36,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_item.view.*
 import kotlinx.android.synthetic.main.navigation.*
 
-/**
- * @info - application home-screen
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-03-04 by Saksham
- * @note Updates :
- */
 class ActivityMain : AppCompatActivity(R.layout.activity_main) {
     private lateinit var randomFragment: FragmentRandom
     private lateinit var homeFragment: FragmentHome
@@ -83,11 +74,11 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main) {
     private fun setNavigation() {
 
         // get list of icons & name
-        val icons = listOf(R.drawable.vd_home, R.drawable.vd_device, R.drawable.vd_random, R.drawable.vd_category)
-        val name = listOf("Home", "Device", "Random", "Category")
+        val icons = listOf(R.drawable.vd_home, R.drawable.vd_rhombus, R.drawable.vd_random)
+        val name = listOf("Home", "Device", "Random")
 
         // run a loop and set items
-        for (i in 0..3) {
+        for (i in 0..2) {
             // get inflated view
             val item = LayoutInflater.from(this).inflate(R.layout.nav_item, nav_layout, false)
             // set icon

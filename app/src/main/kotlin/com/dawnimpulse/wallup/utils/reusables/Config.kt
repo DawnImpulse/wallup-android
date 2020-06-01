@@ -14,14 +14,4 @@
  **/
 package com.dawnimpulse.wallup.utils.reusables
 
-/**
- * @info -
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-05-13 by Saksham
- * @note Updates :
- */
-const val HEIGHT_1080 = "&h=1080"
-const val FM_WEBP = "&fm=webp"
+const val LIST_COUNT = 3

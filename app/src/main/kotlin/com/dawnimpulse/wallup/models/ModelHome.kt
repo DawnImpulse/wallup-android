@@ -19,27 +19,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dawnimpulse.wallup.network.controller.CtrlImage
-import com.dawnimpulse.wallup.objects.ObjectHomeHeader
-import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
-import com.dawnimpulse.wallup.utils.reusables.loge
+import com.dawnimpulse.wallup.objects.ObjectIssue
+import com.dawnimpulse.wallup.objects.ObjectLoading
+import com.dawnimpulse.wallup.utils.reusables.ERROR_HOME_IMAGES
+import com.dawnimpulse.wallup.utils.reusables.F
+import com.dawnimpulse.wallup.utils.reusables.LIST_COUNT
 import kotlinx.coroutines.launch
 
 class ModelHome() : ViewModel() {
     private val homeList = mutableListOf<Any>()
     private val liveList = MutableLiveData<List<Any>>()
-    private val errorHandler = MutableLiveData<HandlerIssue>()
+    private val errorHandler = MutableLiveData<ObjectIssue>()
 
     init {
-        homeList.add(ObjectHomeHeader())
-        liveList.postValue(homeList)
-        fetchLatestContent()
+        fetchLatestImages()
     }
 
 
     /**
      * get homescreen
      *
-     * @return LiveData<List<ObjectUnsplashImage?>>
+     * @return LiveData<List<Any>>
      */
     fun getHomescreen(): LiveData<List<Any>> {
         return liveList
@@ -49,20 +49,26 @@ class ModelHome() : ViewModel() {
      * handling errors
      *
      */
-    fun errors(): LiveData<HandlerIssue> {
+    fun errors(): LiveData<ObjectIssue> {
         return errorHandler
     }
 
     /**
-     * fetch latest unsplash images & wallup collections
+     * fetch latest images
      */
-    private fun fetchLatestContent() {
+    private fun fetchLatestImages() {
         viewModelScope.launch {
             try {
-                val contens = CtrlImage.random()
-                liveList.postValue(homeList)
+                val contents = CtrlImage.latest(0, LIST_COUNT)
+                contents.forEach {
+                    it.height = F.getRandomHeight() // add random height
+                    homeList.add(it) // add to home list
+                }
+                homeList.add(ObjectLoading()) // loading obj
+                liveList.postValue(homeList) // post list
             } catch (e: Exception) {
-                loge(e)
+                errorHandler.postValue(F.handleException(e, ERROR_HOME_IMAGES, false))
+                e.printStackTrace()
             }
         }
     }

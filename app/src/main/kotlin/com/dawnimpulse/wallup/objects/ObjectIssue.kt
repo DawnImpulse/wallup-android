@@ -15,8 +15,9 @@
 package com.dawnimpulse.wallup.objects
 
 data class ObjectIssue(
+        val more: Boolean, // if its a load more items error
         val code: Int,
-        val type:String,
+        val type: String,
         val message: String,
-        val error: Error
+        val error: Any
 )
