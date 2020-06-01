@@ -73,4 +73,27 @@ object CtrlImage {
             }
         })
     }
+
+    /**
+     * get device images
+     *
+     * @param start
+     * @param limit
+     */
+    suspend fun device(device:String, start: Number, limit: Number) = suspendCoroutine<List<ObjectImage>> { continuation ->
+        val call = client.device(start, limit, device)
+        call.enqueue(object : Callback<List<ObjectImage>> {
+            override fun onResponse(call: Call<List<ObjectImage>>, response: Response<List<ObjectImage>>) {
+                if (response.isSuccessful)
+                    continuation.resume(response.body()!!)
+                else
+                    continuation.resumeWithException(Exception(Gson().toJson(HandlerError.parseError(response))))
+            }
+
+            // on failure
+            override fun onFailure(call: Call<List<ObjectImage>>, t: Throwable) {
+                continuation.resumeWithException(t)
+            }
+        })
+    }
 }

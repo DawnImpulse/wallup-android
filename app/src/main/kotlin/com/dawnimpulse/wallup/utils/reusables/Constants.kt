@@ -41,6 +41,7 @@ const val RELOAD_MORE_FRAGMENT_HOME = "reloadMoreFragmentHome"
 const val RELOAD_MORE_FRAGMENT_RANDOM = "reloadMoreFragmentRandom"
 const val RELOAD_MORE_FRAGMENT_LATEST_DEVICE = "reloadMoreFragmentLatestDevice"
 const val RELOAD_MORE_ACTIVITY_ALL_DEVICE = "reloadMoreFragmentAllDevice"
+const val RELOAD_MORE_ACTIVITY_DEVICE_IMAGES = "reloadMoreFragmentDeviceImages"
 
 const val ERROR_AUTH_GOOGLE_ONE_TAP_LOGIN_FAIL = 1001
 const val ERROR_AUTH_GOOGLE_ONE_TAP_SIGNUP_FAIL = 1002
@@ -56,3 +57,5 @@ const val ERROR_LATEST_DEVICE = 1011
 const val ERROR_LATEST_DEVICE_MORE = 1012
 const val ERROR_ALL_DEVICE = 1013
 const val ERROR_ALL_DEVICE_MORE = 1014
+const val ERROR_DEVICE_IMAGES = 1015
+const val ERROR_DEVICE_IMAGES_MORE = 1016

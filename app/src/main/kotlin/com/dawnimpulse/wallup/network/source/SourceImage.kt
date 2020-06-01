@@ -42,4 +42,16 @@ interface SourceImage {
             @Query("_sort") sort: String = "createdAt:DESC",
             @Query(AVAILABLE) available: Boolean = true
     ): Call<List<ObjectImage>>
+
+    //---------------
+    //    DEVICE
+    //---------------
+    @GET("/images")
+    fun device(
+            @Query(START) start: Number,
+            @Query(LIMIT) limit: Number,
+            @Query("device") device: String,
+            @Query("_sort") sort: String = "createdAt:DESC",
+            @Query(AVAILABLE) available: Boolean = true
+    ): Call<List<ObjectImage>>
 }

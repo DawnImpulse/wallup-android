@@ -33,6 +33,7 @@ class ModelDevices() : ViewModel() {
     private val liveList = MutableLiveData<List<Any>>()
     private val errorHandler = MutableLiveData<ObjectIssue>()
     private var loaded = false
+    private var position = 0
 
     init {
         fetchAllDevices()
@@ -78,7 +79,8 @@ class ModelDevices() : ViewModel() {
                     }
 
                     // fetch content
-                    val contents = CtrlDevice.all(deviceList.size - 1, LIST_COUNT)
+                    val contents = CtrlDevice.all(position, LIST_COUNT)
+                    position += contents.size
                     val devices = mutableListOf<Any>()
 
                     deviceList.removeAt(deviceList.size - 1)
@@ -131,7 +133,7 @@ class ModelDevices() : ViewModel() {
             if (BuildConfig.DEBUG) delay(1000)
             try {
                 val contents = CtrlDevice.all(0, LIST_COUNT)
-                logd(contents.size)
+                position = contents.size
                 val devices = mutableListOf<Any>()
                 contents.forEachIndexed { i, it ->
                     // first index

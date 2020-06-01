@@ -64,6 +64,10 @@
         <activity android:name=".ui.activities.ActivityDevices"
             android:theme="@style/AppTheme"/>
 
+        <!-- device images -->
+        <activity android:name=".ui.activities.ActivityDeviceImages"
+            android:theme="@style/AppTheme.Fullscreen"/>
+
         <!--wallup image-->
         <activity
             android:name=".ui.activities.ActivityWallupImage"
