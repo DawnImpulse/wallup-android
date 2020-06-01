@@ -19,6 +19,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.ModelHome
 import com.dawnimpulse.wallup.objects.ObjectIssue
@@ -65,6 +66,7 @@ class FragmentHome : Fragment(R.layout.layout_general) {
      * handle rx type
      */
     private fun rxType(type: RxType) {
+        toast("here1")
         if (type.type == RELOAD_LIST && type.data == RELOAD_MORE_FRAGMENT_HOME)
             modelHome.loadMore()
     }
@@ -100,7 +102,7 @@ class FragmentHome : Fragment(R.layout.layout_general) {
         if (!::adapter.isInitialized) {
             adapter = AdapterImage(layout_general_recycler)
             adapter.setData(list)
-            layout_general_recycler.layoutManager = LinearLayoutManagerWrapper(context)
+            layout_general_recycler.layoutManager = LinearLayoutManager(context)
             layout_general_recycler.adapter = adapter
             adapter.onLoading().observe(viewLifecycleOwner, loadMoreObserver)
 

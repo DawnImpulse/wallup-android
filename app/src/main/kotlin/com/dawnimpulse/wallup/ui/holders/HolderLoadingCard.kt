@@ -16,28 +16,18 @@ package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.objects.ObjectDevice
 import com.dawnimpulse.wallup.utils.reusables.F
-import com.dawnimpulse.wallup.utils.reusables.imageTransform
-import kotlinx.android.synthetic.main.holder_latest_device.view.*
+import kotlinx.android.synthetic.main.holder_loading_card.view.*
 
-class HolderLatestDevice(view: View) : RecyclerView.ViewHolder(view) {
-    private val name = view.holder_latest_device_name
-    private val image = view.holder_latest_device_image
-    private val layout = view.holder_latest_device_layout
+class HolderLoadingCard(view: View) : RecyclerView.ViewHolder(view){
+    private val card = view.holder_loading_card_layout
 
     /**
-     * bind data to view
-     *
-     * @param device
+     * use to change height of card
      */
-    fun bind(device: ObjectDevice) {
+    fun bind(){
         val point = F.displayDimensions()
         val height = 0.75 * point.y
-        name.text = device.name
-        layout.layoutParams.height = height.toInt()
-        device.cover.imageTransform(image)
-                .height(720)
-                .apply()
+        card.layoutParams.height = height.toInt()
     }
 }

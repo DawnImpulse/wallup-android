@@ -16,18 +16,20 @@ package com.dawnimpulse.wallup.ui.fragments
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.viewpager2.widget.ViewPager2
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.ModelLatestDevice
 import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.ui.adapters.AdapterLatestDevice
 import com.dawnimpulse.wallup.utils.reusables.*
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.layout_general.*
+import kotlinx.android.synthetic.main.fragment_devices_latest.*
 
-class FragmentLatestDevice : Fragment(R.layout.layout_general) {
+class FragmentLatestDevice : Fragment(R.layout.fragment_devices_latest) {
     private val modelLatestDevice: ModelLatestDevice by activityViewModels()
     private lateinit var adapter: AdapterLatestDevice
     private var disposable = CompositeDisposable()
@@ -41,14 +43,14 @@ class FragmentLatestDevice : Fragment(R.layout.layout_general) {
         modelLatestDevice.errors().observe(viewLifecycleOwner, errorObserver)
         disposable.add(RxBusType.subscribe { rxType(it) })
 
-        layout_general_loading.playAnimation()
+        fragment_devices_latest_loading.playAnimation()
 
         // handling reload click
-        layout_general_error_reload.setOnClickListener {
-            layout_general_error_anim.pauseAnimation()
-            layout_general_error_layout.gone()
-            layout_general_loading.show()
-            layout_general_loading.playAnimation()
+        fragment_devices_latest_error_reload.setOnClickListener {
+            fragment_devices_latest_error_anim.pauseAnimation()
+            fragment_devices_latest_error_layout.gone()
+            fragment_devices_latest_loading.show()
+            fragment_devices_latest_loading.playAnimation()
             modelLatestDevice.reload()
         }
     }
@@ -65,7 +67,8 @@ class FragmentLatestDevice : Fragment(R.layout.layout_general) {
      * handle rx type
      */
     private fun rxType(type: RxType) {
-        if (type.type == RELOAD_LIST && type.data == RELOAD_MORE_FRAGMENT_HOME)
+        toast("here")
+        if (type.type == RELOAD_LIST && type.data == RELOAD_MORE_FRAGMENT_LATEST_DEVICE)
             modelLatestDevice.loadMore()
     }
 
@@ -73,17 +76,17 @@ class FragmentLatestDevice : Fragment(R.layout.layout_general) {
      * home observer
      */
     private var deviceObserver = Observer<List<Any>> {
-        bindRecycler(it)
+        bindViewpager(it)
     }
 
     /**
      * errors observer
      */
     private val errorObserver = Observer<ObjectIssue> {
-        layout_general_loading.pauseAnimation()
-        layout_general_loading.gone()
-        layout_general_error_layout.show()
-        layout_general_error_anim.playAnimation()
+        fragment_devices_latest_loading.pauseAnimation()
+        fragment_devices_latest_loading.gone()
+        fragment_devices_latest_error_layout.show()
+        fragment_devices_latest_error_anim.playAnimation()
     }
 
     /**
@@ -94,21 +97,45 @@ class FragmentLatestDevice : Fragment(R.layout.layout_general) {
     }
 
     /**
-     * bind recycler
+     * set viewpager
      */
-    private fun bindRecycler(list: List<Any>) {
-        if (!::adapter.isInitialized) {
-            adapter = AdapterLatestDevice(layout_general_recycler)
-            adapter.setData(list)
-            layout_general_recycler.layoutManager = LinearLayoutManagerWrapper(context)
-            layout_general_recycler.adapter = adapter
-            //adapter.onLoading().observe(viewLifecycleOwner, loadMoreObserver)
+    private fun setViewpager() {
+        with(fragment_devices_latest_viewpager) {
+            // page limit
+            offscreenPageLimit = 2
+            // page transformer
+            setPageTransformer { page, position ->
+                val viewPager = page.parent.parent as ViewPager2
+                val offset = position * -(2 * 24.dpToPx() + 16.dpToPx())
+                if (viewPager.orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
+                    if (ViewCompat.getLayoutDirection(viewPager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
+                        page.translationX = -offset
+                    } else {
+                        page.translationX = offset
+                    }
+                } else {
+                    page.translationY = offset
+                }
+            }
+        }
+    }
 
-            layout_general_recycler.show()
-            layout_general_loading.pauseAnimation()
-            layout_general_loading.gone()
-        } /*else
-            adapter.setNewData(list)*/
+    /**
+     * bind viewpager
+     */
+    private fun bindViewpager(list: List<Any>) {
+        if (!::adapter.isInitialized) {
+            adapter = AdapterLatestDevice(fragment_devices_latest_viewpager)
+            adapter.setData(list)
+            setViewpager()
+            fragment_devices_latest_viewpager.adapter = adapter
+            adapter.onLoading().observe(viewLifecycleOwner, loadMoreObserver)
+
+            fragment_devices_latest_viewpager.show()
+            fragment_devices_latest_loading.pauseAnimation()
+            fragment_devices_latest_loading.gone()
+        } else
+            adapter.setNewData(list)
         adapter.onLoaded()
     }
 }

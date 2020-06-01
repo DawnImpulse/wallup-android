@@ -11,26 +11,23 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/layout_general_recycler"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/fragment_devices_latest_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipChildren="false"
         android:clipToPadding="false"
-        android:paddingLeft="16dp"
-        android:paddingTop="72dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="72dp"
-        android:visibility="gone" />
+        android:orientation="horizontal" />
 
     <!--Loading Animation-->
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/layout_general_loading"
+        android:id="@+id/fragment_devices_latest_loading"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_gravity="center"
@@ -40,7 +37,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <!--Error Layout-->
     <LinearLayout
-        android:id="@+id/layout_general_error_layout"
+        android:id="@+id/fragment_devices_latest_error_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -49,7 +46,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         <!--Error Animation-->
         <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/layout_general_error_anim"
+            android:id="@+id/fragment_devices_latest_error_anim"
             android:layout_width="256dp"
             android:layout_height="256dp"
             android:layout_gravity="center"
@@ -59,7 +56,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         <!--reload-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/layout_general_error_reload"
+            android:id="@+id/fragment_devices_latest_error_reload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -79,4 +76,4 @@ OR PERFORMANCE OF THIS SOFTWARE.
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

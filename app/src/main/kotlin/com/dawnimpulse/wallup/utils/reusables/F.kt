@@ -53,9 +53,9 @@ object F {
     }
 
     // get display height
-    private fun displayDimensions(context: Context): Point {
+    fun displayDimensions(): Point {
         val point = Point()
-        val mWindowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val mWindowManager = App.context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = mWindowManager.defaultDisplay
         display.getSize(point) //The point now has display dimens
         return point
@@ -71,7 +71,7 @@ object F {
      * get width & height for random image
      */
     fun getWidthHeightRandom(): Pair<Int, Int> {
-        val point = displayDimensions(App.context)
+        val point = displayDimensions()
         val width = point.x / 2 - dpToPx(8, App.context)
         val height = dpToPx((180..260).random(), App.context)
 
