@@ -23,8 +23,6 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.ui.holders.HolderLoading
-import com.dawnimpulse.wallup.ui.holders.HolderRandomImage
-import com.dawnimpulse.wallup.utils.reusables.Live
 
 
 /**
@@ -73,7 +71,7 @@ class AdapterRandomImage(
         context = parent.context
         return when (viewType) {
             viewItem -> HolderRandomImage(LayoutInflater.from(context).inflate(R.layout.holder_random_image, parent, false))
-            else -> HolderLoading(LayoutInflater.from(context).inflate(R.layout.holder_loading_horizontal, parent, false))
+            else -> HolderLoading(LayoutInflater.from(context).inflate(R.layout.holder_loading, parent, false))
         }
     }
 

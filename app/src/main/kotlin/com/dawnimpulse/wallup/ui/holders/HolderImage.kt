@@ -18,11 +18,11 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.utils.reusables.imageTransform
-import kotlinx.android.synthetic.main.adapter_image.view.*
+import kotlinx.android.synthetic.main.holder_image.view.*
 
 class HolderImage(view: View): RecyclerView.ViewHolder(view){
     private val layout = view.adapter_image_layout
-    private val image = view.adapter_image_image
+    private val image = view.holder_image_image
 
     /**
      * bind data to view

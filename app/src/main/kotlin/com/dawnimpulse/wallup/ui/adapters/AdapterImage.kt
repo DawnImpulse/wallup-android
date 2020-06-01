@@ -19,7 +19,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.objects.ObjectLoading
+import com.dawnimpulse.wallup.objects.ObjectReload
 import com.dawnimpulse.wallup.ui.holders.HolderImage
+import com.dawnimpulse.wallup.ui.holders.HolderLoading
+import com.dawnimpulse.wallup.ui.holders.HolderReload
 
 class AdapterImage(private val images:List<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val IMAGE = 0
@@ -38,6 +42,8 @@ class AdapterImage(private val images:List<Any>) : RecyclerView.Adapter<Recycler
     override fun getItemViewType(position: Int): Int =
             when(images[position]){
                 is ObjectImage -> IMAGE
+                is ObjectLoading -> LOADING
+                is ObjectReload -> RELOAD
                 else -> IMAGE
             }
 
@@ -46,8 +52,10 @@ class AdapterImage(private val images:List<Any>) : RecyclerView.Adapter<Recycler
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             when(viewType){
-                IMAGE -> HolderImage(LayoutInflater.from(parent.context).inflate(R.layout.adapter_image, parent, false))
-                else -> HolderImage(LayoutInflater.from(parent.context).inflate(R.layout.adapter_image, parent, false))
+                IMAGE -> HolderImage(LayoutInflater.from(parent.context).inflate(R.layout.holder_image, parent, false))
+                LOADING -> HolderLoading(LayoutInflater.from(parent.context).inflate(R.layout.holder_loading, parent, false))
+                RELOAD -> HolderLoading(LayoutInflater.from(parent.context).inflate(R.layout.holder_reload, parent, false))
+                else -> HolderImage(LayoutInflater.from(parent.context).inflate(R.layout.holder_image, parent, false))
             }
 
     /**
@@ -56,6 +64,7 @@ class AdapterImage(private val images:List<Any>) : RecyclerView.Adapter<Recycler
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is HolderImage -> holder.bind(images[position] as ObjectImage)
+            is HolderReload -> holder.bind(images[position] as ObjectReload)
         }
     }
 

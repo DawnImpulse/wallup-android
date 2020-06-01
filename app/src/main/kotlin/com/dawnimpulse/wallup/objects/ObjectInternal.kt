@@ -14,15 +14,8 @@
  **/
 package com.dawnimpulse.wallup.objects
 
-/**
- * @info - internal object
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-04-27 by Saksham
- * @note Updates :
- */
 
 class ObjectHomeHeader
 class ObjectScrollingImage(val images: List<ObjectUnsplashImage>)
+class ObjectLoading
+class ObjectReload(val from: String, val error: ObjectIssue)

@@ -12,9 +12,11 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.ui.holders
+package com.dawnimpulse.wallup.objects
 
-import android.view.View
-import androidx.recyclerview.widget.RecyclerView
-
-class HolderLoading(view: View) : RecyclerView.ViewHolder(view)
+data class ObjectIssue(
+        val code: Int,
+        val type:String,
+        val message: String,
+        val error: Error
+)

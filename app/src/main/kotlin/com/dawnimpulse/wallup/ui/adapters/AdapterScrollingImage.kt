@@ -19,7 +19,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
-import com.dawnimpulse.wallup.ui.holders.HolderScrollingImageItem
 
 /**
  * @info -

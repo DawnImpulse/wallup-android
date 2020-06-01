@@ -20,12 +20,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectCategory
 import com.dawnimpulse.wallup.objects.ObjectCollection
-import com.dawnimpulse.wallup.objects.ObjectScrollingImage
 import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.ui.holders.HolderCategory
 import com.dawnimpulse.wallup.ui.holders.HolderHomeHeader
-import com.dawnimpulse.wallup.ui.holders.HolderScrollingCollection
-import com.dawnimpulse.wallup.ui.holders.HolderScrollingImage
 import com.dawnimpulse.wallup.utils.reusables.TYPE_CATEGORY
 import com.dawnimpulse.wallup.utils.reusables.TYPE_HOME_HEADER
 import com.dawnimpulse.wallup.utils.reusables.TYPE_SCROLLING_COLLECTION

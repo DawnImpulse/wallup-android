@@ -15,32 +15,21 @@
 package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.dawnimpulse.wallup.objects.ObjectScrollingImage
-import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
-import com.dawnimpulse.wallup.ui.adapters.AdapterScrollingImage
-import kotlinx.android.synthetic.main.adapter_scrolling_image.view.*
+import com.dawnimpulse.wallup.objects.ObjectReload
+import com.dawnimpulse.wallup.utils.reusables.RELOAD_LIST
+import com.dawnimpulse.wallup.utils.reusables.RxBusType
+import com.dawnimpulse.wallup.utils.reusables.RxType
+import kotlinx.android.synthetic.main.holder_reload.view.*
 
-/**
- * @info -
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-04-28 by Saksham
- * @note Updates :
- */
-class HolderScrollingImage(view: View) : RecyclerView.ViewHolder(view) {
-    private val recycler = view.adapter_scrolling_image_recycler
-    private val context = view.context
+class HolderReload(view: View) : RecyclerView.ViewHolder(view) {
+    private val reload = view.holder_reload_reload
+    private val type = view.holder_reload_type
 
-    /**
-     * bind images to the recycler
-     */
-    fun bind(images: List<ObjectUnsplashImage>) {
-        val adapter = AdapterScrollingImage(images)
-        recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        recycler.adapter = adapter
+    fun bind(obj: ObjectReload) {
+        type.text = obj.error.type
+        reload.setOnClickListener {
+            RxBusType.accept(RxType(RELOAD_LIST, obj.from))
+        }
     }
 }

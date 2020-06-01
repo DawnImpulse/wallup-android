@@ -14,14 +14,11 @@
  **/
 package com.dawnimpulse.wallup.ui.adapters
 
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectCollection
-import com.dawnimpulse.wallup.ui.holders.HolderScrollingCollection
-import com.dawnimpulse.wallup.ui.holders.HolderScrollingCollectionItem
 
 /**
  * @info -
