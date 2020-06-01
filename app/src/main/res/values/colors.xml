@@ -12,8 +12,8 @@ WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING O
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <resources>
-    <color name="colorPrimary">#E7E3DF</color>
-    <color name="colorSecondary">#FFFFFF</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorSecondary">#E7E3DF</color>
     <color name="colorAccent">#009688</color>
 
     <color name="colorTextPrimary">#343434</color>

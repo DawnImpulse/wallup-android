@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="@color/colorSecondary">
+        android:background="@color/colorPrimary">
 
         <!--toolbar-->
         <com.google.android.material.appbar.MaterialToolbar

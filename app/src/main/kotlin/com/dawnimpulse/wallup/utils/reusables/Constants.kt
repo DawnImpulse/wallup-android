@@ -23,6 +23,8 @@ const val IMAGE = "image"
 const val AUTH = "auth"
 const val NIGHT_MODE_SYSTEM = "nightModeSystem"
 const val NIGHT_MODE = "nightMode"
+const val JPG = "jpg"
+const val WEBP = "webp"
 
 const val TYPE_HOME_HEADER = 1
 const val TYPE_SCROLLING_IMAGE = 2

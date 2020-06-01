@@ -18,28 +18,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dawnimpulse.wallup.network.controller.CtrlCollection
-import com.dawnimpulse.wallup.network.controller.CtrlHome
-import com.dawnimpulse.wallup.network.controller.CtrlUnsplash
+import com.dawnimpulse.wallup.network.controller.CtrlImage
 import com.dawnimpulse.wallup.objects.ObjectHomeHeader
-import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerIssue
-import com.dawnimpulse.wallup.utils.reusables.Issues
-import com.dawnimpulse.wallup.utils.reusables.logd
 import com.dawnimpulse.wallup.utils.reusables.loge
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
-/**
- * @info - bridge between ui & controller
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-04-27 by Saksham
- * @note Updates :
- */
 class ModelHome() : ViewModel() {
     private val homeList = mutableListOf<Any>()
     private val liveList = MutableLiveData<List<Any>>()
@@ -75,20 +59,7 @@ class ModelHome() : ViewModel() {
     private fun fetchLatestContent() {
         viewModelScope.launch {
             try {
-                // declare deferred objects
-                val home = async { CtrlHome.homescreen() }
-                val images = async { CtrlUnsplash.latestImages(1) }
-
-                // await result
-                val unsplash = images.await()
-                val homescreen = home.await()
-
-                // add to home list
-                homeList.add(unsplash)
-                homeList.add(homescreen.collections)
-                homescreen.category.forEach {
-                    homeList.add(it)
-                }
+                val contens = CtrlImage.random()
                 liveList.postValue(homeList)
             } catch (e: Exception) {
                 loge(e)

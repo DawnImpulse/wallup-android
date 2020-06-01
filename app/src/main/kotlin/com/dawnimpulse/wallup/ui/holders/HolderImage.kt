@@ -12,17 +12,22 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.objects
+package com.dawnimpulse.wallup.ui.holders
 
-import com.google.gson.annotations.SerializedName
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.objects.ObjectImage
+import kotlinx.android.synthetic.main.adapter_image.view.*
 
-data class ObjectImage(
-        @SerializedName("_id") val _id:String,
-        @SerializedName("iid") val iid:String,
-        @SerializedName("link") val link: String,
-        @SerializedName("createdAt") val createdAt: String,
-        @SerializedName("updatedAt") val updatedAt: String,
-        // internal
-        var width: Int,
-        var height: Int
-)
+class HolderImage(view: View): RecyclerView.ViewHolder(view){
+    private val layout = view.adapter_image_layout
+    private val image = view.adapter_image_image
+    private val context = view.context
+
+    /**
+     * bind data to view
+     */
+    fun bind(image: ObjectImage){
+
+    }
+}
