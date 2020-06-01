@@ -22,13 +22,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:background="@color/colorSecondary"
         app:cardCornerRadius="16dp">
 
         <ImageView
             android:id="@+id/holder_image_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorSecondary"
             android:scaleType="centerCrop" />
 
     </com.google.android.material.card.MaterialCardView>

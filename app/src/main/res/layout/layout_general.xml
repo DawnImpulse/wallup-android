@@ -18,13 +18,15 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:background="@color/colorPrimary">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
         android:id="@+id/layout_general_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
+        android:paddingLeft="16dp"
         android:paddingTop="72dp"
-        android:paddingBottom="72dp" />
+        android:paddingRight="16dp"
+        android:paddingBottom="72dp"
+        android:visibility="gone" />
 
     <!--Loading Animation-->
     <com.airbnb.lottie.LottieAnimationView
@@ -66,14 +68,14 @@ OR PERFORMANCE OF THIS SOFTWARE.
             app:cardCornerRadius="8dp">
 
             <TextView
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimary"
-                android:text="RELOAD" />
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="8dp"
+                android:text="RELOAD"
+                android:textColor="@color/colorPrimary" />
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 

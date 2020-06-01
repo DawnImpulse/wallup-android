@@ -18,11 +18,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.network.controller.CtrlImage
 import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.objects.ObjectLoading
 import com.dawnimpulse.wallup.objects.ObjectReload
 import com.dawnimpulse.wallup.utils.reusables.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ModelHome() : ViewModel() {
@@ -101,6 +103,7 @@ class ModelHome() : ViewModel() {
      */
     private fun fetchLatestImages() {
         viewModelScope.launch {
+            if (BuildConfig.DEBUG) delay(1000)
             try {
                 val contents = CtrlImage.latest(0, LIST_COUNT)
                 contents.forEach {

@@ -81,7 +81,7 @@ class HandlerTransform {
         url += "&q=$quality"
 
         // fetch and set image
-        //HandlerImage.fetchAndSetImage(url, view)
+        HandlerImage.fetchAndSetImage(url, view)
     }
 
     /**

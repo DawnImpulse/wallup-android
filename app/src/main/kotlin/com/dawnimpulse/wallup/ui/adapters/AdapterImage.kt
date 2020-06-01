@@ -56,7 +56,7 @@ class AdapterImage(private val images: List<Any>, recyclerView: RecyclerView)
             when (viewType) {
                 IMAGE -> HolderImage(LayoutInflater.from(parent.context).inflate(R.layout.holder_image, parent, false))
                 LOADING -> HolderLoading(LayoutInflater.from(parent.context).inflate(R.layout.holder_loading, parent, false))
-                RELOAD -> HolderLoading(LayoutInflater.from(parent.context).inflate(R.layout.holder_reload, parent, false))
+                RELOAD -> HolderReload(LayoutInflater.from(parent.context).inflate(R.layout.holder_reload, parent, false))
                 else -> HolderImage(LayoutInflater.from(parent.context).inflate(R.layout.holder_image, parent, false))
             }
 

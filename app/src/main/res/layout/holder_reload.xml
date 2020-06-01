@@ -45,7 +45,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
                     android:letterSpacing="0.05"
                     android:text="Failed to Load !!"
                     android:textColor="@color/red"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView

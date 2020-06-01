@@ -82,7 +82,7 @@ object F {
      * get random height
      */
     fun getRandomHeight(): Int {
-        return (180..260).random()
+        return dpToPx((400..600).random(), App.context)
     }
 
     /**
