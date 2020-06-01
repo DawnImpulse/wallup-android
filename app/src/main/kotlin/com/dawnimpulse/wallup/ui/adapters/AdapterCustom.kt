@@ -20,9 +20,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.dawnimpulse.wallup.utils.reusables.LIST_COUNT
 
-open class CustomAdapter<T : RecyclerView.ViewHolder>(recyclerView: RecyclerView, val visibleThreshold: Int = LIST_COUNT) : RecyclerView.Adapter<T>() {
+open class CustomAdapter<T : RecyclerView.ViewHolder>(recyclerView: RecyclerView, val visibleThreshold: Int = 2) : RecyclerView.Adapter<T>() {
     var isLoading = false
     val liveData = MutableLiveData<Void>()
 

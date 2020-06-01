@@ -14,4 +14,4 @@
  **/
 package com.dawnimpulse.wallup.utils.reusables
 
-const val LIST_COUNT = 3
+const val LIST_COUNT = 10

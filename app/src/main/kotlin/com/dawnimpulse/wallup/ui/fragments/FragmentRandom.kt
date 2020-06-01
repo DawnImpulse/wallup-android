@@ -20,15 +20,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.models.ModelHome
+import com.dawnimpulse.wallup.models.ModelRandom
 import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.ui.adapters.AdapterImage
 import com.dawnimpulse.wallup.utils.reusables.*
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.layout_general.*
 
-class FragmentHome : Fragment(R.layout.layout_general) {
-    private val modelHome: ModelHome by activityViewModels()
+class FragmentRandom : Fragment(R.layout.layout_general) {
+    private val modelRandom: ModelRandom by activityViewModels()
     private lateinit var adapter: AdapterImage
     private var disposable = CompositeDisposable()
 
@@ -37,8 +37,8 @@ class FragmentHome : Fragment(R.layout.layout_general) {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        modelHome.getHomescreen().observe(viewLifecycleOwner, homeObserver)
-        modelHome.errors().observe(viewLifecycleOwner, errorObserver)
+        modelRandom.getList().observe(viewLifecycleOwner, homeObserver)
+        modelRandom.errors().observe(viewLifecycleOwner, errorObserver)
         disposable.add(RxBusType.subscribe { rxType(it) })
 
         layout_general_loading.playAnimation()
@@ -49,7 +49,7 @@ class FragmentHome : Fragment(R.layout.layout_general) {
             layout_general_error_layout.gone()
             layout_general_loading.show()
             layout_general_loading.playAnimation()
-            modelHome.reload()
+            modelRandom.reload()
         }
     }
 
@@ -58,8 +58,8 @@ class FragmentHome : Fragment(R.layout.layout_general) {
      * handle rx type
      */
     private fun rxType(type: RxType) {
-        if (type.type == RELOAD_LIST && type.data == RELOAD_MORE_FRAGMENT_HOME)
-            modelHome.loadMore()
+        if (type.type == RELOAD_LIST && type.data == RELOAD_MORE_FRAGMENT_RANDOM)
+            modelRandom.loadMore()
     }
 
     /**
@@ -83,7 +83,7 @@ class FragmentHome : Fragment(R.layout.layout_general) {
      * load more observer
      */
     private val loadMoreObserver = Observer<Void> {
-        modelHome.loadMore()
+        modelRandom.loadMore()
     }
 
     /**
