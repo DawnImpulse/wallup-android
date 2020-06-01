@@ -20,16 +20,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.dawnimpulse.wallup.R
-import com.dawnimpulse.wallup.models.ModelRandom
+import com.dawnimpulse.wallup.models.ModelLatestDevice
 import com.dawnimpulse.wallup.objects.ObjectIssue
-import com.dawnimpulse.wallup.ui.adapters.AdapterImage
+import com.dawnimpulse.wallup.ui.adapters.AdapterLatestDevice
 import com.dawnimpulse.wallup.utils.reusables.*
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.layout_general.*
 
-class FragmentRandom : Fragment(R.layout.layout_general) {
-    private val modelRandom: ModelRandom by activityViewModels()
-    private lateinit var adapter: AdapterImage
+class FragmentLatestDevice : Fragment(R.layout.layout_general) {
+    private val modelLatestDevice: ModelLatestDevice by activityViewModels()
+    private lateinit var adapter: AdapterLatestDevice
     private var disposable = CompositeDisposable()
 
     /**
@@ -37,8 +37,8 @@ class FragmentRandom : Fragment(R.layout.layout_general) {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        modelRandom.getList().observe(viewLifecycleOwner, homeObserver)
-        modelRandom.errors().observe(viewLifecycleOwner, errorObserver)
+        modelLatestDevice.getList().observe(viewLifecycleOwner, deviceObserver)
+        modelLatestDevice.errors().observe(viewLifecycleOwner, errorObserver)
         disposable.add(RxBusType.subscribe { rxType(it) })
 
         layout_general_loading.playAnimation()
@@ -49,7 +49,7 @@ class FragmentRandom : Fragment(R.layout.layout_general) {
             layout_general_error_layout.gone()
             layout_general_loading.show()
             layout_general_loading.playAnimation()
-            modelRandom.reload()
+            modelLatestDevice.reload()
         }
     }
 
@@ -65,14 +65,14 @@ class FragmentRandom : Fragment(R.layout.layout_general) {
      * handle rx type
      */
     private fun rxType(type: RxType) {
-        if (type.type == RELOAD_LIST && type.data == RELOAD_MORE_FRAGMENT_RANDOM)
-            modelRandom.loadMore()
+        if (type.type == RELOAD_LIST && type.data == RELOAD_MORE_FRAGMENT_HOME)
+            modelLatestDevice.loadMore()
     }
 
     /**
      * home observer
      */
-    private var homeObserver = Observer<List<Any>> {
+    private var deviceObserver = Observer<List<Any>> {
         bindRecycler(it)
     }
 
@@ -90,7 +90,7 @@ class FragmentRandom : Fragment(R.layout.layout_general) {
      * load more observer
      */
     private val loadMoreObserver = Observer<Void> {
-        modelRandom.loadMore()
+        modelLatestDevice.loadMore()
     }
 
     /**
@@ -98,17 +98,17 @@ class FragmentRandom : Fragment(R.layout.layout_general) {
      */
     private fun bindRecycler(list: List<Any>) {
         if (!::adapter.isInitialized) {
-            adapter = AdapterImage(layout_general_recycler)
+            adapter = AdapterLatestDevice(layout_general_recycler)
             adapter.setData(list)
             layout_general_recycler.layoutManager = LinearLayoutManagerWrapper(context)
             layout_general_recycler.adapter = adapter
-            adapter.onLoading().observe(viewLifecycleOwner, loadMoreObserver)
+            //adapter.onLoading().observe(viewLifecycleOwner, loadMoreObserver)
 
             layout_general_recycler.show()
             layout_general_loading.pauseAnimation()
             layout_general_loading.gone()
-        } else
-            adapter.setNewData(list)
+        } /*else
+            adapter.setNewData(list)*/
         adapter.onLoaded()
     }
 }

@@ -12,7 +12,27 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.objects
+package com.dawnimpulse.wallup.ui.holders
 
-class ObjectLoading
-class ObjectReload(val from: String, val error: ObjectIssue)
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import com.dawnimpulse.wallup.objects.ObjectDevice
+import com.dawnimpulse.wallup.utils.reusables.imageTransform
+import kotlinx.android.synthetic.main.holder_latest_device.view.*
+
+class HolderLatestDevice(view: View) : RecyclerView.ViewHolder(view) {
+    private val name = view.holder_latest_device_name
+    private val image = view.holder_latest_device_image
+
+    /**
+     * bind data to view
+     *
+     * @param device
+     */
+    fun bind(device: ObjectDevice) {
+        name.text = device.name
+        device.cover.imageTransform(image)
+                .height(720)
+                .apply()
+    }
+}

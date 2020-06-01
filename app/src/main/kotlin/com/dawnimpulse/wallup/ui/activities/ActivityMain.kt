@@ -30,6 +30,7 @@ import androidx.core.view.setPadding
 import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.fragments.FragmentHome
+import com.dawnimpulse.wallup.ui.fragments.FragmentLatestDevice
 import com.dawnimpulse.wallup.ui.fragments.FragmentRandom
 import com.dawnimpulse.wallup.utils.reusables.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,6 +40,7 @@ import kotlinx.android.synthetic.main.navigation.*
 class ActivityMain : AppCompatActivity(R.layout.activity_main) {
     private lateinit var homeFragment: FragmentHome
     private lateinit var randomFragment: FragmentRandom
+    private lateinit var latestDeviceFragment: FragmentLatestDevice
     private lateinit var pagerAdapter: ViewPagerAdapter
     private var currentNav = -1
 
@@ -186,10 +188,13 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main) {
 
         pagerAdapter = ViewPagerAdapter(supportFragmentManager)
         homeFragment = FragmentHome()
+        latestDeviceFragment = FragmentLatestDevice()
         randomFragment = FragmentRandom()
 
         pagerAdapter.addFragment(homeFragment, HOME)
+        pagerAdapter.addFragment(latestDeviceFragment, DEVICE)
         pagerAdapter.addFragment(randomFragment, RANDOM)
         viewPager.adapter = pagerAdapter
+        viewPager.offscreenPageLimit = 2
     }
 }

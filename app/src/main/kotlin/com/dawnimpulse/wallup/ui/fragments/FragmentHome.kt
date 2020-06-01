@@ -53,6 +53,13 @@ class FragmentHome : Fragment(R.layout.layout_general) {
         }
     }
 
+    /**
+     * on destroy
+     */
+    override fun onDestroy() {
+        disposable.clear()
+        super.onDestroy()
+    }
 
     /**
      * handle rx type

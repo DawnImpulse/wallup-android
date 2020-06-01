@@ -14,8 +14,11 @@ OR PERFORMANCE OF THIS SOFTWARE.*/
 package com.dawnimpulse.wallup.utils.reusables
 
 import com.dawnimpulse.wallup.BuildConfig
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+
 
 /**
  * @author Saksham
@@ -27,7 +30,6 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object RetroApiClient {
     private var retrofit: Retrofit? = null
-    private var unsplashRetrofit: Retrofit? = null
 
     /**
      * get client for wallup backend
@@ -36,26 +38,16 @@ object RetroApiClient {
      */
     fun getClient(): Retrofit {
         if (retrofit == null) {
+            val okHttpClient = OkHttpClient.Builder()
+                    .connectTimeout(10, TimeUnit.SECONDS)
+                    .build()
+
             retrofit = Retrofit.Builder()
                     .baseUrl(BuildConfig.WALLUP_API_URL)
+                    .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
         }
         return retrofit!!
-    }
-
-    /**
-     * get client for unsplash backend
-     *
-     * @return Retrofit
-     */
-    fun getUnsplashClient(): Retrofit {
-        if (unsplashRetrofit == null) {
-            unsplashRetrofit = Retrofit.Builder()
-                    .baseUrl(UNSPLASH_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-        }
-        return unsplashRetrofit!!
     }
 }

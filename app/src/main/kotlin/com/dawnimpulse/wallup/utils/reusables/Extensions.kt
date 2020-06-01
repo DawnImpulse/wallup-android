@@ -159,6 +159,13 @@ fun Int.toHexa(): String {
 }
 
 /**
+ * convert dp to px
+ */
+fun Int.dpToPx(): Int {
+    return F.dpToPx(this, App.context)
+}
+
+/**
  * transform handler on string for image (fetch)
  */
 fun String.imageTransform(view: ImageView): HandlerTransform {
