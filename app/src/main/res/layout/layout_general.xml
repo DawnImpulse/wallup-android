@@ -18,6 +18,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     android:background="@color/colorPrimary">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/layout_general_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,13 +28,13 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <!--Loading Animation-->
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/layout_general_anim"
-        android:layout_width="256dp"
-        android:layout_height="256dp"
+        android:id="@+id/layout_general_loading"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:layout_gravity="center"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/loading_2" />
+        app:lottie_rawRes="@raw/loading_1" />
 
     <!--Error Layout-->
     <LinearLayout
@@ -44,19 +45,36 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:orientation="vertical"
         android:visibility="gone">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/layout_general_error_image"
+        <!--Error Animation-->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/layout_general_error_anim"
             android:layout_width="256dp"
             android:layout_height="256dp"
-            app:srcCompat="@drawable/vd_error_1" />
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/error" />
 
-        <TextView
-            android:id="@+id/layout_general_error_text"
+        <!--reload-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/layout_general_error_reload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:text="Some Error" />
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="@color/colorTextPrimary"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="RELOAD" />
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </FrameLayout>

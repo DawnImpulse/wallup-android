@@ -17,21 +17,12 @@ package com.dawnimpulse.wallup.ui.adapters
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.dawnimpulse.wallup.utils.reusables.LIST_COUNT
 
-/**
- * @info - custom adapter
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-03-12 by Saksham
- * @note Updates :
- */
-open class CustomAdapter<T : RecyclerView.ViewHolder>(val visibleThreshold: Int, recyclerView: RecyclerView) : RecyclerView.Adapter<T>() {
+open class CustomAdapter<T : RecyclerView.ViewHolder>(recyclerView: RecyclerView, val visibleThreshold: Int = LIST_COUNT) : RecyclerView.Adapter<T>() {
     var isLoading = false
     val liveData = MutableLiveData<Void>()
 

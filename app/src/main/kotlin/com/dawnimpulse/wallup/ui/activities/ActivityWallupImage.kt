@@ -15,19 +15,17 @@
 package com.dawnimpulse.wallup.ui.activities
 
 import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.graphics.toColorInt
 import androidx.core.widget.ImageViewCompat
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.objects.ObjectImage
-import com.dawnimpulse.wallup.objects.ObjectUnsplashImage
 import com.dawnimpulse.wallup.utils.handlers.HandlerColor
 import com.dawnimpulse.wallup.utils.handlers.HandlerImage
-import com.dawnimpulse.wallup.utils.reusables.*
+import com.dawnimpulse.wallup.utils.reusables.IMAGE
+import com.dawnimpulse.wallup.utils.reusables.color
+import com.dawnimpulse.wallup.utils.reusables.getPalette
+import com.dawnimpulse.wallup.utils.reusables.vibrant
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
 
@@ -41,7 +39,7 @@ class ActivityWallupImage : AppCompatActivity(R.layout.activity_image) {
         super.onCreate(savedInstanceState)
 
         wallupImage = Gson().fromJson(intent.extras!!.getString(IMAGE, ""), ObjectImage::class.java)
-        HandlerImage.fetchImageBitmap(this, wallupImage.link.path) {
+        HandlerImage.fetchImageBitmap(this, wallupImage.link) {
             it?.let {
                 activity_image_image.setImageBitmap(it)
                 val color = it.getPalette().vibrant()

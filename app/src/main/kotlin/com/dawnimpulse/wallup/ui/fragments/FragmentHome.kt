@@ -22,12 +22,16 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.ModelHome
-import com.dawnimpulse.wallup.ui.adapters.AdapterHome
-import kotlinx.android.synthetic.main.fragment_home.*
+import com.dawnimpulse.wallup.objects.ObjectIssue
+import com.dawnimpulse.wallup.ui.adapters.AdapterImage
+import com.dawnimpulse.wallup.utils.reusables.*
+import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.layout_general.*
 
 class FragmentHome : Fragment(R.layout.layout_general) {
     private val modelHome: ModelHome by activityViewModels()
-    private lateinit var adapter: AdapterHome
+    private lateinit var adapter: AdapterImage
+    private var disposable = CompositeDisposable()
 
     /**
      * on view created
@@ -35,8 +39,29 @@ class FragmentHome : Fragment(R.layout.layout_general) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         modelHome.getHomescreen().observe(viewLifecycleOwner, homeObserver)
+        modelHome.errors().observe(viewLifecycleOwner, errorObserver)
+        disposable.add(RxBusType.subscribe { rxType(it) })
+
+        layout_general_loading.playAnimation()
+
+        // handling reload click
+        layout_general_error_reload.setOnClickListener {
+            layout_general_error_anim.pauseAnimation()
+            layout_general_error_layout.gone()
+            layout_general_loading.show()
+            layout_general_loading.playAnimation()
+            modelHome.reload()
+        }
     }
 
+
+    /**
+     * handle rx type
+     */
+    private fun rxType(type: RxType) {
+        if (type.type == RELOAD_MORE_FRAGMENT_HOME)
+            modelHome.loadMore()
+    }
 
     /**
      * home observer
@@ -46,15 +71,37 @@ class FragmentHome : Fragment(R.layout.layout_general) {
     }
 
     /**
-     *
+     * errors observer
+     */
+    private val errorObserver = Observer<ObjectIssue> {
+        layout_general_loading.pauseAnimation()
+        layout_general_loading.gone()
+        layout_general_error_layout.show()
+        layout_general_error_anim.playAnimation()
+    }
+
+    /**
+     * load more observer
+     */
+    private val loadMoreObserver = Observer<Void> {
+        modelHome.loadMore()
+    }
+
+    /**
+     * bind recycler
      */
     private fun bindRecycler(list: List<Any>) {
         if (!::adapter.isInitialized) {
-            adapter = AdapterHome(list)
-            fragment_home_recycler.layoutManager = LinearLayoutManager(context)
-            fragment_home_recycler.adapter = adapter
-        } else {
+            adapter = AdapterImage(list, layout_general_recycler)
+            layout_general_recycler.layoutManager = LinearLayoutManager(context)
+            layout_general_recycler.adapter = adapter
+            adapter.onLoading().observe(viewLifecycleOwner, loadMoreObserver)
+
+            layout_general_recycler.show()
+            layout_general_loading.pauseAnimation()
+            layout_general_loading.gone()
+        } else
             adapter.notifyDataSetChanged()
-        }
+        adapter.onLoaded()
     }
 }

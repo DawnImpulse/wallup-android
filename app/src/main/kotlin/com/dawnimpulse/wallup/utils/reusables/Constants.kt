@@ -13,7 +13,7 @@ const val TNC = "https://wallup.sourcei.org/tnc"
 
 const val AVAILABLE = "available"
 const val LIMIT = "_limit"
-const val START = "start"
+const val START = "_start"
 const val RANDOM = "random"
 const val HOME = "home"
 const val AUTHORIZATION = "Authorization"
@@ -36,6 +36,8 @@ const val TYPE_CATEGORY = 4
 
 const val TYPE_ERROR_LOADING = "ERROR LOADING"
 
+const val RELOAD_MORE_FRAGMENT_HOME = "reloadMoreFragmentHome"
+
 const val ERROR_AUTH_GOOGLE_ONE_TAP_LOGIN_FAIL = 1001
 const val ERROR_AUTH_GOOGLE_ONE_TAP_SIGNUP_FAIL = 1002
 const val ERROR_AUTH_GOOGLE_ONE_TAP_SIGNUP_FAIL_2 = 1003
@@ -43,3 +45,4 @@ const val ERROR_AUTH_GOOGLE_FIREBASE_FAIL = 1004
 const val ERROR_AUTH_GOOGLE_USER_FAIL = 1005
 const val ERROR_AUTH_GOOGLE_USER_FAIL_2 = 1006
 const val ERROR_HOME_IMAGES = 1007
+const val ERROR_HOME_IMAGES_MORE = 1008

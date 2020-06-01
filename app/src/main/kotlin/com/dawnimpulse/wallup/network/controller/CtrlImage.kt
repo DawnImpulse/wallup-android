@@ -26,15 +26,6 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-/**
- * @info - route handling for image ctrl
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-02-29 by Saksham
- * @note Updates :
- */
 object CtrlImage {
     val client = RetroApiClient.getClient().create(SourceImage::class.java)
 

@@ -22,15 +22,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-/**
- * @info - various routes for images
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2020-02-29 by Saksham
- * @note Updates :
- */
 interface SourceImage {
 
     //---------------

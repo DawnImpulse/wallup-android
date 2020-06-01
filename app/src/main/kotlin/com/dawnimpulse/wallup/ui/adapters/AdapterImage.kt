@@ -25,7 +25,9 @@ import com.dawnimpulse.wallup.ui.holders.HolderImage
 import com.dawnimpulse.wallup.ui.holders.HolderLoading
 import com.dawnimpulse.wallup.ui.holders.HolderReload
 
-class AdapterImage(private val images:List<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class AdapterImage(private val images: List<Any>, recyclerView: RecyclerView)
+    : CustomAdapter<RecyclerView.ViewHolder>(recyclerView) {
+
     private val IMAGE = 0
     private val LOADING = 1
     private val RELOAD = 2
@@ -34,13 +36,13 @@ class AdapterImage(private val images:List<Any>) : RecyclerView.Adapter<Recycler
     /**
      * get total items
      */
-    override fun getItemCount(): Int  = images.size
+    override fun getItemCount(): Int = images.size
 
     /**
      * get item type
      */
     override fun getItemViewType(position: Int): Int =
-            when(images[position]){
+            when (images[position]) {
                 is ObjectImage -> IMAGE
                 is ObjectLoading -> LOADING
                 is ObjectReload -> RELOAD
@@ -51,7 +53,7 @@ class AdapterImage(private val images:List<Any>) : RecyclerView.Adapter<Recycler
      * create view holder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-            when(viewType){
+            when (viewType) {
                 IMAGE -> HolderImage(LayoutInflater.from(parent.context).inflate(R.layout.holder_image, parent, false))
                 LOADING -> HolderLoading(LayoutInflater.from(parent.context).inflate(R.layout.holder_loading, parent, false))
                 RELOAD -> HolderLoading(LayoutInflater.from(parent.context).inflate(R.layout.holder_reload, parent, false))
@@ -62,7 +64,7 @@ class AdapterImage(private val images:List<Any>) : RecyclerView.Adapter<Recycler
      * bind view holder
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder){
+        when (holder) {
             is HolderImage -> holder.bind(images[position] as ObjectImage)
             is HolderReload -> holder.bind(images[position] as ObjectReload)
         }
