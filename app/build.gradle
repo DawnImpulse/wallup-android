@@ -63,6 +63,7 @@ dependencies {
     implementation "com.google.firebase:firebase-core:17.4.2" // core
     implementation "com.crashlytics.sdk.android:crashlytics:2.10.1" // crashlytics
     implementation "com.google.firebase:firebase-database:19.3.0" // realtime database
+    implementation 'com.google.firebase:firebase-database-ktx:19.3.0' // realtime ktx
     implementation "com.google.firebase:firebase-auth:19.3.1" // auth
 
     //--------------- 3rd Party Libraries -------------------

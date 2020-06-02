@@ -32,8 +32,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_height="44dp"
         android:layout_alignParentRight="true"
         android:layout_margin="24dp"
-        android:background="@drawable/bg_circle_white"
-        android:foreground="?attr/selectableItemBackgroundBorderless">
+        android:background="@drawable/bg_circle_white">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/activity_image_like_drawable"

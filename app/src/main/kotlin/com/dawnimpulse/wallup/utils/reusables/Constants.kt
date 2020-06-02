@@ -29,6 +29,12 @@ const val NIGHT_MODE = "nightMode"
 const val JPG = "jpg"
 const val WEBP = "webp"
 const val RELOAD_LIST = "reloadList"
+const val COUNTER = "counter"
+const val IMAGES = "images"
+const val DOWNLOAD = "download"
+const val WALLPAPER = "wallpaper"
+const val LIKE = "like"
+const val VIEW = "view"
 
 const val TYPE_ERROR_LOADING = "ERROR LOADING"
 

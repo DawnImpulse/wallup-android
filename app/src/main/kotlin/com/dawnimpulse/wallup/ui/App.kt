@@ -17,6 +17,8 @@ package com.dawnimpulse.wallup.ui
 import android.app.Application
 import androidx.preference.PreferenceManager
 import com.dawnimpulse.wallup.utils.reusables.Prefs
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.orhanobut.hawk.Hawk
 
 class App() : Application() {
@@ -34,5 +36,6 @@ class App() : Application() {
 
         Prefs = PreferenceManager.getDefaultSharedPreferences(this)
         Hawk.init(context).build();
+        Firebase.database.setPersistenceEnabled(true)
     }
 }

@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.network.controller.CtrlBookmark
+import com.dawnimpulse.wallup.network.controller.CtrlRealtime
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.ui.sheets.SheetUser
 import com.dawnimpulse.wallup.utils.handlers.HandlerColor
@@ -53,6 +54,7 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
 
         image = Gson().fromJson(intent.extras!!.getString(IMAGE, ""), ObjectImage::class.java)
         id = image.iid
+        CtrlRealtime.incrementCounter(image._id, VIEW)
         HandlerDialog.loading(this) { if (!loaded) finish() }
         if (Hawk.contains(id)) {
             bookmarked = true
@@ -131,10 +133,14 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             StyleToast.info("downloading image, please wait", Toast.LENGTH_LONG)
             HandlerDownload.downloadQ(image.link, "${image.iid}.jpg")
+            CtrlRealtime.incrementCounter(image._id, DOWNLOAD)
         } else
             Permissions.askWriteExternalStoragePermission(this) { no, yes ->
                 no?.let { StyleToast.error("kindly provide storage permission") }
-                yes?.let { HandlerDownload.downloadManager(image.link, "${image.iid}.jpg") }
+                yes?.let {
+                    HandlerDownload.downloadManager(image.link, "${image.iid}.jpg")
+                    CtrlRealtime.incrementCounter(image._id, DOWNLOAD)
+                }
             }
     }
 
@@ -156,6 +162,7 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
                             WallpaperManager.getInstance(this).setBitmap(it)
                             onMain {
                                 StyleToast.success("wallpaper set")
+                                CtrlRealtime.incrementCounter(image._id, WALLPAPER)
                                 HandlerDialog.dismiss()
                             }
                         }
@@ -173,6 +180,7 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
                 try {
                     setBookmark(true)
                     Hawk.put(id, CtrlBookmark.create(image._id)._id)
+                    CtrlRealtime.incrementCounter(image._id, LIKE)
                     RxBusType.accept(RxType(EVENT.ADD.BOOKMARK, image))
                 } catch (e: Exception) {
                     setBookmark(false)
@@ -186,6 +194,7 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
                 try {
                     setBookmark(false)
                     CtrlBookmark.delete(bk)
+                    CtrlRealtime.decreaseCounter(image._id, LIKE)
                     RxBusType.accept(RxType(EVENT.REMOVE.BOOKMARK, id))
                     Hawk.delete(id)
                 } catch (e: Exception) {
