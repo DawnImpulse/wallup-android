@@ -67,7 +67,7 @@ class FragmentHome : Fragment(R.layout.layout_general) {
      */
     private fun rxType(type: RxType) {
         toast("here1")
-        if (type.type == RELOAD_LIST && type.data == RELOAD_MORE_FRAGMENT_HOME)
+        if (type.type == RELOAD_LIST && type.data == RELOAD.MORE.HOME)
             modelHome.loadMore()
     }
 

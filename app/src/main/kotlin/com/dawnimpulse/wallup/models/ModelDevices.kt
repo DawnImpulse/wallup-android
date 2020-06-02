@@ -68,6 +68,52 @@ class ModelDevices() : ViewModel() {
      * load more devices
      */
     fun loadMore() {
+        if (!loaded) loadMoreDevices()
+    }
+
+    /**
+     * fetch latest devices
+     */
+    private fun fetchAllDevices() {
+        viewModelScope.launch {
+            if (BuildConfig.DEBUG) delay(1000)
+            try {
+                val contents = CtrlDevice.all(0, LIST_COUNT)
+                position = contents.size
+                val devices = mutableListOf<Any>()
+                contents.forEachIndexed { i, it ->
+                    // first index
+                    when {
+                        i == 0 -> {
+                            with(devices) {
+                                add(it.brand)
+                                add(it)
+                            }
+                        }
+                        it.brand.name == contents[i - 1].brand.name -> devices.add(it)
+                        else -> {
+                            with(devices) {
+                                add(it.brand)
+                                add(it)
+                            }
+                        }
+                    }
+                }
+                deviceList.addAll(devices)
+                deviceList.add(ObjectLoading()) // loading obj
+                logd(deviceList.size)
+                liveList.postValue(deviceList) // post list
+            } catch (e: Exception) {
+                errorHandler.postValue(F.handleException(e, ERROR.LIST.A_DEVICES, false))
+                e.printStackTrace()
+            }
+        }
+    }
+
+    /**
+     * load more devices
+     */
+    private fun loadMoreDevices() {
         if (!loaded)
             viewModelScope.launch {
                 try {
@@ -115,52 +161,13 @@ class ModelDevices() : ViewModel() {
 
                     // handle exception
                 } catch (e: Exception) {
-                    val issue = F.handleException(e, ERROR_ALL_DEVICE_MORE, true)
+                    val issue = F.handleException(e, ERROR.LIST.MORE.A_DEVICES, true)
                     deviceList.removeAt(deviceList.size - 1)
-                    deviceList.add(ObjectReload(RELOAD_MORE_ACTIVITY_ALL_DEVICE, issue))
+                    deviceList.add(ObjectReload(RELOAD.MORE.A_DEVICES, issue))
                     e.printStackTrace()
                 }
                 // post list
                 liveList.postValue(deviceList)
             }
-    }
-
-    /**
-     * fetch latest devices
-     */
-    private fun fetchAllDevices() {
-        viewModelScope.launch {
-            if (BuildConfig.DEBUG) delay(1000)
-            try {
-                val contents = CtrlDevice.all(0, LIST_COUNT)
-                position = contents.size
-                val devices = mutableListOf<Any>()
-                contents.forEachIndexed { i, it ->
-                    // first index
-                    when {
-                        i == 0 -> {
-                            with(devices) {
-                                add(it.brand)
-                                add(it)
-                            }
-                        }
-                        it.brand.name == contents[i - 1].brand.name -> devices.add(it)
-                        else -> {
-                            with(devices) {
-                                add(it.brand)
-                                add(it)
-                            }
-                        }
-                    }
-                }
-                deviceList.addAll(devices)
-                deviceList.add(ObjectLoading()) // loading obj
-                logd(deviceList.size)
-                liveList.postValue(deviceList) // post list
-            } catch (e: Exception) {
-                errorHandler.postValue(F.handleException(e, ERROR_ALL_DEVICE, false))
-                e.printStackTrace()
-            }
-        }
     }
 }

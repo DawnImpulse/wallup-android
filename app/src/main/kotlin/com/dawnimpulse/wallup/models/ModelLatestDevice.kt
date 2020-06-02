@@ -23,7 +23,10 @@ import com.dawnimpulse.wallup.network.controller.CtrlDevice
 import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.objects.ObjectLoading
 import com.dawnimpulse.wallup.objects.ObjectReload
-import com.dawnimpulse.wallup.utils.reusables.*
+import com.dawnimpulse.wallup.utils.reusables.ERROR
+import com.dawnimpulse.wallup.utils.reusables.F
+import com.dawnimpulse.wallup.utils.reusables.LIST_COUNT
+import com.dawnimpulse.wallup.utils.reusables.RELOAD
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -66,33 +69,7 @@ class ModelLatestDevice() : ViewModel() {
      * load more devices
      */
     fun loadMore() {
-        if (!loaded)
-            viewModelScope.launch {
-                try {
-                    // check if last item is reload
-                    if (deviceList[deviceList.size - 1] is ObjectReload){
-                        deviceList.removeAt(deviceList.size - 1)
-                        deviceList.add(ObjectLoading())
-                        liveList.postValue(deviceList)
-                    }
-
-                    // fetch content
-                    val contents = CtrlDevice.latest(deviceList.size - 1, LIST_COUNT)
-                    deviceList.removeAt(deviceList.size - 1)
-                    contents.forEach { deviceList.add(it) }
-                    // check images count & set loading object
-                    if (contents.size == LIST_COUNT) deviceList.add(ObjectLoading()) else loaded = true
-
-                    // handle exception
-                } catch (e: Exception) {
-                    val issue = F.handleException(e, ERROR_LATEST_DEVICE_MORE, true)
-                    deviceList.removeAt(deviceList.size - 1)
-                    deviceList.add(ObjectReload(RELOAD_MORE_FRAGMENT_LATEST_DEVICE, issue))
-                    e.printStackTrace()
-                }
-                // post list
-                liveList.postValue(deviceList)
-            }
+        if (!loaded) fetchMoreDevices()
     }
 
     /**
@@ -107,9 +84,41 @@ class ModelLatestDevice() : ViewModel() {
                 deviceList.add(ObjectLoading()) // loading obj
                 liveList.postValue(deviceList) // post list
             } catch (e: Exception) {
-                errorHandler.postValue(F.handleException(e, ERROR_LATEST_DEVICE, false))
+                errorHandler.postValue(F.handleException(e, ERROR.LIST.L_DEVICE, false))
                 e.printStackTrace()
             }
+        }
+    }
+
+    /**
+     * fetch more devices
+     */
+    private fun fetchMoreDevices(){
+        viewModelScope.launch {
+            try {
+                // check if last item is reload
+                if (deviceList[deviceList.size - 1] is ObjectReload){
+                    deviceList.removeAt(deviceList.size - 1)
+                    deviceList.add(ObjectLoading())
+                    liveList.postValue(deviceList)
+                }
+
+                // fetch content
+                val contents = CtrlDevice.latest(deviceList.size - 1, LIST_COUNT)
+                deviceList.removeAt(deviceList.size - 1)
+                deviceList.addAll(contents)
+                // check images count & set loading object
+                if (contents.size == LIST_COUNT) deviceList.add(ObjectLoading()) else loaded = true
+
+                // handle exception
+            } catch (e: Exception) {
+                val issue = F.handleException(e, ERROR.LIST.L_DEVICE, true)
+                deviceList.removeAt(deviceList.size - 1)
+                deviceList.add(ObjectReload(RELOAD.MORE.L_DEVICES, issue))
+                e.printStackTrace()
+            }
+            // post list
+            liveList.postValue(deviceList)
         }
     }
 }

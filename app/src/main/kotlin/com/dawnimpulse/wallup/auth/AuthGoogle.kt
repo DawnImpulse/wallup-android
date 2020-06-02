@@ -71,7 +71,7 @@ class AuthGoogle : AppCompatActivity() {
                             firebaseAuth(idToken)
                         }
                         else -> {
-                            StyleToast.error("Issue while login (${ERROR_AUTH_GOOGLE_USER_FAIL_2}), please try again", Toast.LENGTH_LONG)
+                            StyleToast.error("Issue while login (${ERROR.AUTH.GOOGLE.USER_2}), please try again", Toast.LENGTH_LONG)
                             loge("No ID token or password!")
                             finish()
                         }
@@ -81,7 +81,7 @@ class AuthGoogle : AppCompatActivity() {
                         // if sign in is previously called (& this is signup)
                         // then close the prompt
                         if (signIn) {
-                            StyleToast.error("Issue while login (${ERROR_AUTH_GOOGLE_USER_FAIL}), please try again", Toast.LENGTH_LONG)
+                            StyleToast.error("Issue while login (${ERROR.AUTH.GOOGLE.USER}), please try again", Toast.LENGTH_LONG)
                             e.printStackTrace()
                             finish()
                             // else if show signup screen
@@ -90,7 +90,7 @@ class AuthGoogle : AppCompatActivity() {
                             signUp()
                         }
                     } else {
-                        StyleToast.error("Issue while login (${ERROR_AUTH_GOOGLE_USER_FAIL}), please try again", Toast.LENGTH_LONG)
+                        StyleToast.error("Issue while login (${ERROR.AUTH.GOOGLE.USER}), please try again", Toast.LENGTH_LONG)
                         e.printStackTrace()
                         finish()
                     }
@@ -146,7 +146,7 @@ class AuthGoogle : AppCompatActivity() {
                         )
                     } catch (e: IntentSender.SendIntentException) {
                         // error
-                        StyleToast.error("Issue while login (${ERROR_AUTH_GOOGLE_ONE_TAP_LOGIN_FAIL}), please try again", Toast.LENGTH_LONG)
+                        StyleToast.error("Issue while login (${ERROR.AUTH.GOOGLE.LOGIN}), please try again", Toast.LENGTH_LONG)
                         e.printStackTrace()
                         finish()
                     }
@@ -167,13 +167,13 @@ class AuthGoogle : AppCompatActivity() {
                                 result.pendingIntent.intentSender, reqOneTap,
                                 null, 0, 0, 0)
                     } catch (e: IntentSender.SendIntentException) {
-                        StyleToast.error("Unable to login (${ERROR_AUTH_GOOGLE_ONE_TAP_SIGNUP_FAIL}), please try again", Toast.LENGTH_LONG)
+                        StyleToast.error("Unable to login (${ERROR.AUTH.GOOGLE.SIGNUP}), please try again", Toast.LENGTH_LONG)
                         e.printStackTrace()
                         finish()
                     }
                 }
                 .addOnFailureListener(this) { e ->
-                    StyleToast.error("Issue while login (${ERROR_AUTH_GOOGLE_ONE_TAP_SIGNUP_FAIL_2}), please try again", Toast.LENGTH_LONG)
+                    StyleToast.error("Issue while login (${ERROR.AUTH.GOOGLE.SIGNUP_2}), please try again", Toast.LENGTH_LONG)
                     e.printStackTrace()
                     finish()
                 }
@@ -196,12 +196,10 @@ class AuthGoogle : AppCompatActivity() {
                         finish()
                     } else {
                         // If sign in fails, display a message to the user.
-                        StyleToast.error("Issue while login (${ERROR_AUTH_GOOGLE_FIREBASE_FAIL}), please try again", Toast.LENGTH_LONG)
+                        StyleToast.error("Issue while login (${ERROR.AUTH.GOOGLE.FIREBASE}), please try again", Toast.LENGTH_LONG)
                         task.exception?.printStackTrace()
                         finish()
                     }
-
-                    // ...
                 }
     }
 

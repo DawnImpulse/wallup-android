@@ -23,7 +23,10 @@ import com.dawnimpulse.wallup.network.controller.CtrlImage
 import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.objects.ObjectLoading
 import com.dawnimpulse.wallup.objects.ObjectReload
-import com.dawnimpulse.wallup.utils.reusables.*
+import com.dawnimpulse.wallup.utils.reusables.ERROR
+import com.dawnimpulse.wallup.utils.reusables.F
+import com.dawnimpulse.wallup.utils.reusables.LIST_COUNT
+import com.dawnimpulse.wallup.utils.reusables.RELOAD
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -58,7 +61,7 @@ class ModelHome() : ViewModel() {
     /**
      * reload images
      */
-    fun reload(){
+    fun reload() {
         fetchLatestImages()
     }
 
@@ -66,36 +69,7 @@ class ModelHome() : ViewModel() {
      * load more images
      */
     fun loadMore() {
-        if (!loaded)
-            viewModelScope.launch {
-                try {
-                    // check if last item is reload
-                    if (homeList[homeList.size - 1] is ObjectReload){
-                        homeList.removeAt(homeList.size - 1)
-                        homeList.add(ObjectLoading())
-                        liveList.postValue(homeList)
-                    }
-
-                    // fetch content
-                    val contents = CtrlImage.latest(homeList.size - 1, LIST_COUNT)
-                    homeList.removeAt(homeList.size - 1)
-                    contents.forEach {
-                        it.height = F.getRandomHeight() // add random height
-                        homeList.add(it) // add to home list
-                    }
-                    // check images count & set loading object
-                    if (contents.size == LIST_COUNT) homeList.add(ObjectLoading()) else loaded = true
-
-                    // handle exception
-                } catch (e: Exception) {
-                    val issue = F.handleException(e, ERROR_HOME_IMAGES_MORE, true)
-                    homeList.removeAt(homeList.size - 1)
-                    homeList.add(ObjectReload(RELOAD_MORE_FRAGMENT_HOME, issue))
-                    e.printStackTrace()
-                }
-                // post list
-                liveList.postValue(homeList)
-            }
+        if (!loaded) loadMoreImages()
     }
 
     /**
@@ -106,16 +80,46 @@ class ModelHome() : ViewModel() {
             if (BuildConfig.DEBUG) delay(1000)
             try {
                 val contents = CtrlImage.latest(0, LIST_COUNT)
-                contents.forEach {
-                    it.height = F.getRandomHeight() // add random height
-                    homeList.add(it) // add to home list
-                }
+                contents.forEach { it.height = F.getRandomHeight() }
+                homeList.addAll(contents)
                 homeList.add(ObjectLoading()) // loading obj
                 liveList.postValue(homeList) // post list
             } catch (e: Exception) {
-                errorHandler.postValue(F.handleException(e, ERROR_HOME_IMAGES, false))
+                errorHandler.postValue(F.handleException(e, ERROR.LIST.HOME, false))
                 e.printStackTrace()
             }
+        }
+    }
+
+    /**
+     * load more images
+     */
+    private fun loadMoreImages() {
+        viewModelScope.launch {
+            try {
+                // check if last item is reload
+                if (homeList[homeList.size - 1] is ObjectReload) {
+                    homeList.removeAt(homeList.size - 1)
+                    homeList.add(ObjectLoading())
+                    liveList.postValue(homeList)
+                }
+
+                // fetch content
+                val contents = CtrlImage.latest(homeList.size - 1, LIST_COUNT)
+                homeList.removeAt(homeList.size - 1)
+                contents.forEach { it.height = F.getRandomHeight() }
+                homeList.addAll(contents)
+                // check images count & set loading object
+                if (contents.size == LIST_COUNT) homeList.add(ObjectLoading()) else loaded = true
+                // handle exception
+            } catch (e: Exception) {
+                val issue = F.handleException(e, ERROR.LIST.MORE.HOME, true)
+                homeList.removeAt(homeList.size - 1)
+                homeList.add(ObjectReload(RELOAD.MORE.HOME, issue))
+                e.printStackTrace()
+            }
+            // post list
+            liveList.postValue(homeList)
         }
     }
 }

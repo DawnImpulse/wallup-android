@@ -80,7 +80,7 @@ class ActivityDevices : AppCompatActivity(R.layout.layout_general) {
      * handle rx type
      */
     private fun rxType(type: RxType) {
-        if (type.type == RELOAD_LIST && type.data == RELOAD_MORE_ACTIVITY_ALL_DEVICE)
+        if (type.type == RELOAD_LIST && type.data == RELOAD.MORE.A_DEVICES)
             modelHome.loadMore()
     }
 

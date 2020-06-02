@@ -30,32 +30,43 @@ const val JPG = "jpg"
 const val WEBP = "webp"
 const val RELOAD_LIST = "reloadList"
 
-const val TYPE_HOME_HEADER = 1
-const val TYPE_SCROLLING_IMAGE = 2
-const val TYPE_SCROLLING_COLLECTION = 3
-const val TYPE_CATEGORY = 4
-
 const val TYPE_ERROR_LOADING = "ERROR LOADING"
 
-const val RELOAD_MORE_FRAGMENT_HOME = "reloadMoreFragmentHome"
-const val RELOAD_MORE_FRAGMENT_RANDOM = "reloadMoreFragmentRandom"
-const val RELOAD_MORE_FRAGMENT_LATEST_DEVICE = "reloadMoreFragmentLatestDevice"
-const val RELOAD_MORE_ACTIVITY_ALL_DEVICE = "reloadMoreFragmentAllDevice"
-const val RELOAD_MORE_ACTIVITY_DEVICE_IMAGES = "reloadMoreFragmentDeviceImages"
 
-const val ERROR_AUTH_GOOGLE_ONE_TAP_LOGIN_FAIL = 1001
-const val ERROR_AUTH_GOOGLE_ONE_TAP_SIGNUP_FAIL = 1002
-const val ERROR_AUTH_GOOGLE_ONE_TAP_SIGNUP_FAIL_2 = 1003
-const val ERROR_AUTH_GOOGLE_FIREBASE_FAIL = 1004
-const val ERROR_AUTH_GOOGLE_USER_FAIL = 1005
-const val ERROR_AUTH_GOOGLE_USER_FAIL_2 = 1006
-const val ERROR_HOME_IMAGES = 1007
-const val ERROR_HOME_IMAGES_MORE = 1008
-const val ERROR_RANDOM_IMAGES = 1009
-const val ERROR_RANDOM_IMAGES_MORE = 1010
-const val ERROR_LATEST_DEVICE = 1011
-const val ERROR_LATEST_DEVICE_MORE = 1012
-const val ERROR_ALL_DEVICE = 1013
-const val ERROR_ALL_DEVICE_MORE = 1014
-const val ERROR_DEVICE_IMAGES = 1015
-const val ERROR_DEVICE_IMAGES_MORE = 1016
+object RELOAD {
+    object MORE {
+        val HOME = "reloadMoreFragmentHome"
+        val RANDOM = "reloadMoreFragmentRandom"
+        val L_DEVICES = "reloadMoreFragmentLatestDevice"
+        val A_DEVICES = "reloadMoreFragmentAllDevice"
+        val D_IMAGES = "reloadMoreFragmentDeviceImages"
+    }
+}
+
+object ERROR{
+    object AUTH {
+        object GOOGLE {
+            val LOGIN = 1001
+            val SIGNUP = 1002
+            val SIGNUP_2 = 1003
+            val FIREBASE = 1004
+            val USER = 1005
+            val USER_2 = 1006
+        }
+    }
+    object LIST {
+        val HOME = 1007
+        val RANDOM = 1009
+        val L_DEVICE = 1011
+        val A_DEVICES = 1013
+        val D_IMAGES = 1015
+
+        object MORE {
+            val HOME = 1008
+            val RANDOM = 1010
+            val L_DEVICE = 1012
+            val A_DEVICES = 1014
+            val D_IMAGES = 1016
+        }
+    }
+}

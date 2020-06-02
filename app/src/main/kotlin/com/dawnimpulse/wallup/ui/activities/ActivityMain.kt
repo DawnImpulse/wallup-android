@@ -123,71 +123,73 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
      * @param pos
      */
     private fun currentNavigation(pos: Int) {
-        activity_main_viewpager.currentItem = pos
-        val current = nav_layout.getChildAt(pos) // get current view
-        val topBottom = dpToPx(10) // padding value
-        var prevItem = AnimatorSet() // create prev animator set
-        val currentName = current.nav_item_text.text // name of item
+        if(currentNav != pos){
+            activity_main_viewpager.currentItem = pos
+            val current = nav_layout.getChildAt(pos) // get current view
+            val topBottom = dpToPx(10) // padding value
+            var prevItem = AnimatorSet() // create prev animator set
+            val currentName = current.nav_item_text.text // name of item
 
-        // current animation set
-        val newItem = AnimatorSet().apply {
-            // padding animation
-            play(ValueAnimator.ofInt(0, topBottom).apply {
-                // add listener to change padding gradually
-                addUpdateListener {
-                    val value = it.animatedValue as Int
-                    current.nav_item_container.setPadding(value + dpToPx(4), value, value + dpToPx(4), value)
-                }
-                // fading animation
-            }).with(ValueAnimator.ofInt(0, currentName.length).apply {
-                // add listener to change length gradually
-                addUpdateListener {
-                    current.nav_item_text.text = currentName.subSequence(0, it.animatedValue as Int)
-                }
-            })
-
-            doOnStart {
-                // on start show the text
-                current.nav_item_text.show()
-                current.nav_item_container.background = ContextCompat.getDrawable(this@ActivityMain,
-                        R.drawable.bg_nav_selected)
-            }
-        }
-
-        // work on the last item (if present)
-        if (currentNav != -1) {
-            val item = nav_layout.getChildAt(currentNav) // get prev item
-            val prevName = item.nav_item_text.text // get prev item name
-            prevItem = AnimatorSet().apply {
-                // shrink animation
-                play(ValueAnimator.ofInt(topBottom, 0).apply {
-                    // listener to gradually change
+            // current animation set
+            val newItem = AnimatorSet().apply {
+                // padding animation
+                play(ValueAnimator.ofInt(0, topBottom).apply {
+                    // add listener to change padding gradually
                     addUpdateListener {
                         val value = it.animatedValue as Int
-                        item.nav_item_container.setPadding(value)
+                        current.nav_item_container.setPadding(value + dpToPx(4), value, value + dpToPx(4), value)
                     }
-                    // fadeout animation
-                }).with(ValueAnimator.ofInt(prevName.length, 0).apply {
-                    // listener to gradually change
+                    // fading animation
+                }).with(ValueAnimator.ofInt(0, currentName.length).apply {
+                    // add listener to change length gradually
                     addUpdateListener {
-                        item.nav_item_text.text = prevName.subSequence(0, it.animatedValue as Int)
+                        current.nav_item_text.text = currentName.subSequence(0, it.animatedValue as Int)
                     }
                 })
 
-                doOnEnd {
-                    item.nav_item_text.gone() // remove text
-                    item.nav_item_container.background = null // remove bg
-                    item.nav_item_text.text = prevName // restore name
+                doOnStart {
+                    // on start show the text
+                    current.nav_item_text.show()
+                    current.nav_item_container.background = ContextCompat.getDrawable(this@ActivityMain,
+                            R.drawable.bg_nav_selected)
                 }
             }
-        }
 
-        AnimatorSet().apply {
-            play(newItem).with(prevItem) // join animations
-            duration = 100 // set duration
-            start() // start animation set
-            doOnEnd {
-                currentNav = pos
+            // work on the last item (if present)
+            if (currentNav != -1) {
+                val item = nav_layout.getChildAt(currentNav) // get prev item
+                val prevName = item.nav_item_text.text // get prev item name
+                prevItem = AnimatorSet().apply {
+                    // shrink animation
+                    play(ValueAnimator.ofInt(topBottom, 0).apply {
+                        // listener to gradually change
+                        addUpdateListener {
+                            val value = it.animatedValue as Int
+                            item.nav_item_container.setPadding(value)
+                        }
+                        // fadeout animation
+                    }).with(ValueAnimator.ofInt(prevName.length, 0).apply {
+                        // listener to gradually change
+                        addUpdateListener {
+                            item.nav_item_text.text = prevName.subSequence(0, it.animatedValue as Int)
+                        }
+                    })
+
+                    doOnEnd {
+                        item.nav_item_text.gone() // remove text
+                        item.nav_item_container.background = null // remove bg
+                        item.nav_item_text.text = prevName // restore name
+                    }
+                }
+            }
+
+            AnimatorSet().apply {
+                play(newItem).with(prevItem) // join animations
+                duration = 100 // set duration
+                start() // start animation set
+                doOnEnd {
+                    currentNav = pos
+                }
             }
         }
     }

@@ -89,7 +89,7 @@ class ActivityDeviceImages : AppCompatActivity(R.layout.activity_device_images) 
      * handle rx type
      */
     private fun rxType(type: RxType) {
-        if (type.type == RELOAD_LIST && type.data == RELOAD_MORE_ACTIVITY_ALL_DEVICE)
+        if (type.type == RELOAD_LIST && type.data == RELOAD.MORE.D_IMAGES)
             modelDeviceImages.loadMore()
     }
 

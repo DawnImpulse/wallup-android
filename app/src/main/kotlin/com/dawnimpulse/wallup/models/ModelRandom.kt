@@ -23,7 +23,10 @@ import com.dawnimpulse.wallup.network.controller.CtrlImage
 import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.objects.ObjectLoading
 import com.dawnimpulse.wallup.objects.ObjectReload
-import com.dawnimpulse.wallup.utils.reusables.*
+import com.dawnimpulse.wallup.utils.reusables.ERROR
+import com.dawnimpulse.wallup.utils.reusables.F
+import com.dawnimpulse.wallup.utils.reusables.LIST_COUNT
+import com.dawnimpulse.wallup.utils.reusables.RELOAD
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -66,34 +69,7 @@ class ModelRandom() : ViewModel() {
      * load more images
      */
     fun loadMore() {
-        if (!loaded)
-            viewModelScope.launch {
-                if (BuildConfig.DEBUG) delay(1000)
-                try {
-                    // check if last item is reload
-                    if (randomList[randomList.size - 1] is ObjectReload){
-                        randomList.removeAt(randomList.size - 1)
-                        randomList.add(ObjectLoading())
-                        liveList.postValue(randomList)
-                    }
-
-                    // fetch content
-                    val contents = CtrlImage.random(LIST_COUNT)
-                    randomList.removeAt(randomList.size - 1)
-                    contents.forEach {
-                        it.height = F.getRandomHeight() // add random height
-                        randomList.add(it) // add to home list
-                    }
-                    randomList.add(ObjectLoading()) // loading obj
-                    // handle exception
-                } catch (e: Exception) {
-                    randomList.removeAt(randomList.size - 1)
-                    randomList.add(ObjectReload(RELOAD_MORE_FRAGMENT_RANDOM, F.handleException(e, ERROR_RANDOM_IMAGES_MORE, true)))
-                    e.printStackTrace()
-                }
-                // post list
-                liveList.postValue(randomList)
-            }
+        if (!loaded) fetchMoreImages()
     }
 
     /**
@@ -104,16 +80,45 @@ class ModelRandom() : ViewModel() {
             if (BuildConfig.DEBUG) delay(1000)
             try {
                 val contents = CtrlImage.random(LIST_COUNT)
-                contents.forEach {
-                    it.height = F.getRandomHeight() // add random height
-                    randomList.add(it) // add to home list
-                }
+                contents.forEach { it.height = F.getRandomHeight()}
+                randomList.addAll(contents)
                 randomList.add(ObjectLoading()) // loading obj
                 liveList.postValue(randomList) // post list
             } catch (e: Exception) {
-                errorHandler.postValue(F.handleException(e, ERROR_RANDOM_IMAGES, false))
+                errorHandler.postValue(F.handleException(e, ERROR.LIST.RANDOM, false))
                 e.printStackTrace()
             }
+        }
+    }
+
+    /**
+     * fetch more images
+     */
+    private fun fetchMoreImages(){
+        viewModelScope.launch {
+            if (BuildConfig.DEBUG) delay(1000)
+            try {
+                // check if last item is reload
+                if (randomList[randomList.size - 1] is ObjectReload){
+                    randomList.removeAt(randomList.size - 1)
+                    randomList.add(ObjectLoading())
+                    liveList.postValue(randomList)
+                }
+
+                // fetch content
+                val contents = CtrlImage.random(LIST_COUNT)
+                randomList.removeAt(randomList.size - 1)
+                contents.forEach { it.height = F.getRandomHeight() }
+                randomList.addAll(contents)
+                randomList.add(ObjectLoading()) // loading obj
+                // handle exception
+            } catch (e: Exception) {
+                randomList.removeAt(randomList.size - 1)
+                randomList.add(ObjectReload(RELOAD.MORE.RANDOM, F.handleException(e, ERROR.LIST.MORE.RANDOM, true)))
+                e.printStackTrace()
+            }
+            // post list
+            liveList.postValue(randomList)
         }
     }
 }
