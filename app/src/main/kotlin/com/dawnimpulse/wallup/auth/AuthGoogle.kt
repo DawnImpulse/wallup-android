@@ -5,7 +5,9 @@ import android.content.IntentSender
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.network.controller.CtrlBookmark
 import com.dawnimpulse.wallup.utils.handlers.HandlerDialog
 import com.dawnimpulse.wallup.utils.reusables.*
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -15,6 +17,8 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.orhanobut.hawk.Hawk
+import kotlinx.coroutines.launch
 
 class AuthGoogle : AppCompatActivity() {
     private lateinit var oneTapClient: SignInClient
@@ -34,14 +38,8 @@ class AuthGoogle : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         HandlerDialog.loading(this)
         oneTapInit()
-        if (intent.extras!!.getBoolean(AUTH, true))
-            login()
-        else {
-            oneTapClient.signOut()
-            auth.signOut()
-            StyleToast.success("Successfully logged out", Toast.LENGTH_LONG)
-            finish()
-        }
+        if (intent.extras!!.getBoolean(AUTH, true)) login()
+        else signOut()
     }
 
     /**
@@ -191,9 +189,7 @@ class AuthGoogle : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         logd("signInWithCredential:success")
-                        val user = auth.currentUser
-                        StyleToast.success("Welcome ${user?.displayName}", Toast.LENGTH_LONG)
-                        finish()
+                        fetchAllBookmarks()
                     } else {
                         // If sign in fails, display a message to the user.
                         StyleToast.error("Issue while login (${ERROR.AUTH.GOOGLE.FIREBASE}), please try again", Toast.LENGTH_LONG)
@@ -203,4 +199,35 @@ class AuthGoogle : AppCompatActivity() {
                 }
     }
 
+    /**
+     * sign out
+     */
+    private fun signOut() {
+        oneTapClient.signOut()
+        auth.signOut()
+        StyleToast.success("Successfully logged out", Toast.LENGTH_LONG)
+        Hawk.deleteAll()
+        finish()
+    }
+
+    /**
+     * fetch all bookmarks
+     */
+    private fun fetchAllBookmarks() {
+        Hawk.deleteAll() // just to make sure internal db is clear
+        lifecycleScope.launch {
+            try {
+                val bookmarks = CtrlBookmark.latest(0, -1)
+                if (bookmarks.isNotEmpty())
+                    bookmarks.forEach { Hawk.put(it.image.iid, it._id) }
+                StyleToast.success("Welcome ${FirebaseAuth.getInstance().currentUser!!.displayName}", Toast.LENGTH_LONG)
+                finish()
+            } catch (e: Exception) {
+                StyleToast.error("Issue while login (${ERROR.AUTH.WALLUP.BOOKMARKS}), please try again", Toast.LENGTH_LONG)
+                signOut()
+                e.printStackTrace()
+                finish()
+            }
+        }
+    }
 }

@@ -58,12 +58,15 @@ object RELOAD {
 object ERROR{
     object AUTH {
         object GOOGLE {
-            val LOGIN = 1001
-            val SIGNUP = 1002
-            val SIGNUP_2 = 1003
-            val FIREBASE = 1004
-            val USER = 1005
-            val USER_2 = 1006
+            val LOGIN = 1101
+            val SIGNUP = 1102
+            val SIGNUP_2 = 1103
+            val FIREBASE = 1104
+            val USER = 1105
+            val USER_2 = 1106
+        }
+        object WALLUP {
+            val BOOKMARKS = 1107
         }
     }
     object LIST {
