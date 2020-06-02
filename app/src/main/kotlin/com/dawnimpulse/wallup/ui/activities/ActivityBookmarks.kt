@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.models.ModelBookmarks
 import com.dawnimpulse.wallup.objects.ObjectDevice
+import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.ui.adapters.AdapterImage
 import com.dawnimpulse.wallup.utils.reusables.*
@@ -65,7 +66,7 @@ class ActivityBookmarks : AppCompatActivity(R.layout.layout_general) {
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
             window.decorView.systemUiVisibility = 0
         else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
     }
 
@@ -81,8 +82,16 @@ class ActivityBookmarks : AppCompatActivity(R.layout.layout_general) {
      * handle rx type
      */
     private fun rxType(type: RxType) {
-        if (type.type == RELOAD_LIST && type.data == RELOAD.MORE.BOOKMARKS)
-            modelBookmarks.loadMore()
+        when (type.type) {
+            RELOAD_LIST -> if (type.data == RELOAD.MORE.BOOKMARKS) modelBookmarks.loadMore()
+            EVENT.REMOVE.BOOKMARK -> modelBookmarks.remove(type.data as String)
+            EVENT.ADD.BOOKMARK -> modelBookmarks.add(type.data as ObjectImage)
+            EVENT.NOT.BOOKMARKS -> {
+                layout_general_not_found_layout.show()
+                layout_general_not_found_anim.playAnimation()
+            }
+        }
+
     }
 
     /**

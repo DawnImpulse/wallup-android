@@ -85,11 +85,15 @@ class SheetUser : BottomSheetDialogFragment(), View.OnClickListener {
                             putBoolean(AUTH, true)
                         }
                 }
-                sheet_user_info.id -> requireContext().openActivity(ActivityInfo::class.java)
+                sheet_user_info.id -> {
+                    requireContext().openActivity(ActivityInfo::class.java)
+                    dismiss()
+                }
                 sheet_user_bookmarks.id -> {
-                    if (firebaseAuth.currentUser != null)
+                    if (firebaseAuth.currentUser != null) {
                         requireContext().openActivity(ActivityBookmarks::class.java)
-                    else
+                        dismiss()
+                    } else
                         StyleToast.info("login to continue")
                 }
                 else -> {

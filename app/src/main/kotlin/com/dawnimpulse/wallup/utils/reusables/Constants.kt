@@ -32,6 +32,17 @@ const val RELOAD_LIST = "reloadList"
 
 const val TYPE_ERROR_LOADING = "ERROR LOADING"
 
+object EVENT {
+    object REMOVE {
+        val BOOKMARK = "eventRemoveBookmark"
+    }
+    object ADD {
+        val BOOKMARK = "eventAddBookmark"
+    }
+    object NOT {
+        val BOOKMARKS = "eventNotBookmarks"
+    }
+}
 
 object RELOAD {
     object MORE {

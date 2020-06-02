@@ -17,6 +17,7 @@ package com.dawnimpulse.wallup.ui
 import android.app.Application
 import androidx.preference.PreferenceManager
 import com.dawnimpulse.wallup.utils.reusables.Prefs
+import com.orhanobut.hawk.Hawk
 
 class App() : Application() {
 
@@ -32,5 +33,6 @@ class App() : Application() {
         super.onCreate()
 
         Prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        Hawk.init(context).build();
     }
 }

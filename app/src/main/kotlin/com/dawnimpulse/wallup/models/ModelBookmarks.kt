@@ -20,13 +20,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.network.controller.CtrlBookmark
+import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.objects.ObjectLoading
 import com.dawnimpulse.wallup.objects.ObjectReload
-import com.dawnimpulse.wallup.utils.reusables.ERROR
-import com.dawnimpulse.wallup.utils.reusables.F
-import com.dawnimpulse.wallup.utils.reusables.LIST_COUNT
-import com.dawnimpulse.wallup.utils.reusables.RELOAD
+import com.dawnimpulse.wallup.utils.reusables.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -72,6 +70,24 @@ class ModelBookmarks() : ViewModel() {
     }
 
     /**
+     * remove image
+     */
+    fun remove(id: String) {
+        imageList.removeAll { if (it is ObjectImage) it.iid == id else false }
+        if (imageList.isEmpty())
+            RxBusType.accept(RxType(EVENT.NOT.BOOKMARKS, true))
+        liveList.postValue(imageList)
+    }
+
+    /**
+     * add image
+     */
+    fun add(image: ObjectImage) {
+        imageList.add(0, image)
+        liveList.postValue(imageList)
+    }
+
+    /**
      * fetch bookmarks
      */
     private fun fetchBookmarks() {
@@ -82,7 +98,10 @@ class ModelBookmarks() : ViewModel() {
                 val images = contents.map { it.image }
                 images.forEach { it.height = F.getRandomHeight() }
                 imageList.addAll(images)
-                imageList.add(ObjectLoading()) // loading obj
+                if (imageList.size == LIST_COUNT)
+                    imageList.add(ObjectLoading()) // loading obj
+                if (imageList.isEmpty()) // list empty
+                    RxBusType.accept(RxType(EVENT.NOT.BOOKMARKS, true))
                 liveList.postValue(imageList) // post list
             } catch (e: Exception) {
                 errorHandler.postValue(F.handleException(e, ERROR.LIST.BOOKMARKS, false))

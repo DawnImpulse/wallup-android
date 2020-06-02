@@ -66,7 +66,6 @@ class FragmentRandom : Fragment(R.layout.layout_general) {
      * handle rx type
      */
     private fun rxType(type: RxType) {
-        toast("here2")
         if (type.type == RELOAD_LIST && type.data == RELOAD.MORE.RANDOM)
             modelRandom.loadMore()
     }

@@ -32,12 +32,14 @@ import com.dawnimpulse.wallup.utils.handlers.HandlerTransform
 import com.dawnimpulse.wallup.utils.reusables.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.coroutines.*
 import org.sourcei.android.permissions.Permissions
 
 class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickListener {
     private lateinit var image: ObjectImage
+    private lateinit var id: String
     private val sheetUser = SheetUser()
     private var loaded = false
     private var bookmarked = false
@@ -50,8 +52,9 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
         super.onCreate(savedInstanceState)
 
         image = Gson().fromJson(intent.extras!!.getString(IMAGE, ""), ObjectImage::class.java)
+        id = image.iid
         HandlerDialog.loading(this) { if (!loaded) finish() }
-        if (Prefs.contains("b-${image.iid}")) {
+        if (Hawk.contains(id)) {
             bookmarked = true
             activity_image_like_drawable.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_like_filled))
         }
@@ -169,24 +172,25 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
             scope.launch {
                 try {
                     setBookmark(true)
-                    val bk = CtrlBookmark.create(image._id)
-                    Prefs.putAny("b-${image.iid}", bk._id)
+                    Hawk.put(id, CtrlBookmark.create(image._id)._id)
+                    RxBusType.accept(RxType(EVENT.ADD.BOOKMARK, image))
                 } catch (e: Exception) {
                     setBookmark(false)
-                    Prefs.remove("b-${image.iid}")
+                    Hawk.delete(id)
                     e.printStackTrace()
                 }
             }
         } else {
             scope.launch {
-                val bk = Prefs.getString("b-${image.iid}", null)!!
+                val bk = Hawk.get<String>(id)
                 try {
                     setBookmark(false)
                     CtrlBookmark.delete(bk)
-                    Prefs.remove("b-${image.iid}")
+                    RxBusType.accept(RxType(EVENT.REMOVE.BOOKMARK, id))
+                    Hawk.delete(id)
                 } catch (e: Exception) {
                     setBookmark(true)
-                    Prefs.putAny("b-${image.iid}", bk)
+                    Hawk.put(id, bk)
                     e.printStackTrace()
                 }
             }

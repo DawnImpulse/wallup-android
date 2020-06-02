@@ -67,7 +67,6 @@ class FragmentLatestDevice : Fragment(R.layout.fragment_devices_latest) {
      * handle rx type
      */
     private fun rxType(type: RxType) {
-        toast("here")
         if (type.type == RELOAD_LIST && type.data == RELOAD.MORE.L_DEVICES)
             modelLatestDevice.loadMore()
     }

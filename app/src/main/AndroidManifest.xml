@@ -66,6 +66,11 @@
             android:name=".ui.activities.ActivityDevices"
             android:theme="@style/AppTheme" />
 
+        <!-- bookmarks -->
+        <activity
+            android:name=".ui.activities.ActivityBookmarks"
+            android:theme="@style/AppTheme" />
+
         <!-- device images -->
         <activity
             android:name=".ui.activities.ActivityDeviceImages"
