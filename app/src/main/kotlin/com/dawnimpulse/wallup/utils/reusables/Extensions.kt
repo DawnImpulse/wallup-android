@@ -29,11 +29,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.palette.graphics.Palette
 import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.ui.App
 import com.dawnimpulse.wallup.utils.handlers.HandlerColor
 import com.dawnimpulse.wallup.utils.handlers.HandlerTransform
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import java.io.File
 
@@ -153,6 +155,13 @@ fun <T> Context.openActivity(it: Class<T>, bundle: Bundle.() -> Unit = {}) {
  */
 fun Context.startWeb(url: String) {
     startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
+}
+
+/**
+ * open bottom sheet
+ */
+fun BottomSheetDialogFragment.open(supportFragmentManager: FragmentManager){
+    this.show(supportFragmentManager, this.tag)
 }
 
 // int color to hexa string

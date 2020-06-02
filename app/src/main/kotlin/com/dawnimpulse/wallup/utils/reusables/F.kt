@@ -25,9 +25,11 @@ import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.objects.ObjectError
 import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.ui.App
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.apache.commons.io.FileUtils
+
 
 object F {
 
@@ -39,7 +41,7 @@ object F {
      * @param more - if exception is in load more images
      * @return ObjectIssue
      */
-    fun handleException(e: Exception, code: Int, more:Boolean): ObjectIssue {
+    fun handleException(e: Exception, code: Int, more: Boolean): ObjectIssue {
         // handling error
         return if (e.message != null) {
             // checking for errors from server
@@ -135,5 +137,22 @@ object F {
         scope.launch {
             FileUtils.deleteQuietly(context.cacheDir)
         }
+    }
+
+    /**
+     * return firebase token
+     */
+    fun getFirebaseToken(callback: (String?) -> Unit) {
+        FirebaseAuth.getInstance().currentUser!!
+                .getIdToken(true)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val idToken: String? = task.result?.token
+                        callback(idToken)
+                    } else {
+                        task.exception?.printStackTrace()
+                        callback(null)
+                    }
+                }
     }
 }

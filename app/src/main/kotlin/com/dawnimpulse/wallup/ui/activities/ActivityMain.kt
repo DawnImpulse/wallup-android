@@ -32,6 +32,7 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.fragments.FragmentHome
 import com.dawnimpulse.wallup.ui.fragments.FragmentLatestDevice
 import com.dawnimpulse.wallup.ui.fragments.FragmentRandom
+import com.dawnimpulse.wallup.ui.sheets.SheetUser
 import com.dawnimpulse.wallup.utils.reusables.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_item.view.*
@@ -41,6 +42,7 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
     private lateinit var homeFragment: FragmentHome
     private lateinit var randomFragment: FragmentRandom
     private lateinit var latestDeviceFragment: FragmentLatestDevice
+    private lateinit var sheetUser: SheetUser
     private lateinit var pagerAdapter: ViewPagerAdapter
     private var currentNav = -1
 
@@ -53,9 +55,11 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
         super.onCreate(savedInstanceState)
         setNavigation()
         setupViewPager(activity_main_viewpager)
+        sheetUser = SheetUser()
         F.nightMode()
 
         activity_main_appbar_device.setOnClickListener(this)
+        activity_main_appbar_user.setOnClickListener(this)
     }
 
     /**
@@ -70,6 +74,7 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
+        F.getFirebaseToken { logd(it ?: "null") }
     }
 
     /**
@@ -79,6 +84,7 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
         v?.let {
             when (it.id) {
                 activity_main_appbar_device.id -> openActivity(ActivityDevices::class.java)
+                activity_main_appbar_user.id -> sheetUser.open(supportFragmentManager)
             }
         }
     }
@@ -123,7 +129,7 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
      * @param pos
      */
     private fun currentNavigation(pos: Int) {
-        if(currentNav != pos){
+        if (currentNav != pos) {
             activity_main_viewpager.currentItem = pos
             val current = nav_layout.getChildAt(pos) // get current view
             val topBottom = dpToPx(10) // padding value
