@@ -20,20 +20,28 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.R
+import com.dawnimpulse.wallup.network.controller.CtrlBookmark
 import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.ui.sheets.SheetUser
 import com.dawnimpulse.wallup.utils.handlers.HandlerColor
 import com.dawnimpulse.wallup.utils.handlers.HandlerDialog
 import com.dawnimpulse.wallup.utils.handlers.HandlerDownload
 import com.dawnimpulse.wallup.utils.handlers.HandlerTransform
 import com.dawnimpulse.wallup.utils.reusables.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_image.*
+import kotlinx.coroutines.*
 import org.sourcei.android.permissions.Permissions
 
 class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickListener {
     private lateinit var image: ObjectImage
+    private val sheetUser = SheetUser()
     private var loaded = false
+    private var bookmarked = false
+    private var scope: CoroutineScope = MainScope()
 
     /**
      * on create
@@ -43,9 +51,22 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
 
         image = Gson().fromJson(intent.extras!!.getString(IMAGE, ""), ObjectImage::class.java)
         HandlerDialog.loading(this) { if (!loaded) finish() }
+        if (Prefs.contains("b-${image.iid}")) {
+            bookmarked = true
+            activity_image_like_drawable.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_like_filled))
+        }
 
         activity_image_download.setOnClickListener(this)
         activity_image_set_wallpaper.setOnClickListener(this)
+        activity_image_like.setOnClickListener(this)
+    }
+
+    /**
+     * on destroy
+     */
+    override fun onDestroy() {
+        scope.cancel()
+        super.onDestroy()
     }
 
     /**
@@ -83,6 +104,19 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
             when (v.id) {
                 activity_image_download.id -> download()
                 activity_image_set_wallpaper.id -> wallpaper()
+                activity_image_like.id -> {
+                    if (FirebaseAuth.getInstance().currentUser != null)
+                        bookmark()
+                    else {
+                        StyleToast.info("login to continue")
+                        scope.launch {
+                            delay(1000)
+                            runOnUiThread { sheetUser.open(supportFragmentManager) }
+                        }
+                    }
+                }
+                else -> {
+                }
             }
         }
     }
@@ -125,5 +159,52 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
                     } else
                         onMain { StyleToast.error("issue downloading image") }
                 }
+    }
+
+    /**
+     * bookmark icon
+     */
+    private fun bookmark() {
+        if (!bookmarked) {
+            scope.launch {
+                try {
+                    setBookmark(true)
+                    val bk = CtrlBookmark.create(image._id)
+                    Prefs.putAny("b-${image.iid}", bk._id)
+                } catch (e: Exception) {
+                    setBookmark(false)
+                    Prefs.remove("b-${image.iid}")
+                    e.printStackTrace()
+                }
+            }
+        } else {
+            scope.launch {
+                val bk = Prefs.getString("b-${image.iid}", null)!!
+                try {
+                    setBookmark(false)
+                    CtrlBookmark.delete(bk)
+                    Prefs.remove("b-${image.iid}")
+                } catch (e: Exception) {
+                    setBookmark(true)
+                    Prefs.putAny("b-${image.iid}", bk)
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+    /**
+     * set bookmark state
+     *
+     * @param state
+     */
+    private fun setBookmark(state: Boolean) {
+        bookmarked = state
+        runOnUiThread {
+            if (state)
+                activity_image_like_drawable.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_like_filled))
+            else
+                activity_image_like_drawable.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.vd_like))
+        }
     }
 }

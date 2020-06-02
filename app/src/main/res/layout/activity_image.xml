@@ -36,7 +36,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:foreground="?attr/selectableItemBackgroundBorderless">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/activity_main_like_drawable"
+            android:id="@+id/activity_image_like_drawable"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_gravity="center"

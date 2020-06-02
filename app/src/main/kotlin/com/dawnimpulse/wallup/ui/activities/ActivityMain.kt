@@ -73,8 +73,6 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
         else
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-
-        F.getFirebaseToken { logd(it ?: "null") }
     }
 
     /**

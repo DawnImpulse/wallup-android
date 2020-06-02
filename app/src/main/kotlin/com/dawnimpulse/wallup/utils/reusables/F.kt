@@ -84,7 +84,10 @@ object F {
      * get random height
      */
     fun getRandomHeight(): Int {
-        return dpToPx((400..600).random(), App.context)
+        val point = displayDimensions()
+        val min = (0.50 * point.y).toInt()
+        val max = (0.80 * point.y).toInt()
+        return (min..max).random()
     }
 
     /**

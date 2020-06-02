@@ -47,7 +47,7 @@ interface SourceBookmark {
     //---------------
     //    delete
     //---------------
-    @GET("/bookmarks/{id}")
+    @DELETE("/bookmarks/{id}")
     fun delete(
             @Path("id") id: String,
             @Header("token") token: String
