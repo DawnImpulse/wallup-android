@@ -18,6 +18,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -34,6 +35,7 @@ import com.dawnimpulse.wallup.ui.App
 import com.dawnimpulse.wallup.utils.handlers.HandlerColor
 import com.dawnimpulse.wallup.utils.handlers.HandlerTransform
 import com.google.gson.Gson
+import java.io.File
 
 /**
  * @info -
@@ -188,6 +190,13 @@ fun <T> String.fromSafeJson(classOfT: Class<T>): T? {
     } catch (e: Exception) {
         null
     }
+}
+
+/**
+ * file path string to uri
+ */
+fun String.toFileUri(): Uri {
+    return Uri.fromFile(File(this))
 }
 
 /**

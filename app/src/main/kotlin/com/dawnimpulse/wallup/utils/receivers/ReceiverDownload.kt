@@ -12,10 +12,24 @@
  * WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
  * OR PERFORMANCE OF THIS SOFTWARE.
  **/
-package com.dawnimpulse.wallup.utils.reusables
+package com.dawnimpulse.wallup.utils.receivers
 
-import android.os.Environment.getExternalStorageDirectory
+import android.app.DownloadManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import com.dawnimpulse.wallup.utils.reusables.DOWNLOADS
+import com.dawnimpulse.wallup.utils.reusables.StyleToast
 
-const val LIST_COUNT = 10
-val DOWNLOAD_PATH = "${getExternalStorageDirectory().path}/Wallup" // for version < Q
-val DOWNLOADS = mutableListOf<Long>()
+class ReceiverDownload : BroadcastReceiver() {
+
+    // on receive
+    override fun onReceive(context: Context, intent: Intent) {
+//check if the broadcast message is for our enqueued download
+        val referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+        if (DOWNLOADS.contains(referenceId)) {
+            StyleToast.success("Image downloaded successfully")
+        }
+    }
+
+}

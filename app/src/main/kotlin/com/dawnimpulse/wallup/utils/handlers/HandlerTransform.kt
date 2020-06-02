@@ -25,6 +25,10 @@ class HandlerTransform {
         this.context = context
     }
 
+    constructor(url:String){
+        this.url = url
+    }
+
     /**
      * set height of image
      */
@@ -63,6 +67,24 @@ class HandlerTransform {
     fun blur(blur: Int): HandlerTransform {
         this.blur = blur;
         return this
+    }
+
+    /**
+     * return the build url
+     */
+    fun url(): String {
+        // check for pf param
+        if (!url.contains("?"))
+            url += "?pf=ik"
+
+        // apply transform param
+        height?.let { url += "&h=$it" }
+        width?.let { url += "&w=$it" }
+        blur?.let { url += "&bl=$it" }
+        url += "&f=$format"
+        url += "&q=$quality"
+
+        return url
     }
 
     /**

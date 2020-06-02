@@ -15,7 +15,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorSecondary"
     android:orientation="vertical">
 
     <!--image-->
@@ -24,48 +24,6 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
-
-    <!--back / info-->
-    <LinearLayout
-        android:id="@+id/activity_image_back_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="44dp"
-        android:layout_margin="24dp"
-        android:background="@drawable/bg_back"
-        android:orientation="horizontal"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp">
-
-        <!--back-->
-        <FrameLayout
-            android:id="@+id/activity_image_back"
-            android:layout_width="48dp"
-            android:layout_height="match_parent">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/activity_image_back_drawable"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/vd_back"
-                app:tint="@color/white" />
-        </FrameLayout>
-
-        <!--info-->
-        <FrameLayout
-            android:id="@+id/activity_image_info"
-            android:layout_width="48dp"
-            android:layout_height="match_parent">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/activity_image_info_drawable"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/vd_info"
-                app:tint="@color/white" />
-        </FrameLayout>
-    </LinearLayout>
 
     <!--like-->
     <FrameLayout
@@ -87,9 +45,11 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="72dp"
         android:layout_alignParentBottom="true"
-        android:layout_margin="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal">
 
         <!--wallpaper-->
@@ -97,6 +57,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:id="@+id/activity_image_set_wallpaper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
             android:layout_weight="1"
             app:cardCornerRadius="16dp">
 
@@ -114,11 +75,12 @@ OR PERFORMANCE OF THIS SOFTWARE.
 
         <!--download-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/activity_main_download"
+            android:id="@+id/activity_image_download"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            app:cardBackgroundColor="@color/white"
             android:layout_marginLeft="16dp"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="16dp">
 
             <androidx.appcompat.widget.AppCompatImageView

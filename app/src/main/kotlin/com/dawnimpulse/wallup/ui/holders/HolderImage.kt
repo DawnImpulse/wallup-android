@@ -18,12 +18,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.ui.activities.ActivityImage
+import com.dawnimpulse.wallup.utils.reusables.IMAGE
 import com.dawnimpulse.wallup.utils.reusables.imageTransform
+import com.dawnimpulse.wallup.utils.reusables.openActivity
+import com.dawnimpulse.wallup.utils.reusables.toJson
 import kotlinx.android.synthetic.main.holder_image.view.*
 
 class HolderImage(view: View) : RecyclerView.ViewHolder(view) {
     private val layout = view.adapter_image_layout
     private val image = view.holder_image_image
+    private val context = view.context
 
     /**
      * bind data to view
@@ -33,5 +38,12 @@ class HolderImage(view: View) : RecyclerView.ViewHolder(view) {
         objImage.link.imageTransform(image)
                 .height(480)
                 .apply()
+
+        // on click
+        image.setOnClickListener {
+            context.openActivity(ActivityImage::class.java) {
+                putString(IMAGE, objImage.toJson())
+            }
+        }
     }
 }
