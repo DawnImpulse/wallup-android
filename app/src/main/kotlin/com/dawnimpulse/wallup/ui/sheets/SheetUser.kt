@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.auth.AuthGoogle
+import com.dawnimpulse.wallup.ui.activities.ActivityBookmarks
 import com.dawnimpulse.wallup.ui.activities.ActivityInfo
 import com.dawnimpulse.wallup.utils.reusables.*
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -38,6 +39,7 @@ class SheetUser : BottomSheetDialogFragment(), View.OnClickListener {
         sheet_user_night.setOnClickListener(this)
         sheet_user_login.setOnClickListener(this)
         sheet_user_info.setOnClickListener(this)
+        sheet_user_bookmarks.setOnClickListener(this)
         sheet_user_login.setOnLongClickListener {
             if (firebaseAuth.currentUser != null)
                 requireContext().openActivity(AuthGoogle::class.java) {
@@ -84,6 +86,12 @@ class SheetUser : BottomSheetDialogFragment(), View.OnClickListener {
                         }
                 }
                 sheet_user_info.id -> requireContext().openActivity(ActivityInfo::class.java)
+                sheet_user_bookmarks.id -> {
+                    if (firebaseAuth.currentUser != null)
+                        requireContext().openActivity(ActivityBookmarks::class.java)
+                    else
+                        StyleToast.info("login to continue")
+                }
                 else -> {
                 }
             }
@@ -107,7 +115,7 @@ class SheetUser : BottomSheetDialogFragment(), View.OnClickListener {
      */
     @SuppressLint("SetTextI18n")
     private fun removeUser() {
-        sheet_user_login.setCardBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorTextPrimary))
+        sheet_user_login.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorTextPrimary))
         sheet_user_login_text.setTextColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
         sheet_user_login_text.text = "LOGIN"
         sheet_user_name.text = "YOUR NAME"

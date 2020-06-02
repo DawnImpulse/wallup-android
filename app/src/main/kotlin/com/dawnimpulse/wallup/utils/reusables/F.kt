@@ -151,6 +151,7 @@ object F {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val idToken: String? = task.result?.token
+                        logd(idToken!!)
                         callback(idToken)
                     } else {
                         task.exception?.printStackTrace()

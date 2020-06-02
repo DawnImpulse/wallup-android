@@ -64,7 +64,7 @@ object CtrlBookmark {
      * @param start
      * @param limit
      */
-    suspend fun create(start: Int, limit: Int) = suspendCoroutine<List<ObjectBookmark>> { continuation ->
+    suspend fun latest(start: Int, limit: Int) = suspendCoroutine<List<ObjectBookmark>> { continuation ->
         F.getFirebaseToken {
             if (it != null) {
                 val call = client.latest(start, limit, it)

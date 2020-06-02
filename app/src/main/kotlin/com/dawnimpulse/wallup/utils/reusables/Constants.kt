@@ -40,6 +40,7 @@ object RELOAD {
         val L_DEVICES = "reloadMoreFragmentLatestDevice"
         val A_DEVICES = "reloadMoreFragmentAllDevice"
         val D_IMAGES = "reloadMoreFragmentDeviceImages"
+        val BOOKMARKS = "reloadMoreBookmarks"
     }
 }
 
@@ -60,6 +61,7 @@ object ERROR{
         val L_DEVICE = 1011
         val A_DEVICES = 1013
         val D_IMAGES = 1015
+        val BOOKMARKS = 1017
 
         object MORE {
             val HOME = 1008
@@ -67,6 +69,7 @@ object ERROR{
             val L_DEVICE = 1012
             val A_DEVICES = 1014
             val D_IMAGES = 1016
+            val BOOKMARKS = 1018
         }
     }
 }

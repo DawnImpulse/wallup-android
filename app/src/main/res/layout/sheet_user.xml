@@ -32,7 +32,7 @@
         android:layout_marginTop="48dp">
 
         <!--bookmark-->
-        <!--<androidx.cardview.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/sheet_user_bookmarks"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -46,16 +46,17 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/vd_like"
+                app:srcCompat="@drawable/vd_like_multiple"
                 app:tint="@color/white" />
 
-        </androidx.cardview.widget.CardView>-->
+        </androidx.cardview.widget.CardView>
 
         <!--info-->
         <androidx.cardview.widget.CardView
             android:id="@+id/sheet_user_info"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginLeft="32dp"
             android:clickable="true"
             android:foreground="?attr/selectableItemBackground"
             app:cardBackgroundColor="#40A798"
