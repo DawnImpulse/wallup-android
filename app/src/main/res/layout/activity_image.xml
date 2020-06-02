@@ -32,7 +32,8 @@ OR PERFORMANCE OF THIS SOFTWARE.
         android:layout_height="44dp"
         android:layout_alignParentRight="true"
         android:layout_margin="24dp"
-        android:background="@drawable/bg_circle_white">
+        android:background="@drawable/bg_circle_white"
+        android:foreground="?attr/selectableItemBackgroundBorderless">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/activity_main_like_drawable"
@@ -59,6 +60,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="match_parent"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackground"
             app:cardCornerRadius="16dp">
 
             <TextView
@@ -80,6 +82,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="64dp"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="8dp"
+            android:foreground="?attr/selectableItemBackground"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="16dp">
 
