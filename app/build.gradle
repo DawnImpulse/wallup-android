@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'project-report'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 29
@@ -20,10 +20,15 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "WALLUP_API_URL", "\"${WALLUP_DEBUG_API_URL}\""
-            buildConfigField "String", "UNSPLASH_ACCESS_KEY", "\"${UNSPLASH_ACCESS_KEY}\""
         }
 
         release {
+            buildConfigField "String", "WALLUP_API_URL", "\"${WALLUP_RELEASE_API_URL}\""
+
+            minifyEnabled true
+            shrinkResources true
+
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -61,11 +66,12 @@ dependencies {
 
     //--------------- Firebase Libraries --------------------
     implementation "com.google.firebase:firebase-core:17.4.2" // core
-    implementation "com.crashlytics.sdk.android:crashlytics:2.10.1" // crashlytics
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0' // crashlytics
     implementation "com.google.firebase:firebase-database:19.3.0" // realtime database
     implementation 'com.google.firebase:firebase-database-ktx:19.3.0' // realtime ktx
     implementation "com.google.firebase:firebase-auth:19.3.1" // auth
     implementation 'com.google.firebase:firebase-messaging:20.2.0' // fcm
+    implementation 'com.google.firebase:firebase-inappmessaging-display-ktx:19.0.7' // in-app messaging
 
     //--------------- 3rd Party Libraries -------------------
     implementation "com.github.bumptech.glide:glide:4.11.0" // image loading
@@ -89,5 +95,3 @@ dependencies {
 repositories {
     mavenCentral()
 }
-
-apply plugin: 'com.google.gms.google-services'

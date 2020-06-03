@@ -20,6 +20,8 @@ import com.dawnimpulse.wallup.BuildConfig
 import com.dawnimpulse.wallup.utils.reusables.Prefs
 import com.dawnimpulse.wallup.utils.reusables.logd
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.database.ktx.database
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
@@ -42,6 +44,7 @@ class App() : Application() {
         super.onCreate()
 
         notification()
+        analytics()
         Prefs = PreferenceManager.getDefaultSharedPreferences(this)
         Hawk.init(context).build();
         Firebase.database.setPersistenceEnabled(true)
@@ -65,5 +68,15 @@ class App() : Application() {
                         // Log and toast
                         logd("fcm token : " + token!!)
                     })
+    }
+
+    /**
+     * enabling analytics in release builds
+     */
+    private fun analytics() {
+        if (!BuildConfig.DEBUG) {
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
+            FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(true)
+        }
     }
 }

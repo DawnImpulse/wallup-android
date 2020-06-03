@@ -39,6 +39,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="24dp"
                     android:scaleType="centerCrop"
+                    android:tint="@color/colorTextPrimary"
                     android:src="@drawable/vd_devices"
                     android:visibility="gone" />
 
@@ -81,6 +82,7 @@
     <!--Navigation-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
+        android:clickable="true"
         android:layout_height="64dp"
         android:layout_gravity="bottom"
         app:layout_behavior=".utils.reusables.BottomNavBehaviour">

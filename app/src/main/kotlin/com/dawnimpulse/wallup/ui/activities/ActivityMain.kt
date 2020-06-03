@@ -16,6 +16,7 @@ package com.dawnimpulse.wallup.ui.activities
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ import androidx.core.animation.doOnEnd
 import androidx.core.animation.doOnStart
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
+import androidx.core.widget.ImageViewCompat
 import androidx.viewpager.widget.ViewPager
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.ui.fragments.FragmentHome
@@ -128,6 +130,8 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
      */
     private fun currentNavigation(pos: Int) {
         if (currentNav != pos) {
+            val prevPost = currentNav
+            currentNav = pos
             activity_main_viewpager.currentItem = pos
             val current = nav_layout.getChildAt(pos) // get current view
             val topBottom = dpToPx(10) // padding value
@@ -154,14 +158,15 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
                 doOnStart {
                     // on start show the text
                     current.nav_item_text.show()
+                    ImageViewCompat.setImageTintList(current.nav_item_icon, ColorStateList.valueOf(Colors.BLACK))
                     current.nav_item_container.background = ContextCompat.getDrawable(this@ActivityMain,
                             R.drawable.bg_nav_selected)
                 }
             }
 
             // work on the last item (if present)
-            if (currentNav != -1) {
-                val item = nav_layout.getChildAt(currentNav) // get prev item
+            if (prevPost != -1) {
+                val item = nav_layout.getChildAt(prevPost) // get prev item
                 val prevName = item.nav_item_text.text // get prev item name
                 prevItem = AnimatorSet().apply {
                     // shrink animation
@@ -180,6 +185,8 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
                     })
 
                     doOnEnd {
+                        ImageViewCompat.setImageTintList(item.nav_item_icon,
+                                ColorStateList.valueOf(ContextCompat.getColor(this@ActivityMain, R.color.colorTextPrimary)))
                         item.nav_item_text.gone() // remove text
                         item.nav_item_container.background = null // remove bg
                         item.nav_item_text.text = prevName // restore name
@@ -191,9 +198,6 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
                 play(newItem).with(prevItem) // join animations
                 duration = 100 // set duration
                 start() // start animation set
-                doOnEnd {
-                    currentNav = pos
-                }
             }
         }
     }
