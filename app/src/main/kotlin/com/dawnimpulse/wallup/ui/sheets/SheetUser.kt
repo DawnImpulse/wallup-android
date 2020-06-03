@@ -79,7 +79,7 @@ class SheetUser : BottomSheetDialogFragment(), View.OnClickListener {
                 }
                 sheet_user_login.id -> {
                     if (firebaseAuth.currentUser != null)
-                        toast("Long press to logout")
+                        StyleToast.info("Long press to logout")
                     else
                         requireContext().openActivity(AuthGoogle::class.java) {
                             putBoolean(AUTH, true)

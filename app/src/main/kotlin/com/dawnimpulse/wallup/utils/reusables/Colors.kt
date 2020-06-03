@@ -26,5 +26,6 @@ object Colors {
     val TEXT_PRIMARY = ContextCompat.getColor(App.context, R.color.colorTextPrimary)
     val RED = ContextCompat.getColor(App.context, R.color.red)
     val GREY = ContextCompat.getColor(App.context, R.color.grey_light)
+    val GREY_TOAST = ContextCompat.getColor(App.context, R.color.grey_toast)
     val GREEN = ContextCompat.getColor(App.context, R.color.green)
 }

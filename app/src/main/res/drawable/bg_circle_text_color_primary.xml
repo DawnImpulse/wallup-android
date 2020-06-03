@@ -11,21 +11,9 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
 WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
 OR PERFORMANCE OF THIS SOFTWARE.
 -->
-<resources>
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorSecondary">#E7E3DF</color>
-    <color name="colorAccent">#009688</color>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
 
-    <color name="colorTextPrimary">#343434</color>
-    <color name="colorTextSecondary">#828595</color>
-    <color name="navigation">#343434</color>
+    <solid android:color="@color/colorTextPrimary" />
 
-    <color name="white">#ffffff</color>
-    <color name="black">#000000</color>
-    <color name="red">#E55F63</color>
-    <color name="grey_light">#C4C4C4</color>
-    <color name="grey_toast">#263238</color>
-    <color name="green">#649D66</color>
-
-    <color name="light_highlight">#FCE850</color>
-</resources>
+</shape>

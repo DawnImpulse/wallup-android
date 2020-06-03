@@ -36,6 +36,7 @@ import com.dawnimpulse.wallup.ui.fragments.FragmentLatestDevice
 import com.dawnimpulse.wallup.ui.fragments.FragmentRandom
 import com.dawnimpulse.wallup.ui.sheets.SheetUser
 import com.dawnimpulse.wallup.utils.reusables.*
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_item.view.*
 import kotlinx.android.synthetic.main.navigation.*
@@ -47,6 +48,7 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
     private lateinit var sheetUser: SheetUser
     private lateinit var pagerAdapter: ViewPagerAdapter
     private var currentNav = -1
+    private var firebaseAuth = FirebaseAuth.getInstance()
 
     /**
      * on create (default)
@@ -62,6 +64,7 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
 
         activity_main_appbar_device.setOnClickListener(this)
         activity_main_appbar_user.setOnClickListener(this)
+        activity_main_appbar_initials_layout.setOnClickListener(this)
     }
 
     /**
@@ -75,6 +78,16 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
         else
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+        // current user check for initials
+        if (firebaseAuth.currentUser != null && firebaseAuth.currentUser?.displayName != null) {
+            activity_main_appbar_initials_layout.show()
+            activity_main_appbar_user.gone()
+            activity_main_appbar_initials.text = firebaseAuth.currentUser!!.displayName!!.substring(0, 2).toUpperCase()
+        } else {
+            activity_main_appbar_initials_layout.gone()
+            activity_main_appbar_user.show()
+        }
     }
 
     /**
@@ -84,7 +97,7 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
         v?.let {
             when (it.id) {
                 activity_main_appbar_device.id -> openActivity(ActivityDevices::class.java)
-                activity_main_appbar_user.id -> sheetUser.open(supportFragmentManager)
+                activity_main_appbar_user.id, activity_main_appbar_initials_layout.id -> sheetUser.open(supportFragmentManager)
             }
         }
     }

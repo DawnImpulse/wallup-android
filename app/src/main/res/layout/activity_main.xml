@@ -34,13 +34,13 @@
                 <!--device-->
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/activity_main_appbar_device"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="24dp"
                     android:scaleType="centerCrop"
-                    android:tint="@color/colorTextPrimary"
                     android:src="@drawable/vd_devices"
+                    android:tint="@color/colorTextPrimary"
                     android:visibility="gone" />
 
                 <!--name-->
@@ -67,6 +67,31 @@
                     android:tint="@color/colorTextPrimary"
                     app:srcCompat="@drawable/vd_account" />
 
+                <!--user initial-->
+                <FrameLayout
+                    android:visibility="gone"
+                    android:id="@+id/activity_main_appbar_initials_layout"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="28dp"
+                    android:background="@drawable/bg_circle_text_color_primary"
+                    android:tint="@color/colorTextPrimary"
+                    app:srcCompat="@drawable/vd_account">
+
+                    <TextView
+                        android:id="@+id/activity_main_appbar_initials"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:letterSpacing="0.1"
+                        android:text="SK"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
             </RelativeLayout>
 
         </com.google.android.material.appbar.MaterialToolbar>
@@ -82,9 +107,9 @@
     <!--Navigation-->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:clickable="true"
         android:layout_height="64dp"
         android:layout_gravity="bottom"
+        android:clickable="true"
         app:layout_behavior=".utils.reusables.BottomNavBehaviour">
 
         <include layout="@layout/navigation" />

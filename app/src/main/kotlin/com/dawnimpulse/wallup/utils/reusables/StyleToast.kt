@@ -15,7 +15,7 @@ object StyleToast {
         return StyleableToast
                 .Builder(App.context)
                 .textColor(Colors.WHITE)
-                .backgroundColor(Colors.GREY)
+                .backgroundColor(Colors.GREY_TOAST)
                 .solidBackground()
                 .iconStart(R.drawable.vd_info_white)
                 .text(text.toString())
