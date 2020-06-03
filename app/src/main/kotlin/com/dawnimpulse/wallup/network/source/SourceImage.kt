@@ -17,9 +17,11 @@ package com.dawnimpulse.wallup.network.source
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.utils.reusables.AVAILABLE
 import com.dawnimpulse.wallup.utils.reusables.LIMIT
+import com.dawnimpulse.wallup.utils.reusables.RestMap
 import com.dawnimpulse.wallup.utils.reusables.START
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface SourceImage {
@@ -29,7 +31,8 @@ interface SourceImage {
     //---------------
     @GET("/images/random")
     fun random(
-            @Query(LIMIT) limit: Number
+            @Query(LIMIT) limit: Number,
+            @Header("restmap") restmap:String = RestMap.images
     ): Call<List<ObjectImage>>
 
     //---------------
@@ -40,7 +43,8 @@ interface SourceImage {
             @Query(START) start: Number,
             @Query(LIMIT) limit: Number,
             @Query("_sort") sort: String = "createdAt:DESC",
-            @Query(AVAILABLE) available: Boolean = true
+            @Query(AVAILABLE) available: Boolean = true,
+            @Header("restmap") restmap:String = RestMap.images
     ): Call<List<ObjectImage>>
 
     //---------------
@@ -52,6 +56,7 @@ interface SourceImage {
             @Query(LIMIT) limit: Number,
             @Query("device") device: String,
             @Query("_sort") sort: String = "createdAt:DESC",
-            @Query(AVAILABLE) available: Boolean = true
+            @Query(AVAILABLE) available: Boolean = true,
+            @Header("restmap") restmap:String = RestMap.images
     ): Call<List<ObjectImage>>
 }

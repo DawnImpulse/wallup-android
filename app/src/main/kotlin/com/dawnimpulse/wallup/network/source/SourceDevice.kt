@@ -17,9 +17,11 @@ package com.dawnimpulse.wallup.network.source
 import com.dawnimpulse.wallup.objects.ObjectDevice
 import com.dawnimpulse.wallup.utils.reusables.AVAILABLE
 import com.dawnimpulse.wallup.utils.reusables.LIMIT
+import com.dawnimpulse.wallup.utils.reusables.RestMap
 import com.dawnimpulse.wallup.utils.reusables.START
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface SourceDevice {
@@ -32,7 +34,9 @@ interface SourceDevice {
             @Query(START) start: Number,
             @Query(LIMIT) limit: Number,
             @Query("_sort") sort: String = "createdAt:DESC",
-            @Query(AVAILABLE) available: Boolean = true
+            @Query(AVAILABLE) available: Boolean = true,
+            @Query("brand.available") bAvailable: Boolean = true,
+            @Header("restmap") restmap:String = RestMap.device
     ): Call<List<ObjectDevice>>
 
     // -------------
@@ -43,6 +47,7 @@ interface SourceDevice {
             @Query(START) start: Number,
             @Query(LIMIT) limit: Number,
             @Query("_sort") sort: String = "brand.name:DESC,createdAt:DESC",
-            @Query(AVAILABLE) available: Boolean = true
+            @Query(AVAILABLE) available: Boolean = true,
+            @Header("restmap") restmap:String = RestMap.brandDevices
     ): Call<List<ObjectDevice>>
 }

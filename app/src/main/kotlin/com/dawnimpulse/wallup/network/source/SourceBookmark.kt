@@ -17,6 +17,7 @@ package com.dawnimpulse.wallup.network.source
 import com.dawnimpulse.wallup.objects.ObjectBookmark
 import com.dawnimpulse.wallup.objects.ObjectSuccess
 import com.dawnimpulse.wallup.utils.reusables.LIMIT
+import com.dawnimpulse.wallup.utils.reusables.RestMap
 import com.dawnimpulse.wallup.utils.reusables.START
 import retrofit2.Call
 import retrofit2.http.*
@@ -42,7 +43,8 @@ interface SourceBookmark {
             @Query(LIMIT) limit: Number,
             @Header("token") token: String,
             @Query("image.available") available: Boolean = true,
-            @Query("_sort") sort: String = "createdAt:DESC"
+            @Query("_sort") sort: String = "createdAt:DESC",
+            @Header("restmap") restmap:String = RestMap.bookmarks
     ): Call<List<ObjectBookmark>>
 
     //---------------
