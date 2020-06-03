@@ -63,6 +63,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="24dp"
                     android:padding="8dp"
+                    android:tint="@color/colorTextPrimary"
                     app:srcCompat="@drawable/vd_account" />
 
             </RelativeLayout>

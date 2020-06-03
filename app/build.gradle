@@ -65,6 +65,7 @@ dependencies {
     implementation "com.google.firebase:firebase-database:19.3.0" // realtime database
     implementation 'com.google.firebase:firebase-database-ktx:19.3.0' // realtime ktx
     implementation "com.google.firebase:firebase-auth:19.3.1" // auth
+    implementation 'com.google.firebase:firebase-messaging:20.2.0' // fcm
 
     //--------------- 3rd Party Libraries -------------------
     implementation "com.github.bumptech.glide:glide:4.11.0" // image loading

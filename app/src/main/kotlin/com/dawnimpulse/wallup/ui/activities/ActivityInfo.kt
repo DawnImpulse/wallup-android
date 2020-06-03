@@ -35,11 +35,12 @@ class ActivityInfo : AppCompatActivity(R.layout.activity_info), View.OnClickList
         activity_info_google.setOnClickListener(this)
         activity_info_email.setOnClickListener(this)
         activity_info_twitter.setOnClickListener(this)
-        activity_info_icon_credits.setOnClickListener(this)
+        //activity_info_icon_credits.setOnClickListener(this)
         activity_info_library_credits.setOnClickListener(this)
         activity_info_privacy.setOnClickListener(this)
         activity_info_tnc.setOnClickListener(this)
         activity_info_clear.setOnClickListener(this)
+        activity_info_back.setOnClickListener(this)
         activity_info_clear.setOnLongClickListener {
             StyleToast.success("CLEARED CACHE")
             F.deleteCache(scope, this)
@@ -76,13 +77,14 @@ class ActivityInfo : AppCompatActivity(R.layout.activity_info), View.OnClickList
     override fun onClick(v: View?) {
         v?.let {
             when (it.id) {
+                activity_info_back.id -> finish()
                 activity_info_github.id -> startWeb(GITHUB)
                 activity_info_insta.id -> startWeb(INSTAGRAM)
                 activity_info_dribbble.id -> startWeb(DRIBBBLE)
                 activity_info_google.id -> startWeb(GOOGLE)
                 activity_info_email.id -> F.sendMail(this)
                 activity_info_twitter.id -> startWeb(TWITTER)
-                activity_info_icon_credits.id -> startWeb(ICON_CREDITS)
+                //activity_info_icon_credits.id -> startWeb(ICON_CREDITS)
                 activity_info_library_credits.id -> startWeb(LIBRARY_CREDITS)
                 activity_info_privacy.id -> startWeb(PRIVACY)
                 activity_info_tnc.id -> startWeb(TNC)

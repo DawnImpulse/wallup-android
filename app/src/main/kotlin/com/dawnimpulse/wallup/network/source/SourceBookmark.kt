@@ -41,6 +41,7 @@ interface SourceBookmark {
             @Query(START) start: Number,
             @Query(LIMIT) limit: Number,
             @Header("token") token: String,
+            @Query("image.available") available: Boolean = true,
             @Query("_sort") sort: String = "createdAt:DESC"
     ): Call<List<ObjectBookmark>>
 

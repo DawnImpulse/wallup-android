@@ -39,9 +39,10 @@
             android:backgroundTint="@color/colorSecondary">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="108dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_width="76dp"
+                android:layout_height="76dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/logo" />
 
         </FrameLayout>
 
@@ -51,11 +52,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="WallUp"
             android:fontFamily="@font/nunitosans_extra_bold"
+            android:letterSpacing="0.1"
+            android:text="WallUp"
             android:textColor="@color/colorTextPrimary"
             android:textSize="24dp"
-            android:letterSpacing="0.1"
             android:textStyle="bold" />
 
         <!--version-->
@@ -154,9 +155,9 @@
                         app:srcCompat="@drawable/vd_email" />
 
                     <TextView
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginTop="8dp"
                         android:text="EMAIL US"
                         android:textColor="@color/colorTextPrimary"
@@ -188,15 +189,15 @@
                         android:layout_width="64dp"
                         android:layout_height="64dp"
                         android:layout_gravity="center"
-                        app:tint="#1DA1F2"
-                        app:srcCompat="@drawable/vd_twitter" />
+                        app:srcCompat="@drawable/vd_twitter"
+                        app:tint="#1DA1F2" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginTop="8dp"
                         android:text="TWEET"
-                        android:layout_gravity="center"
                         android:textColor="@color/colorTextPrimary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -211,7 +212,7 @@
             android:background="@color/colorTextSecondary" />
 
         <!--icon credits-->
-        <androidx.cardview.widget.CardView
+        <!--<androidx.cardview.widget.CardView
             android:id="@+id/activity_info_icon_credits"
             android:layout_width="match_parent"
             android:layout_height="64dp"
@@ -244,7 +245,7 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </androidx.cardview.widget.CardView>-->
 
         <!--libraries-->
         <androidx.cardview.widget.CardView
@@ -252,7 +253,6 @@
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginLeft="24dp"
-            android:layout_marginTop="24dp"
             android:layout_marginRight="24dp"
             android:foreground="?attr/selectableItemBackground"
             app:cardBackgroundColor="@color/colorSecondary"

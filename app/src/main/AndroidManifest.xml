@@ -13,7 +13,8 @@
     <application
         android:name=".ui.App"
         android:allowBackup="false"
-        android:label="Wallup"
+        android:label="WallUp"
+        android:icon="@drawable/logo"
         android:largeHeap="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
@@ -44,6 +45,16 @@
         <meta-data
             android:name="google_analytics_adid_collection_enabled"
             android:value="false" />
+
+        <!--notification icon-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/vd_notification_icon" />
+
+        <!--notification icon color-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
 
         <!--main-->
         <activity
