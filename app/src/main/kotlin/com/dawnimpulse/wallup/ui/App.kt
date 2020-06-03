@@ -17,8 +17,10 @@ package com.dawnimpulse.wallup.ui
 import android.app.Application
 import androidx.preference.PreferenceManager
 import com.dawnimpulse.wallup.BuildConfig
+import com.dawnimpulse.wallup.utils.reusables.NIGHT_MODE
 import com.dawnimpulse.wallup.utils.reusables.Prefs
 import com.dawnimpulse.wallup.utils.reusables.logd
+import com.dawnimpulse.wallup.utils.reusables.putAny
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -46,8 +48,12 @@ class App() : Application() {
         notification()
         analytics()
         Prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        Hawk.init(context).build();
+        Hawk.init(context).build()
         Firebase.database.setPersistenceEnabled(true)
+
+        // check night mode
+        if (!Prefs.contains(NIGHT_MODE))
+            Prefs.putAny(NIGHT_MODE, true)
     }
 
     /**

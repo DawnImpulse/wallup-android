@@ -35,6 +35,7 @@ const val DOWNLOAD = "download"
 const val WALLPAPER = "wallpaper"
 const val LIKE = "like"
 const val VIEW = "view"
+const val TOTAL = "total"
 
 const val TYPE_ERROR_LOADING = "ERROR LOADING"
 
