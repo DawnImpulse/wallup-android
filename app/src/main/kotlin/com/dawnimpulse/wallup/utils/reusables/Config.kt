@@ -16,6 +16,6 @@ package com.dawnimpulse.wallup.utils.reusables
 
 import android.os.Environment.getExternalStorageDirectory
 
-const val LIST_COUNT = 10
+const val LIST_COUNT = 20
 val DOWNLOAD_PATH = "${getExternalStorageDirectory().path}/Wallup" // for version < Q
 val DOWNLOADS = mutableListOf<Long>()

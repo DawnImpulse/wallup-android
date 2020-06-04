@@ -37,10 +37,6 @@ class ModelDeviceImages() : ViewModel() {
     private var loaded = false
     private lateinit var device: String
 
-    init {
-        fetchImages()
-    }
-
     /**
      * get list of images
      *
@@ -49,6 +45,7 @@ class ModelDeviceImages() : ViewModel() {
      */
     fun getList(device: String): LiveData<List<Any>> {
         this.device = device
+        fetchImages()
         return liveList
     }
 

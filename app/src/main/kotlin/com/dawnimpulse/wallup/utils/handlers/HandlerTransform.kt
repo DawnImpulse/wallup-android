@@ -3,7 +3,7 @@ package com.dawnimpulse.wallup.utils.handlers
 import android.content.Context
 import android.graphics.Bitmap
 import android.widget.ImageView
-import com.dawnimpulse.wallup.utils.reusables.WEBP
+import com.dawnimpulse.wallup.utils.reusables.JPG
 
 class HandlerTransform {
     private lateinit var url: String
@@ -11,8 +11,8 @@ class HandlerTransform {
     private lateinit var context: Context
     private var height: Int? = null
     private var width: Int? = null
-    private var format = WEBP
-    private var quality: Int = 80
+    private var format = JPG
+    private var quality: Int = 85
     private var blur: Int? = null
 
     constructor(url: String, view: ImageView) {

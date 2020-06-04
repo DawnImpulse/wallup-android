@@ -16,17 +16,17 @@ package com.dawnimpulse.wallup.ui.holders
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.objects.ObjectImage
 import com.dawnimpulse.wallup.ui.activities.ActivityImage
-import com.dawnimpulse.wallup.utils.reusables.IMAGE
-import com.dawnimpulse.wallup.utils.reusables.imageTransform
-import com.dawnimpulse.wallup.utils.reusables.openActivity
-import com.dawnimpulse.wallup.utils.reusables.toJson
+import com.dawnimpulse.wallup.ui.sheets.SheetId
+import com.dawnimpulse.wallup.utils.reusables.*
 import kotlinx.android.synthetic.main.holder_image.view.*
 
 class HolderImage(view: View) : RecyclerView.ViewHolder(view) {
-    private val layout = view.adapter_image_layout
+    private val layout = view.holder_image_layout
+    private val card = view.holder_image_card
     private val image = view.holder_image_image
     private val context = view.context
 
@@ -36,14 +36,20 @@ class HolderImage(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(objImage: ObjectImage) {
         layout.layoutParams = ViewGroup.LayoutParams(layout.layoutParams.width, objImage.height)
         objImage.link.imageTransform(image)
-                .height(480)
+                .height(720)
                 .apply()
 
         // on click
-        image.setOnClickListener {
+        card.setOnClickListener {
             context.openActivity(ActivityImage::class.java) {
                 putString(IMAGE, objImage.toJson())
             }
+        }
+
+        // on long click
+        card.setOnLongClickListener {
+            SheetId(objImage.iid).open((context as AppCompatActivity).supportFragmentManager)
+            true
         }
     }
 }

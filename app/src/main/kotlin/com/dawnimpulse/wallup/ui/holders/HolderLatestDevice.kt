@@ -17,14 +17,15 @@ package com.dawnimpulse.wallup.ui.holders
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.dawnimpulse.wallup.objects.ObjectDevice
-import com.dawnimpulse.wallup.utils.reusables.F
-import com.dawnimpulse.wallup.utils.reusables.imageTransform
+import com.dawnimpulse.wallup.ui.activities.ActivityDeviceImages
+import com.dawnimpulse.wallup.utils.reusables.*
 import kotlinx.android.synthetic.main.holder_latest_device.view.*
 
 class HolderLatestDevice(view: View) : RecyclerView.ViewHolder(view) {
     private val name = view.holder_latest_device_name
     private val image = view.holder_latest_device_image
     private val layout = view.holder_latest_device_layout
+    private val context = view.context
 
     /**
      * bind data to view
@@ -39,5 +40,11 @@ class HolderLatestDevice(view: View) : RecyclerView.ViewHolder(view) {
         device.cover.imageTransform(image)
                 .height(720)
                 .apply()
+
+        layout.setOnClickListener {
+            context.openActivity(ActivityDeviceImages::class.java) {
+                putString(DEVICE, device.toJson())
+            }
+        }
     }
 }

@@ -37,7 +37,7 @@ class HolderDevice(view: View) : RecyclerView.ViewHolder(view) {
     fun bind(device: ObjectDevice) {
         name.text = device.name
         device.cover.imageTransform(image)
-                .height(240)
+                .height(360)
                 .apply()
 
         image.setOnClickListener {

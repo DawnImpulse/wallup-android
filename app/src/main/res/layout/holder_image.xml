@@ -13,15 +13,17 @@ OR PERFORMANCE OF THIS SOFTWARE.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/adapter_image_layout"
+    android:id="@+id/holder_image_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/holder_image_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
+        android:foreground="?attr/selectableItemBackground"
         app:cardCornerRadius="16dp">
 
         <ImageView

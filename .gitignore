@@ -11,3 +11,4 @@ bash.exe.stackdump
 /app/src/main/res/xml/file_provider_path.xml
 /app/src/main/res/xml/network_security_config.xml
 /app/release/*
+java_pid*

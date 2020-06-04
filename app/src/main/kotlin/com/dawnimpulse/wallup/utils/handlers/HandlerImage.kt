@@ -20,13 +20,15 @@ import android.widget.ImageView
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.dawnimpulse.wallup.R
 
-object HandlerImage{
+object HandlerImage {
 
     /**
      * fetch and set image directly
@@ -39,6 +41,9 @@ object HandlerImage{
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transition(GenericTransitionOptions.with(R.anim.fade_in))
+                .apply(RequestOptions()
+                        .format(DecodeFormat.PREFER_ARGB_8888)
+                        .override(Target.SIZE_ORIGINAL))
                 .into(view)
     }
 

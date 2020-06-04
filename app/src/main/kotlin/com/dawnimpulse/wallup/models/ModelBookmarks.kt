@@ -98,8 +98,7 @@ class ModelBookmarks() : ViewModel() {
                 val images = contents.map { it.image }
                 images.forEach { it.height = F.getRandomHeight() }
                 imageList.addAll(images)
-                if (imageList.size == LIST_COUNT)
-                    imageList.add(ObjectLoading()) // loading obj
+                if (imageList.size == LIST_COUNT) imageList.add(ObjectLoading()) else loaded = true
                 if (imageList.isEmpty()) // list empty
                     RxBusType.accept(RxType(EVENT.NOT.BOOKMARKS, true))
                 liveList.postValue(imageList) // post list

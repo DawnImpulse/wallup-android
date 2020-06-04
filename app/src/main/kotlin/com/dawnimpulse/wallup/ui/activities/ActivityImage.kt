@@ -25,6 +25,7 @@ import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.network.controller.CtrlBookmark
 import com.dawnimpulse.wallup.network.controller.CtrlRealtime
 import com.dawnimpulse.wallup.objects.ObjectImage
+import com.dawnimpulse.wallup.ui.sheets.SheetId
 import com.dawnimpulse.wallup.ui.sheets.SheetUser
 import com.dawnimpulse.wallup.utils.handlers.HandlerColor
 import com.dawnimpulse.wallup.utils.handlers.HandlerDialog
@@ -64,6 +65,10 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
         activity_image_download.setOnClickListener(this)
         activity_image_set_wallpaper.setOnClickListener(this)
         activity_image_like.setOnClickListener(this)
+        activity_image_image.setOnLongClickListener {
+            SheetId(id).open(supportFragmentManager)
+            true
+        }
     }
 
     /**

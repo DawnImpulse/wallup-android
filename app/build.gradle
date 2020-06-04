@@ -25,10 +25,10 @@ android {
         release {
             buildConfigField "String", "WALLUP_API_URL", "\"${WALLUP_RELEASE_API_URL}\""
 
-            minifyEnabled true
+            /*minifyEnabled true
             shrinkResources true
 
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'*/
         }
     }
 

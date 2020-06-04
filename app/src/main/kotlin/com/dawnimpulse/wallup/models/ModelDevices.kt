@@ -24,7 +24,10 @@ import com.dawnimpulse.wallup.objects.ObjectDevice
 import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.objects.ObjectLoading
 import com.dawnimpulse.wallup.objects.ObjectReload
-import com.dawnimpulse.wallup.utils.reusables.*
+import com.dawnimpulse.wallup.utils.reusables.ERROR
+import com.dawnimpulse.wallup.utils.reusables.F
+import com.dawnimpulse.wallup.utils.reusables.LIST_COUNT
+import com.dawnimpulse.wallup.utils.reusables.RELOAD
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -100,8 +103,7 @@ class ModelDevices() : ViewModel() {
                     }
                 }
                 deviceList.addAll(devices)
-                deviceList.add(ObjectLoading()) // loading obj
-                logd(deviceList.size)
+                if (contents.size == LIST_COUNT) deviceList.add(ObjectLoading()) else loaded = true
                 liveList.postValue(deviceList) // post list
             } catch (e: Exception) {
                 errorHandler.postValue(F.handleException(e, ERROR.LIST.A_DEVICES, false))

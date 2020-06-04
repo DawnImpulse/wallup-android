@@ -14,9 +14,8 @@
  **/
 package com.dawnimpulse.wallup.utils.reusables
 
-import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
+import android.content.*
+import android.content.Context.CLIPBOARD_SERVICE
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -38,6 +37,7 @@ import com.dawnimpulse.wallup.utils.handlers.HandlerTransform
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.gson.Gson
 import java.io.File
+
 
 /**
  * @info -
@@ -160,7 +160,7 @@ fun Context.startWeb(url: String) {
 /**
  * open bottom sheet
  */
-fun BottomSheetDialogFragment.open(supportFragmentManager: FragmentManager){
+fun BottomSheetDialogFragment.open(supportFragmentManager: FragmentManager) {
     this.show(supportFragmentManager, this.tag)
 }
 
@@ -206,6 +206,15 @@ fun <T> String.fromSafeJson(classOfT: Class<T>): T? {
  */
 fun String.toFileUri(): Uri {
     return Uri.fromFile(File(this))
+}
+
+/**
+ * copy string
+ */
+fun Context.copy(text: String) {
+    val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
+    val clip = ClipData.newPlainText(BuildConfig.APPLICATION_ID, text)
+    clipboard?.setPrimaryClip(clip)
 }
 
 /**
