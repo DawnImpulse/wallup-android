@@ -29,7 +29,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.ktx.Firebase
 import com.orhanobut.hawk.Hawk
 
-class App() : Application() {
+class App : Application() {
 
     companion object {
         lateinit var context: Application

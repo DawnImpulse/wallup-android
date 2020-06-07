@@ -50,7 +50,7 @@ class ActivityDeviceImages : AppCompatActivity(R.layout.activity_device_images) 
         // device appbar image & name
         activity_device_images_name.text = device.name
         device.cover.imageTransform(activity_device_images_bg)
-                .height(360)
+                .height(480)
                 .apply()
 
         // handling reload click
@@ -69,11 +69,13 @@ class ActivityDeviceImages : AppCompatActivity(R.layout.activity_device_images) 
     override fun onResume() {
         super.onResume()
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-            window.decorView.systemUiVisibility = 0
-        else
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        when {
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES -> window.decorView.systemUiVisibility = 0
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.M -> {
+                window.statusBarColor = Colors.BLACK
+            }
+        }
 
     }
 

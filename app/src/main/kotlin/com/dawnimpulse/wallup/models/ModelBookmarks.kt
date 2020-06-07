@@ -25,6 +25,7 @@ import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.objects.ObjectLoading
 import com.dawnimpulse.wallup.objects.ObjectReload
 import com.dawnimpulse.wallup.utils.reusables.*
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -105,6 +106,7 @@ class ModelBookmarks() : ViewModel() {
             } catch (e: Exception) {
                 errorHandler.postValue(F.handleException(e, ERROR.LIST.BOOKMARKS, false))
                 e.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(e)
             }
         }
     }
@@ -136,6 +138,7 @@ class ModelBookmarks() : ViewModel() {
                 imageList.removeAt(imageList.size - 1)
                 imageList.add(ObjectReload(RELOAD.MORE.BOOKMARKS, issue))
                 e.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(e)
             }
             // post list
             liveList.postValue(imageList)

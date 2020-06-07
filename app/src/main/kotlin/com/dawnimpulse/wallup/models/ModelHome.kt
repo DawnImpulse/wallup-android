@@ -27,6 +27,7 @@ import com.dawnimpulse.wallup.utils.reusables.ERROR
 import com.dawnimpulse.wallup.utils.reusables.F
 import com.dawnimpulse.wallup.utils.reusables.LIST_COUNT
 import com.dawnimpulse.wallup.utils.reusables.RELOAD
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -87,6 +88,7 @@ class ModelHome() : ViewModel() {
             } catch (e: Exception) {
                 errorHandler.postValue(F.handleException(e, ERROR.LIST.HOME, false))
                 e.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(e)
             }
         }
     }
@@ -117,6 +119,7 @@ class ModelHome() : ViewModel() {
                 homeList.removeAt(homeList.size - 1)
                 homeList.add(ObjectReload(RELOAD.MORE.HOME, issue))
                 e.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(e)
             }
             // post list
             liveList.postValue(homeList)

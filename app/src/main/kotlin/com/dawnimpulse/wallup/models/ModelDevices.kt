@@ -28,6 +28,7 @@ import com.dawnimpulse.wallup.utils.reusables.ERROR
 import com.dawnimpulse.wallup.utils.reusables.F
 import com.dawnimpulse.wallup.utils.reusables.LIST_COUNT
 import com.dawnimpulse.wallup.utils.reusables.RELOAD
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -108,6 +109,7 @@ class ModelDevices() : ViewModel() {
             } catch (e: Exception) {
                 errorHandler.postValue(F.handleException(e, ERROR.LIST.A_DEVICES, false))
                 e.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(e)
             }
         }
     }
@@ -167,6 +169,7 @@ class ModelDevices() : ViewModel() {
                     deviceList.removeAt(deviceList.size - 1)
                     deviceList.add(ObjectReload(RELOAD.MORE.A_DEVICES, issue))
                     e.printStackTrace()
+                    FirebaseCrashlytics.getInstance().recordException(e)
                 }
                 // post list
                 liveList.postValue(deviceList)

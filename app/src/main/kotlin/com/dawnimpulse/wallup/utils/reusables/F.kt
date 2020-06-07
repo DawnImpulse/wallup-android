@@ -26,6 +26,7 @@ import com.dawnimpulse.wallup.objects.ObjectError
 import com.dawnimpulse.wallup.objects.ObjectIssue
 import com.dawnimpulse.wallup.ui.App
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import org.apache.commons.io.FileUtils
@@ -124,11 +125,19 @@ object F {
     /**
      * application cache
      */
-    fun appCache(scope: CoroutineScope, context: Context, callback: (String) -> Unit) {
+    fun appCache(scope: CoroutineScope, context: Context, callback: (String?) -> Unit) {
         scope.launch {
-            val size = FileUtils.sizeOfDirectory(context.cacheDir)
-            (context as AppCompatActivity).runOnUiThread {
-                callback(FileUtils.byteCountToDisplaySize(size))
+            try {
+                val size = FileUtils.sizeOfDirectory(context.cacheDir)
+                (context as AppCompatActivity).runOnUiThread {
+                    callback(FileUtils.byteCountToDisplaySize(size.toInt()))
+                }
+            }catch (e:Exception){
+                e.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(e)
+                (context as AppCompatActivity).runOnUiThread {
+                    callback(null)
+                }
             }
         }
     }
@@ -138,7 +147,12 @@ object F {
      */
     fun deleteCache(scope: CoroutineScope, context: Context) {
         scope.launch {
-            FileUtils.deleteQuietly(context.cacheDir)
+            try {
+                context.cacheDir.deleteRecursively()
+            }catch (e:Exception){
+                e.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(e)
+            }
         }
     }
 

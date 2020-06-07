@@ -73,11 +73,13 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
     override fun onResume() {
         super.onResume()
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-            window.decorView.systemUiVisibility = 0
-        else
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        when {
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES -> window.decorView.systemUiVisibility = 0
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.M -> {
+                window.statusBarColor = Colors.BLACK
+            }
+        }
 
         // current user check for initials
         if (firebaseAuth.currentUser != null && firebaseAuth.currentUser?.displayName != null) {
@@ -227,9 +229,9 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
         latestDeviceFragment = FragmentLatestDevice()
         randomFragment = FragmentRandom()
 
-        pagerAdapter.addFragment(homeFragment, HOME)
-        pagerAdapter.addFragment(latestDeviceFragment, DEVICE)
         pagerAdapter.addFragment(randomFragment, RANDOM)
+        pagerAdapter.addFragment(latestDeviceFragment, DEVICE)
+        pagerAdapter.addFragment(homeFragment, LATEST)
         viewPager.adapter = pagerAdapter
         viewPager.offscreenPageLimit = 2
 

@@ -27,6 +27,7 @@ import com.dawnimpulse.wallup.utils.reusables.ERROR
 import com.dawnimpulse.wallup.utils.reusables.F
 import com.dawnimpulse.wallup.utils.reusables.LIST_COUNT
 import com.dawnimpulse.wallup.utils.reusables.RELOAD
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -86,6 +87,7 @@ class ModelDeviceImages() : ViewModel() {
             } catch (e: Exception) {
                 errorHandler.postValue(F.handleException(e, ERROR.LIST.D_IMAGES, false))
                 e.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(e)
             }
         }
     }
@@ -116,6 +118,7 @@ class ModelDeviceImages() : ViewModel() {
                 imageList.add(ObjectReload(RELOAD.MORE.D_IMAGES,
                         F.handleException(e, ERROR.LIST.MORE.D_IMAGES, true)))
                 e.printStackTrace()
+                FirebaseCrashlytics.getInstance().recordException(e)
             }
             // post list
             liveList.postValue(imageList)

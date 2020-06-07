@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.dawnimpulse.wallup.R
 import com.dawnimpulse.wallup.network.controller.CtrlBookmark
@@ -84,6 +85,14 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
      */
     override fun onResume() {
         super.onResume()
+
+        when {
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES -> window.decorView.systemUiVisibility = 0
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.M -> {
+                window.statusBarColor = Colors.BLACK
+            }
+        }
 
         image.link.imageTransform(this)
                 .height(1080)

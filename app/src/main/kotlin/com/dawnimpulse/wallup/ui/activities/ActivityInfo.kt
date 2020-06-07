@@ -24,8 +24,11 @@ class ActivityInfo : AppCompatActivity(R.layout.activity_info), View.OnClickList
         super.onCreate(savedInstanceState)
 
         // get app cache
-        F.appCache(scope, this){
-            activity_info_clear_text.text = "$it • TAP TO CLEAN"
+        F.appCache(scope, this) {
+            if (it != null)
+                activity_info_clear_text.text = "$it • TAP TO CLEAN"
+            else
+                activity_info_clear.gone()
         }
 
         activity_info_version.text = "v${BuildConfig.VERSION_NAME}"
@@ -63,12 +66,13 @@ class ActivityInfo : AppCompatActivity(R.layout.activity_info), View.OnClickList
     override fun onResume() {
         super.onResume()
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-            window.decorView.systemUiVisibility = 0
-        else
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-
+        when {
+            AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES -> window.decorView.systemUiVisibility = 0
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.M -> {
+                window.statusBarColor = Colors.BLACK
+            }
+        }
     }
 
     /**

@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.holder_brand.view.*
 
 class HolderBrand (view:View) : RecyclerView.ViewHolder(view){
     private val logo = view.holder_brand_logo
-    private val image = view.holder_brand_bg
+    //private val image = view.holder_brand_bg
 
     /**
      * bind data to view
@@ -31,8 +31,8 @@ class HolderBrand (view:View) : RecyclerView.ViewHolder(view){
      */
     fun bind(brand: ObjectBrand){
         brand.logo.imageTransform(logo).apply()
-        brand.cover.imageTransform(image)
+        /*brand.cover.imageTransform(image)
                 .height(360)
-                .apply()
+                .apply()*/
     }
 }

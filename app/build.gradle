@@ -25,10 +25,10 @@ android {
         release {
             buildConfigField "String", "WALLUP_API_URL", "\"${WALLUP_RELEASE_API_URL}\""
 
-            /*minifyEnabled true
+            minifyEnabled true
             shrinkResources true
 
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'*/
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -82,7 +82,7 @@ dependencies {
     implementation "com.jakewharton.rxrelay2:rxrelay:2.1.1" // rx relay
     implementation "com.github.chrisbanes:PhotoView:2.3.0" // photo pan/zoom
     implementation "com.muddzdev:styleabletoast:2.2.3" // toast
-    implementation "commons-io:commons-io:2.6" // apache commons io
+    implementation "commons-io:commons-io:20030203.000550" // apache commons io
     implementation "com.orhanobut:hawk:2.0.1" // hawk db
 
     //------------------ Additional -------------------------

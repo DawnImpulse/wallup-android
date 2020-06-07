@@ -48,6 +48,7 @@ interface SourceDevice {
             @Query(LIMIT) limit: Number,
             @Query("_sort") sort: String = "brand.name:DESC,createdAt:DESC",
             @Query(AVAILABLE) available: Boolean = true,
+            @Query("brand.available") bAvailable: Boolean = true,
             @Header("restmap") restmap:String = RestMap.brandDevices
     ): Call<List<ObjectDevice>>
 }
