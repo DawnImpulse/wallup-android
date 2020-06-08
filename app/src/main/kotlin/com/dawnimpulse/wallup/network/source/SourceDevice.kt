@@ -46,7 +46,7 @@ interface SourceDevice {
     fun all(
             @Query(START) start: Number,
             @Query(LIMIT) limit: Number,
-            @Query("_sort") sort: String = "brand.name:DESC,createdAt:DESC",
+            @Query("_sort") sort: String = "name:ASC",
             @Query(AVAILABLE) available: Boolean = true,
             @Query("brand.available") bAvailable: Boolean = true,
             @Header("restmap") restmap:String = RestMap.brandDevices

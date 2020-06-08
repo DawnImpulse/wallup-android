@@ -110,8 +110,8 @@ class ActivityMain : AppCompatActivity(R.layout.activity_main), View.OnClickList
     private fun setNavigation() {
 
         // get list of icons & name
-        val icons = listOf(R.drawable.vd_home, R.drawable.vd_rhombus, R.drawable.vd_random)
-        val name = listOf("Home", "Device", "Random")
+        val icons = listOf(R.drawable.vd_random, R.drawable.vd_rhombus, R.drawable.vd_list)
+        val name = listOf("Random", "Device", "Latest")
 
         // run a loop and set items
         for (i in 0..2) {

@@ -87,7 +87,7 @@ object F {
     fun getRandomHeight(): Int {
         val point = displayDimensions()
         val min = (0.50 * point.y).toInt()
-        val max = (0.80 * point.y).toInt()
+        val max = (0.65 * point.y).toInt()
         return (min..max).random()
     }
 

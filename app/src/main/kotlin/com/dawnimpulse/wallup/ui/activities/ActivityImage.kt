@@ -181,7 +181,10 @@ class ActivityImage : AppCompatActivity(R.layout.activity_image), View.OnClickLi
                             }
                         }
                     } else
-                        onMain { StyleToast.error("issue downloading image") }
+                        onMain {
+                            HandlerDialog.dismiss()
+                            StyleToast.error("issue downloading image")
+                        }
                 }
     }
 

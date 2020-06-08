@@ -45,6 +45,7 @@ OR PERFORMANCE OF THIS SOFTWARE.
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
             android:layout_margin="16dp"
+            android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="16sp"
