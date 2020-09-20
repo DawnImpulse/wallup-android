@@ -1,0 +1,64 @@
+{
+  "project_info": {
+    "project_number": "202841545552",
+    "firebase_url": "https://wallup-app.firebaseio.com",
+    "project_id": "wallup-app",
+    "storage_bucket": "wallup-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202841545552:android:65684956dea50518",
+        "android_client_info": {
+          "package_name": "com.dawnimpulse.wallup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202841545552-au7rhch3euf8ithhvlmtpqkf7vcjh0lr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dawnimpulse.wallup",
+            "certificate_hash": "9833b0a70df4ddc39839cdd0559d1ae63396f0c7"
+          }
+        },
+        {
+          "client_id": "202841545552-jd4l1e0l4qa3k8bd970b6q3nbu7tdq2e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dawnimpulse.wallup",
+            "certificate_hash": "dcf1c63a6ad2cc28f88988d67a185e987f4b636f"
+          }
+        },
+        {
+          "client_id": "202841545552-0c0mqovperq44biqsk9uea5reb8lfr0h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dawnimpulse.wallup",
+            "certificate_hash": "674c54fdc8e123d35a8e5f68cd31b80609402fdd"
+          }
+        },
+        {
+          "client_id": "202841545552-phlsapacp1d2cu13649p5adm2ocnhjov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLtfzr0BWK21tRuDuHAHOTi9pA3raOl74"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202841545552-6i1seeotr70ocd27u1r9ffmljn51vd66.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

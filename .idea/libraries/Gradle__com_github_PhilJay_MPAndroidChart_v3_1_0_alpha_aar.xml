@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.PhilJay:MPAndroidChart:v3.1.0-alpha@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d57cea1bcc561081e8542677e9a248e1/jetified-MPAndroidChart-v3.1.0-alpha/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d57cea1bcc561081e8542677e9a248e1/jetified-MPAndroidChart-v3.1.0-alpha/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d57cea1bcc561081e8542677e9a248e1/jetified-MPAndroidChart-v3.1.0-alpha/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.1.0-alpha/9abc30b59a3bbaf8eb27b949e7e3bcfee0b2b518/MPAndroidChart-v3.1.0-alpha-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.PhilJay/MPAndroidChart/v3.1.0-alpha/ca79531f69596b53fcc676b9a991cef91a64bd7d/MPAndroidChart-v3.1.0-alpha-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

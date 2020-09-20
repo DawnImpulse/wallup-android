@@ -4,11 +4,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "org.sourcei.wallup.deprecated"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode version_code
         versionName version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -19,13 +19,13 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "String", "UNSPLASH_API_KEY", "\"${API_KEY}\""
-            buildConfigField "String", "UNSPLASH_API_SECRET", "\"${API_SECRET}\""
+            buildConfigField "String", "UNSPLASH_API_KEY", "\"${UNSPLASH_ACCESS_KEY}\""
+            buildConfigField "String", "UNSPLASH_API_SECRET", "\"${UNSPLASH_ACCESS_SECRET}\""
         }
 
         release {
-            buildConfigField "String", "UNSPLASH_API_KEY", "\"${API_KEY}\""
-            buildConfigField "String", "UNSPLASH_API_SECRET", "\"${API_SECRET}\""
+            buildConfigField "String", "UNSPLASH_API_KEY", "\"${UNSPLASH_ACCESS_KEY}\""
+            buildConfigField "String", "UNSPLASH_API_SECRET", "\"${UNSPLASH_ACCESS_SECRET}\""
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
