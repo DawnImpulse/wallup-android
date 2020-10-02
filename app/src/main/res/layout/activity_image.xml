@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><!--
 ISC License
 
-Copyright 2018-2019, Saksham (DawnImpulse)
+Copyright 2020, Saksham (DawnImpulse)
 
 Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted,
 provided that the above copyright notice and this permission notice appear in all copies.
@@ -15,78 +15,84 @@ OR PERFORMANCE OF THIS SOFTWARE.
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/colorSecondary"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/bgWallpaper"
+    <!--image-->
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/activity_image_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
-    <!--Gradient-->
+    <!--like-->
     <FrameLayout
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:background="@drawable/bg_gradient" />
+        android:id="@+id/activity_image_like"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="24dp"
+        android:background="@drawable/bg_circle_white">
 
-    <!--Actions-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/activity_image_like_drawable"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/vd_heart_outline"
+            app:tint="@color/black" />
+    </FrameLayout>
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <!--wallpaper-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/activity_image_set_wallpaper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="16dp">
 
-            <!--Back-->
-            <FrameLayout
-                android:id="@+id/back"
-                android:layout_width="36dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+            <TextView
+                android:id="@+id/activity_image_set_wallpaper_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:letterSpacing="0.1"
+                android:text="SET WALLPAPER"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/vd_back" />
-            </FrameLayout>
+        <!--download-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/activity_image_download"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="8dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="16dp">
 
-            <!--wallpaper-->
-            <FrameLayout
-                android:id="@+id/setWallpaper"
-                android:layout_width="36dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_key_below"
+                app:tint="@color/black" />
+        </androidx.cardview.widget.CardView>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/vd_wallpaper" />
-            </FrameLayout>
-
-            <!--download-->
-            <FrameLayout
-                android:id="@+id/download"
-                android:layout_width="36dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    app:srcCompat="@drawable/vd_download" />
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

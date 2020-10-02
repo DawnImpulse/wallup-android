@@ -6,19 +6,19 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
-        android:name=".App"
+        android:name=".ui.App"
         android:allowBackup="false"
-        android:icon="@drawable/ic_launcher"
-        android:label="Wallup"
+        android:label="WallUp"
+        android:icon="@drawable/logo"
         android:largeHeap="true"
+        android:forceDarkAllowed="false"
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute,MissingApplicationIcon">
 
         <!-- File provider for Android 7+ -->
@@ -47,17 +47,20 @@
             android:name="google_analytics_adid_collection_enabled"
             android:value="false" />
 
+        <!--notification icon-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/vd_notification_icon" />
 
-        <!--Settings-->
-        <activity
-            android:name=".ui.activities.SettingsActivity"
-            android:label="Settings"
-            android:theme="@style/PrefsTheme" />
+        <!--notification icon color-->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
 
-        <!--Wallpaper activity-->
+        <!--main-->
         <activity
-            android:name=".ui.activities.WallpaperActivity"
-            android:theme="@style/AppTheme.Fullscreen">
+            android:name=".ui.activities.ActivityMain"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,15 +68,46 @@
             </intent-filter>
         </activity>
 
-        <!--Cache Activity-->
+        <!-- info -->
         <activity
-            android:name=".ui.activities.CacheActivity"
+            android:name=".ui.activities.ActivityInfo"
+            android:theme="@style/AppTheme" />
+
+        <!-- devices -->
+        <activity
+            android:name=".ui.activities.ActivityDevices"
+            android:theme="@style/AppTheme" />
+
+        <!-- bookmarks -->
+        <activity
+            android:name=".ui.activities.ActivityBookmarks"
+            android:theme="@style/AppTheme" />
+
+        <!-- device images -->
+        <activity
+            android:name=".ui.activities.ActivityDeviceImages"
             android:theme="@style/AppTheme.Fullscreen" />
 
-        <!--Image-->
+        <!--wallup image-->
         <activity
-            android:name=".ui.activities.ImageActivity"
+            android:name=".ui.activities.ActivityImage"
             android:theme="@style/AppTheme.Fullscreen" />
+
+        <!--auth-->
+        <activity
+            android:name=".auth.AuthGoogle"
+            android:theme="@style/AppTheme.Fullscreen.Transparent" />
+
+        <!-- Download Receiver -->
+        <receiver
+            android:name=".utils.receivers.ReceiverDownload"
+            android:exported="true">
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.DOWNLOAD_COMPLETE"
+                    android:enabled="true" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

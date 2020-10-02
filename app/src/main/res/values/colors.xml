@@ -1,13 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
+ISC License
+
+Copyright 2020, Saksham (DawnImpulse)
+
+Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted,
+provided that the above copyright notice and this permission notice appear in all copies.
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE
+OR PERFORMANCE OF THIS SOFTWARE.
+-->
 <resources>
-    <color name="colorPrimary">#ffea00</color>
-    <color name="colorPrimaryDark">#c7b800</color>
-    <color name="colorAccent">#ffea00</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorSecondary">#E7E3DF</color>
+    <color name="colorAccent">#009688</color>
 
-    <color name="white">#FFFFFF</color>
+    <color name="colorTextPrimary">#343434</color>
+    <color name="colorTextSecondary">#828595</color>
+    <color name="navigation">#343434</color>
+
+    <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="red">#E55F63</color>
+    <color name="grey_light">#C4C4C4</color>
+    <color name="grey_toast">#263238</color>
+    <color name="green">#649D66</color>
 
-    <color name="grey300">#EEEEEE</color>
-    <color name="grey400">#BDBDBD</color>
-    <color name="grey500">#9E9E9E</color>
+    <color name="light_highlight">#FCE850</color>
 </resources>

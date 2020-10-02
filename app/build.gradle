@@ -1,37 +1,29 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'project-report'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.dawnimpulse.wallup"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode version_code
         versionName version_name
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         ndk {
-            abiFilters "armeabi-v7a", "x86"
+            abiFilters "armeabi-v7a", "x86", "arm64-v8a", "x86_64"
         }
     }
     buildTypes {
         debug {
-            buildConfigField "String", "WALLUP_URL", "\"${WALLUP_DEBUG_URL}\""
-            buildConfigField "String", "WALLUP_API_KEY", "\"${WALLUP_API_KEY_DEBUG}\""
-
-            minifyEnabled true
-            shrinkResources true
-
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "WALLUP_API_URL", "\"${WALLUP_DEBUG_API_URL}\""
         }
 
         release {
-            buildConfigField "String", "WALLUP_URL", "\"${WALLUP_RELEASE_URL}\""
-            buildConfigField "String", "WALLUP_API_KEY", "\"${WALLUP_API_KEY_RELEASE}\""
+            buildConfigField "String", "WALLUP_API_URL", "\"${WALLUP_RELEASE_API_URL}\""
 
             minifyEnabled true
             shrinkResources true
@@ -58,36 +50,48 @@ android {
 }
 
 dependencies {
+    def lifecycle_version = "2.2.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //--------------- Support Libraries ---------------------
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation "androidx.work:work-runtime-ktx:2.2.0"
-    implementation "androidx.concurrent:concurrent-futures:1.0.0-rc01"
-    implementation "androidx.preference:preference:1.1.0"
+    implementation "androidx.appcompat:appcompat:1.1.0"
+    implementation "androidx.core:core-ktx:1.3.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.fragment:fragment-ktx:1.2.4"
+    implementation "androidx.palette:palette:1.0.0"
+    implementation "androidx.preference:preference-ktx:1.1.1"
 
-    implementation "com.google.android.material:material:1.0.0"
-    api 'com.google.guava:guava:28.1-android'
+    implementation "com.google.android.material:material:1.1.0"
+    implementation "com.google.android.gms:play-services-auth:18.0.0"
 
     //--------------- Firebase Libraries --------------------
-    implementation 'com.google.firebase:firebase-core:17.2.0'
-    implementation 'com.google.firebase:firebase-inappmessaging-display:19.0.0'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
+    implementation "com.google.firebase:firebase-core:17.4.2" // core
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0' // crashlytics
+    implementation "com.google.firebase:firebase-database:19.3.0" // realtime database
+    implementation 'com.google.firebase:firebase-database-ktx:19.3.0' // realtime ktx
+    implementation "com.google.firebase:firebase-auth:19.3.1" // auth
+    implementation 'com.google.firebase:firebase-messaging:20.2.0' // fcm
+    implementation 'com.google.firebase:firebase-inappmessaging-display-ktx:19.0.7' // in-app messaging
 
     //--------------- 3rd Party Libraries -------------------
-    implementation 'com.github.bumptech.glide:glide:4.9.0' // image loading
-    implementation 'commons-io:commons-io:2.6' // apache commons io
-    implementation 'org.sourcei.android:permissions:1.0.1' //permissions
-    implementation 'co.revely:gradient:1.0.1' // gradient
+    implementation "com.github.bumptech.glide:glide:4.11.0" // image loading
+    implementation "org.sourcei.android:permissions:1.0.1" //permissions
+    implementation "com.squareup.retrofit2:retrofit:2.8.1" // retrofit
+    implementation "com.squareup.retrofit2:converter-gson:2.8.1"
+    implementation "com.airbnb.android:lottie:3.4.0" // lottie
+    implementation "com.jakewharton.rxrelay2:rxrelay:2.1.1" // rx relay
+    implementation "com.github.chrisbanes:PhotoView:2.3.0" // photo pan/zoom
+    implementation "com.muddzdev:styleabletoast:2.2.3" // toast
+    implementation "commons-io:commons-io:20030203.000550" // apache commons io
+    implementation "com.orhanobut:hawk:2.0.1" // hawk db
 
     //------------------ Additional -------------------------
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0-RC'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.3.3"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
 }
 
 repositories {
     mavenCentral()
 }
-
-apply plugin: 'com.google.gms.google-services'

@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # gone the original source file name.
 -renamesourcefileattribute SourceFile
+
+-keep public class * extends java.lang.Exception  # Optional: Keep custom exceptions.
+-keep class com.google.firebase.crashlytics.** { *; }
+-dontwarn com.google.firebase.crashlytics.**

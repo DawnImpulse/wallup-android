@@ -1,7 +1,7 @@
 /**
  * ISC License
  *
- * Copyright 2018-2019, Saksham (DawnImpulse)
+ * Copyright 2020, Saksham (DawnImpulse)
  *
  * Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted,
  * provided that the above copyright notice and this permission notice appear in all copies.
@@ -14,21 +14,8 @@
  **/
 package com.dawnimpulse.wallup.utils.reusables
 
-import android.content.SharedPreferences
-import android.os.Environment
+import android.os.Environment.getExternalStorageDirectory
 
-/**
- * @info -
- *
- * @author - Saksham
- * @note Last Branch Update - master
- *
- * @note Created on 2019-06-10 by Saksham
- * @note Updates :
- */
-object Config {
-    val DEFAULT_DOWNLOAD_PATH = "${Environment.getExternalStorageDirectory().path}/WallUp"
-    val PLAY_STORE = "https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup"
-}
-
-lateinit var Prefs: SharedPreferences
+const val LIST_COUNT = 20
+val DOWNLOAD_PATH = "${getExternalStorageDirectory().path}/Wallup" // for version < Q
+val DOWNLOADS = mutableListOf<Long>()

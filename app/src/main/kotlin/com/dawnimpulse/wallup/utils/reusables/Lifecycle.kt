@@ -1,7 +1,7 @@
 /**
  * ISC License
  *
- * Copyright 2018-2019, Saksham (DawnImpulse)
+ * Copyright 2018-2020, Saksham (DawnImpulse)
  *
  * Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted,
  * provided that the above copyright notice and this permission notice appear in all copies.
@@ -25,7 +25,7 @@ import androidx.lifecycle.OnLifecycleEvent
  * @author - Saksham
  * @note Last Branch Update - master
  *
- * @note Created on 2019-06-12 by Saksham
+ * @note Created on 2020-02-29 by Saksham
  * @note Updates :
  */
 object Lifecycle {

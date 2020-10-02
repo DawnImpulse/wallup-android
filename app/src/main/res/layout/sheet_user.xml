@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorSecondary"
+    android:orientation="vertical"
+    android:padding="48dp">
+
+    <!--name-->
+    <TextView
+        android:id="@+id/sheet_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="YOUR NAME"
+        android:textColor="@color/colorTextPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!--email-->
+    <TextView
+        android:id="@+id/sheet_user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="your@email.address"
+        android:textColor="@color/colorTextSecondary" />
+
+    <!--actions-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginTop="48dp">
+
+        <!--bookmark-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/sheet_user_bookmarks"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="#3B577D"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_like_multiple"
+                app:tint="@color/white" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!--info-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/sheet_user_info"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="32dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="#40A798"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_info"
+                app:tint="@color/white" />
+
+        </androidx.cardview.widget.CardView>
+
+        <!--night-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/sheet_user_night"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="32dp"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/sheet_user_night_drawable"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/vd_day_night"
+                app:tint="@color/colorTextPrimary" />
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <!--login/logout-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/sheet_user_login"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_marginTop="48dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/colorTextPrimary"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="0dp">
+
+        <TextView
+            android:id="@+id/sheet_user_login_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:letterSpacing="0.2"
+            android:text="LOGIN"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
