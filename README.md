@@ -1,3 +1,15 @@
+### DEPRECATION NOTICE
+#### This project is now deprecated
+It will be available here forever for anyone to refer to it for development. Thanks for your support for all those years :)
+
+#### What's next ?
+I am working on new Wallpaper application which will be build using **Jetpack Compose** & **Material You**. It will contains lots of amazing things. Stay tuned for updates. Thank You :)
+
+> For working version which is an unofficial client for Unsplash, kindly refer to v1 branch (use your own unsplash key to run it)
+
+---
+
+
 [![play-store](https://firebasestorage.googleapis.com/v0/b/wallup-app.appspot.com/o/assets%2Fweb%2Fv4.0.0%2Fmeta-image.png?alt=media&token=64596c27-f0f5-46c9-aa49-862a348327f1)](https://play.google.com/store/apps/details?id=com.dawnimpulse.wallup)
 
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
